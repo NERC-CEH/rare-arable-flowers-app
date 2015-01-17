@@ -1,0 +1,477 @@
+<html>
+<head>
+ <link type="text/css" rel="stylesheet" href="css/jquery.mobile-1.4.5.css"/>
+ <link type="text/css" rel="stylesheet" href="css/app.css"/>
+ <script src="scripts/libs.js"></script>
+ <script src="scripts/app.js"></script>
+</head>
+<body>
+<!--#############
+    Welcome Page
+    #############-->
+<div data-role="page" id="welcome">
+    <div data-role="content">
+        <center><h1>Rare Arable Plants</h1></center>
+        <br />
+	<a href="#list" data-role="button">Plant Guide</a>
+        <br />
+        <center><h3>Logos go here</h3></center>
+    </div>
+</div>
+<!--#############
+    List Page
+    #############-->
+<div data-role="page" id="list" data-update-page-padding="false">
+    <div data-role="header" id="list-header" data-position="fixed" data-tap-toggle="false">
+        <a href='#' data-rel="back" data-icon="arrow-l">Back</a>
+        <h1 id='list_heading'></h1>
+        <div class='ui-btn-right' data-role='controlgroup' data-type='horizontal'>
+            <a href="#" id="fav-button" data-role="button" onclick="app.navigation.filterFavourites()"
+               data-icon="star" data-iconpos="notext">Favourie</a>
+            <a href="#" id="list-controls-button" data-role="button"
+               data-icon="bullets" data-iconpos="notext">List Controls</a>
+        </div>
+        <div id="list-controls-placeholder">
+            <div data-role="tabs" id="list-controls-tabs">
+                <div data-role="navbar">
+                    <ul>
+                        <li><a href="#filter" data-ajax="false" class="ui-btn-active">Filter</a></li>
+                        <li><a href="#sort" data-ajax="false">Sort</a></li>
+                    </ul>
+                </div>
+                <div id="sort" class="ui-body-d ui-content">
+                    <div class="info-message">
+                        <p>Please select the list sorting.</p>
+                    </div>
+                    <div id="list-controls-sort-placeholder"></div>
+                </div>
+                <div id="filter" class="ui-body-d ui-content">
+                    <div class="info-message">
+                        <p>Please check filters to apply. </p>
+                    </div>
+                    <div id="list-controls-filter-placeholder"></div>
+                </div>
+                <center>
+                    <button id="list-controls-save-button">Save</button>
+                </center>
+            </div>
+        </div>
+    </div>
+    <div data-role="content" >
+        <script id="list-controls-sort-template" type="text/x-handlebars-template">
+            <div class="ui-field-contain list-controls">
+                <fieldset data-role="controlgroup" >
+                    {{#each this}}
+                        <input name="sort" type="radio" id="{{id}}" class="sort" {{checked}} data-iconpos="right">
+                        <label for="{{id}}" class="sort">{{label}}</label>
+                    {{/each}}
+                </fieldset>
+            </div>
+        </script>
+        <script id="list-controls-filter-template" type="text/x-handlebars-template">
+            <div class="ui-field-contain list-controls">
+                <fieldset data-role="controlgroup" >
+                    {{#each this}}
+                        <input type="checkbox" id="{{id}}" class="filter" {{checked}} data-iconpos="right">
+                        <label for="{{id}}" class="filter">{{label}}</label>
+                    {{/each}}
+                </fieldset>
+            </div>
+        </script>
+
+        <div id="list-placeholder"></div>
+        <script id="list-template" type="text/x-handlebars-template">
+            <ul data-role="listview" id="species-list" data-split-icon="gear" data-split-theme="d">
+                {{#each species}}
+                <li data-corners="false" data-shadow="false" data-iconshadow="true"
+                    data-wrapperels="div" data-icon="arrow-r" data-iconpos="right" data-theme="c">
+                    <a href="#species" onclick="app.controller.list.setCurrentSpecies('{{id}}')" class="{{favourite}}">
+                        <img src="{{profile_pic.url}}" />
+                        <p class="species-list-common-name">{{common_name}}</p>
+                        <p>{{taxon}}</p>
+                    </a>
+                    <a href="{{../record}}" class="ios-enhanced" onclick="app.controller.list.setCurrentSpecies('{{id}}')" data-icon="plus">Record</a>
+                </li>
+                {{/each}}
+            </ul>
+        </script>
+    </div>
+</div>
+<!-- Species -->
+<div data-role="page" id="species">
+    <div data-role="header" data-position="fixed" data-tap-toggle="false">
+        <div class='ui-btn-left' data-role='controlgroup' data-type='horizontal'>
+            <a href='#' data-rel='back' data-role="button" data-icon="arrow-l" data-iconpos="notext">Back</a>
+        </div>
+        <h1 id='species_heading'></h1>
+        <div class="ui-btn-right" data-role="controlgroup" data-type="horizontal">
+            <a href="#" id="species-profile-fav-button" onclick="app.controller.species.toggleSpeciesFavourite()" data-icon="star" data-iconpos="notext" data-role="button">Gallery</a>
+            <a href="#" onclick="app.controller.species.gallery.show()" data-icon="eye" data-iconpos="notext" data-role="button">Gallery</a>
+        </div>
+    </div>
+
+    <div data-role="content">
+        <div id="species-placeholder"></div>
+        <script id="species-template" type="text/x-handlebars-template">
+                <div class="gallery" id="species_gallery" style="display:none">
+                    <a href="{{profile_pic.url}}"><img src="{{profile_pic.url}}" alt="&copy; {{profile_pic.author}}"/></a>
+                    {{#each gallery}}
+                    <a href="{{this.url}}"><img src="{{this.url}}" alt="&copy; {{this.author}}"/></a>
+                    {{/each}}
+                </div>
+            <center>
+                <a href="#" onclick="app.controller.species.gallery.show()">
+                    <img src="{{profile_pic.url}}">
+                </a>
+
+                {{#if map}}
+                <button id="species-map-button">Show Distribution</button>
+
+                <svg id="species-map" preserveAspectRatio="none" style="display:none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
+                    <use id="species-map-data" xlink:href="{{map}}#data" />
+                    <use id="species-map-boundary" xlink:href="{{national_boundary}}#boundary" />
+                </svg>
+                {{/if}}
+
+                <ul data-role="listview" data-inset="true" style="max-width:800px;">
+                    <li>
+                        <div class="taxon">{{taxon}}</div>
+                    </li>
+                    <li id="species-flight">
+                    </li>
+                    <li>
+                        <p>{{{description}}}</p>
+                    </li>
+                    <li><strong>Distribution</strong>:
+                        <p>{{{distribution}}}</p></li>
+                    <li><strong>Habitat</strong>:
+                        <p>{{{habitat}}}</p></li>
+                </ul>
+            </center>
+        </script>
+    </div>
+</div>
+
+<!--#############
+    Record Page
+    #############-->
+<div data-role="page" id="record">
+    <div data-role="header" data-position="fixed" data-tap-toggle="false">
+        <div class='ui-btn-left' data-role='controlgroup' data-type='horizontal'>
+            <a href='#' data-rel='back' data-role="button" data-icon="home" data-iconpos="notext">Back</a>
+        </div>
+        <h1 id='record_heading'></h1>
+        <div class='ui-btn-right' data-role='controlgroup' data-type='horizontal'>
+            <a href="#date" id="date-top-button" data-role="button"
+               data-icon="calendar" data-iconpos="notext" >Date</a>
+            <a href="#sref" id="sref-top-button" data-role="button" class="none"
+               data-icon="location" data-iconpos="notext">GPS</a>
+        </div>
+    </div>
+    <div data-role="content" >
+        <input type="hidden" id="occurrence:record_status" name="occurrence:record_status" value="C" />
+        <a href="#date" id="date-button" data-role="button" data-icon="arrow-r" data-iconpos="right">
+            <h1>Date</h1>
+        </a><input type="hidden" id="imp-sref" name="sample:entered_sref" required />
+        <input type="hidden" id="imp-sref-system" name="sample:entered_sref_system"  value="4326" />
+        <input type="hidden" id="sref_accuracy" name="smpAttr:273"  value="-1" />
+        <div id="photo"><div id="photo-picker">
+            <input type="file" id="sample:image" name="sample:image" accept="png|jpg|gif|jpeg"/>
+            <input type="hidden" id="sample_medium:path" name="sample_medium:path" value=""/>
+        </div>
+        </div>
+        <a href="#number" id="number-button" class="record-button" data-role="button"
+             data-icon="arrow-r" data-iconpos="right"> Number </a>
+        <a href="#stage" id="number-button" class="record-button" data-role="button"
+            data-icon="arrow-r" data-iconpos="right"> Life Stage </a>
+        <a href="#comment" id="comment-button" class="record-button" data-role="button"
+            data-icon="arrow-r" data-iconpos="right"> Comment </a>
+        </br>
+        <label>
+            <input type="checkbox" data-iconpos="right" id="occAttr:223"
+                   name="occAttr:223" value="1"> Certain
+        </label>
+    </div>
+    <div data-role="footer" data-position="fixed" data-tap-toggle="false">
+        <div class='ui-btn-left' data-role='controlgroup' data-type='horizontal'>
+            <input id="entry-form-save" type="button" value="Save" data-icon="plus"
+                   onclick="app.controller.record.save()" data-theme="b"  data-iconpos="right">
+        </div>
+        <h1 id='record_footer'></h1>
+        <div class='ui-btn-right' data-role='controlgroup' data-type='horizontal'>
+            <input id="entry-form-send" type="button" value="Send" data-icon="mail"
+                   onclick="app.controller.record.send()" data-theme="b"  data-iconpos="right">
+        </div>
+
+    </div>
+</div>
+<!-- Comment -->
+<div data-role="page" id="comment">
+    <div data-role="header" data-position="fixed"data-tap-toggle="false">
+        <div class='ui-btn-left' data-role='controlgroup' data-type='horizontal'>
+            <a href='#' data-rel="back" data-role="button" data-iconpos="notext"
+               data-icon="delete">Cancel</a>
+        </div>
+        <h1>Comment</h1>
+        <div class='ui-btn-right' data-role='controlgroup' data-type='horizontal'>
+            <a href='#' data-rel="back" data-role="button" data-iconpos="notext"
+               data-icon="check" onclick="app.controller.record.saveInput('sample:comment')" >Save</a>
+        </div>
+    </div>
+    <div data-role="content" >
+        <textarea id="sample:comment" name="sample:comment" class=" "  cols="80" rows="4" ></textarea>
+    </div>
+    <div data-role="footer" data-position="fixed"data-tap-toggle="false"></div>
+</div>
+<!-- Number -->
+<div data-role="page" id="date">
+    <div data-role="header" data-position="fixed" data-tap-toggle="false">
+        <div class='ui-btn-left' data-role='controlgroup' data-type='horizontal'>
+            <a href='#' data-rel="back" data-role="button" data-iconpos="notext"
+               data-icon="delete">Cancel</a>
+        </div>
+        <h1>Date</h1>
+        <div class='ui-btn-right' data-role='controlgroup' data-type='horizontal'>
+            <a href='#' data-rel="back" data-role="button" data-iconpos="notext"
+               onclick="app.controller.record.saveInput('sample:date')"
+               data-icon="check" >Save</a>
+        </div>
+    </div>
+    <div data-role="content" >
+        <div class="info-message"><p>Please enter the date of the recording.</p></div>
+        <input id="sample:date" name="sample:date" type="date" required>
+    </div>
+</div>
+<!-- Number -->
+<div data-role="page" id="number">
+    <div data-role="header" data-position="fixed" data-tap-toggle="false">
+        <div class='ui-btn-left' data-role='controlgroup' data-type='horizontal'>
+            <a href='#' data-rel="back" data-role="button" data-iconpos="notext"
+               data-icon="delete">Cancel</a>
+        </div>
+        <h1>Number</h1>
+        <div class='ui-btn-right' data-role='controlgroup' data-type='horizontal'>
+            <a href='#' data-rel="back" data-role="button" data-iconpos="notext"
+               onclick="app.controller.record.saveInput('sample:date')"
+               data-icon="check" >Save</a>
+        </div>
+    </div>
+    <div data-role="content" >
+        <div class="info-message">
+            <p>Please select how many individuals you see.</p>
+        </div>
+        <fieldset data-role="controlgroup">
+            <input name="num" id="num-0" value="1" data-label="1" type="radio">
+            <label for="num-0" >1</label>
+
+            <input name="num" id="num-1" value="2-5" data-label="2-5" type="radio">
+            <label for="num-1" >2-5</label>
+
+            <input name="num" id="num-2" value="6-20" data-label="6-20" type="radio" >
+            <label for="num-2" >6-20</label>
+
+            <input name="num" id="num-3" value="21-100" data-label="21-100" type="radio">
+            <label for="num-3" >21-100</label>
+
+            <input name="num" id="num-4" value="101-500" data-label="101-500" type="radio">
+            <label for="num-4" >101-500</label>
+
+            <input name="num" id="num-5" value="500+" data-label="500+" type="radio">
+            <label for="num-5" >500+</label>
+        </fieldset>
+    </div>
+</div>
+<!-- Stage -->
+<div data-role="page" id="stage">
+    <div data-role="header" data-position="fixed" data-tap-toggle="false">
+        <div class='ui-btn-left' data-role='controlgroup' data-type='horizontal'>
+            <a href='#' data-rel="back" data-role="button" data-iconpos="notext"
+               data-icon="delete">Cancel</a>
+        </div>
+        <h1>Stage</h1>
+        <div class='ui-btn-right' data-role='controlgroup' data-type='horizontal'>
+            <a href='#' data-rel="back" data-role="button" data-iconpos="notext"
+               onclick="app.controller.record.saveInput('sample:date')"
+               data-icon="check" >Save</a>
+        </div>
+    </div>
+    <div data-role="content" >
+        <div class="info-message">
+            <p>Please pick the life stage.</p>
+        </div>
+        <fieldset data-role="controlgroup">
+            <input name="stage" id="stage-0" value="1" data-label="Adult" type="radio">
+            <label for="stage-0" >Adult</label>
+
+            <input name="stage" id="stage-1" value="2-5" data-label="Copulating pair" type="radio">
+            <label for="stage-1" >Copulating pair</label>
+
+            <input name="stage" id="stage-2" value="6-20" data-label="Ovipositing" type="radio">
+            <label for="stage-2" >Ovipositing</label>
+
+            <input name="stage" id="stage-3" value="21-100" data-label="Larva" type="radio">
+            <label for="stage-3" >Larva</label>
+
+            <input name="stage" id="stage-4" value="101-500" data-label="Exuvia" type="radio">
+            <label for="stage-4" >Exuvia</label>
+
+            <input name="stage" id="stage-5" value="500+" data-label="Emergent" type="radio">
+            <label for="stage-5" >Emergent</label>
+        </fieldset>
+    </div>
+</div>
+
+<!--#############
+    Location Page
+    #############-->
+<div data-role="page" id="sref">
+    <div data-role="header" data-position="fixed" data-tap-toggle="false">
+        <div class='ui-btn-left' data-role='controlgroup' data-type='horizontal'>
+            <a href='#' data-rel="back" data-role="button" data-iconpos="notext"
+               data-icon="delete">Cancel</a>
+        </div>
+        <h1>Location</h1>
+        <div class='ui-btn-right' data-role='controlgroup' data-type='horizontal'>
+            <a href='#' data-rel="back" data-role="button" data-iconpos="notext"
+               data-icon="check" onclick="app.controller.sref.save()" >Save</a>
+        </div>
+    </div>
+    <div data-role="content" >
+        <div data-role="tabs" id="sref-opts">
+            <div data-role="navbar">
+                <ul>
+                    <li><a href="#gps" data-ajax="false" class="ui-btn-active">GPS</a></li>
+                    <li><a href="#map" data-ajax="false">Map</a></li>
+                    <li><a href="#gref" data-ajax="false">Grid Ref</a></li>
+                </ul>
+            </div>
+            <div id="gps" class="ui-body-d ui-content">
+                <script id="sref-gps" type="text/x-handlebars-template">
+                    <div class="info-message">
+                        <p>We will try to determine your location
+                            using the inbuilt phone GPS.</p><p> Please make sure you have turned the phone's
+                        geolocation on and are well away from large objects.<br/> e.g. <i>trees, buildings </i></p>
+                    </div>
+                    {{#if location}}
+                        <div class="success-message">
+                            <p> Grid Ref: {{location.gref}} <br/><br/>
+                                Lat: {{location.lat}} <br/>
+                                Lon: {{location.lon}} <br/><br/>
+                                Accuracy: {{location.acc}} meters
+                            </p>
+                        </div>
+                        <input type="button" id="gps-improve-button" value="Improve">
+                    {{else}}
+                        <input type="button" id="gps-start-button" value="Locate">
+                    {{/if}}
+                </script>
+                <script id="sref-gps-running" type="text/x-handlebars-template">
+                    <div class="info-message">
+                        <p>We are trying to get your location. This might take a
+                        few minutes...</p>
+                    </div>
+                    {{#if location}}
+                        <div class="success-message">
+                            <p> Grid Ref: {{location.gref}} <br/><br/>
+                                Lat: {{location.lat}} <br/>
+                                Lon: {{location.lon}} <br/><br/>
+                                Accuracy: {{location.acc}} meters
+                            </p>
+                        </div>
+                    {{/if}}
+
+                    <input type="button" id="gps-stop-button" value="Stop">
+                </script>
+                <script id="sref-gps-finished" type="text/x-handlebars-template">
+                    <div class="success-message">
+                        <p>Success!</p>
+                        <p> Grid Ref: {{location.gref}} <br/><br/>
+                            Lat: {{location.lat}} <br/>
+                            Lon: {{location.lon}} <br/><br/>
+                            Accuracy: {{location.acc}} meters
+                        </p>
+                    </div>
+                    <input type="button" id="gps-improve-button" value="Improve">
+                </script>
+                <div id="sref-gps-placeholder"></div>
+            </div>
+            <div id="map" class="ui-body-d ui-content">
+                <div class="info-message" id="map-message">
+                    <p>Please tap on the map to select your location. </p>
+                </div>
+                <div id="map-canvas" style="width:100%; height: 60vh;"></div>
+            </div>
+            <div id="gref" class="ui-body-d ui-content">
+                <div class="info-message" id="gref-message">
+                    <p>Please provide a GB Grid Reference.
+                        <br/> e.g. <i>"TQ 28170 77103"</i></p>
+                </div>
+                <input type="text" id="grid-ref" placeholder="Grid Reference"/>
+                <input type="button" onclick="app.controller.sref.gridRefConvert()"
+                       value="Set"/>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--#############
+    User Page
+    #############-->
+<div data-role="page" id="user">
+    <div data-role="header" data-position="fixed" data-tap-toggle="false">
+        <div class='ui-btn-left' data-role='controlgroup' data-type='horizontal'>
+            <a href='#' data-rel='back' data-role="button" data-icon="arrow-l" data-iconpos="notext">Back</a>
+        </div>
+        <h1 id='user_heading'></h1>
+        <div class='ui-btn-right' data-role='controlgroup' data-type='horizontal'>
+            <a href="#sref" data-role="button" data-icon="location" data-iconpos="notext">Set your location</a>
+        </div>
+    </div>
+
+    <div data-role="content">
+        <div id="user-placeholder"></div>
+        <script id="user-template" type="text/x-handlebars-template">
+            {{#if user.loggedout}}
+                <div class="warning-message">Looks like you have not Signed in yet. Please
+                    do so, as otherwise all the records will be submitted anonymously.
+                    <a href='login' data-role="button" data-icon="arrow-r" data-iconpos="user">Log in</a>
+                </div>
+            {{else}}
+                <a href='#' id="logout-button" data-role="button" data-icon="user"
+                   data-theme="b" onclick="app.controller.login.logout()">Log out</a>
+            {{/if}}
+        </script>
+
+        <div id="saved-list-placeholder"></div>
+        <script id="saved-list-template" type="text/x-handlebars-template">
+            {{#if records.length}}
+            <div class="info-message">Saved recordings.</div>
+
+            <ul data-role="listview" id="saved-list" data-split-icon="gear"
+                data-inset="true" data-split-theme="d">
+                <li data-corners="false" data-shadow="false" data-iconshadow="true"
+                    data-wrapperels="div" data-icon="arrow-r" data-iconpos="right" data-theme="b">
+                    <a href="#" id="sendall-button" data-role="button" onclick="app.controller.user.sendAllSavedRecords()" >
+                        <center>Send All</center></a>
+                </li>
+                {{#each records}}
+                <li data-corners="false" data-shadow="false" data-iconshadow="true"
+                    data-wrapperels="div" data-icon="arrow-r" data-iconpos="right">
+                    <a href="#" onclick="app.controller.user.sendSavedRecord({{id}})">
+                        <!--<img src="" />-->
+                        <h3>{{common_name}}</h3>
+                        <p>{{date}}</p>
+                    </a>
+                    <a href="#" data-icon="delete" data-ajax="false"
+                       onclick="app.controller.user.deleteSavedRecord({{id}})">Send</a>
+                </li>
+                {{/each}}
+            </ul>
+            {{else}}
+            <div class="info-message">No saved recordings.</div>
+            {{/if}}
+        </script>
+    </div>
+</div>
+</body>
+</html>

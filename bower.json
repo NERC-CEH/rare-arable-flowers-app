@@ -1,0 +1,12 @@
+{
+    "name": "rare_arable_flowers",
+    "version": "0.0.0",
+    "dependencies": {
+	"jquery-mobile": "jobrapido/jquery-mobile-bower",
+	"morel": "NERC-CEH/morel",
+	"latlon": "chrisveness/geodesy",
+	"indexeDBShim": "axemclion/IndexedDBShim",
+	"handlebars": "~2.0.0",
+	"photoswipe": "https://github.com/downloads/codecomputerlove/PhotoSwipe/code.photoswipe-3.0.5.zip"
+    }
+}
