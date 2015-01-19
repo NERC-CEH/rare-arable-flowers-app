@@ -53,7 +53,7 @@
         if (!app.storage.is('probability')) {
           $.ajax({
             url: this.CONF.PROB_DATA_SRC,
-            dataType: 'jsonp',
+            dataType: 'json',
             async: false,
             success: onSuccess,
             error: onError

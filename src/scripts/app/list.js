@@ -79,7 +79,7 @@
       if (!app.storage.is('species')) {
         $.ajax({
           url: this.CONF.SPECIES_DATA_SRC,
-          dataType: 'jsonp',
+          dataType: 'json',
           async: false,
           success: function (json) {
             var species = optimiseData(json);
@@ -114,16 +114,11 @@
             //todo: what if data comes first before pagecontainershow
             app.controller.list.renderList();
 
-            //ask user to appcache
-            setTimeout(app.controller.list.download, 1000);
           }
         });
       } else {
         app.data.species = app.storage.get('species');
         app.controller.list.renderList();
-
-        //ask user to appcache
-        setTimeout(app.controller.list.download, 1000);
       }
 
       this.prob.loadData();

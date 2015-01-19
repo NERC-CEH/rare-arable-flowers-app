@@ -12,7 +12,7 @@ app.CONF.LOG = app.LOG_DEBUG;
 
 //controllers
 var c = app.controller;
-c.list.prob.CONF.PROB_DATA_SRC = "http://192.171.199.230/dragonfly/serv/abundance";
-c.list.CONF.SPECIES_DATA_SRC = "http://192.171.199.230/dragonfly/serv/species";
+c.list.prob.CONF.PROB_DATA_SRC = "data/abundance.json";
+c.list.CONF.SPECIES_DATA_SRC = "data/species.json";
 
-c.species.CONF.FLIGHT_DATA_SRC = "http://192.171.199.230/dragonfly/serv/flight";
+c.species.CONF.FLIGHT_DATA_SRC = "data/flight.json";
