@@ -82,34 +82,10 @@
           dataType: 'json',
           async: false,
           success: function (json) {
-            var species = optimiseData(json);
-            app.data.species = species;
-
-            function optimiseData(json) {
-              //optimise data
-              for (var i = 0; i < json.length; i++) {
-                //merge pics and authors
-                var profile_pic_url = json[i].profile_pic;
-                json[i].profile_pic = {
-                  'url': profile_pic_url,
-                  'author': json[i].profile_pic_author
-                };
-                delete json[i].profile_pic_author;
-
-                for (var pic_count = 0; pic_count < json[i].gallery.length; pic_count++) {
-                  var pic_url = json[i].gallery[pic_count];
-                  json[i].gallery[pic_count] = {
-                    'url': pic_url,
-                    'author': json[i].gallery_authors[pic_count]
-                  }
-                }
-                delete json[i].gallery_authors;
-              }
-              return json;
-            }
+            app.data.species = json;
 
             //saves for quicker loading
-            app.storage.set('species', species);
+            app.storage.set('species', json);
 
             //todo: what if data comes first before pagecontainershow
             app.controller.list.renderList();
@@ -169,7 +145,10 @@
     pagecontainershow: function () {
       _log('list: pagecontainershow.');
       this.makeListControls();
-      this.renderList();
+      this.renderList(function(){
+        //add Gallery
+        app.controller.species.gallery.init();
+      });
     },
 
     /**
@@ -229,9 +208,9 @@
 
       var favourites = this.getFavourites();
       var keys = Object.keys(favourites);
-      for (var i = 0; i < keys.length; i++) {
-        for (var j = 0; j < s.length; j++) {
-          if (keys[i] == s[j].id) {
+      for (var j = 0; j < s.length; j++) {
+        for (var i = 0; i < keys.length; i++) {
+            if (keys[i] == s[j].id) {
             s[j].favourite = "favourite";
           }
         }
@@ -242,7 +221,6 @@
 
       var compiled_template = Handlebars.compile(template);
 
-      //var record = Drupal.settings.basePath + app.CONF.HOME + 'record#record';
       var record = '#record';
       placeholder.html(compiled_template({'species': s, 'record': record}));
       placeholder.trigger('create');

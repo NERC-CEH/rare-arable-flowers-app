@@ -15,4 +15,19 @@ var c = app.controller;
 c.list.prob.CONF.PROB_DATA_SRC = "data/abundance.json";
 c.list.CONF.SPECIES_DATA_SRC = "data/species.json";
 
-c.species.CONF.FLIGHT_DATA_SRC = "data/flight.json";
+//JQM configuration
+$.mobile.ns = "";
+$.mobile.autoInitializePage = true;
+$.mobile.subPageUrlKey = "ui-page";
+$.mobile.activePageClass = "ui-page-active";
+$.mobile.activeBtnClass = "ui-btn-active";
+$.mobile.ajaxEnabled = true;
+$.mobile.hashListeningEnabled = true;
+$.mobile.defaultPageTransition = "";
+$.defaultDialogTransition = "";
+$.mobile.minScrollBack = "150";
+$.mobile.loadingMessage = "Loading";
+$.mobile.pageLoadErrorMessage = "Error Loading Page";
+$.mobile.linkBindingEnabled = true;
+$.mobile.pushStateEnabled = true;
+$.mobile.touchOverflowEnabled = 0;

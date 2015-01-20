@@ -34,7 +34,8 @@ module.exports = function (grunt) {
           {src: ['src/scripts/libs/photoswipe/icons@2x.png'], dest: 'dist/css/icons@2x.png'},
           {src: ['src/data/species.json'], dest: 'dist/data/species.json'},
           {src: ['src/data/abundance.json'], dest: 'dist/data/abundance.json'},
-          {src: ['src/data/flight.json'], dest: 'dist/data/flight.json'}
+          {src: ['src/data/flight.json'], dest: 'dist/data/flight.json'},
+          {src: ['src/images/1.jpg'], dest: 'dist/images/1.jpg'}
         ]
       }
     },

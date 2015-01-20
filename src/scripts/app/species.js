@@ -1,16 +1,6 @@
 (function ($) {
   app.controller = app.controller || {};
   app.controller.species = {
-
-    //controller configuration should be set up in an app config file
-    CONF: {
-      FLIGHT_DATA_SRC: ""
-    },
-
-    pagecreate: function () {
-
-    },
-
     pagecontainershow: function (event, ui) {
       _log('species: pagecontainershow.');
 
@@ -54,12 +44,12 @@
 
       var scale = $('#species-map').width() / 345;
       var margin = $('#species-map').height() * 0.05;
+
       $('#species-map-boundary')
         .attr('transform', 'scale(' + scale + ')')
         .attr('y', -margin);
       $('#species-map-data').attr('transform', 'scale(' + scale + ')')
         .attr('y', -margin);
-
     },
 
   
@@ -80,7 +70,6 @@
      *
      */
     gallery: {
-
       gallery: {},
       init: function (gallery_id) {
         var images = $('#species_gallery a');

@@ -1,6 +1,11 @@
 <html>
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no" />
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
   <link type="text/css" rel="stylesheet" href="css/jquery.mobile-1.4.5.css"/>
   <link type="text/css" rel="stylesheet" href="css/photoswipe.css"/>
   <link type="text/css" rel="stylesheet" href="css/app.css"/>
@@ -92,7 +97,7 @@
         <li data-corners="false" data-shadow="false" data-iconshadow="true"
             data-wrapperels="div" data-icon="arrow-r" data-iconpos="right" data-theme="c">
           <a href="#species" onclick="app.controller.list.setCurrentSpecies('{{id}}')" class="{{favourite}}">
-            <img src="{{profile_pic.url}}"/>
+            <img src="{{profile_pic}}"/>
 
             <p class="species-list-common-name">{{common_name}}</p>
 
@@ -124,16 +129,12 @@
   <div data-role="content">
     <div id="species-placeholder"></div>
     <script id="species-template" type="text/x-handlebars-template">
-      <div class="gallery" id="species_gallery" style="display:none">
-        <a href="{{profile_pic.url}}"><img src="{{profile_pic.url}}" alt="&copy; {{profile_pic.author}}"/></a>
-        {{#each gallery}}
-        <a href="{{this.url}}"><img src="{{this.url}}" alt="&copy; {{this.author}}"/></a>
-        {{/each}}
-      </div>
       <center>
-        <a href="#" onclick="app.controller.species.gallery.show()">
-          <img src="{{profile_pic.url}}">
-        </a>
+        <div class="gallery" id="species_gallery">
+          <a href="{{profile_pic}}">
+            <img src="{{profile_pic}}">
+          </a>
+        </div>
 
         {{#if map}}
         <button id="species-map-button">Show Distribution</button>
@@ -149,15 +150,9 @@
           <li>
             <div class="taxon">{{taxon}}</div>
           </li>
-          <li id="species-flight">
-          </li>
           <li>
             <p>{{{description}}}</p>
           </li>
-          <li><strong>Distribution</strong>:
-            <p>{{{distribution}}}</p></li>
-          <li><strong>Habitat</strong>:
-            <p>{{{habitat}}}</p></li>
         </ul>
       </center>
     </script>
@@ -170,7 +165,7 @@
 <div data-role="page" id="record">
   <div data-role="header" data-position="fixed" data-tap-toggle="false">
     <div class='ui-btn-left' data-role='controlgroup' data-type='horizontal'>
-      <a href='#' data-rel='back' data-role="button" data-icon="home" data-iconpos="notext">Back</a>
+      <a href='#' data-rel='back' data-role="button" data-icon="arrow-l" data-iconpos="notext">Back</a>
     </div>
     <h1 id='record_heading'></h1>
 
@@ -201,11 +196,6 @@
        data-icon="arrow-r" data-iconpos="right"> Life Stage </a>
     <a href="#comment" id="comment-button" class="record-button" data-role="button"
        data-icon="arrow-r" data-iconpos="right"> Comment </a>
-    </br>
-    <label>
-      <input type="checkbox" data-iconpos="right" id="occAttr:223"
-             name="occAttr:223" value="1"> Certain
-    </label>
   </div>
   <div data-role="footer" data-position="fixed" data-tap-toggle="false">
     <div class='ui-btn-left' data-role='controlgroup' data-type='horizontal'>
