@@ -84,3 +84,8 @@ function _log(message, level) {
     }
   }
 }
+
+//start fastclick
+$(function() {
+  FastClick.attach(document.body);
+});
