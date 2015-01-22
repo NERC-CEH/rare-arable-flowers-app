@@ -132,7 +132,7 @@
       }
 
       if (location != null) {
-        var p = new LatLonE(location.lat, location.lon, GeoParams.datum.OSGB36);
+        var p = new LatLonE(location.lat, location.lon, LatLonE.datum.OSGB36);
         var grid = OsGridRef.latLonToOsGrid(p);
         gref = grid.toString();
         location['gref'] = gref;
@@ -367,7 +367,7 @@
 
       function updateMapInfoMessage(id, location) {
         //convert coords to Grid Ref
-        var p = new LatLonE(location.lat, location.lon, GeoParams.datum.OSGB36);
+        var p = new LatLonE(location.lat, location.lon, LatLonE.datum.OSGB36);
         var grid = OsGridRef.latLonToOsGrid(p);
         var gref = grid.toString();
 
