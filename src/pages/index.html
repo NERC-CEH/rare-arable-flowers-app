@@ -92,18 +92,16 @@
 
     <div id="list-placeholder"></div>
     <script id="list-template" type="text/x-handlebars-template">
-      <ul data-role="listview" id="species-list" data-split-icon="gear" data-split-theme="d">
+      <ul data-role="listview" data-split-icon="gear" data-split-theme="d">
         {{#each species}}
         <li data-corners="false" data-shadow="false" data-iconshadow="true"
             data-wrapperels="div" data-icon="arrow-r" data-iconpos="right" data-theme="c">
           <a href="#species" onclick="app.controller.list.setCurrentSpecies('{{id}}')" class="{{favourite}}">
             <img src="{{profile_pic}}"/>
-
             <p class="species-list-common-name">{{common_name}}</p>
-
             <p>{{taxon}}</p>
           </a>
-          <a href="{{../record}}" class="ios-enhanced" onclick="app.controller.list.setCurrentSpecies('{{id}}')"
+          <a href="#record" class="ios-enhanced" onclick="app.controller.list.setCurrentSpecies('{{id}}')"
              data-icon="plus">Record</a>
         </li>
         {{/each}}

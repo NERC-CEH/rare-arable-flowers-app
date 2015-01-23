@@ -135,8 +135,6 @@
         _log(app.data.species[i].map.replace(url, ''));
 
       }
-
-
     },
 
     /**
@@ -145,10 +143,6 @@
     pagecontainershow: function () {
       _log('list: pagecontainershow.');
       this.makeListControls();
-      this.renderList(function(){
-        //add Gallery
-        app.controller.species.gallery.init();
-      });
     },
 
     /**
@@ -186,6 +180,7 @@
 
       function onSortSuccess() {
         if (list != null) {
+          //list.length = 2;
           app.controller.list.printList(list);
           $.mobile.loading("hide");
 
@@ -198,8 +193,9 @@
       list = this.sortList(list, sort, onSortSuccess);
     },
 
+
     /**
-     *
+     * Prints the species list.
      * @param species
      */
     printList: function (species) {
@@ -222,7 +218,7 @@
       var compiled_template = Handlebars.compile(template);
 
       var record = '#record';
-      placeholder.html(compiled_template({'species': s, 'record': record}));
+      placeholder.html(compiled_template({'species': s}));
       placeholder.trigger('create');
 
       /*

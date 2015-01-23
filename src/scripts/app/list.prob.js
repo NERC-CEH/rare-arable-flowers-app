@@ -87,7 +87,7 @@
 
       function getSquare(geoloc) {
         //get translated geoloc
-        var p = new LatLonE(geoloc.lat, geoloc.lon, GeoParams.datum.OSGB36);
+        var p = new LatLonE(geoloc.lat, geoloc.lon, LatLonE.datum.OSGB36);
         var grid = OsGridRef.latLonToOsGrid(p);
         var gref = grid.toString(app.controller.list.prob.LOCATION_GRANULARITY);
         _log('list.prob: using gref: ' + gref + ".");

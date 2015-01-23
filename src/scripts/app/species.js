@@ -64,6 +64,7 @@
 
       var species = app.controller.list.getCurrentSpecies();
       app.controller.list.changeFavourite(species.id, favButton.hasClass('on'));
+      app.controller.list.renderList();
     },
 
     /**
