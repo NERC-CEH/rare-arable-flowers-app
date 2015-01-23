@@ -1,5 +1,5 @@
 (function ($) {
-  app.controller.list.prob = {
+  morel.controller.list.prob = {
     CONF: {
       PROB_DATA_SRC: ""
     },
@@ -16,41 +16,43 @@
      * #0.1 Gets the probability data from the server.
      */
     loadData: function () {
+      var onSuccess = null, onError = null;
+
       if (!this.loadingData) {
         this.loadingData = true;
 
-        function onSuccess(json) {
-          app.controller.list.prob.loadingData = false;
+        onSuccess = function (json) {
+          morel.controller.list.prob.loadingData = false;
           var prob = optimiseData(json);
-          app.data.prob = prob;
+          morel.data.prob = prob;
 
           //store for quicker loading
-          app.storage.set('probability', prob);
+          morel.storage.set('probability', prob);
 
           function optimiseData(json) {
             //optimise data
             var data = {};
-            for (var i = 0; i < json.length; i++) {
+            for (var i = 0, length = json.length; i < length; i++) {
               var a = json[i];
-              data[a['l']] = data[a['l']] || {};
-              data[a['l']][a['s']] = a['p'];
+              data[a.l] = data[a.l] || {};
+              data[a.l][a.s] = a.p;
             }
             return data;
           }
 
-          if (app.controller.list.prob.filterOn) {
-            app.controller.list.prob.runFilter();
+          if (morel.controller.list.prob.filterOn) {
+            morel.controller.list.prob.runFilter();
           }
-        }
+        };
 
-        function onError(jqxhr, textStatus, error) {
+        onError = function (jqxhr, textStatus, error) {
           var err = textStatus + ", " + error;
           console.log("Request Failed: " + err);
 
-          app.controller.list.prob.loadingData = false;
-        }
+          morel.controller.list.prob.loadingData = false;
+        };
 
-        if (!app.storage.is('probability')) {
+        if (!morel.storage.is('probability')) {
           $.ajax({
             url: this.CONF.PROB_DATA_SRC,
             dataType: 'json',
@@ -59,7 +61,7 @@
             error: onError
           });
         } else {
-          app.data.prob = app.storage.get('probability');
+          morel.data.prob = morel.storage.get('probability');
         }
       }
     },
@@ -73,30 +75,30 @@
       this.list = list || this.list;
       this.onFilterSuccess = onFilterSuccess || this.onFilterSuccess;
 
-      var location = app.settings('location');
-      if (location == null) {
+      var location = morel.settings('location');
+      if (!location) {
         //todo: maybe the sort type was not even selected, clean this up
-        app.controller.list.removeFilter({'id': 'probability'});
-        app.controller.list.setSortType(app.controller.list.DEFAULT_SORT);
+        morel.controller.list.removeFilter({'id': 'probability'});
+        morel.controller.list.setSortType(morel.controller.list.DEFAULT_SORT);
 
         $('body').pagecontainer("change", "#sref");
         return;
       }
 
-      app.controller.list.prob.sref = getSquare({'lat': location.lat, 'lon': location.lon});
+      morel.controller.list.prob.sref = getSquare({'lat': location.lat, 'lon': location.lon});
 
       function getSquare(geoloc) {
         //get translated geoloc
         var p = new LatLonE(geoloc.lat, geoloc.lon, LatLonE.datum.OSGB36);
         var grid = OsGridRef.latLonToOsGrid(p);
-        var gref = grid.toString(app.controller.list.prob.LOCATION_GRANULARITY);
+        var gref = grid.toString(morel.controller.list.prob.LOCATION_GRANULARITY);
         _log('list.prob: using gref: ' + gref + ".");
 
         //remove the spaces
         return gref.replace(/ /g, '');
       }
 
-      if (app.data.prob == null) {
+      if (!morel.data.prob) {
         this.loadData();
         return;
       }
@@ -107,12 +109,12 @@
     filterList: function (list) {
       var filtered_list = [];
 
-      var location_data = app.data.prob[this.sref];
-      if (location_data != null) {
+      var location_data = morel.data.prob[this.sref];
+      if (location_data) {
         var speciesIds = Object.keys(location_data);
         for (var i = 0; i < speciesIds.length; i++) {
           for (var j = 0; j < list.length; j++) {
-            if (list[j].id == speciesIds[i]) {
+            if (list[j].id === speciesIds[i]) {
               filtered_list.push(list[j]);
               break;
             }
@@ -125,14 +127,14 @@
     sort: function (a, b) {
       function getProb(species) {
         var id = species.id;
-        var sref = app.controller.list.prob.sref;
-        var data = app.data.prob;
+        var sref = morel.controller.list.prob.sref;
+        var data = morel.data.prob;
         return (data[sref] && data[sref][id]) || 0;
       }
 
       var a_prob = getProb(a);
       var b_prob = getProb(b);
-      if (a_prob == b_prob) return 0;
+      if (a_prob === b_prob) return 0;
       return a_prob < b_prob ? 1 : -1;
     }
   };

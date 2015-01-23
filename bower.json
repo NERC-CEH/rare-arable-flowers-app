@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "dependencies": {
     "jquery-mobile": "jobrapido/jquery-mobile-bower",
-    "morel": "NERC-CEH/morel",
+    "morel": "NERC-CEH/morel#develop",
     "latlon": "chrisveness/geodesy",
     "indexeDBShim": "axemclion/IndexedDBShim",
     "handlebars": "~2.0.0",

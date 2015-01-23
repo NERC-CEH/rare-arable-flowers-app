@@ -1,6 +1,6 @@
 (function ($) {
-  app.controller = app.controller || {};
-  app.controller.login = {
+  morel.controller = morel.controller || {};
+  morel.controller.login = {
     //controller configuration should be set up in an app config file
     CONF: {
       URL: "",
@@ -30,8 +30,8 @@
         'password': form.find('input[name=password]').val(),
 
         //app logins
-        'appname': app.auth.CONF.APPNAME,
-        'appsecret': app.auth.CONF.APPSECRET
+        'appname': morel.auth.CONF.APPNAME,
+        'appsecret': morel.auth.CONF.APPSECRET
       };
 
       $.ajax({
@@ -60,15 +60,16 @@
           'secret': lines[0],
           'name': lines[1] + " " + lines[2],
           'email': this.callback_data.email
-        }
+        };
+        $.mobile.loading('hide');
+        morel.controller.login.setLogin(user);
+
+        $.mobile.changePage('#user');
+        //history does not work in iOS 7.*
+        //history.back();
+      } else {
+        _log('login', morel.LOG_WARNING);
       }
-
-      $.mobile.loading('hide');
-      app.controller.login.setLogin(user);
-
-      $.mobile.changePage('#user');
-      //history does not work in iOS 7.*
-      //history.back();
     },
 
     onLoginError: function (xhr, ajaxOptions, thrownError) {
@@ -90,7 +91,7 @@
      * Logs the user out of the system.
      */
     logout: function () {
-      app.auth.removeUser();
+      morel.auth.removeUser();
     },
 
     /**
@@ -102,10 +103,10 @@
     setLogin: function (user) {
       if (!$.isEmptyObject(user)) {
         _log('login: logged in.');
-        app.auth.setUser(user);
+        morel.auth.setUser(user);
       } else {
         _log('login: logged out.');
-        app.auth.removeUser();
+        morel.auth.removeUser();
       }
     },
 
@@ -114,7 +115,7 @@
      * @returns boolean true if the user is logged in, or false if not
      */
     getLoginState: function () {
-      return app.auth.isUser();
+      return morel.auth.isUser();
     }
   };
 

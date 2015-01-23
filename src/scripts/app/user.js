@@ -1,6 +1,6 @@
 (function ($) {
-  app.controller = app.controller || {};
-  app.controller.user = {
+  morel.controller = morel.controller || {};
+  morel.controller.user = {
     pagecontainershow: function () {
       this.printUserControls();
       this.printList();
@@ -8,17 +8,18 @@
 
     sendAllSavedRecords: function () {
       function onSuccess() {
-        app.controller.user.printList();
+        morel.controller.user.printList();
       }
 
-      app.io.sendAllSavedRecords(onSuccess);
+      morel.io.sendAllSavedRecords(onSuccess);
     },
 
     sendSavedRecord: function (recordKey) {
+      var onSuccess = null, onError = null;
       if (navigator.onLine) {
         $.mobile.loading('show');
 
-        function onSuccess() {
+        onSuccess = function () {
           $.mobile.loading('show', {
             text: "Done!",
             theme: "b",
@@ -30,12 +31,12 @@
             $.mobile.loading('hide');
           }, 3000);
 
-          app.record.db.remove(recordKey, function () {
-            app.controller.user.printList();
+          morel.record.db.remove(recordKey, function () {
+            morel.controller.user.printList();
           });
-        }
+        };
 
-        function onError(xhr, ajaxOptions, thrownError) {
+        onError = function (xhr, ajaxOptions, thrownError) {
           _log("user: ERROR record ajax (" + xhr.status + " " + thrownError + ").");
           _log(xhr.responseText);
 
@@ -49,9 +50,9 @@
           setTimeout(function () {
             $.mobile.loading('hide');
           }, 10000);
-        }
+        };
 
-        app.io.sendSavedRecord(recordKey, onSuccess, onError);
+        morel.io.sendSavedRecord(recordKey, onSuccess, onError);
       } else {
         $.mobile.loading('show', {
           text: "Looks like you are offline!",
@@ -67,8 +68,8 @@
     },
 
     deleteSavedRecord: function (recordKey) {
-      app.record.db.remove(recordKey, function () {
-        app.controller.user.printList();
+      morel.record.db.remove(recordKey, function () {
+        morel.controller.user.printList();
       });
     },
 
@@ -79,7 +80,7 @@
       var compiled_template = Handlebars.compile(template);
 
       var user = {
-        'loggedout': !app.controller.login.getLoginState()
+        'loggedout': !morel.controller.login.getLoginState()
       };
       placeholder.html(compiled_template({'user': user}));
       placeholder.trigger('create');
@@ -94,14 +95,14 @@
             var name = savedRecords[i][j].name;
             var value = savedRecords[i][j].value;
             switch (name) {
-              case app.record.inputs.KEYS.DATE:
-                record['date'] = value;
+              case morel.record.inputs.KEYS.DATE:
+                record.date = value;
                 break;
-              case app.record.inputs.KEYS.TAXON:
-                var species = app.data.species;
+              case morel.record.inputs.KEYS.TAXON:
+                var species = morel.data.species;
                 for (var k = 0; k < species.length; k++) {
-                  if (species[k].warehouse_id == value) {
-                    record['common_name'] = species[k].common_name;
+                  if (species[k].warehouse_id === value) {
+                    record.common_name = species[k].common_name;
                     break;
                   }
                 }
@@ -109,7 +110,7 @@
               default:
             }
           }
-          record['id'] = savedRecords[i].id;
+          record.id = savedRecords[i].id;
           records.push(record);
         }
 
@@ -122,7 +123,7 @@
         placeholder.trigger('create');
       }
 
-      app.record.db.getAll(onSuccess);
+      morel.record.db.getAll(onSuccess);
     }
   };
 

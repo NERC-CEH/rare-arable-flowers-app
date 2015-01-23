@@ -3,15 +3,15 @@
  */
 
 //app wide settings
-app.CONF.VERSION = '0'; //grunt replaced. Application (controllers and data) version
-app.CONF.NAME = 'app'; //grunt replaced.
+morel.CONF.VERSION = '0'; //grunt replaced. Application (controllers and data) version
+morel.CONF.NAME = 'app'; //grunt replaced.
 
-app.CONF.HOME = "raf/dist/";
-app.CONF.LOG = app.LOG_DEBUG;
+morel.CONF.HOME = "raf/dist/";
+morel.CONF.LOG = morel.LOG_DEBUG;
 
 
 //controllers
-var c = app.controller;
+var c = morel.controller;
 c.list.prob.CONF.PROB_DATA_SRC = "data/abundance.json";
 c.list.CONF.SPECIES_DATA_SRC = "data/species.json";
 

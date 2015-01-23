@@ -1,10 +1,10 @@
 (function ($) {
-  app.controller = app.controller || {};
-  app.controller.species = {
+  morel.controller = morel.controller || {};
+  morel.controller.species = {
     pagecontainershow: function (event, ui) {
       _log('species: pagecontainershow.');
 
-      var species = app.controller.list.getCurrentSpecies();
+      var species = morel.controller.list.getCurrentSpecies();
 
       var heading = $('#species_heading');
       heading.text(species.common_name);
@@ -24,8 +24,8 @@
       var compiled_template = Handlebars.compile(template);
 
       //check for the favourite
-      var favourites = app.controller.list.getFavourites();
-      if (favourites[species.id] != null) {
+      var favourites = morel.controller.list.getFavourites();
+      if (favourites[species.id]) {
         $("#species-profile-fav-button").addClass("on");
       } else {
         $("#species-profile-fav-button").removeClass("on");
@@ -35,7 +35,7 @@
       placeholder.trigger('create');
 
       //add Gallery
-      app.controller.species.gallery.init();
+      morel.controller.species.gallery.init();
 
       //add button listeners
       $('#species-map-button, #species-map').on('click', function () {
@@ -52,8 +52,6 @@
         .attr('y', -margin);
     },
 
-  
-
     /**
      * Toggles the current species as favourite by saving it into the
      * storage and changing the buttons appearance.
@@ -62,9 +60,9 @@
       var favButton = $("#species-profile-fav-button");
       favButton.toggleClass("on");
 
-      var species = app.controller.list.getCurrentSpecies();
-      app.controller.list.changeFavourite(species.id, favButton.hasClass('on'));
-      app.controller.list.renderList();
+      var species = morel.controller.list.getCurrentSpecies();
+      morel.controller.list.changeFavourite(species.id, favButton.hasClass('on'));
+      morel.controller.list.renderList();
     },
 
     /**
@@ -83,16 +81,14 @@
             enableKeyboard: false
           });
         }
-
       },
 
       show: function () {
         if ($('.gallery')) {
           this.gallery.show(0);
         } else {
-          app.navigation.message('I have no pictures to show :(');
+          morel.navigation.message('I have no pictures to show :(');
         }
-
       }
     }
   };

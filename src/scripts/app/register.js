@@ -1,6 +1,6 @@
 (function ($) {
-  app.controller = app.controller || {};
-  app.controller.register = {
+  morel.controller = morel.controller || {};
+  morel.controller.register = {
     //controller configuration should be set up in an app config file
     CONF: {
       URL: "",
@@ -36,8 +36,8 @@
       var data = new FormData(form);
 
       //app logins
-      data.append('appname', app.auth.CONF.APPNAME);
-      data.append('appsecret', app.auth.CONF.APPSECRET);
+      data.append('appname', morel.auth.CONF.APPNAME);
+      data.append('appsecret', morel.auth.CONF.APPSECRET);
 
       $.ajax({
         url: this.CONF.URL,
@@ -67,7 +67,6 @@
       _log(xhr.responseText);
       $.mobile.loading('hide');
     }
-
   };
 
 }(jQuery));

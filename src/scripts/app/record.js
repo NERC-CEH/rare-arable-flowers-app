@@ -1,6 +1,6 @@
 (function ($) {
-  app.controller = app.controller || {};
-  app.controller.record = {
+    morel.controller = morel.controller || {};
+    morel.controller.record = {
     /**
      * Setting up a recording page.
      */
@@ -11,7 +11,7 @@
       var ele = document.getElementById('occAttr:223');
       $(ele).change(function () {
         var checked = $(this).prop('checked');
-        app.record.inputs.set('occAttr:223', checked);
+        morel.record.inputs.set('occAttr:223', checked);
       });
     },
 
@@ -24,9 +24,9 @@
           this.clear();
           //start geolocation
         function onGeolocSuccess(location) {
-          app.controller.record.saveSref(location);
-          app.controller.sref.set(location.lat, location.lon, location.acc);
-          app.controller.record.gpsButtonState('done');
+          morel.controller.record.saveSref(location);
+          morel.controller.sref.set(location.lat, location.lon, location.acc);
+          morel.controller.record.gpsButtonState('done');
         }
 
         function onError(err) {
@@ -41,16 +41,16 @@
           }, 5000);
 
           //modify the UI
-          app.controller.record.gpsButtonState('none');
+          morel.controller.record.gpsButtonState('none');
         }
 
-          app.geoloc.run(null, onGeolocSuccess);
+          morel.geoloc.run(null, onGeolocSuccess);
           this.gpsButtonState('running');
 
           break;
         default:
           //update GPS button color
-          if (app.record.inputs.is('sample:entered_sref')) {
+          if (morel.record.inputs.is('sample:entered_sref')) {
             this.gpsButtonState('done');
           } else {
             this.gpsButtonState('none');
@@ -65,7 +65,7 @@
       _log('record: clearing recording page.');
       this.setImage('input[type="file"]');
 
-      app.record.clear();
+      morel.record.clear();
 
       this.saveSpecies();
       this.saveDate();
@@ -75,6 +75,7 @@
      * Validates and sends the record. Saves it if no network.
      */
     send: function () {
+      var onOnlineSuccess = null, onSaveSuccess = null;
       $.mobile.loading('show');
 
       if (!this.valid()) {
@@ -86,32 +87,32 @@
         $.mobile.loading('hide');
         var message = "<center><h3>Sorry!</h3></center>" +
           "<p>" + err.message + "</p>";
-        app.navigation.makePopup(message, true);
+        morel.navigation.makePopup(message, true);
         $('#app-popup').popup().popup('open');
       }
 
       if (navigator.onLine) {
         //online
-        function onOnlineSuccess() {
+        onOnlineSuccess = function () {
           $.mobile.loading('hide');
-          app.navigation.popup("<center><h2>Submitted successfully. </br>Thank You!</h2></center>", false);
+          morel.navigation.popup("<center><h2>Submitted successfully. </br>Thank You!</h2></center>", false);
           setTimeout(function () {
             $("body").pagecontainer("change", "#list");
           }, 3000);
-        }
+        };
 
         this.processOnline(onOnlineSuccess, onError);
       } else {
         //offline
-        function onSaveSuccess() {
+        onSaveSuccess = function () {
           $.mobile.loading('hide');
-          app.navigation.popup("<center><h2>No Internet. Record saved.</h2></center>", false);
+          morel.navigation.popup("<center><h2>No Internet. Record saved.</h2></center>", false);
           setTimeout(function () {
             $("body").pagecontainer("change", "#list");
           }, 3000);
-        }
+        };
 
-        this.processOffline(onSaveSuccess, onError)
+        this.processOffline(onSaveSuccess, onError);
       }
     },
 
@@ -128,7 +129,7 @@
 
       function onSuccess() {
         $.mobile.loading('hide');
-        app.navigation.popup("<center><h2>Record saved.</h2></center>", false);
+        morel.navigation.popup("<center><h2>Record saved.</h2></center>", false);
         setTimeout(function () {
           $("body").pagecontainer("change", "#list");
         }, 3000);
@@ -139,7 +140,7 @@
         var message = "<center><h3>Sorry!</h3></center>" +
           "<p>" + err.message + "</p>";
         //xhr.status+ " " + thrownError + "</p><p>" + xhr.responseText +
-        app.navigation.makePopup(message, true);
+        morel.navigation.makePopup(message, true);
         $('#app-popup').popup().popup('open');
       }
 
@@ -152,20 +153,20 @@
     processOnline: function (callback, onError) {
       _log("record: process online.");
       var onSaveSuccess = function (savedRecordId) {
-        app.record.clear();
+        morel.record.clear();
 
         function onSendSuccess() {
-          app.record.db.remove(savedRecordId);
-          if (callback != null) {
+          morel.record.db.remove(savedRecordId);
+          if (callback) {
             callback();
           }
         }
 
         //#2 Post the record
-        app.io.sendSavedRecord(savedRecordId, onSendSuccess, onError);
+        morel.io.sendSavedRecord(savedRecordId, onSendSuccess, onError);
       };
       //#1 Save the record first
-      app.record.db.save(onSaveSuccess, onError);
+      morel.record.db.save(onSaveSuccess, onError);
     },
 
     /**
@@ -174,13 +175,13 @@
     processOffline: function (callback, onError) {
       _log("record: process offline");
       var onSaveSuccess = function (savedRecordId) {
-        app.record.clear();
+        morel.record.clear();
 
-        if (callback != null) {
+        if (callback) {
           callback();
         }
       };
-      app.record.db.save(onSaveSuccess, onError);
+      morel.record.db.save(onSaveSuccess, onError);
     },
 
     /**
@@ -200,18 +201,18 @@
         }
 
         message += "</ul>";
-        app.navigation.popup(message, true);
-        return app.FALSE;
+        morel.navigation.popup(message, true);
+        return morel.FALSE;
       }
 
       //validate gps
-      var gps = app.geoloc.valid();
-      if (gps == app.ERROR || gps == app.FALSE) {
+      var gps = morel.geoloc.valid();
+      if (gps === morel.ERROR || gps === morel.FALSE) {
         //redirect to gps page
         $('body').pagecontainer("change", "#sref");
-        return app.FALSE;
+        return morel.FALSE;
       }
-      return app.TRUE;
+      return morel.TRUE;
     },
 
     /**
@@ -220,51 +221,51 @@
     validateInputs: function () {
       var invalids = [];
 
-      if (!app.record.inputs.is('sample:date')) {
+      if (!morel.record.inputs.is('sample:date')) {
         invalids.push({
           'id': 'sample:date',
           'name': 'Date'
-        })
+        });
       }
-      if (!app.record.inputs.is('sample:entered_sref')) {
+      if (!morel.record.inputs.is('sample:entered_sref')) {
         invalids.push({
           'id': 'sample:entered_sref',
           'name': 'Location'
-        })
+        });
       }
-      if (!app.record.inputs.is('occurrence:taxa_taxon_list_id')) {
+      if (!morel.record.inputs.is('occurrence:taxa_taxon_list_id')) {
         invalids.push({
           'id': 'occurrence:taxa_taxon_list_id',
           'name': 'Species'
-        })
+        });
       }
       return invalids;
     },
 
     saveSref: function (location) {
-      if (location == null) {
-        return app.ERROR;
+      if (!location) {
+        return morel.ERROR;
       }
       var sref = location.lat + ', ' + location.lon;
       var sref_system = "4326";
       var sref_accuracy = location.acc;
-      app.record.inputs.set(app.record.inputs.KEYS.SREF, sref);
-      app.record.inputs.set(app.record.inputs.KEYS.SREF_SYSTEM, sref_system);
-      app.record.inputs.set(app.record.inputs.KEYS.SREF_ACCURACY, sref_accuracy);
+      morel.record.inputs.set(morel.record.inputs.KEYS.SREF, sref);
+      morel.record.inputs.set(morel.record.inputs.KEYS.SREF_SYSTEM, sref_system);
+      morel.record.inputs.set(morel.record.inputs.KEYS.SREF_ACCURACY, sref_accuracy);
     },
 
     /**
      * Saves the user comment into current record.
      */
     saveInput: function (name) {
-      if (name == null && name == "") {
+      if (!name && name === "") {
         _log('record: ERROR, no input name provided.');
-        return app.ERROR;
+        return morel.ERROR;
       }
       var ele = document.getElementById(name);
       var value = $(ele).val();
-      if (value != "") {
-        app.record.inputs.set(name, value);
+      if (value !== "") {
+        morel.record.inputs.set(name, value);
       }
     },
 
@@ -272,11 +273,11 @@
      * Saves the selected species into current record.
      */
     saveSpecies: function () {
-      var specie = app.controller.list.getCurrentSpecies();
-      if (specie != null && specie.warehouse_id != null && specie.warehouse_id != "") {
+      var specie = morel.controller.list.getCurrentSpecies();
+      if (specie && specie.warehouse_id && specie.warehouse_id) {
         var name = 'occurrence:taxa_taxon_list_id';
         var value = specie.warehouse_id;
-        app.record.inputs.set(name, value);
+        morel.record.inputs.set(name, value);
 
         //add header to the page
         $('#record_heading').text(specie.common_name);
@@ -299,14 +300,14 @@
       var ele = document.getElementById(name);
       $(ele).val(value);
 
-      app.record.inputs.set(name, value);
+      morel.record.inputs.set(name, value);
     },
 
     setImage: function (input) {
       var img_holder = 'sample-image-placeholder';
       var upload = $(input);
 
-      if (typeof window.FileReader === 'undefined') {
+      if (!window.FileReader) {
         return false;
       }
 
@@ -330,9 +331,9 @@
             img.width = 560;
           }
           $('#sample-image-placeholder').empty().append(img);
-          $('#' + img_holder).css('border', '0px');
-          //$('#' + img_holder).css('background-color', 'transparent');
-          $('#' + img_holder).css('background-image', 'none');
+          var pic = $('#' + img_holder);
+          pic.css('border', '0px');
+          pic.css('background-image', 'none');
         };
         reader.readAsDataURL(file);
 

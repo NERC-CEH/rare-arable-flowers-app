@@ -4,27 +4,24 @@
 
 (function($){
     checkForUpdates();
-    app.initialise();
+    morel.initialise();
 
     //Fixing back buttons for Mac 7.* History bug.
     $(document).on('pagecreate', function(event, ui) {
         if (browserDetect('Safari')){
-            if (jQuery.mobile.activePage != null) {
+            if (jQuery.mobile.activePage) {
                 var nextPageid = event.target.id;
                 var currentPageURL = null;
 
                 var external = jQuery.mobile.activePage.attr('data-external-page');
-                if (external == null) {
+                if (!external) {
                     currentPageURL = '#' + jQuery.mobile.activePage.attr('id');
                 }
-
                 fixPageBackButtons(currentPageURL, nextPageid);
             }
         }
     });
-
-
-}(app.$ || jQuery));
+}(morel.$ || jQuery));
 
 /**
  * Updates the app's data if the source code version mismatches the
@@ -32,22 +29,22 @@
  */
 function checkForUpdates(){
     var CONTROLLER_VERSION_KEY = 'controllerVersion';
-    var controllerVersion = app.settings(CONTROLLER_VERSION_KEY);
+    var controllerVersion = morel.settings(CONTROLLER_VERSION_KEY);
     //set for the first time
-    if (controllerVersion == null){
-        app.settings(CONTROLLER_VERSION_KEY, app.CONF.VERSION);
+    if (!controllerVersion){
+        morel.settings(CONTROLLER_VERSION_KEY, morel.CONF.VERSION);
         return;
     }
 
-    if (controllerVersion != app.CONF.VERSION){
-        _log('app: controller version differs. Updating the app.', app.LOG_INFO);
+    if (controllerVersion !== morel.CONF.VERSION){
+        _log('app: controller version differs. Updating the morel.', morel.LOG_INFO);
 
         //TODO: add try catch for any problems
-        app.storage.remove('species');
-        app.storage.tmpClear();
+        morel.storage.remove('species');
+        morel.storage.tmpClear();
 
         //set new version
-        app.settings(CONTROLLER_VERSION_KEY, app.CONF.VERSION);
+        morel.settings(CONTROLLER_VERSION_KEY, morel.CONF.VERSION);
     }
 }
 
@@ -57,26 +54,25 @@ function checkForUpdates(){
 function _log(message, level) {
 
   //do nothing if logging turned off
-  if (app.CONF.LOG == app.LOG_NONE) {
+  if (morel.CONF.LOG == morel.LOG_NONE) {
     return;
   }
 
-  if (app.CONF.LOG >= level || level == null) {
+  if (morel.CONF.LOG >= level || !level) {
     switch (level) {
-      case app.LOG_ERROR:
-  	console.error(message['message'], message['url'], message['line']);
-
+      case morel.LOG_ERROR:
+  	    console.error(message.message, message.url, message.line);
         break;
-      case app.LOG_WARNING:
+      case morel.LOG_WARNING:
         console.warn(message);
         break;
-      case app.LOG_INFO:
+      case morel.LOG_INFO:
         console.log(message);
         break;
-      case app.LOG_DEBUG:
+      case morel.LOG_DEBUG:
       default:
         //IE does not support console.debug
-        if (console.debug == null) {
+        if (!console.debug) {
           console.log(message);
           break;
         }

@@ -1,6 +1,6 @@
 (function ($) {
-  app.controller = app.controller || {};
-  app.controller.about = {
+  morel.controller = morel.controller || {};
+  morel.controller.about = {
 
     pagecontainershow: function () {
       var template = $('#app-version-template').html();
@@ -8,7 +8,7 @@
 
       var compiled_template = Handlebars.compile(template);
 
-      placeholder.html(compiled_template({'version': app.CONF.VERSION}));
+      placeholder.html(compiled_template({'version': morel.CONF.VERSION}));
       placeholder.trigger('create');
     }
 
