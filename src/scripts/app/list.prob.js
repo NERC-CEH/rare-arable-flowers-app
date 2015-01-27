@@ -1,5 +1,5 @@
 (function ($) {
-  morel.controller.list.prob = {
+  app.controller.list.prob = {
     CONF: {
       PROB_DATA_SRC: ""
     },
@@ -22,9 +22,10 @@
         this.loadingData = true;
 
         onSuccess = function (json) {
-          morel.controller.list.prob.loadingData = false;
+          app.controller.list.prob.loadingData = false;
           var prob = optimiseData(json);
-          morel.data.prob = prob;
+          app.data = app.data || {};
+          app.data.prob = prob;
 
           //store for quicker loading
           morel.storage.set('probability', prob);
@@ -40,8 +41,8 @@
             return data;
           }
 
-          if (morel.controller.list.prob.filterOn) {
-            morel.controller.list.prob.runFilter();
+          if (app.controller.list.prob.filterOn) {
+            app.controller.list.prob.runFilter();
           }
         };
 
@@ -49,7 +50,7 @@
           var err = textStatus + ", " + error;
           console.log("Request Failed: " + err);
 
-          morel.controller.list.prob.loadingData = false;
+          app.controller.list.prob.loadingData = false;
         };
 
         if (!morel.storage.is('probability')) {
@@ -61,7 +62,7 @@
             error: onError
           });
         } else {
-          morel.data.prob = morel.storage.get('probability');
+          app.data.prob = morel.storage.get('probability');
         }
       }
     },
@@ -78,27 +79,27 @@
       var location = morel.settings('location');
       if (!location) {
         //todo: maybe the sort type was not even selected, clean this up
-        morel.controller.list.removeFilter({'id': 'probability'});
-        morel.controller.list.setSortType(morel.controller.list.DEFAULT_SORT);
+        app.controller.list.removeFilter({'id': 'probability'});
+        app.controller.list.setSortType(app.controller.list.DEFAULT_SORT);
 
         $('body').pagecontainer("change", "#sref");
         return;
       }
 
-      morel.controller.list.prob.sref = getSquare({'lat': location.lat, 'lon': location.lon});
+      app.controller.list.prob.sref = getSquare({'lat': location.lat, 'lon': location.lon});
 
       function getSquare(geoloc) {
         //get translated geoloc
         var p = new LatLonE(geoloc.lat, geoloc.lon, LatLonE.datum.OSGB36);
         var grid = OsGridRef.latLonToOsGrid(p);
-        var gref = grid.toString(morel.controller.list.prob.LOCATION_GRANULARITY);
+        var gref = grid.toString(app.controller.list.prob.LOCATION_GRANULARITY);
         _log('list.prob: using gref: ' + gref + ".");
 
         //remove the spaces
         return gref.replace(/ /g, '');
       }
 
-      if (!morel.data.prob) {
+      if (!app.data.prob) {
         this.loadData();
         return;
       }
@@ -109,7 +110,7 @@
     filterList: function (list) {
       var filtered_list = [];
 
-      var location_data = morel.data.prob[this.sref];
+      var location_data = app.data.prob[this.sref];
       if (location_data) {
         var speciesIds = Object.keys(location_data);
         for (var i = 0; i < speciesIds.length; i++) {
@@ -127,8 +128,8 @@
     sort: function (a, b) {
       function getProb(species) {
         var id = species.id;
-        var sref = morel.controller.list.prob.sref;
-        var data = morel.data.prob;
+        var sref = app.controller.list.prob.sref;
+        var data = app.data.prob;
         return (data[sref] && data[sref][id]) || 0;
       }
 

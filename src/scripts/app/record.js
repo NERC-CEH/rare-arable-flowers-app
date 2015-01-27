@@ -1,6 +1,8 @@
+var app = app || {};
+app.controller = app.controller || {};
+
 (function ($) {
-    morel.controller = morel.controller || {};
-    morel.controller.record = {
+    app.controller.record = {
     /**
      * Setting up a recording page.
      */
@@ -24,9 +26,9 @@
           this.clear();
           //start geolocation
         function onGeolocSuccess(location) {
-          morel.controller.record.saveSref(location);
-          morel.controller.sref.set(location.lat, location.lon, location.acc);
-          morel.controller.record.gpsButtonState('done');
+          app.controller.record.saveSref(location);
+          app.controller.sref.set(location.lat, location.lon, location.acc);
+          app.controller.record.gpsButtonState('done');
         }
 
         function onError(err) {
@@ -41,7 +43,7 @@
           }, 5000);
 
           //modify the UI
-          morel.controller.record.gpsButtonState('none');
+          app.controller.record.gpsButtonState('none');
         }
 
           morel.geoloc.run(null, onGeolocSuccess);
@@ -87,7 +89,7 @@
         $.mobile.loading('hide');
         var message = "<center><h3>Sorry!</h3></center>" +
           "<p>" + err.message + "</p>";
-        morel.navigation.makePopup(message, true);
+        app.navigation.makePopup(message, true);
         $('#app-popup').popup().popup('open');
       }
 
@@ -95,7 +97,7 @@
         //online
         onOnlineSuccess = function () {
           $.mobile.loading('hide');
-          morel.navigation.popup("<center><h2>Submitted successfully. </br>Thank You!</h2></center>", false);
+          app.navigation.popup("<center><h2>Submitted successfully. </br>Thank You!</h2></center>", false);
           setTimeout(function () {
             $("body").pagecontainer("change", "#list");
           }, 3000);
@@ -106,7 +108,7 @@
         //offline
         onSaveSuccess = function () {
           $.mobile.loading('hide');
-          morel.navigation.popup("<center><h2>No Internet. Record saved.</h2></center>", false);
+          app.navigation.popup("<center><h2>No Internet. Record saved.</h2></center>", false);
           setTimeout(function () {
             $("body").pagecontainer("change", "#list");
           }, 3000);
@@ -129,7 +131,7 @@
 
       function onSuccess() {
         $.mobile.loading('hide');
-        morel.navigation.popup("<center><h2>Record saved.</h2></center>", false);
+        app.navigation.popup("<center><h2>Record saved.</h2></center>", false);
         setTimeout(function () {
           $("body").pagecontainer("change", "#list");
         }, 3000);
@@ -140,7 +142,7 @@
         var message = "<center><h3>Sorry!</h3></center>" +
           "<p>" + err.message + "</p>";
         //xhr.status+ " " + thrownError + "</p><p>" + xhr.responseText +
-        morel.navigation.makePopup(message, true);
+        app.navigation.makePopup(message, true);
         $('#app-popup').popup().popup('open');
       }
 
@@ -201,7 +203,7 @@
         }
 
         message += "</ul>";
-        morel.navigation.popup(message, true);
+        app.navigation.popup(message, true);
         return morel.FALSE;
       }
 
@@ -273,7 +275,7 @@
      * Saves the selected species into current record.
      */
     saveSpecies: function () {
-      var specie = morel.controller.list.getCurrentSpecies();
+      var specie = app.controller.list.getCurrentSpecies();
       if (specie && specie.warehouse_id && specie.warehouse_id) {
         var name = 'occurrence:taxa_taxon_list_id';
         var value = specie.warehouse_id;

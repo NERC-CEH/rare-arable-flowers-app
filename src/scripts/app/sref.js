@@ -1,6 +1,8 @@
+var app = app || {};
+app.controller = app.controller || {};
+
 (function ($) {
-  morel.controller = morel.controller || {};
-  morel.controller.sref = {
+  app.controller.sref = {
     saveData: false,
 
     pagecreate: function () {
@@ -14,15 +16,15 @@
          dummyText controls the caching of the file - always get fresh
          */
         var dummyText = '&' + (new Date()).getTime();
-        loadScript('http://maps.googleapis.com/maps/api/js?sensor=false&' +
-          'callback=morel.controller.sref.initializeMap' +
+        app.controller.sref.loadScript('http://maps.googleapis.com/maps/api/js?sensor=false&' +
+          'callback=app.controller.sref.initializeMap' +
           dummyText
         );
       }
     },
 
     pagecontainerbeforeshow: function (e, data) {
-      morel.controller.sref.renderGPStab('init');
+      app.controller.sref.renderGPStab('init');
       this.saveData = false; //reset
     },
 
@@ -36,10 +38,10 @@
           //Save button
           switch (nextPage) {
             case 'record':
-              morel.controller.record.saveSref(location);
+              app.controller.record.saveSref(location);
               break;
             case 'list':
-              morel.controller.list.prob.runFilter();
+              app.controller.list.prob.runFilter();
               break;
             default:
               _log('sref: ERROR changing to unknown page.');
@@ -51,7 +53,7 @@
               //the filter needs to be removed if canceled
               // at the location stage
               var filter = {'id': 'probability'};
-              morel.controller.list.removeFilter(filter);
+              app.controller.list.removeFilter(filter);
               break;
             default:
               _log('sref: ERROR changing to unknown page.');
@@ -112,7 +114,7 @@
 
       switch (state) {
         case 'init':
-          var currentLocation = morel.controller.sref.get();
+          var currentLocation = app.controller.sref.get();
           if (currentLocation.acc === -1) {
             currentLocation = null;
           } else {
@@ -144,9 +146,9 @@
       placeholder.trigger('create');
 
       //attach event listeners
-      $('#gps-start-button').on('click', morel.controller.sref.startGeoloc);
-      $('#gps-stop-button').on('click', morel.controller.sref.stopGeoloc);
-      $('#gps-improve-button').on('click', morel.controller.sref.startGeoloc);
+      $('#gps-start-button').on('click', app.controller.sref.startGeoloc);
+      $('#gps-stop-button').on('click', app.controller.sref.stopGeoloc);
+      $('#gps-improve-button').on('click', app.controller.sref.startGeoloc);
 
     },
 
@@ -158,23 +160,23 @@
 
       function onUpdate(location) {
         //if improved update current location
-        var currentLocation = morel.controller.sref.get();
+        var currentLocation = app.controller.sref.get();
         if (currentLocation.acc === -1 || location.acc <= currentLocation.acc) {
           currentLocation = location;
-          morel.controller.sref.set(location.lat, location.lon, location.acc);
+          app.controller.sref.set(location.lat, location.lon, location.acc);
         } else {
           location = currentLocation;
         }
 
         //modify the UI
-        morel.controller.sref.renderGPStab('running', location);
+        app.controller.sref.renderGPStab('running', location);
       }
 
       function onSuccess(location) {
         $.mobile.loading('hide');
 
-        morel.controller.sref.set(location.lat, location.lon, location.acc);
-        morel.controller.sref.renderGPStab('finished', location);
+        app.controller.sref.set(location.lat, location.lon, location.acc);
+        app.controller.sref.renderGPStab('finished', location);
       }
 
       function onError(err) {
@@ -190,20 +192,20 @@
 
         //modify the UI
 
-        morel.controller.sref.renderGPStab('init');
+        app.controller.sref.renderGPStab('init');
       }
 
       //start geoloc
       morel.geoloc.run(onUpdate, onSuccess, onError);
 
       var location = null;
-      var currentLocation = morel.controller.sref.get();
+      var currentLocation = app.controller.sref.get();
       if (currentLocation.acc !== -1) {
         location = currentLocation;
       }
 
       //modify the UI
-      morel.controller.sref.renderGPStab('running', location);
+      app.controller.sref.renderGPStab('running', location);
     },
 
     /**
@@ -216,7 +218,7 @@
       morel.geoloc.stop();
 
       //modify the UI
-      morel.controller.sref.renderGPStab('init');
+      app.controller.sref.renderGPStab('init');
     },
 
     /**
@@ -302,7 +304,7 @@
       this.map = new google.maps.Map(mapCanvas, mapOptions);
       var marker = new google.maps.Marker({
         position: new google.maps.LatLng(-25.363, 131.044),
-        map: morel.controller.sref.map,
+        map: app.controller.sref.map,
         icon: 'http://maps.google.com/mapfiles/marker_green.png',
         draggable: true
       });
@@ -332,8 +334,8 @@
       //Set map centre
       if (this.latitude && this.longitude) {
         var latLong = new google.maps.LatLng(this.latitude, this.longitude);
-        morel.controller.sref.map.setCenter(latLong);
-        morel.controller.sref.map.setZoom(15);
+        app.controller.sref.map.setCenter(latLong);
+        app.controller.sref.map.setZoom(15);
       } else if (navigator.geolocation) {
         //Geolocation
         var options = {
@@ -345,8 +347,8 @@
         navigator.geolocation.getCurrentPosition(function (position) {
           var latLng = new google.maps.LatLng(position.coords.latitude,
             position.coords.longitude);
-          morel.controller.sref.map.setCenter(latLng);
-          morel.controller.sref.map.setZoom(15);
+          app.controller.sref.map.setCenter(latLng);
+          app.controller.sref.map.setZoom(15);
         }, null, options);
       }
 
@@ -360,7 +362,7 @@
           'lat': mapLatLng.lat(),
           'lon': mapLatLng.lng()
         };
-        morel.controller.sref.set(location.lat, location.lon, 1);
+        app.controller.sref.set(location.lat, location.lon, 1);
 
         updateMapInfoMessage('#map-message', location);
       }
@@ -387,13 +389,13 @@
       $(tabs).on("tabsactivate.googleMap", function (event, ui) {
           //check if this is a map tab
           if (ui.newPanel.selector === mapTab) {
-            google.maps.event.trigger(morel.controller.sref.map, 'resize');
-            if (morel.controller.sref.latitude !== null && morel.controller.sref.longitude !== null) {
-              var latLong = new google.maps.LatLng(morel.controller.sref.latitude,
-                morel.controller.sref.longitude);
+            google.maps.event.trigger(app.controller.sref.map, 'resize');
+            if (app.controller.sref.latitude !== null && app.controller.sref.longitude !== null) {
+              var latLong = new google.maps.LatLng(app.controller.sref.latitude,
+                app.controller.sref.longitude);
 
-              morel.controller.sref.map.setCenter(latLong);
-              morel.controller.sref.map.setZoom(15);
+              app.controller.sref.map.setCenter(latLong);
+              app.controller.sref.map.setZoom(15);
             }
             $(tabs).off("tabsactivate.googleMap");
           }
@@ -415,7 +417,22 @@
         message.empty().append('<p>Grid Ref:<br/>' + gref + '</p>');
       }
       //todo: set accuracy dependant on Gref
+    },
+
+    /**
+     * Loads the google maps script.
+     *
+     * @param src
+     */
+    loadScript: function (src) {
+      var script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.src = src;
+      document.body.appendChild(script);
     }
   };
+
+
+
 
 }(jQuery));

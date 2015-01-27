@@ -11,7 +11,7 @@ morel.CONF.LOG = morel.LOG_DEBUG;
 
 
 //controllers
-var c = morel.controller;
+var c = app.controller;
 c.list.prob.CONF.PROB_DATA_SRC = "data/abundance.json";
 c.list.CONF.SPECIES_DATA_SRC = "data/species.json";
 

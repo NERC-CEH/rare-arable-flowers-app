@@ -1,6 +1,8 @@
+var app = app || {};
+app.controller = app.controller || {};
+
 (function ($) {
-  morel.controller = morel.controller || {};
-  morel.controller.about = {
+  app.controller.about = {
 
     pagecontainershow: function () {
       var template = $('#app-version-template').html();

@@ -1,10 +1,12 @@
+var app = app || {};
+app.controller = app.controller || {};
+
 (function ($) {
-  morel.controller = morel.controller || {};
-  morel.controller.species = {
+  app.controller.species = {
     pagecontainershow: function (event, ui) {
       _log('species: pagecontainershow.');
 
-      var species = morel.controller.list.getCurrentSpecies();
+      var species = app.controller.list.getCurrentSpecies();
 
       var heading = $('#species_heading');
       heading.text(species.common_name);
@@ -24,7 +26,7 @@
       var compiled_template = Handlebars.compile(template);
 
       //check for the favourite
-      var favourites = morel.controller.list.getFavourites();
+      var favourites = app.controller.list.getFavourites();
       if (favourites[species.id]) {
         $("#species-profile-fav-button").addClass("on");
       } else {
@@ -35,7 +37,7 @@
       placeholder.trigger('create');
 
       //add Gallery
-      morel.controller.species.gallery.init();
+      app.controller.species.gallery.init();
 
       //add button listeners
       $('#species-map-button, #species-map').on('click', function () {
@@ -60,9 +62,9 @@
       var favButton = $("#species-profile-fav-button");
       favButton.toggleClass("on");
 
-      var species = morel.controller.list.getCurrentSpecies();
-      morel.controller.list.changeFavourite(species.id, favButton.hasClass('on'));
-      morel.controller.list.renderList();
+      var species = app.controller.list.getCurrentSpecies();
+      app.controller.list.changeFavourite(species.id, favButton.hasClass('on'));
+      app.controller.list.renderList();
     },
 
     /**
@@ -87,7 +89,7 @@
         if ($('.gallery')) {
           this.gallery.show(0);
         } else {
-          morel.navigation.message('I have no pictures to show :(');
+          app.navigation.message('I have no pictures to show :(');
         }
       }
     }

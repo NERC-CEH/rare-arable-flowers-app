@@ -1,6 +1,8 @@
+var app = app || {};
+app.controller = app.controller || {};
+
 (function ($) {
-  morel.controller = morel.controller || {};
-  morel.controller.user = {
+  app.controller.user = {
     pagecontainershow: function () {
       this.printUserControls();
       this.printList();
@@ -8,7 +10,7 @@
 
     sendAllSavedRecords: function () {
       function onSuccess() {
-        morel.controller.user.printList();
+        app.controller.user.printList();
       }
 
       morel.io.sendAllSavedRecords(onSuccess);
@@ -32,7 +34,7 @@
           }, 3000);
 
           morel.record.db.remove(recordKey, function () {
-            morel.controller.user.printList();
+            app.controller.user.printList();
           });
         };
 
@@ -69,7 +71,7 @@
 
     deleteSavedRecord: function (recordKey) {
       morel.record.db.remove(recordKey, function () {
-        morel.controller.user.printList();
+        app.controller.user.printList();
       });
     },
 
@@ -80,7 +82,7 @@
       var compiled_template = Handlebars.compile(template);
 
       var user = {
-        'loggedout': !morel.controller.login.getLoginState()
+        'loggedout': !app.controller.login.getLoginState()
       };
       placeholder.html(compiled_template({'user': user}));
       placeholder.trigger('create');
@@ -99,7 +101,7 @@
                 record.date = value;
                 break;
               case morel.record.inputs.KEYS.TAXON:
-                var species = morel.data.species;
+                var species = app.data.species;
                 for (var k = 0; k < species.length; k++) {
                   if (species[k].warehouse_id === value) {
                     record.common_name = species[k].common_name;

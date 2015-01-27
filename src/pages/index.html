@@ -37,7 +37,7 @@
     <h1 id='list_heading'></h1>
 
     <div class='ui-btn-right' data-role='controlgroup' data-type='horizontal'>
-      <a href="#" id="fav-button" data-role="button" onclick="morel.navigation.filterFavourites()"
+      <a href="#" id="fav-button" data-role="button" onclick="app.controller.list.filterFavourites()"
          data-icon="star" data-iconpos="notext">Favourie</a>
       <a href="#" id="list-controls-button" data-role="button"
          data-icon="bullets" data-iconpos="notext">List Controls</a>
@@ -96,12 +96,12 @@
         {{#each species}}
         <li data-corners="false" data-shadow="false" data-iconshadow="true"
             data-wrapperels="div" data-icon="arrow-r" data-iconpos="right" data-theme="c">
-          <a href="#species" onclick="morel.controller.list.setCurrentSpecies('{{id}}')" class="{{favourite}}">
+          <a href="#species" onclick="app.controller.list.setCurrentSpecies('{{id}}')" class="{{favourite}}">
             <img src="{{profile_pic}}"/>
             <p class="species-list-common-name">{{common_name}}</p>
             <p>{{taxon}}</p>
           </a>
-          <a href="#record" class="ios-enhanced" onclick="morel.controller.list.setCurrentSpecies('{{id}}')"
+          <a href="#record" class="ios-enhanced" onclick="app.controller.list.setCurrentSpecies('{{id}}')"
              data-icon="plus">Record</a>
         </li>
         {{/each}}
@@ -119,7 +119,7 @@
     <h1 id='species_heading'></h1>
 
     <div class="ui-btn-right" data-role="controlgroup" data-type="horizontal">
-      <a href="#" id="species-profile-fav-button" onclick="morel.controller.species.toggleSpeciesFavourite()"
+      <a href="#" id="species-profile-fav-button" onclick="app.controller.species.toggleSpeciesFavourite()"
          data-icon="star" data-iconpos="notext" data-role="button">Gallery</a>
     </div>
   </div>
@@ -198,13 +198,13 @@
   <div data-role="footer" data-position="fixed" data-tap-toggle="false">
     <div class='ui-btn-left' data-role='controlgroup' data-type='horizontal'>
       <input id="entry-form-save" type="button" value="Save" data-icon="plus"
-             onclick="morel.controller.record.save()" data-theme="b" data-iconpos="right">
+             onclick="app.controller.record.save()" data-theme="b" data-iconpos="right">
     </div>
     <h1 id='record_footer'></h1>
 
     <div class='ui-btn-right' data-role='controlgroup' data-type='horizontal'>
       <input id="entry-form-send" type="button" value="Send" data-icon="mail"
-             onclick="morel.controller.record.send()" data-theme="b" data-iconpos="right">
+             onclick="app.controller.record.send()" data-theme="b" data-iconpos="right">
     </div>
 
   </div>
@@ -220,7 +220,7 @@
 
     <div class='ui-btn-right' data-role='controlgroup' data-type='horizontal'>
       <a href='#' data-rel="back" data-role="button" data-iconpos="notext"
-         data-icon="check" onclick="morel.controller.record.saveInput('sample:comment')">Save</a>
+         data-icon="check" onclick="app.controller.record.saveInput('sample:comment')">Save</a>
     </div>
   </div>
   <div data-role="content">
@@ -239,7 +239,7 @@
 
     <div class='ui-btn-right' data-role='controlgroup' data-type='horizontal'>
       <a href='#' data-rel="back" data-role="button" data-iconpos="notext"
-         onclick="morel.controller.record.saveInput('sample:date')"
+         onclick="app.controller.record.saveInput('sample:date')"
          data-icon="check">Save</a>
     </div>
   </div>
@@ -259,7 +259,7 @@
 
     <div class='ui-btn-right' data-role='controlgroup' data-type='horizontal'>
       <a href='#' data-rel="back" data-role="button" data-iconpos="notext"
-         onclick="morel.controller.record.saveInput('sample:date')"
+         onclick="app.controller.record.saveInput('sample:date')"
          data-icon="check">Save</a>
     </div>
   </div>
@@ -299,7 +299,7 @@
 
     <div class='ui-btn-right' data-role='controlgroup' data-type='horizontal'>
       <a href='#' data-rel="back" data-role="button" data-iconpos="notext"
-         onclick="morel.controller.record.saveInput('sample:date')"
+         onclick="app.controller.record.saveInput('sample:date')"
          data-icon="check">Save</a>
     </div>
   </div>
@@ -342,7 +342,7 @@
 
     <div class='ui-btn-right' data-role='controlgroup' data-type='horizontal'>
       <a href='#' data-rel="back" data-role="button" data-iconpos="notext"
-         data-icon="check" onclick="morel.controller.sref.save()">Save</a>
+         data-icon="check" onclick="app.controller.sref.save()">Save</a>
     </div>
   </div>
   <div data-role="content">
@@ -419,7 +419,7 @@
             <br/> e.g. <i>"TQ 28170 77103"</i></p>
         </div>
         <input type="text" id="grid-ref" placeholder="Grid Reference"/>
-        <input type="button" onclick="morel.controller.sref.gridRefConvert()"
+        <input type="button" onclick="app.controller.sref.gridRefConvert()"
                value="Set"/>
       </div>
     </div>
@@ -451,7 +451,7 @@
       </div>
       {{else}}
       <a href='#' id="logout-button" data-role="button" data-icon="user"
-         data-theme="b" onclick="morel.controller.login.logout()">Log out</a>
+         data-theme="b" onclick="app.controller.login.logout()">Log out</a>
       {{/if}}
     </script>
 
@@ -464,21 +464,21 @@
           data-inset="true" data-split-theme="d">
         <li data-corners="false" data-shadow="false" data-iconshadow="true"
             data-wrapperels="div" data-icon="arrow-r" data-iconpos="right" data-theme="b">
-          <a href="#" id="sendall-button" data-role="button" onclick="morel.controller.user.sendAllSavedRecords()">
+          <a href="#" id="sendall-button" data-role="button" onclick="app.controller.user.sendAllSavedRecords()">
             <center>Send All</center>
           </a>
         </li>
         {{#each records}}
         <li data-corners="false" data-shadow="false" data-iconshadow="true"
             data-wrapperels="div" data-icon="arrow-r" data-iconpos="right">
-          <a href="#" onclick="morel.controller.user.sendSavedRecord({{id}})">
+          <a href="#" onclick="app.controller.user.sendSavedRecord({{id}})">
             <!--<img src="" />-->
             <h3>{{common_name}}</h3>
 
             <p>{{date}}</p>
           </a>
           <a href="#" data-icon="delete" data-ajax="false"
-             onclick="morel.controller.user.deleteSavedRecord({{id}})">Send</a>
+             onclick="app.controller.user.deleteSavedRecord({{id}})">Send</a>
         </li>
         {{/each}}
       </ul>

@@ -1,15 +1,14 @@
+var app = app || {};
+app.controller = app.controller || {};
+
 (function ($) {
-  morel.controller = morel.controller || {};
-  morel.controller.login = {
+  app.controller.login = {
     //controller configuration should be set up in an app config file
     CONF: {
       URL: "",
       TIMEOUT: 20000
     },
-
-    pagecontainershow: function () {
-
-    },
+    
 
     /**
      * Starts an app sign in to the Drupal site process.
@@ -62,7 +61,7 @@
           'email': this.callback_data.email
         };
         $.mobile.loading('hide');
-        morel.controller.login.setLogin(user);
+        app.controller.login.setLogin(user);
 
         $.mobile.changePage('#user');
         //history does not work in iOS 7.*

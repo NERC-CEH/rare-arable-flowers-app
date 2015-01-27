@@ -1,6 +1,8 @@
+var app = app || {};
+app.controller = app.controller || {};
+
 (function ($) {
-  morel.controller = morel.controller || {};
-  morel.controller.welcome = {
+  app.controller.welcome = {
 
     pagecreate: function () {
       _log('welcome: pagecreate.', morel.LOG_DEBUG);

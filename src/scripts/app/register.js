@@ -1,6 +1,8 @@
+var app = app || {};
+app.controller = app.controller || {};
+
 (function ($) {
-  morel.controller = morel.controller || {};
-  morel.controller.register = {
+  app.controller.register = {
     //controller configuration should be set up in an app config file
     CONF: {
       URL: "",

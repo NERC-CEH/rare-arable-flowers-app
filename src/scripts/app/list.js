@@ -1,6 +1,8 @@
+var app = app || {};
+app.controller = app.controller || {};
+
 (function ($) {
-  morel.controller = morel.controller || {};
-  morel.controller.list = {
+  app.controller.list = {
     //controller configuration should be set up in an app config file
     CONF: {
       PROB_DATA_SRC: "",
@@ -82,19 +84,20 @@
           dataType: 'json',
           async: false,
           success: function (json) {
-            morel.data.species = json;
+            app.data = app.data || {};
+            app.data.species = json;
 
             //saves for quicker loading
             morel.storage.set('species', json);
 
             //todo: what if data comes first before pagecontainershow
-            morel.controller.list.renderList();
+            app.controller.list.renderList();
 
           }
         });
       } else {
-        morel.data.species = morel.storage.get('species');
-        morel.controller.list.renderList();
+        app.data.species = morel.storage.get('species');
+        app.controller.list.renderList();
       }
 
       this.prob.loadData();
@@ -112,11 +115,11 @@
       console.log('list: Printing Species data.');
 
       var text = '';
-      for (var i = 0; i < morel.data.species.length; i++) {
-        text += "\n" + morel.data.species[i].taxon + ', ' + morel.data.species[i].id + ', ' + morel.data.species[i].common_name + ', ' + morel.data.species[i].warehouse_id;
+      for (var i = 0; i < app.data.species.length; i++) {
+        text += "\n" + app.data.species[i].taxon + ', ' + app.data.species[i].id + ', ' + app.data.species[i].common_name + ', ' + app.data.species[i].warehouse_id;
       }
-      console.log(morel.data.species.length);
-      console.log(morel.data.species);
+      console.log(app.data.species.length);
+      console.log(app.data.species);
 
       console.log(text);
     },
@@ -124,15 +127,15 @@
     printAppcacheData: function () {
       var url = 'http://192.171.199.230';
       //print pictures & maps
-      for (var i = 0, length = morel.data.species; i < length; i++) {
+      for (var i = 0, length = app.data.species; i < length; i++) {
         //pics
-        _log(morel.data.species[i].profile_pic.replace(url, ''));
-        for (var j = 0; j < morel.data.species[i].gallery.length; j++) {
-          _log(morel.data.species[i].gallery[j].url.replace(url, ''));
+        _log(app.data.species[i].profile_pic.replace(url, ''));
+        for (var j = 0; j < app.data.species[i].gallery.length; j++) {
+          _log(app.data.species[i].gallery[j].url.replace(url, ''));
 
         }
         //maps
-        _log(morel.data.species[i].map.replace(url, ''));
+        _log(app.data.species[i].map.replace(url, ''));
 
       }
     },
@@ -151,7 +154,7 @@
     renderList: function (callback) {
       var filters = this.getCurrentFilters();
       var sort = this.getSortType();
-      var species = morel.data.species;
+      var species = app.data.species;
       if (species) {
         this.renderListCore(species, sort, filters, callback);
       }
@@ -173,7 +176,7 @@
         var filter = filters.pop();
 
         onFilterSuccess = function (species) {
-          morel.controller.list.renderListCore(species, sort, filters);
+          app.controller.list.renderListCore(species, sort, filters);
         };
 
         list = this.filterList(list, filter, onFilterSuccess);
@@ -182,7 +185,7 @@
 
       function onSortSuccess() {
         if (list) {
-          morel.controller.list.printList(list);
+          app.controller.list.printList(list);
           $.mobile.loading("hide");
 
           if (callback) {
@@ -296,28 +299,28 @@
      */
     setListControlsListeners: function () {
       //initial list control button setup
-      var filters = morel.controller.list.getCurrentFilters();
+      var filters = app.controller.list.getCurrentFilters();
       if (filters.length === 1 && filters[0].id === 'favourites') {
         filters = [];
       }
       $('#list-controls-button').toggleClass('on', filters.length > 0);
 
       $('.sort').on('change', function () {
-        morel.controller.list.setSortType(this.id);
-        morel.controller.list.renderList();
+        app.controller.list.setSortType(this.id);
+        app.controller.list.renderList();
       });
 
       $('.filter').on('change', function () {
-        var filter = morel.controller.list.getFilterById(this.id);
-        morel.controller.list.setFilter(filter);
+        var filter = app.controller.list.getFilterById(this.id);
+        app.controller.list.setFilter(filter);
 
-        var filters = morel.controller.list.getCurrentFilters();
+        var filters = app.controller.list.getCurrentFilters();
         if (filters.length === 1 && filters[0].id === 'favourites') {
           filters = [];
         }
         $('#list-controls-button').toggleClass('on', filters.length > 0);
 
-        morel.controller.list.renderList();
+        app.controller.list.renderList();
       });
     },
 
@@ -362,9 +365,9 @@
     setCurrentSpecies: function (id) {
       var species = {};
 
-      for (var i = 0; i < morel.data.species.length; i++) {
-        if (morel.data.species[i].id === id) {
-          species = morel.data.species[i];
+      for (var i = 0; i < app.data.species.length; i++) {
+        if (app.data.species[i].id === id) {
+          species = app.data.species[i];
           break;
         }
       }
@@ -527,8 +530,8 @@
           }
           break;
         case 'probability':
-          morel.controller.list.prob.runFilter(list, function () {
-            filtered_list = morel.controller.list.prob.filterList(list);
+          app.controller.list.prob.runFilter(list, function () {
+            filtered_list = app.controller.list.prob.filterList(list);
             onSuccess(filtered_list);
           });
           return;
@@ -547,8 +550,8 @@
     sortList: function (list, sort, onSuccess) {
       switch (sort) {
         case 'probability_sort':
-          morel.controller.list.prob.runFilter(list, function () {
-            list.sort(morel.controller.list.prob.sort);
+          app.controller.list.prob.runFilter(list, function () {
+            list.sort(app.controller.list.prob.sort);
             onSuccess(list);
             return;
           });
@@ -619,7 +622,7 @@
           '<button id="' + donwloadBtnId + '" class="ui-btn">Download</button>' +
           '<button id="' + donwloadCancelBtnId + '" class="ui-btn">Cancel</button>';
 
-        morel.navigation.message(message, 0);
+        app.navigation.message(message, 0);
 
         $('#' + donwloadBtnId).on('click', function () {
           _log('list: starting appcache downloading process.', morel.LOG_DEBUG);
@@ -659,15 +662,15 @@
           morel.settings(OFFLINE, offline);
         });
       }
+    },
+
+    filterFavourites : function () {
+      var filter = app.controller.list.getFilterById('favourites');
+      app.controller.list.setFilter(filter);
+      $("#fav-button").toggleClass("on");
+
+      app.controller.list.renderList();
     }
-  };
-
-  morel.navigation.filterFavourites = function () {
-    var filter = morel.controller.list.getFilterById('favourites');
-    morel.controller.list.setFilter(filter);
-    $("#fav-button").toggleClass("on");
-
-    morel.controller.list.renderList();
   };
 
 }(jQuery));
