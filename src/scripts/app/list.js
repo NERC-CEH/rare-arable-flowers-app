@@ -96,6 +96,7 @@ app.controller = app.controller || {};
           }
         });
       } else {
+        app.data = app.data || {};
         app.data.species = morel.storage.get('species');
         app.controller.list.renderList();
       }

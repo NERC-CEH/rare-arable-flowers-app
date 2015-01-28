@@ -62,6 +62,7 @@
             error: onError
           });
         } else {
+          app.data = app.data || {};
           app.data.prob = morel.storage.get('probability');
         }
       }
