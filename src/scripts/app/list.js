@@ -146,7 +146,7 @@ app.controller = app.controller || {};
      */
     pagecontainershow: function () {
       _log('list: pagecontainershow.');
-      this.makeListControls();
+      //this.makeListControls();
     },
 
     /**

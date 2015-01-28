@@ -2,6 +2,7 @@
   "name": "rare_arable_flowers",
   "version": "0.0.0",
   "dependencies": {
+    "backbone": "latest",
     "jquery-mobile": "jobrapido/jquery-mobile-bower",
     "morel": "NERC-CEH/morel#develop",
     "latlon": "chrisveness/geodesy",

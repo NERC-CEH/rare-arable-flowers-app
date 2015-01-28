@@ -28,46 +28,46 @@
   ];
 
   //Bind JQM page events with page controller handlers
-  $(document).on(pageEvents.join(' '), function (e, data) {
-    var event = e.type;
-    var id = null;
-    switch (event) {
-      case 'pagecreate':
-      case 'pagecontainerbeforechange':
-        id = data.prevPage ? data.prevPage[0].id : e.target.id;
-        break;
-
-      case 'pagebeforecreate':
-        id = e.target.id;
-        break;
-
-      case 'pagecontainershow':
-      case 'pagecontainerbeforetransition':
-      case 'pagecontainerbeforehide':
-      case 'pagecontainerbeforeshow':
-      case 'pagecontainertransition':
-      case 'pagecontainerhide':
-      case 'pagecontainerchangefailed':
-      case 'pagecontainerchange':
-        id = data.toPage[0].id;
-        break;
-
-      case 'pagecontainerbeforeload':
-      case 'pagecontainerload':
-      case 'pagecontainerloadfailed':
-      /* falls through */
-      default:
-        break;
-    }
-
-    //  var ihd = e.target.id || data.toPage[0].id;
-    var controller = app.controller[id];
-
-    //if page has controller and it has an event handler
-    if (controller && controller[event]) {
-      controller[event](e, data);
-    }
-  });
+  //$(document).on(pageEvents.join(' '), function (e, data) {
+  //  var event = e.type;
+  //  var id = null;
+  //  switch (event) {
+  //    case 'pagecreate':
+  //    case 'pagecontainerbeforechange':
+  //      id = data.prevPage ? data.prevPage[0].id : e.target.id;
+  //      break;
+  //
+  //    case 'pagebeforecreate':
+  //      id = e.target.id;
+  //      break;
+  //
+  //    case 'pagecontainershow':
+  //    case 'pagecontainerbeforetransition':
+  //    case 'pagecontainerbeforehide':
+  //    case 'pagecontainerbeforeshow':
+  //    case 'pagecontainertransition':
+  //    case 'pagecontainerhide':
+  //    case 'pagecontainerchangefailed':
+  //    case 'pagecontainerchange':
+  //      id = data.toPage[0].id;
+  //      break;
+  //
+  //    case 'pagecontainerbeforeload':
+  //    case 'pagecontainerload':
+  //    case 'pagecontainerloadfailed':
+  //    /* falls through */
+  //    default:
+  //      break;
+  //  }
+  //
+  //  //  var ihd = e.target.id || data.toPage[0].id;
+  //  var controller = app.controller[id];
+  //
+  //  //if page has controller and it has an event handler
+  //  if (controller && controller[event]) {
+  //    controller[event](e, data);
+  //  }
+  //});
 
   //Fixing back buttons for Mac 7.* History bug.
   $(document).on('pagecreate', function(event, ui) {
@@ -447,3 +447,159 @@ function startManifestDownload(id, filesNum, src, callback, onError) {
   };
 
 })(jQuery);
+
+
+/**
+ * BACKBONE CODE
+ */
+
+var PageView = Backbone.View.extend({
+  role: "page",
+  attributes: function() {
+    return {
+      "data-role" : this.role
+    };
+  },
+  // `enhance` assumes that view has already been rendered. Most likely this
+  // method is called from `render`
+  enhance: function() {
+    this.$el.page().enhanceWithin();
+    return this;
+  },
+
+  // Override to add logic to execute on 'pagecontainershow'
+  show: function(event, ui) {}
+});
+
+var ListView = PageView.extend({
+  initialize: function () {
+    this.template = _.template($('#list').html());
+  },
+
+  render: function(){
+    $(this.el).html(this.template());
+    return this;
+  }
+});
+
+
+var WelcomeView = PageView.extend({
+  initialize : function() {
+    this.template = _.template($('#welcome').html())
+  },
+
+  render: function () {
+    $(this.el).html(this.template());
+    this.enhance();
+    return this;
+  }
+
+});
+
+var SpeciesView = PageView.extend({
+  initialize : function() {
+    this.template = _.template($('#species').html())
+  },
+
+  render: function () {
+    $(this.el).html(this.template());
+    this.enhance();
+    return this;
+  }
+});
+
+var RecordView = PageView.extend({
+  initialize : function() {
+    this.template = _.template($('#record').html())
+  },
+
+  render: function () {
+    $(this.el).html(this.template());
+    this.enhance();
+    return this;
+  }
+});
+
+var AppRouter = Backbone.Router.extend({
+  routes: {
+    "": "welcome",
+    "list": "list",
+    "record": "record",
+    "species": "species"
+  },
+
+  initialize: function () {
+    // Handle back button throughout the application
+    $(document).on('click', '.back', function(event) {
+      window.history.back();
+      return false;
+    });
+    this.firstPage = true;
+    $(document).on( "pagecontainershow", _.bind(this.handlePageContainerShow, this));
+  },
+
+  welcome: function(){
+    _log('welcome!');
+    this.changePage(new WelcomeView());
+  },
+
+  list: function(){
+    _log('list!');
+    this.changePage(new ListView());
+    app.controller.list.pagecreate();
+  },
+
+  species: function(){
+    _log('species!');
+    this.changePage(new SpeciesView());
+    app.controller.species.pagecontainershow();
+  },
+
+  record: function(){
+    _log('record!');
+    this.changePage(new RecordView());
+    app.controller.record.pagecontainershow();
+  },
+
+  changePage:function (page) {
+    // Render and add page to DOM once
+    if ($('#'+page.id).length === 0) {
+      $('body').html(page.render().$el);
+    }
+    if (this.firstPage) {
+      // We turned off $.mobile.autoInitializePage, but now that we've
+      // added our first page to the DOM, we can now call initializePage.
+      $.mobile.initializePage();
+      this.firstPage = false;
+    }
+    $( ":mobile-pagecontainer" ).pagecontainer( "change", page.$el,
+      { changeHash: false });
+
+    $('a[data-role="button"]').on('click', function(event) {
+      var $this = $(this);
+      if($this.attr('data-rel') === 'back') {
+        window.history.back();
+        return false;
+      }
+    });
+  },
+
+  handlePageContainerShow: function (event, ui) {
+    // Figure out what page we are showing and call 'PageView.show' on it
+    // TODO: JQM 1.4.3 has ui.toPage, which would be preferred to getActivePage
+    var activePage = $( ":mobile-pagecontainer" ).pagecontainer( "getActivePage" );
+    _.each(this.pages, function(page) {
+      if( activePage.get(0) === page.el ){
+        page.show(event, ui);
+      }
+    });
+  }
+});
+
+$(document).ready(function(){
+  _log('document ready!');
+  app = app || {};
+  app.router = new AppRouter();
+  Backbone.history.start();
+});
+
