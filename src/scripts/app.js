@@ -5,70 +5,6 @@
 (function($){
   checkForUpdates();
 
-  /**
-   * Events from.
-   * http://jqmtricks.wordpress.com/2014/03/26/jquery-mobile-page-events/
-   */
-  var pageEvents = [
-    'pagebeforecreate',
-    'pagecreate',
-    'pagecontainerbeforechange ',
-    'pagecontainerbeforetransition',
-    'pagecontainerbeforehide',
-    'pagecontainerhide',
-    'pagecontainerbeforeshow',
-    'pagecontainershow',
-    'pagecontainertransition',
-    'pagecontainerchange',
-    'pagecontainerchangefailed',
-    'pagecontainerbeforeload',
-    'pagecontainerload',
-    'pagecontainerloadfailed',
-    'pagecontainerremove'
-  ];
-
-  //Bind JQM page events with page controller handlers
-  //$(document).on(pageEvents.join(' '), function (e, data) {
-  //  var event = e.type;
-  //  var id = null;
-  //  switch (event) {
-  //    case 'pagecreate':
-  //    case 'pagecontainerbeforechange':
-  //      id = data.prevPage ? data.prevPage[0].id : e.target.id;
-  //      break;
-  //
-  //    case 'pagebeforecreate':
-  //      id = e.target.id;
-  //      break;
-  //
-  //    case 'pagecontainershow':
-  //    case 'pagecontainerbeforetransition':
-  //    case 'pagecontainerbeforehide':
-  //    case 'pagecontainerbeforeshow':
-  //    case 'pagecontainertransition':
-  //    case 'pagecontainerhide':
-  //    case 'pagecontainerchangefailed':
-  //    case 'pagecontainerchange':
-  //      id = data.toPage[0].id;
-  //      break;
-  //
-  //    case 'pagecontainerbeforeload':
-  //    case 'pagecontainerload':
-  //    case 'pagecontainerloadfailed':
-  //    /* falls through */
-  //    default:
-  //      break;
-  //  }
-  //
-  //  //  var ihd = e.target.id || data.toPage[0].id;
-  //  var controller = app.controller[id];
-  //
-  //  //if page has controller and it has an event handler
-  //  if (controller && controller[event]) {
-  //    controller[event](e, data);
-  //  }
-  //});
-
   //Fixing back buttons for Mac 7.* History bug.
   $(document).on('pagecreate', function(event, ui) {
       if (browserDetect('Safari')){
@@ -454,6 +390,7 @@ function startManifestDownload(id, filesNum, src, callback, onError) {
  */
 
 var PageView = Backbone.View.extend({
+  tagName: 'div',
   role: "page",
   attributes: function() {
     return {
@@ -472,8 +409,10 @@ var PageView = Backbone.View.extend({
 });
 
 var ListView = PageView.extend({
+  id: 'list',
+
   initialize: function () {
-    this.template = _.template($('#list').html());
+    this.template = _.template($('#list-page-template').html());
   },
 
   render: function(){
@@ -484,8 +423,10 @@ var ListView = PageView.extend({
 
 
 var WelcomeView = PageView.extend({
+  id: 'welcome',
+
   initialize : function() {
-    this.template = _.template($('#welcome').html())
+    this.template = _.template($('#welcome-page-template').html())
   },
 
   render: function () {
@@ -497,8 +438,10 @@ var WelcomeView = PageView.extend({
 });
 
 var SpeciesView = PageView.extend({
+  id: 'species',
+
   initialize : function() {
-    this.template = _.template($('#species').html())
+    this.template = _.template($('#species-page-template').html())
   },
 
   render: function () {
@@ -509,8 +452,10 @@ var SpeciesView = PageView.extend({
 });
 
 var RecordView = PageView.extend({
+  id: 'record',
+
   initialize : function() {
-    this.template = _.template($('#record').html())
+    this.template = _.template($('#record-page-template').html())
   },
 
   render: function () {
@@ -545,8 +490,10 @@ var AppRouter = Backbone.Router.extend({
 
   list: function(){
     _log('list!');
-    this.changePage(new ListView());
-    app.controller.list.pagecreate();
+    var pageAddedFirstTime = this.changePage(new ListView());
+    if (pageAddedFirstTime) {
+      app.controller.list.pagecreate();
+    }
   },
 
   species: function(){
@@ -563,8 +510,18 @@ var AppRouter = Backbone.Router.extend({
 
   changePage:function (page) {
     // Render and add page to DOM once
-    if ($('#'+page.id).length === 0) {
-      $('body').html(page.render().$el);
+    var pageAddedFirstTime = $('#' + page.id).length === 0;
+    if (pageAddedFirstTime) {
+      page.render();
+      $('body').append($(page.el));
+
+      $('a[data-role="button"]').on('click', function(event) {
+        var $this = $(this);
+        if($this.attr('data-rel') === 'back') {
+          window.history.back();
+          return false;
+        }
+      });
     }
     if (this.firstPage) {
       // We turned off $.mobile.autoInitializePage, but now that we've
@@ -572,16 +529,10 @@ var AppRouter = Backbone.Router.extend({
       $.mobile.initializePage();
       this.firstPage = false;
     }
-    $( ":mobile-pagecontainer" ).pagecontainer( "change", page.$el,
+    $( ":mobile-pagecontainer" ).pagecontainer( "change", '#' + page.id,
       { changeHash: false });
 
-    $('a[data-role="button"]').on('click', function(event) {
-      var $this = $(this);
-      if($this.attr('data-rel') === 'back') {
-        window.history.back();
-        return false;
-      }
-    });
+    return pageAddedFirstTime;
   },
 
   handlePageContainerShow: function (event, ui) {
