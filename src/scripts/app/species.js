@@ -3,6 +3,13 @@ app.controller = app.controller || {};
 
 (function ($) {
   app.controller.species = {
+    pagecreate: function () {
+      _log('species: pagecreate.');
+
+      var $favButton = $("#species-profile-fav-button");
+      $favButton.on('click', app.controller.species.toggleSpeciesFavourite);
+    },
+
     pagecontainershow: function (event, ui) {
       _log('species: pagecontainershow.');
 
@@ -27,10 +34,11 @@ app.controller = app.controller || {};
 
       //check for the favourite
       var favourites = app.controller.list.getFavourites();
+      var $favButton = $("#species-profile-fav-button");
       if (favourites[species.id]) {
-        $("#species-profile-fav-button").addClass("on");
+        $favButton.addClass("on");
       } else {
-        $("#species-profile-fav-button").removeClass("on");
+        $favButton.removeClass("on");
       }
 
       placeholder.html(compiled_template(species));
@@ -59,11 +67,11 @@ app.controller = app.controller || {};
      * storage and changing the buttons appearance.
      */
     toggleSpeciesFavourite: function () {
-      var favButton = $("#species-profile-fav-button");
-      favButton.toggleClass("on");
+      var $favButton = $("#species-profile-fav-button");
+      $favButton.toggleClass("on");
 
       var species = app.controller.list.getCurrentSpecies();
-      app.controller.list.changeFavourite(species.id, favButton.hasClass('on'));
+      app.controller.list.changeFavourite(species.id, $favButton.hasClass('on'));
       app.controller.list.renderList();
     },
 

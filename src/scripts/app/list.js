@@ -23,16 +23,6 @@ app.controller = app.controller || {};
      */
     filters: [
       {
-        'id': 'zygoptera',
-        'group': 'suborder',
-        'label': 'Damselflies'
-      },
-      {
-        'id': 'anisoptera',
-        'group': 'suborder',
-        'label': 'Dragonflies'
-      },
-      {
         'id': 'probability',
         'group': 'probability',
         'label': 'Probability'
@@ -105,6 +95,8 @@ app.controller = app.controller || {};
 
       $('#list-controls-save-button').on('click', this.toggleListControls);
       $('#list-controls-button').on('click', this.toggleListControls);
+
+      $('#fav-button').on('click', this.filterFavourites);
 
       // this.printSpeciesData();
     },

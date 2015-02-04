@@ -17,17 +17,15 @@ app.controller = app.controller || {};
       });
     },
 
-    pagecontainershow: function (e, data) {
+    pagecontainershow: function (prevPageId) {
       _log('record: pagecontainershow.');
-
-      var prevPageId = data.prevPage[0].id;
       switch (prevPageId) {
         case 'list':
           this.clear();
           //start geolocation
         function onGeolocSuccess(location) {
-          app.controller.record.saveSref(location);
-          app.controller.sref.set(location.lat, location.lon, location.acc);
+          app.controller.record.saveLocation(location);
+          app.controller.location.set(location.lat, location.lon, location.acc);
           app.controller.record.gpsButtonState('done');
         }
 
@@ -211,7 +209,7 @@ app.controller = app.controller || {};
       var gps = morel.geoloc.valid();
       if (gps === morel.ERROR || gps === morel.FALSE) {
         //redirect to gps page
-        $('body').pagecontainer("change", "#sref");
+        $('body').pagecontainer("change", "#location");
         return morel.FALSE;
       }
       return morel.TRUE;
@@ -244,7 +242,7 @@ app.controller = app.controller || {};
       return invalids;
     },
 
-    saveSref: function (location) {
+    saveLocation: function (location) {
       if (!location) {
         return morel.ERROR;
       }
@@ -344,7 +342,7 @@ app.controller = app.controller || {};
     },
 
     gpsButtonState: function (state) {
-      var button = $('#sref-top-button');
+      var button = $('#location-top-button');
       switch (state) {
         case 'running':
           button.addClass('running');
