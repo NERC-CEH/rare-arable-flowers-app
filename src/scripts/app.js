@@ -392,237 +392,158 @@ function startManifestDownload(id, filesNum, src, callback, onError) {
 var PageView = Backbone.View.extend({
   tagName: 'div',
   role: "page",
+
+  initialize : function(id, templateID) {
+    this.el.id =  id;
+    this.id = id;
+    this.template = _.template($(templateID).html())
+  },
+
+  render: function () {
+    $(this.el).html(this.template());
+    return this;
+  },
+
   attributes: function() {
     return {
       "data-role" : this.role
     };
-  },
-  // `enhance` assumes that view has already been rendered. Most likely this
-  // method is called from `render`
-  enhance: function() {
-    this.$el.page().enhanceWithin();
-    return this;
-  },
-
-  // Override to add logic to execute on 'pagecontainershow'
-  show: function(event, ui) {}
-});
-
-var ListView = PageView.extend({
-  id: 'list',
-
-  initialize: function () {
-    this.template = _.template($('#list-page-template').html());
-  },
-
-  render: function(){
-    $(this.el).html(this.template());
-    return this;
-  }
-});
-
-
-var WelcomeView = PageView.extend({
-  id: 'welcome',
-
-  initialize : function() {
-    this.template = _.template($('#welcome-page-template').html())
-  },
-
-  render: function () {
-    $(this.el).html(this.template());
-    this.enhance();
-    return this;
-  }
-
-});
-
-var SpeciesView = PageView.extend({
-  id: 'species',
-
-  initialize : function() {
-    this.template = _.template($('#species-page-template').html())
-  },
-
-  render: function () {
-    $(this.el).html(this.template());
-    this.enhance();
-    return this;
-  }
-});
-
-var LocationView = PageView.extend({
-  id: 'location',
-
-  initialize: function () {
-    this.template = _.template($('#location-page-template').html());
-  },
-
-  render: function(){
-    $(this.el).html(this.template());
-    return this;
-  }
-});
-
-var RecordView = PageView.extend({
-  id: 'record',
-
-  initialize : function() {
-    this.template = _.template($('#record-page-template').html())
-  },
-
-  render: function () {
-    $(this.el).html(this.template());
-    this.enhance();
-    return this;
-  }
-});
-
-var RecordNumberView = PageView.extend({
-  id: 'number',
-
-  initialize: function () {
-    this.template = _.template($('#number-page-template').html());
-  },
-
-  render: function(){
-    $(this.el).html(this.template());
-    return this;
-  }
-});
-
-var RecordCommentView = PageView.extend({
-  id: 'comment',
-
-  initialize: function () {
-    this.template = _.template($('#comment-page-template').html());
-  },
-
-  render: function(){
-    $(this.el).html(this.template());
-    return this;
-  }
-});
-
-var RecordLocationDetailsView = PageView.extend({
-  id: 'locationdetails',
-
-  initialize: function () {
-    this.template = _.template($('#locationdetails-page-template').html());
-  },
-
-  render: function(){
-    $(this.el).html(this.template());
-    return this;
-  }
-});
-
-var RecordStageView = PageView.extend({
-  id: 'stage',
-
-  initialize: function () {
-    this.template = _.template($('#stage-page-template').html());
-  },
-
-  render: function(){
-    $(this.el).html(this.template());
-    return this;
-  }
-});
-
-var RecordDateView = PageView.extend({
-  id: 'date',
-
-  initialize: function () {
-    this.template = _.template($('#date-page-template').html());
-  },
-
-  render: function(){
-    $(this.el).html(this.template());
-    return this;
   }
 });
 
 var AppRouter = Backbone.Router.extend({
-  routes: {
-    "": "welcome",
-    "list": "list",
-    "record": "record",
-    "location": "location",
-    "comment": "recordComment",
-    "number": "recordNumber",
-    "locationdetails": "recordLocationDetails",
-    "stage": "recordStage",
-    "date": "recordDate",
-    "species": "species"
-  },
-
   initialize: function () {
     this.firstPage = true;
     $(document).on( "pagecontainershow", _.bind(this.handlePageContainerShow, this));
   },
 
-  welcome: function(){
-    this.changePage(new WelcomeView());
-  },
+  routes: {
+    "": function(){
+      this.changePage(new PageView(
+        'welcome',
+        '#welcome-page-template'
+      ));
+    },
 
-  list: function(){
-    var pageAddedFirstTime = this.changePage(new ListView());
-    if (pageAddedFirstTime) {
-      app.controller.list.pagecreate();
+    "list": function(){
+      var pageAddedFirstTime = this.changePage(new PageView(
+        'list',
+        '#list-page-template'
+      ));
+
+      if (pageAddedFirstTime) {
+        app.controller.list.pagecreate();
+      }
+      app.controller.list.pagecontainershow();
+    },
+
+    "species": function(){
+      var pageAddedFirstTime = this.changePage(new PageView(
+        'species',
+        '#species-page-template'
+      ));
+
+      if (pageAddedFirstTime){
+        app.controller.species.pagecreate();
+      }
+      app.controller.species.pagecontainershow();
+    },
+
+    "record": function(){
+      var prevPageID = $.mobile.activePage.attr('id');
+      var pageAddedFirstTime = this.changePage(new PageView(
+        'record',
+        '#record-page-template'
+      ));
+
+      if (pageAddedFirstTime) {
+        app.controller.record.pagecreate();
+      }
+      app.controller.record.pagecontainershow(prevPageID);
+    },
+
+    "location": function(){
+      var prevPageID = $.mobile.activePage.attr('id');
+      var pageAddedFirstTime = this.changePage(new PageView(
+        'location',
+        '#location-page-template'
+      ));
+
+      if (pageAddedFirstTime) {
+        app.controller.location.pagecreate();
+      }
+      app.controller.location.pagecontainershow(prevPageID);
+    },
+
+    "comment": function(){
+      this.changePage(new PageView(
+        'recordcomment',
+        '#comment-page-template'
+      ));
+    },
+
+    "number": function(){
+      this.changePage(new PageView(
+        'number',
+        '#number-page-template'
+      ));
+    },
+
+    "locationdetails": function(){
+      this.changePage(new PageView(
+        'locationdetails',
+        '#locationdetails-page-template'
+      ));
+    },
+
+    "stage": function(){
+      this.changePage(new PageView(
+        'stage',
+        '#stage-page-template'
+      ));
+    },
+
+    "date": function(){
+      this.changePage(new PageView(
+        'date',
+        '#date-page-template'
+      ));
+    },
+
+    "mgmt": function(){
+      this.changePage(new PageView(
+        'mgmt',
+        '#mgmt-page-template'
+      ));
+    },
+
+    "mgmthotspot": function(){
+      this.changePage(new PageView(
+        'mgmthotspot',
+        '#mgmthotspot-page-template'
+      ));
+    },
+
+    "mgmtrequirements": function(){
+      this.changePage(new PageView(
+        'mgmtrequirements',
+        '#mgmtrequirements-page-template'
+      ));
+    },
+
+    "mgmtwhere": function(){
+      this.changePage(new PageView(
+        'mgmtwhere',
+        '#mgmtwhere-page-template'
+      ));
+    },
+
+    "mgmtschemes": function(){
+      this.changePage(new PageView(
+        'mgmtschemes',
+        '#mgmtschemes-page-template'
+      ));
     }
-    app.controller.list.pagecontainershow();
-  },
-
-  species: function(){
-    var pageAddedFirstTime = this.changePage(new SpeciesView());
-    if (pageAddedFirstTime){
-      app.controller.species.pagecreate();
-    }
-    app.controller.species.pagecontainershow();
-  },
-
-  record: function(){
-    var prevPageID = $.mobile.activePage.attr('id');
-    var pageAddedFirstTime = this.changePage(new RecordView());
-    if (pageAddedFirstTime) {
-      app.controller.record.pagecreate();
-    }
-    app.controller.record.pagecontainershow(prevPageID);
-  },
-
-  location: function(){
-    var prevPageID = $.mobile.activePage.attr('id');
-    var pageAddedFirstTime = this.changePage(new LocationView());
-    if (pageAddedFirstTime) {
-      app.controller.location.pagecreate();
-    }
-    app.controller.location.pagecontainershow(prevPageID);
-  },
-
-  recordNumber: function(){
-    var prevPageID = $.mobile.activePage.attr('id');
-    this.changePage(new RecordNumberView());
-  },
-
-  recordStage: function(){
-    var prevPageID = $.mobile.activePage.attr('id');
-    this.changePage(new RecordStageView());
-  },
-
-  recordLocationDetails: function(){
-    var prevPageID = $.mobile.activePage.attr('id');
-    this.changePage(new RecordLocationDetailsView());
-  },
-
-  recordComment: function(){
-    var prevPageID = $.mobile.activePage.attr('id');
-    this.changePage(new RecordCommentView());
-  },
-
-  recordDate: function(){
-    var prevPageID = $.mobile.activePage.attr('id');
-    this.changePage(new RecordDateView());
   },
 
   changePage:function (page) {

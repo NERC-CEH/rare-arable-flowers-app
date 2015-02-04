@@ -19,11 +19,118 @@
       #############-->
   <script type="text/template" id="welcome-page-template">
     <div data-role="content">
-      <center><h1>Rare Arable Plants</h1></center>
+      <center><h1>Rare Arable Flowers</h1></center>
       <br/>
-      <a href="#list" data-role="button">Plant Guide</a>
+      <ul data-role="listview" data-inset="true">
+        <li>
+          <a href="#mgmt" data-role="button" data-icon="arrow-r"
+             data-iconpos="right">Management</a>
+        </li>
+        <li>
+          <a href="#list" data-role="button"data-icon="arrow-r"
+             data-iconpos="right">Guide and Recording</a>
+        </li>
+      </ul>
       <br/>
       <center><h3>Logos go here</h3></center>
+    </div>
+  </script>
+
+
+  <!--#############
+      Management Page
+      #############-->
+  <script type="text/template" id="mgmt-page-template">
+    <div data-role="header" data-position="fixed" data-tap-toggle="false">
+      <div class='ui-btn-left' data-role='controlgroup' data-type='horizontal'>
+        <a href='#' data-rel='back' data-role="button" data-icon="arrow-l"
+           data-iconpos="notext">Back</a>
+      </div>
+      <h1>Management</h1>
+    </div>
+    <div data-role="content">
+      <ul data-role="listview" data-inset="true">
+        <li>
+          <a href="#mgmthotspot" data-role="button" data-icon="arrow-r"
+             data-iconpos="right">Arable Plant Hotspot</a>
+        </li>
+        <li>
+          <a href="#mgmtrequirements" data-role="button" data-icon="arrow-r"
+             data-iconpos="right">Management Requirements</a>
+        </li>
+        <li>
+          <a href="#mgmtwhere" data-role="button" data-icon="arrow-r"
+             data-iconpos="right">Where to site conservation margins</a>
+        </li>
+        <li>
+          <a href="#mgmtschemes" data-role="button" data-icon="arrow-r"
+             data-iconpos="right">Agri-environment schemes</a>
+        </li>
+      </ul>
+    </div>
+  </script>
+
+  <!-- Hotspot -->
+  <script type="text/template" id="mgmthotspot-page-template">
+    <div data-role="header" data-position="fixed" data-tap-toggle="false">
+      <div class='ui-btn-left' data-role='controlgroup' data-type='horizontal'>
+        <a href='#' data-rel='back' data-role="button" data-icon="arrow-l"
+           data-iconpos="notext">Back</a>
+      </div>
+      <h1>Hotspot</h1>
+    </div>
+    <div data-role="content">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed venenatis, mi non hendrerit vestibulum, eros ipsum pellentesque ex, non aliquam leo ex et mauris. Sed varius vel mi vel pellentesque. Donec et porttitor augue. Aliquam eget lectus ac nibh hendrerit ultrices viverra vitae erat. Proin in porta nisl. Nullam eget pulvinar quam. Vestibulum vitae volutpat libero. Phasellus risus lacus, ullamcorper in euismod quis, rutrum et leo. Phasellus ac lobortis purus, et gravida dolor. Curabitur finibus ullamcorper pellentesque. Pellentesque quis nulla facilisis, fermentum libero eget, ultrices orci.
+
+      Vivamus pulvinar ornare tortor at tincidunt. Ut ac tellus congue, pellentesque metus quis, varius odio. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Etiam ultricies, leo id rhoncus pharetra, ante urna rutrum diam, sit amet placerat purus mauris ac ex. Suspendisse bibendum gravida ipsum, quis convallis sapien rutrum eu. Aenean rhoncus lectus eleifend elit iaculis vulputate. Maecenas vitae ante eu ligula interdum sagittis id non tortor. Sed in hendrerit purus, ac varius est. Donec fringilla ligula vel mauris rutrum venenatis. Etiam semper fringilla tellus, vel hendrerit augue viverra a.
+    </div>
+  </script>
+
+  <!-- Mgmt Requirements -->
+  <script type="text/template" id="mgmtrequirements-page-template">
+    <div data-role="header" data-position="fixed" data-tap-toggle="false">
+      <div class='ui-btn-left' data-role='controlgroup' data-type='horizontal'>
+        <a href='#' data-rel='back' data-role="button" data-icon="arrow-l"
+           data-iconpos="notext">Back</a>
+      </div>
+      <h1>Management Requirements</h1>
+    </div>
+    <div data-role="content">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed venenatis, mi non hendrerit vestibulum, eros ipsum pellentesque ex, non aliquam leo ex et mauris. Sed varius vel mi vel pellentesque. Donec et porttitor augue. Aliquam eget lectus ac nibh hendrerit ultrices viverra vitae erat. Proin in porta nisl. Nullam eget pulvinar quam. Vestibulum vitae volutpat libero. Phasellus risus lacus, ullamcorper in euismod quis, rutrum et leo. Phasellus ac lobortis purus, et gravida dolor. Curabitur finibus ullamcorper pellentesque. Pellentesque quis nulla facilisis, fermentum libero eget, ultrices orci.
+
+      Vivamus pulvinar ornare tortor at tincidunt. Ut ac tellus congue, pellentesque metus quis, varius odio. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Etiam ultricies, leo id rhoncus pharetra, ante urna rutrum diam, sit amet placerat purus mauris ac ex. Suspendisse bibendum gravida ipsum, quis convallis sapien rutrum eu. Aenean rhoncus lectus eleifend elit iaculis vulputate. Maecenas vitae ante eu ligula interdum sagittis id non tortor. Sed in hendrerit purus, ac varius est. Donec fringilla ligula vel mauris rutrum venenatis. Etiam semper fringilla tellus, vel hendrerit augue viverra a.
+    </div>
+  </script>
+
+  <!-- Where to -->
+  <script type="text/template" id="mgmtwhere-page-template">
+    <div data-role="header" data-position="fixed" data-tap-toggle="false">
+      <div class='ui-btn-left' data-role='controlgroup' data-type='horizontal'>
+        <a href='#' data-rel='back' data-role="button" data-icon="arrow-l"
+           data-iconpos="notext">Back</a>
+      </div>
+      <h1>Where to Site</h1>
+    </div>
+    <div data-role="content">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed venenatis, mi non hendrerit vestibulum, eros ipsum pellentesque ex, non aliquam leo ex et mauris. Sed varius vel mi vel pellentesque. Donec et porttitor augue. Aliquam eget lectus ac nibh hendrerit ultrices viverra vitae erat. Proin in porta nisl. Nullam eget pulvinar quam. Vestibulum vitae volutpat libero. Phasellus risus lacus, ullamcorper in euismod quis, rutrum et leo. Phasellus ac lobortis purus, et gravida dolor. Curabitur finibus ullamcorper pellentesque. Pellentesque quis nulla facilisis, fermentum libero eget, ultrices orci.
+
+      Vivamus pulvinar ornare tortor at tincidunt. Ut ac tellus congue, pellentesque metus quis, varius odio. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Etiam ultricies, leo id rhoncus pharetra, ante urna rutrum diam, sit amet placerat purus mauris ac ex. Suspendisse bibendum gravida ipsum, quis convallis sapien rutrum eu. Aenean rhoncus lectus eleifend elit iaculis vulputate. Maecenas vitae ante eu ligula interdum sagittis id non tortor. Sed in hendrerit purus, ac varius est. Donec fringilla ligula vel mauris rutrum venenatis. Etiam semper fringilla tellus, vel hendrerit augue viverra a.
+    </div>
+  </script>
+
+  <!-- Schemes -->
+  <script type="text/template" id="mgmtschemes-page-template">
+    <div data-role="header" data-position="fixed" data-tap-toggle="false">
+      <div class='ui-btn-left' data-role='controlgroup' data-type='horizontal'>
+        <a href='#' data-rel='back' data-role="button" data-icon="arrow-l"
+           data-iconpos="notext">Back</a>
+      </div>
+      <h1>Schemes</h1>
+    </div>
+    <div data-role="content">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed venenatis, mi non hendrerit vestibulum, eros ipsum pellentesque ex, non aliquam leo ex et mauris. Sed varius vel mi vel pellentesque. Donec et porttitor augue. Aliquam eget lectus ac nibh hendrerit ultrices viverra vitae erat. Proin in porta nisl. Nullam eget pulvinar quam. Vestibulum vitae volutpat libero. Phasellus risus lacus, ullamcorper in euismod quis, rutrum et leo. Phasellus ac lobortis purus, et gravida dolor. Curabitur finibus ullamcorper pellentesque. Pellentesque quis nulla facilisis, fermentum libero eget, ultrices orci.
+
+      Vivamus pulvinar ornare tortor at tincidunt. Ut ac tellus congue, pellentesque metus quis, varius odio. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Etiam ultricies, leo id rhoncus pharetra, ante urna rutrum diam, sit amet placerat purus mauris ac ex. Suspendisse bibendum gravida ipsum, quis convallis sapien rutrum eu. Aenean rhoncus lectus eleifend elit iaculis vulputate. Maecenas vitae ante eu ligula interdum sagittis id non tortor. Sed in hendrerit purus, ac varius est. Donec fringilla ligula vel mauris rutrum venenatis. Etiam semper fringilla tellus, vel hendrerit augue viverra a.
     </div>
   </script>
 
@@ -212,16 +319,26 @@
                  value=""/>
         </div>
       </div>
-      <a href="#number" id="number-button" class="record-button"
-         data-role="button"
-         data-icon="arrow-r" data-iconpos="right"> Number </a>
-      <a href="#stage" id="stage-button" class="record-button" data-role="button"
-         data-icon="arrow-r" data-iconpos="right"> Life Stage </a>
-      <a href="#locationdetails" id="locationdetails-button" class="record-button" data-role="button"
-         data-icon="arrow-r" data-iconpos="right"> Location Details </a>
-      <a href="#comment" id="comment-button" class="record-button"
-         data-role="button"
-         data-icon="arrow-r" data-iconpos="right"> Comment </a>
+      <ul data-role="listview" data-inset="true">
+        <li>
+          <a href="#number" id="number-button" class="record-button"
+             data-role="button"
+             data-icon="arrow-r" data-iconpos="right"> Number </a>
+        </li>
+        <li>
+          <a href="#stage" id="stage-button" class="record-button" data-role="button"
+             data-icon="arrow-r" data-iconpos="right"> Life Stage </a>
+        </li>
+        <li>
+          <a href="#locationdetails" id="locationdetails-button" class="record-button" data-role="button"
+             data-icon="arrow-r" data-iconpos="right"> Location Details </a>
+        </li>
+        <li>
+          <a href="#comment" id="comment-button" class="record-button"
+             data-role="button"
+             data-icon="arrow-r" data-iconpos="right"> Comment </a>
+        </li>
+      </ul>
     </div>
     <div data-role="footer" data-position="fixed" data-tap-toggle="false">
       <div class='ui-btn-left' data-role='controlgroup' data-type='horizontal'>
@@ -328,7 +445,7 @@
         <input type="radio" name="location-details" id="radio-choice-headland">
         <label for="radio-choice-headland">Conservation headland</label>
         <input type="radio" name="location-details" id="radio-choice-game">
-        <label for="radio-choice-game">Wil bird seed / Game cover</label>
+        <label for="radio-choice-game">Wild bird seed / Game cover</label>
         <input type="radio" name="location-details" id="radio-choice-wildflower">
         <label for="radio-choice-wildflower">Wildflower / Clover rich margin</label>
         <input type="radio" name="location-details" id="radio-choice-corner">
@@ -554,6 +671,7 @@
     </div>
     <input type="button" id="gps-improve-button" value="Improve">
   </script>
+
 </head>
 <body>
 
