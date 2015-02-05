@@ -425,6 +425,13 @@ var AppRouter = Backbone.Router.extend({
       ));
     },
 
+    "welcome": function(){
+      this.changePage(new PageView(
+        'welcome',
+        '#welcome-page-template'
+      ));
+    },
+
     "list": function(){
       var pageAddedFirstTime = this.changePage(new PageView(
         'list',
