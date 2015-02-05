@@ -76,15 +76,12 @@ app.controller = app.controller || {};
     },
 
     printUserControls: function () {
-      var template_src = $('#user-template').html();
       var placeholder = $('#user-placeholder');
-
-      var template = _.template(template_src);
 
       var user = {
         'loggedout': !app.controller.login.getLoginState()
       };
-      placeholder.html(template({'user': user}));
+      placeholder.html(app.templates.user_profile({'user': user}));
       placeholder.trigger('create');
     },
 
@@ -116,12 +113,9 @@ app.controller = app.controller || {};
           records.push(record);
         }
 
-        var template_src = $('#saved-list-template').html();
         var placeholder = $('#saved-list-placeholder');
 
-        var template = _.template(template_src);
-
-        placeholder.html(template({'records': records}));
+        placeholder.html(app.templates.saved_records({'records': records}));
         placeholder.trigger('create');
       }
 

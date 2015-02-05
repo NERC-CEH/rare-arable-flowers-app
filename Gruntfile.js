@@ -26,7 +26,7 @@ module.exports = function (grunt) {
       main: {
         files: [
           // includes files within path
-          {src: ['src/pages/index.html'], dest: 'dist/index.html'},
+          {src: ['src/index.html'], dest: 'dist/index.html'},
           {src: ['src/css/app.css'], dest: 'dist/css/app.css'},
           {src: ['src/scripts/libs/jquery-mobile/jquery.mobile-1.4.5.css'], dest: 'dist/css/jquery.mobile-1.4.5.css'},
           {src: ['src/scripts/libs/photoswipe/photoswipe.css'], dest: 'dist/css/photoswipe.css'},
@@ -37,6 +37,23 @@ module.exports = function (grunt) {
           {src: ['src/data/flight.json'], dest: 'dist/data/flight.json'},
           {src: ['src/images/1.jpg'], dest: 'dist/images/1.jpg'}
         ]
+      }
+    },
+    jst: {
+      compile: {
+        options: {
+          namespace: 'app.templates',
+          prettify: true,
+          templateSettings: {
+            interpolate : /\{\{(.+?)\}\}/g
+          },
+          processName: function(filepath) {
+            return filepath.split('/')[2].split('.')[0];
+          }
+        },
+        files: {
+          "dist/scripts/templates.js": ["src/templates/*.tpl"]
+        }
       }
     },
     concat: {
@@ -50,7 +67,7 @@ module.exports = function (grunt) {
         },
         // the files to concatenate
         src: [
-          'src/scripts/app/controllers/*.js',
+          'src/scripts/app/controller/*.js',
           'src/scripts/app/app.js',
           'src/scripts/conf.js'
         ],
@@ -120,9 +137,10 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-text-replace');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-contrib-jst');
 
   // the default task can be run just by typing "grunt" on the command line
   grunt.registerTask('init', ['bower']);
-  grunt.registerTask('build', ['copy', 'concat', 'replace', 'uglify']);
+  grunt.registerTask('build', ['copy', 'jst', 'concat', 'replace', 'uglify']);
   grunt.registerTask('default', ['init', 'build']);
 };

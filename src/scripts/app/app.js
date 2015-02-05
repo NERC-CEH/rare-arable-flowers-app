@@ -393,10 +393,10 @@ var PageView = Backbone.View.extend({
   tagName: 'div',
   role: "page",
 
-  initialize : function(id, templateID) {
+  initialize : function(id) {
     this.el.id =  id;
     this.id = id;
-    this.template = _.template($(templateID).html())
+    this.template = app.templates[id];
   },
 
   render: function () {
@@ -419,24 +419,15 @@ var AppRouter = Backbone.Router.extend({
 
   routes: {
     "": function(){
-      this.changePage(new PageView(
-        'welcome',
-        '#welcome-page-template'
-      ));
+      this.changePage(new PageView('welcome'));
     },
 
     "welcome": function(){
-      this.changePage(new PageView(
-        'welcome',
-        '#welcome-page-template'
-      ));
+      this.changePage(new PageView('welcome'));
     },
 
     "list": function(){
-      var pageAddedFirstTime = this.changePage(new PageView(
-        'list',
-        '#list-page-template'
-      ));
+      var pageAddedFirstTime = this.changePage(new PageView('list'));
 
       if (pageAddedFirstTime) {
         app.controller.list.pagecreate();
@@ -445,10 +436,7 @@ var AppRouter = Backbone.Router.extend({
     },
 
     "species": function(){
-      var pageAddedFirstTime = this.changePage(new PageView(
-        'species',
-        '#species-page-template'
-      ));
+      var pageAddedFirstTime = this.changePage(new PageView('species'));
 
       if (pageAddedFirstTime){
         app.controller.species.pagecreate();
@@ -458,10 +446,7 @@ var AppRouter = Backbone.Router.extend({
 
     "record": function(){
       var prevPageID = $.mobile.activePage.attr('id');
-      var pageAddedFirstTime = this.changePage(new PageView(
-        'record',
-        '#record-page-template'
-      ));
+      var pageAddedFirstTime = this.changePage(new PageView('record'));
 
       if (pageAddedFirstTime) {
         app.controller.record.pagecreate();
@@ -471,10 +456,7 @@ var AppRouter = Backbone.Router.extend({
 
     "location": function(){
       var prevPageID = $.mobile.activePage.attr('id');
-      var pageAddedFirstTime = this.changePage(new PageView(
-        'location',
-        '#location-page-template'
-      ));
+      var pageAddedFirstTime = this.changePage(new PageView('location'));
 
       if (pageAddedFirstTime) {
         app.controller.location.pagecreate();
@@ -483,73 +465,43 @@ var AppRouter = Backbone.Router.extend({
     },
 
     "comment": function(){
-      this.changePage(new PageView(
-        'recordcomment',
-        '#comment-page-template'
-      ));
+      this.changePage(new PageView('comment'));
     },
 
     "number": function(){
-      this.changePage(new PageView(
-        'number',
-        '#number-page-template'
-      ));
+      this.changePage(new PageView('number'));
     },
 
     "locationdetails": function(){
-      this.changePage(new PageView(
-        'locationdetails',
-        '#locationdetails-page-template'
-      ));
+      this.changePage(new PageView('locationdetails'));
     },
 
     "stage": function(){
-      this.changePage(new PageView(
-        'stage',
-        '#stage-page-template'
-      ));
+      this.changePage(new PageView('stage'));
     },
 
     "date": function(){
-      this.changePage(new PageView(
-        'date',
-        '#date-page-template'
-      ));
+      this.changePage(new PageView('date'));
     },
 
     "mgmt": function(){
-      this.changePage(new PageView(
-        'mgmt',
-        '#mgmt-page-template'
-      ));
+      this.changePage(new PageView('mgmt'));
     },
 
     "mgmthotspot": function(){
-      this.changePage(new PageView(
-        'mgmthotspot',
-        '#mgmthotspot-page-template'
-      ));
+      this.changePage(new PageView('mgmthotspot'));
     },
 
     "mgmtrequirements": function(){
-      this.changePage(new PageView(
-        'mgmtrequirements',
-        '#mgmtrequirements-page-template'
-      ));
+      this.changePage(new PageView('mgmtrequirements'));
     },
 
     "mgmtwhere": function(){
-      this.changePage(new PageView(
-        'mgmtwhere',
-        '#mgmtwhere-page-template'
-      ));
+      this.changePage(new PageView('mgmtwhere'));
     },
 
     "mgmtschemes": function(){
-      this.changePage(new PageView(
-        'mgmtschemes',
-        '#mgmtschemes-page-template'
-      ));
+      this.changePage(new PageView('mgmtschemes'));
     }
   },
 

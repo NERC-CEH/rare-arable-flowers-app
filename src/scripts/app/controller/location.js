@@ -112,7 +112,7 @@ app.controller = app.controller || {};
     },
 
     renderGPStab: function (state, location) {
-      var template_src = null;
+      var template = null;
       var placeholder = $('#location-gps-placeholder');
       var gref = "";
       var data = {};
@@ -126,13 +126,13 @@ app.controller = app.controller || {};
             location = currentLocation;
           }
 
-          template_src = $('#location-gps').html();
+          template = app.templates.location_gps;
           break;
         case 'running':
-          template_src = $('#location-gps-running').html();
+          template = app.templates.location_gps_running;
           break;
         case 'finished':
-          template_src = $('#location-gps-finished').html();
+          template = app.templates.location_gps_finished;
           break;
         default:
           _log('location: unknown render gps tab.');
@@ -146,7 +146,6 @@ app.controller = app.controller || {};
         data.location = location;
       }
 
-      var template = _.template(template_src);
       placeholder.html(template(data));
       placeholder.trigger('create');
 

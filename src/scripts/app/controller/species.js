@@ -27,10 +27,7 @@ app.controller = app.controller || {};
      * @param species
      */
     renderSpecies: function (species) {
-      var template_src = $('#species-template').html();
       var placeholder = $('#species-placeholder');
-
-      var template = _.template(template_src);
 
       //check for the favourite
       var favourites = app.controller.list.getFavourites();
@@ -41,7 +38,7 @@ app.controller = app.controller || {};
         $favButton.removeClass("on");
       }
 
-      placeholder.html(template(species));
+      placeholder.html(app.templates.species_profile(species));
       placeholder.trigger('create');
 
       //add Gallery

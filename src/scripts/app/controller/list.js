@@ -209,12 +209,10 @@ app.controller = app.controller || {};
         }
       }
 
-      var template_src = $('#list-template').html();
       var placeholder = $('#list-placeholder');
 
-      var template = _.template(template_src);
 
-      placeholder.html(template({'species': s}));
+      placeholder.html(app.templates.species_list({'species': s}));
       placeholder.trigger('create');
 
       /*
@@ -248,12 +246,9 @@ app.controller = app.controller || {};
         }
       }
 
-      var template_src = $('#list-controls-sort-template').html();
       var placeholder = $('#list-controls-sort-placeholder');
 
-      var template = _.template(template_src);
-
-      placeholder.html(template(this.sorts));
+      placeholder.html(app.templates.list_control_sort(this.sorts));
       placeholder.trigger('create');
     },
 
@@ -278,12 +273,9 @@ app.controller = app.controller || {};
         }
       }
 
-      var template_src = $('#list-controls-filter-template').html();
       var placeholder = $('#list-controls-filter-placeholder');
 
-      var template = _.template(template_src);
-
-      placeholder.html(template(filtersToRender));
+      placeholder.html(app.templates.list_controls_filter(filtersToRender));
       placeholder.trigger('create');
     },
 
