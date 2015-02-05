@@ -72,7 +72,7 @@ module.exports = function (grunt) {
           'src/scripts/libs/photoswipe/code.photoswipe.jquery-3.0.5.min.js',
           'src/scripts/libs/fastclick/fastclick.js',
           'src/scripts/libs/morel/morel.js',
-          'src/scripts/libs/underscore/underscore.js',
+          'src/scripts/libs/lodash/lodash.js',
           'src/scripts/libs/backbone/backbone.js'
         ],
         // the location of the resulting JS file
