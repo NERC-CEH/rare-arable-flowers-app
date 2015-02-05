@@ -50,9 +50,9 @@ module.exports = function (grunt) {
         },
         // the files to concatenate
         src: [
-          'src/scripts/app/*.js',
-          'src/conf.js',
-          'src/scripts/app.js'
+          'src/scripts/app/controllers/*.js',
+          'src/scripts/app/app.js',
+          'src/scripts/conf.js'
         ],
         // the location of the resulting JS file
         dest: DEST + APP_NAME
