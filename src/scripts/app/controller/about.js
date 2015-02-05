@@ -5,12 +5,12 @@ app.controller = app.controller || {};
   app.controller.about = {
 
     pagecontainershow: function () {
-      var template = $('#app-version-template').html();
+      var template_src = $('#app-version-template').html();
       var placeholder = $('#app-version-placeholder');
 
-      var compiled_template = Handlebars.compile(template);
+      var template = _.template(template_src);
 
-      placeholder.html(compiled_template({'version': morel.CONF.VERSION}));
+      placeholder.html(template({'version': morel.CONF.VERSION}));
       placeholder.trigger('create');
     }
 
