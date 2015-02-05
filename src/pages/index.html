@@ -184,49 +184,49 @@
     </div>
   </script>
 
-  <script id="list-controls-sort-template" type="text/x-handlebars-template">
+  <script id="list-controls-sort-template" type="text/template">
     <div class="ui-field-contain list-controls">
       <fieldset data-role="controlgroup">
-        {{#each this}}
-        <input name="sort" type="radio" id="{{id}}" class="sort" {{checked}}
+        <% #each this %>
+        <input name="sort" type="radio" id="<% id %>" class="sort" <% checked %>
                data-iconpos="right">
-        <label for="{{id}}" class="sort">{{label}}</label>
-        {{/each}}
+        <label for="<% id %>" class="sort"><% label %></label>
+        <% /each %>
       </fieldset>
     </div>
   </script>
 
-  <script id="list-template" type="text/x-handlebars-template">
+  <script id="list-template" type="text/template">
     <ul data-role="listview" data-split-icon="gear" data-split-theme="d">
-      {{#each species}}
-      <li data-corners="false" data-shadow="false" data-iconshadow="true"
-          data-wrapperels="div" data-icon="arrow-r" data-iconpos="right"
-          data-theme="c">
-        <a href="#species"
-           onclick="app.controller.list.setCurrentSpecies('{{id}}')"
-           class="{{favourite}}">
-          <img src="{{profile_pic}}"/>
+      <% _.each(species, function( specie ){ %>
+        <li data-corners="false" data-shadow="false" data-iconshadow="true"
+            data-wrapperels="div" data-icon="arrow-r" data-iconpos="right"
+            data-theme="c">
+          <a href="#species"
+             onclick="app.controller.list.setCurrentSpecies('<%- specie.id %>')"
+             class="<%- specie.favourite %>">
+            <img src="<%- specie.profile_pic %>"/>
 
-          <p class="species-list-common-name">{{common_name}}</p>
+            <p class="species-list-common-name"><%- specie.common_name %></p>
 
-          <p>{{taxon}}</p>
-        </a>
-        <a href="#record" class="ios-enhanced"
-           onclick="app.controller.list.setCurrentSpecies('{{id}}')"
-           data-icon="plus">Record</a>
-      </li>
-      {{/each}}
+            <p><%- specie.taxon %></p>
+          </a>
+          <a href="#record" class="ios-enhanced"
+             onclick="app.controller.list.setCurrentSpecies('<%- specie.id %>')"
+             data-icon="plus">Record</a>
+        </li>
+      <% }); %>
     </ul>
   </script>
 
-  <script id="list-controls-filter-template" type="text/x-handlebars-template">
+  <script id="list-controls-filter-template" type="text/template">
     <div class="ui-field-contain list-controls">
       <fieldset data-role="controlgroup">
-        {{#each this}}
-        <input type="checkbox" id="{{id}}" class="filter" {{checked}}
+        <% _.each(this, function( input ){ %>
+        <input type="checkbox" id="<%- input.id %>" class="filter" <%- input.checked %>
                data-iconpos="right">
-        <label for="{{id}}" class="filter">{{label}}</label>
-        {{/each}}
+        <label for="<%- input.id %>" class="filter"><%- input.label %></label>
+        <% }); %>
       </fieldset>
     </div>
   </script>
@@ -251,32 +251,33 @@
 
     </div>
   </script>
-  <script id="species-template" type="text/x-handlebars-template">
+  
+  <script id="species-template" type="text/template">
     <center>
       <div class="gallery" id="species_gallery">
-        <a href="{{profile_pic}}">
-          <img src="{{profile_pic}}">
+        <a href="<%- profile_pic %>">
+          <img src="<%- profile_pic %>">
         </a>
       </div>
 
-      {{#if map}}
+      <% if ( typeof map !== 'undefined'  ){ %>
       <button id="species-map-button">Show Distribution</button>
 
       <svg id="species-map" preserveAspectRatio="none" style="display:none"
            xmlns="http://www.w3.org/2000/svg"
            xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
-        <use id="species-map-data" xlink:href="{{map}}#data"/>
+        <use id="species-map-data" xlink:href="<%- map %>#data"/>
         <use id="species-map-boundary"
-             xlink:href="{{national_boundary}}#boundary"/>
+             xlink:href="<%- national_boundary %>#boundary"/>
       </svg>
-      {{/if}}
+      <% } %>
 
       <ul data-role="listview" data-inset="true" style="max-width:800px;">
         <li>
-          <div class="taxon">{{taxon}}</div>
+          <div class="taxon"><%- taxon %></div>
         </li>
         <li>
-          <p>{{{description}}}</p>
+          <p><%- description %></p>
         </li>
       </ul>
     </center>
@@ -574,21 +575,21 @@
     </div>
   </script>
 
-  <script id="user-template" type="text/x-handlebars-template">
-    {{#if user.loggedout}}
+  <script id="user-template" type="text/template">
+    <% if (user.loggedout) { %>
     <div class="warning-message">Looks like you have not Signed in yet. Please
       do so, as otherwise all the records will be submitted anonymously.
       <a href='login' data-role="button" data-icon="arrow-r" data-iconpos="user">Log
         in</a>
     </div>
-    {{else}}
+    <% } else { %>
     <a href='#' id="logout-button" data-role="button" data-icon="user"
        data-theme="b" onclick="app.controller.login.logout()">Log out</a>
-    {{/if}}
+    <% } %>
   </script>
 
-  <script id="saved-list-template" type="text/x-handlebars-template">
-    {{#if records.length}}
+  <script id="saved-list-template" type="text/template">
+    <% if (records.length) { %>
     <div class="info-message">Saved recordings.</div>
 
     <ul data-role="listview" id="saved-list" data-split-icon="gear"
@@ -601,25 +602,25 @@
           <center>Send All</center>
         </a>
       </li>
-      {{#each records}}
+      <% _.each (records, function (record) { %>
       <li data-corners="false" data-shadow="false" data-iconshadow="true"
           data-wrapperels="div" data-icon="arrow-r" data-iconpos="right">
-        <a href="#" onclick="app.controller.user.sendSavedRecord({{id}})">
+        <a href="#" onclick="app.controller.user.sendSavedRecord(<%- record.id %>)">
           <!--<img src="" />-->
-          <h3>{{common_name}}</h3>
+          <h3><%- record.common_name %></h3>
 
-          <p>{{date}}</p>
+          <p><%- record.date %></p>
         </a>
         <a href="#" data-icon="delete" data-ajax="false"
-           onclick="app.controller.user.deleteSavedRecord({{id}})">Send</a>
+           onclick="app.controller.user.deleteSavedRecord(<%- record.id %>)">Send</a>
       </li>
-      {{/each}}
+      <% }); %>
     </ul>
-    {{else}}
+    <% } else { %>
     <div class="info-message">No saved recordings.</div>
-    {{/if}}
+    <% } %>
   </script>
-  <script id="location-gps" type="text/x-handlebars-template">
+  <script id="location-gps" type="text/template">
     <div class="info-message">
       <p>We will try to determine your location
         using the inbuilt phone GPS.</p>
@@ -628,44 +629,44 @@
         geolocation on and are well away from large objects.<br/> e.g. <i>trees,
           buildings </i></p>
     </div>
-    {{#if location}}
+    <% if (location) { %>
     <div class="success-message">
-      <p> Grid Ref: {{location.gref}} <br/><br/>
-        Lat: {{location.lat}} <br/>
-        Lon: {{location.lon}} <br/><br/>
-        Accuracy: {{location.acc}} meters
+      <p> Grid Ref: <%- location.gref %> <br/><br/>
+        Lat: <%- location.lat %> <br/>
+        Lon: <%- location.lon %> <br/><br/>
+        Accuracy: <%- location.acc %> meters
       </p>
     </div>
     <input type="button" id="gps-improve-button" value="Improve">
-    {{else}}
+    <% } else { %>
     <input type="button" id="gps-start-button" value="Locate">
-    {{/if}}
+    <% } %>
   </script>
-  <script id="location-gps-running" type="text/x-handlebars-template">
+  <script id="location-gps-running" type="text/template">
     <div class="info-message">
       <p>We are trying to get your location. This might take a
         few minutes...</p>
     </div>
-    {{#if location}}
+    <% if (location) { %>
     <div class="success-message">
-      <p> Grid Ref: {{location.gref}} <br/><br/>
-        Lat: {{location.lat}} <br/>
-        Lon: {{location.lon}} <br/><br/>
-        Accuracy: {{location.acc}} meters
+      <p> Grid Ref: <%- location.gref %> <br/><br/>
+        Lat: <%- location.lat %> <br/>
+        Lon: <%- location.lon %> <br/><br/>
+        Accuracy: <%- location.acc %> meters
       </p>
     </div>
-    {{/if}}
+    <% } %>
 
     <input type="button" id="gps-stop-button" value="Stop">
   </script>
-  <script id="location-gps-finished" type="text/x-handlebars-template">
+  <script id="location-gps-finished" type="text/template">
     <div class="success-message">
       <p>Success!</p>
 
-      <p> Grid Ref: {{location.gref}} <br/><br/>
-        Lat: {{location.lat}} <br/>
-        Lon: {{location.lon}} <br/><br/>
-        Accuracy: {{location.acc}} meters
+      <p> Grid Ref: <%- location.gref %> <br/><br/>
+        Lat: <%- location.lat %> <br/>
+        Lon: <%- location.lon %> <br/><br/>
+        Accuracy: <%- location.acc %> meters
       </p>
     </div>
     <input type="button" id="gps-improve-button" value="Improve">

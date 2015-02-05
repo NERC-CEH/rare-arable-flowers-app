@@ -209,12 +209,12 @@ app.controller = app.controller || {};
         }
       }
 
-      var template = $('#list-template').html();
+      var template_src = $('#list-template').html();
       var placeholder = $('#list-placeholder');
 
-      var compiled_template = Handlebars.compile(template);
+      var template = _.template(template_src);
 
-      placeholder.html(compiled_template({'species': s}));
+      placeholder.html(template({'species': s}));
       placeholder.trigger('create');
 
       /*
@@ -248,12 +248,12 @@ app.controller = app.controller || {};
         }
       }
 
-      var template = $('#list-controls-sort-template').html();
+      var template_src = $('#list-controls-sort-template').html();
       var placeholder = $('#list-controls-sort-placeholder');
 
-      var compiled_template = Handlebars.compile(template);
+      var template = _.template(template_src);
 
-      placeholder.html(compiled_template(this.sorts));
+      placeholder.html(template(this.sorts));
       placeholder.trigger('create');
     },
 
@@ -278,12 +278,12 @@ app.controller = app.controller || {};
         }
       }
 
-      var template = $('#list-controls-filter-template').html();
+      var template_src = $('#list-controls-filter-template').html();
       var placeholder = $('#list-controls-filter-placeholder');
 
-      var compiled_template = Handlebars.compile(template);
+      var template = _.template(template_src);
 
-      placeholder.html(compiled_template(filtersToRender));
+      placeholder.html(template(filtersToRender));
       placeholder.trigger('create');
     },
 

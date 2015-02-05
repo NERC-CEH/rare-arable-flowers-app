@@ -27,10 +27,10 @@ app.controller = app.controller || {};
      * @param species
      */
     renderSpecies: function (species) {
-      var template = $('#species-template').html();
+      var template_src = $('#species-template').html();
       var placeholder = $('#species-placeholder');
 
-      var compiled_template = Handlebars.compile(template);
+      var template = _.template(template_src);
 
       //check for the favourite
       var favourites = app.controller.list.getFavourites();
@@ -41,7 +41,7 @@ app.controller = app.controller || {};
         $favButton.removeClass("on");
       }
 
-      placeholder.html(compiled_template(species));
+      placeholder.html(template(species));
       placeholder.trigger('create');
 
       //add Gallery
