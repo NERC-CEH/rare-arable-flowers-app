@@ -35,9 +35,35 @@ function _log(message, level) {
   }
 }
 
+ function prepareData() {
+  //load species data
+  if (!morel.storage.is('species')) {
+    $.ajax({
+      url: app.CONF.SPECIES_DATA_SRC,
+      dataType: 'json',
+      async: false,
+      success: function (json) {
+        app.data = app.data || {};
+        app.data.species = json;
+
+        //saves for quicker loading
+        morel.storage.set('species', json);
+
+        //todo: what if data comes first before show
+        app.controller.list.renderList();
+      }
+    });
+  } else {
+    app.data = app.data || {};
+    app.data.species = morel.storage.get('species');
+  }
+}
+
 $(document).ready(function(){
   _log('document ready!');
-  app = app || {};
+
+  prepareData();
+
   app.router = new AppRouter();
   Backbone.history.start();
 
@@ -46,6 +72,4 @@ $(document).ready(function(){
   fixIOSbuttons();
   FastClick.attach(document.body);
   extendDisableTabFunctionality();
-
-
 });
