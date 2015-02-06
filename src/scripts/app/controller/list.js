@@ -66,30 +66,7 @@ app.controller = app.controller || {};
      */
     init: function () {
       _log('list: init.');
-
-      //load species data
-      if (!morel.storage.is('species')) {
-        $.ajax({
-          url: this.CONF.SPECIES_DATA_SRC,
-          dataType: 'json',
-          async: false,
-          success: function (json) {
-            app.data = app.data || {};
-            app.data.species = json;
-
-            //saves for quicker loading
-            morel.storage.set('species', json);
-
-            //todo: what if data comes first before show
-            app.controller.list.renderList();
-
-          }
-        });
-      } else {
-        app.data = app.data || {};
-        app.data.species = morel.storage.get('species');
-        app.controller.list.renderList();
-      }
+      app.controller.list.renderList();
 
       this.prob.loadData();
 
@@ -99,6 +76,14 @@ app.controller = app.controller || {};
       $('#fav-button').on('click', this.filterFavourites);
 
       // this.printSpeciesData();
+    },
+
+    /**
+     *
+     */
+    show: function () {
+      _log('list: show.');
+      //this.makeListControls();
     },
 
     printSpeciesData: function () {
@@ -131,14 +116,6 @@ app.controller = app.controller || {};
         _log(app.data.species[i].map.replace(url, ''));
 
       }
-    },
-
-    /**
-     *
-     */
-    show: function () {
-      _log('list: show.');
-      this.makeListControls();
     },
 
     /**
@@ -331,32 +308,6 @@ app.controller = app.controller || {};
 
     setSpecies: function (species) {
       return morel.settings('listSpecies', species);
-    },
-
-    /**
-     * Uses session storage;
-     * @returns {*|{}}
-     */
-    CURRENT_SPECIES_KEY: 'currentSpecies',
-    getCurrentSpecies: function () {
-      return morel.storage.tmpGet(this.CURRENT_SPECIES_KEY);
-    },
-
-    /**
-     *
-     * @param id
-     * @returns {*}
-     */
-    setCurrentSpecies: function (id) {
-      var species = {};
-
-      for (var i = 0; i < app.data.species.length; i++) {
-        if (app.data.species[i].id === id) {
-          species = app.data.species[i];
-          break;
-        }
-      }
-      return morel.storage.tmpSet(this.CURRENT_SPECIES_KEY, species);
     },
 
     /**

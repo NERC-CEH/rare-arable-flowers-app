@@ -17,57 +17,67 @@ app.controller = app.controller || {};
       });
     },
 
-    show: function (prevPageId) {
+    show: function (prevPageId, speciesID) {
       _log('record: show.');
       switch (prevPageId) {
         case 'list':
-          this.clear();
-          //start geolocation
-        function onGeolocSuccess(location) {
-          app.controller.record.saveLocation(location);
-          app.controller.location.set(location.lat, location.lon, location.acc);
-          app.controller.record.gpsButtonState('done');
-        }
-
-        function onError(err) {
-          $.mobile.loading('show', {
-            text: "Sorry! " + err.message + '.',
-            theme: "b",
-            textVisible: true,
-            textonly: true
-          });
-          setTimeout(function () {
-            $.mobile.loading('hide');
-          }, 5000);
-
-          //modify the UI
-          app.controller.record.gpsButtonState('none');
-        }
-
-          morel.geoloc.run(null, onGeolocSuccess);
-          this.gpsButtonState('running');
-
+          this.initRecording(speciesID);
           break;
-        default:
+        case 'location':
           //update GPS button color
           if (morel.record.inputs.is('sample:entered_sref')) {
             this.gpsButtonState('done');
           } else {
             this.gpsButtonState('none');
           }
+          break;
+        default:
+          _log('record: coming from unknown page.', app.LOG_WARNING);
+          this.initRecording(speciesID);
       }
+    },
+
+    /**
+     * Initialises the recording form: sets empty image, clears geolocation etc.
+     */
+    initRecording: function (speciesID) {
+      this.clear(speciesID);
+      //start geolocation
+      function onGeolocSuccess(location) {
+        app.controller.record.saveLocation(location);
+        app.controller.location.set(location.lat, location.lon, location.acc);
+        app.controller.record.gpsButtonState('done');
+      }
+
+      function onError(err) {
+        $.mobile.loading('show', {
+          text: "Sorry! " + err.message + '.',
+          theme: "b",
+          textVisible: true,
+          textonly: true
+        });
+        setTimeout(function () {
+          $.mobile.loading('hide');
+        }, 5000);
+
+        //modify the UI
+        app.controller.record.gpsButtonState('none');
+      }
+
+      morel.geoloc.run(null, onGeolocSuccess);
+      this.gpsButtonState('running');
     },
 
     /**
      * Clears the recording page from existing inputs.
      */
-    clear: function () {
+    clear: function (speciesID) {
       _log('record: clearing recording page.');
       this.setImage('input[type="file"]');
 
-      morel.record.clear();
+      morel.record.clear(speciesID);
 
-      this.saveSpecies();
+      this.saveSpecies(speciesID);
       this.saveDate();
     },
 
@@ -272,8 +282,8 @@ app.controller = app.controller || {};
     /**
      * Saves the selected species into current record.
      */
-    saveSpecies: function () {
-      var specie = app.controller.list.getCurrentSpecies();
+    saveSpecies: function (speciesID) {
+      var specie = _(app.data.species).find({id:speciesID});
       if (specie && specie.warehouse_id && specie.warehouse_id) {
         var name = 'occurrence:taxa_taxon_list_id';
         var value = specie.warehouse_id;

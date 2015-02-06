@@ -10,10 +10,10 @@ app.controller = app.controller || {};
       $favButton.on('click', app.controller.species.toggleSpeciesFavourite);
     },
 
-    show: function (event, ui) {
+    show: function (speciesID) {
       _log('species: show.');
 
-      var species = app.controller.list.getCurrentSpecies();
+      var species = _(app.data.species).find({id:speciesID});
 
       var heading = $('#species_heading');
       heading.text(species.common_name);
