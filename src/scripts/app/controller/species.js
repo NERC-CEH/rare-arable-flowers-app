@@ -3,15 +3,15 @@ app.controller = app.controller || {};
 
 (function ($) {
   app.controller.species = {
-    pagecreate: function () {
-      _log('species: pagecreate.');
+    init: function () {
+      _log('species: init.');
 
       var $favButton = $("#species-profile-fav-button");
       $favButton.on('click', app.controller.species.toggleSpeciesFavourite);
     },
 
-    pagecontainershow: function (event, ui) {
-      _log('species: pagecontainershow.');
+    show: function (event, ui) {
+      _log('species: show.');
 
       var species = app.controller.list.getCurrentSpecies();
 

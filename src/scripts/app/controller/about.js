@@ -4,7 +4,7 @@ app.controller = app.controller || {};
 (function ($) {
   app.controller.about = {
 
-    pagecontainershow: function () {
+    show: function () {
       var template_src = $('#app-version-template').html();
       var placeholder = $('#app-version-placeholder');
 

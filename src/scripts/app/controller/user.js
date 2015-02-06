@@ -3,7 +3,7 @@ app.controller = app.controller || {};
 
 (function ($) {
   app.controller.user = {
-    pagecontainershow: function () {
+    show: function () {
       this.printUserControls();
       this.printList();
     },

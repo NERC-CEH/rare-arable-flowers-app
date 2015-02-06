@@ -5,8 +5,8 @@ app.controller = app.controller || {};
   app.controller.location = {
     saveData: false,
 
-    pagecreate: function () {
-      _log('location: pagecreate.');
+    init: function () {
+      _log('location: init.');
 
       if (typeof google === 'undefined') {
         $('#location-opts').disableTab(1);
@@ -23,7 +23,7 @@ app.controller = app.controller || {};
       }
     },
 
-    pagecontainershow: function (e, data) {
+    show: function (e, data) {
       app.controller.location.renderGPStab('init');
       this.saveData = false; //reset
     },

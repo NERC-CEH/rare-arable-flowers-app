@@ -64,8 +64,8 @@ app.controller = app.controller || {};
     /**
      *
      */
-    pagecreate: function () {
-      _log('list: pagecreate.');
+    init: function () {
+      _log('list: init.');
 
       //load species data
       if (!morel.storage.is('species')) {
@@ -80,7 +80,7 @@ app.controller = app.controller || {};
             //saves for quicker loading
             morel.storage.set('species', json);
 
-            //todo: what if data comes first before pagecontainershow
+            //todo: what if data comes first before show
             app.controller.list.renderList();
 
           }
@@ -136,9 +136,9 @@ app.controller = app.controller || {};
     /**
      *
      */
-    pagecontainershow: function () {
-      _log('list: pagecontainershow.');
-      //this.makeListControls();
+    show: function () {
+      _log('list: show.');
+      this.makeListControls();
     },
 
     /**
@@ -248,7 +248,7 @@ app.controller = app.controller || {};
 
       var placeholder = $('#list-controls-sort-placeholder');
 
-      placeholder.html(app.templates.list_control_sort(this.sorts));
+      placeholder.html(app.templates.list_controls_sort(this.sorts));
       placeholder.trigger('create');
     },
 

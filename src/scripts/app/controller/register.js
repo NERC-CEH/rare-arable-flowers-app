@@ -9,7 +9,7 @@ app.controller = app.controller || {};
       TIMEOUT: 20000
     },
 
-    pagecontainershow: function () {
+    show: function () {
       //enable 'Create account' button on Terms agreement
       $('#terms-agreement').click(function () {
         var button = $('#register-button');

@@ -6,8 +6,8 @@ app.controller = app.controller || {};
     /**
      * Setting up a recording page.
      */
-    pagecreate: function () {
-      _log('record: pagecreate.');
+    init: function () {
+      _log('record: init.');
 
       //set button event handlers
       var ele = document.getElementById('occAttr:223');
@@ -17,8 +17,8 @@ app.controller = app.controller || {};
       });
     },
 
-    pagecontainershow: function (prevPageId) {
-      _log('record: pagecontainershow.');
+    show: function (prevPageId) {
+      _log('record: show.');
       switch (prevPageId) {
         case 'list':
           this.clear();

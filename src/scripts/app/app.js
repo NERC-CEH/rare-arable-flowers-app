@@ -414,7 +414,7 @@ var PageView = Backbone.View.extend({
 var AppRouter = Backbone.Router.extend({
   initialize: function () {
     this.firstPage = true;
-    $(document).on( "pagecontainershow", _.bind(this.handlePageContainerShow, this));
+    $(document).on( "show", _.bind(this.handleshow, this));
   },
 
   routes: {
@@ -430,18 +430,18 @@ var AppRouter = Backbone.Router.extend({
       var pageAddedFirstTime = this.changePage(new PageView('list'));
 
       if (pageAddedFirstTime) {
-        app.controller.list.pagecreate();
+        app.controller.list.init();
       }
-      app.controller.list.pagecontainershow();
+      app.controller.list.show();
     },
 
     "species": function(){
       var pageAddedFirstTime = this.changePage(new PageView('species'));
 
       if (pageAddedFirstTime){
-        app.controller.species.pagecreate();
+        app.controller.species.init();
       }
-      app.controller.species.pagecontainershow();
+      app.controller.species.show();
     },
 
     "record": function(){
@@ -449,9 +449,9 @@ var AppRouter = Backbone.Router.extend({
       var pageAddedFirstTime = this.changePage(new PageView('record'));
 
       if (pageAddedFirstTime) {
-        app.controller.record.pagecreate();
+        app.controller.record.init();
       }
-      app.controller.record.pagecontainershow(prevPageID);
+      app.controller.record.show(prevPageID);
     },
 
     "location": function(){
@@ -459,9 +459,9 @@ var AppRouter = Backbone.Router.extend({
       var pageAddedFirstTime = this.changePage(new PageView('location'));
 
       if (pageAddedFirstTime) {
-        app.controller.location.pagecreate();
+        app.controller.location.init();
       }
-      app.controller.location.pagecontainershow(prevPageID);
+      app.controller.location.show(prevPageID);
     },
 
     "comment": function(){
@@ -532,7 +532,7 @@ var AppRouter = Backbone.Router.extend({
     return pageAddedFirstTime;
   },
 
-  handlePageContainerShow: function (event, ui) {
+  handleshow: function (event, ui) {
     // Figure out what page we are showing and call 'PageView.show' on it
     // TODO: JQM 1.4.3 has ui.toPage, which would be preferred to getActivePage
     var activePage = $( ":mobile-pagecontainer" ).pagecontainer( "getActivePage" );
