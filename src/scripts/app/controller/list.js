@@ -338,41 +338,6 @@ app.controller = app.controller || {};
       return null;
     },
 
-    /**
-     *
-     * @param filter
-     */
-    setFilter: function (filter) {
-      var filters = this.getCurrentFilters();
-
-      for (var i = 0; i < filters.length; i++) {
-        if (filters[i].id === filter.id) {
-          this.removeFilter(filter);
-          return;
-        }
-      }
-      filters.push(filter);
-      morel.settings(this.FILTERS_KEY, filters);
-    },
-
-    /**
-     *
-     * @param filter
-     */
-    removeFilter: function (filter) {
-      var filters = this.getCurrentFilters();
-      var index = -1;
-      for (var i = 0; i < filters.length; i++) {
-        if (filters[i].id === filter.id) {
-          index = i;
-        }
-      }
-
-      if (index !== -1) {
-        filters.splice(index, 1);
-        morel.settings(this.FILTERS_KEY, filters);
-      }
-    },
 
     /**
      *

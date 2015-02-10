@@ -5,10 +5,9 @@
         </div>
         <h1 id='species_heading'></h1>
 
-        <div class="ui-btn-right" data-role="controlgroup" data-type="horizontal">
-            <a href="#species" id="species-profile-fav-button"
-               data-icon="star" data-iconpos="notext" data-role="button">Gallery</a>
-        </div>
+       <div class='ui-btn-right' data-role='controlgroup' data-type='horizontal'>
+           <button id="species-profile-fav-button" data-icon="star">Fav</button>
+       </div>
     </div>
 
     <div data-role="content">

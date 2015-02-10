@@ -3,12 +3,7 @@ app.controller = app.controller || {};
 
 (function ($) {
   app.controller.species = {
-    init: function () {
-      _log('species: init.');
 
-      var $favButton = $("#species-profile-fav-button");
-      $favButton.on('click', app.controller.species.toggleSpeciesFavourite);
-    },
 
     show: function (speciesID) {
       _log('species: show.');
@@ -59,18 +54,7 @@ app.controller = app.controller || {};
         .attr('y', -margin);
     },
 
-    /**
-     * Toggles the current species as favourite by saving it into the
-     * storage and changing the buttons appearance.
-     */
-    toggleSpeciesFavourite: function () {
-      var $favButton = $("#species-profile-fav-button");
-      $favButton.toggleClass("on");
 
-      var species = app.controller.list.getCurrentSpecies();
-      app.controller.list.changeFavourite(species.id, $favButton.hasClass('on'));
-      app.controller.list.renderList();
-    },
 
     /**
      *

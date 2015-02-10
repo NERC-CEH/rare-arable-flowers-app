@@ -26,12 +26,12 @@
       },
 
       "species/:id": function (id) {
-        var pageAddedFirstTime = this.changePage(new app.views.Page('species'));
+        var pageAddedFirstTime = this.changePage(new app.views.SpeciesPage(id));
 
         if (pageAddedFirstTime) {
-          app.controller.species.init();
+        //  app.controller.species.init();
         }
-        app.controller.species.show(id);
+      //  app.controller.species.show(id);
       },
 
       "record/:id": function (id) {

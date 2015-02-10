@@ -1,4 +1,4 @@
-<a href="#species/<%- id %>" >
+<a href="#species/<%- id %>" class="<%- favourite %>">
     <img src="<%- profile_pic %>"/>
     <p class="species-list-common-name"><%- common_name %></p>
     <p><%- taxon %></p>

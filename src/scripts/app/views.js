@@ -34,7 +34,7 @@ app.views = app.views || {};
     events: {
       'click #list-controls-save-button': 'toggleListControls',
       'click #list-controls-button': 'toggleListControls',
-      'click #fav-button': 'filterFavourites'
+      'click #fav-button': 'toggleListFavourites'
     },
 
     initialize: function () {
@@ -51,8 +51,9 @@ app.views = app.views || {};
       return this;
     },
 
-    filterFavourites: function () {
-
+    toggleListFavourites: function () {
+      var userConfig = app.models.user.get('config');
+      userConfig.toggleSpeciesFilter('favourites');
     },
 
     filter: function () {
@@ -65,15 +66,14 @@ app.views = app.views || {};
     /**
      * Shows/closes list controlls.
      */
-    toggleListControls: function () {
-      var controls = $('#list-controls-placeholder');
-      if (controls.is(":hidden")) {
-        controls.slideDown("slow");
+    toggleListControls: function (e) {
+      var $controls = $('#list-controls-placeholder');
+      if ($controls.is(":hidden")) {
+        $controls.slideDown("slow");
       } else {
-        controls.slideUp("slow");
+        $controls.slideUp("slow");
       }
     }
-
   });
 
   app.views.List = Backbone.View.extend({
@@ -117,5 +117,43 @@ app.views = app.views || {};
       return this;
     }
 
+  });
+
+  app.views.SpeciesPage = app.views.Page.extend({
+    id: 'species',
+
+    template: app.templates.species,
+
+    events: {
+      'click #species-profile-fav-button': 'toggleSpeciesFavourite'
+    },
+
+    initialize: function (speciesID) {
+      this.speciesID = speciesID;
+    },
+
+    render: function () {
+      var species = app.collections.species.find({id: this.speciesID});
+
+      var heading = $('#species_heading');
+      heading.text(species.attributes.common_name);
+
+      this.$el.html(this.template(species.attributes));
+
+      return this;
+    },
+
+    /**
+     * Toggles the current species as favourite by saving it into the
+     * storage and changing the buttons appearance.
+     */
+    toggleSpeciesFavourite: function (e) {
+      var $favButton = $(e.target);
+      $favButton.toggleClass("on");
+
+      var species = app.collections.species.find({id:speciesID});
+      var favourite = species.get('favourite');
+      species.set('favourite', !favourite);
+    }
   });
 })();
