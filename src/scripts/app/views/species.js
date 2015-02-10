@@ -1,10 +1,63 @@
 var app = app || {};
-app.controller = app.controller || {};
+app.views = app.views || {};
 
-(function ($) {
+(function () {
+  'use strict';
+
+  app.views.SpeciesPage = app.views.Page.extend({
+    id: 'species',
+
+    template: app.templates.species,
+
+    events: {
+      'click #species-profile-fav-button': 'toggleSpeciesFavourite'
+    },
+
+    initialize: function (speciesID) {
+      this.speciesID = speciesID;
+    },
+
+    render: function () {
+      var species = app.collections.species.find({id: this.speciesID});
+
+      var heading = $('#species_heading');
+      heading.text(species.attributes.common_name);
+
+      this.$el.html(this.template());
+
+      //append the profile
+      var $profile = this.$el.find('#species-profile-placeholder');
+      var profileView = new SpeciesProfile({model: species});
+      $profile.html(profileView.render().el);
+
+      return this;
+    },
+
+    /**
+     * Toggles the current species as favourite by saving it into the
+     * storage and changing the buttons appearance.
+     */
+    toggleSpeciesFavourite: function (e) {
+      var $favButton = $(e.target);
+      $favButton.toggleClass("on");
+
+      var species = app.collections.species.find({id:speciesID});
+      var favourite = species.get('favourite');
+      species.set('favourite', !favourite);
+    }
+  });
+
+  var SpeciesProfile = Backbone.View.extend({
+    template: app.templates.species_profile,
+
+    render: function () {
+      this.$el.html(this.template(this.model.attributes));
+      return this;
+    }
+  });
+
+  app.controller = app.controller || {};
   app.controller.species = {
-
-
     show: function (speciesID) {
       _log('species: show.');
 
@@ -83,5 +136,5 @@ app.controller = app.controller || {};
       }
     }
   };
-}(jQuery));
+})();
 
