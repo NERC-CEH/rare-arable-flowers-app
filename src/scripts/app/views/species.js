@@ -18,12 +18,12 @@ app.views = app.views || {};
     },
 
     render: function () {
+      this.$el.html(this.template());
+
       var species = app.collections.species.find({id: this.speciesID});
 
       var heading = $('#species_heading');
       heading.text(species.attributes.common_name);
-
-      this.$el.html(this.template());
 
       //append the profile
       var $profile = this.$el.find('#species-profile-placeholder');
