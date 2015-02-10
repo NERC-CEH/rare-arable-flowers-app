@@ -283,16 +283,14 @@ app.controller = app.controller || {};
      * Saves the selected species into current record.
      */
     saveSpecies: function (speciesID) {
-      var specie = _(app.data.species).find({id:speciesID});
-      if (specie && specie.warehouse_id && specie.warehouse_id) {
+      var specie = app.collections.species.find({id:speciesID});
+      if (specie.attributes.warehouse_id && specie.attributes.warehouse_id) {
         var name = 'occurrence:taxa_taxon_list_id';
-        var value = specie.warehouse_id;
+        var value = specie.attributes.warehouse_id;
         morel.record.inputs.set(name, value);
 
         //add header to the page
-        $('#record_heading').text(specie.common_name);
-      } else {
-        _log('record: ERROR no species was found. Nothing attached to the recording.');
+        $('#record_heading').text(specie.attributes.common_name);
       }
     },
 

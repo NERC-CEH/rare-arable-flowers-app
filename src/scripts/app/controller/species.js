@@ -13,12 +13,12 @@ app.controller = app.controller || {};
     show: function (speciesID) {
       _log('species: show.');
 
-      var species = _(app.data.species).find({id:speciesID});
+      var species = app.collections.species.find({id:speciesID});
 
       var heading = $('#species_heading');
-      heading.text(species.common_name);
+      heading.text(species.attributes.common_name);
 
-      this.renderSpecies(species);
+      this.renderSpecies(species.attributes);
     },
 
 

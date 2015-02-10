@@ -66,8 +66,6 @@ app.controller = app.controller || {};
       $('#list-controls-button').on('click', this.toggleListControls);
 
       $('#fav-button').on('click', this.filterFavourites);
-
-      // this.printSpeciesData();
     },
 
     /**
@@ -76,22 +74,6 @@ app.controller = app.controller || {};
     show: function () {
       _log('list: show.');
       //this.makeListControls();
-    },
-
-    printSpeciesData: function () {
-      /**
-       * Prints species data for probability table mapping
-       */
-      console.log('list: Printing Species data.');
-
-      var text = '';
-      for (var i = 0; i < app.data.species.length; i++) {
-        text += "\n" + app.data.species[i].taxon + ', ' + app.data.species[i].id + ', ' + app.data.species[i].common_name + ', ' + app.data.species[i].warehouse_id;
-      }
-      console.log(app.data.species.length);
-      console.log(app.data.species);
-
-      console.log(text);
     },
 
     printAppcacheData: function () {
@@ -179,7 +161,6 @@ app.controller = app.controller || {};
       }
 
       var placeholder = $('#list-placeholder');
-
 
       placeholder.html(app.templates.species_list({'species': s}));
       placeholder.trigger('create');

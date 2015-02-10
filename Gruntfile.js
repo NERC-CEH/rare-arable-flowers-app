@@ -35,7 +35,7 @@ module.exports = function (grunt) {
           {src: ['src/data/species.json'], dest: 'dist/data/species.json'},
           {src: ['src/data/abundance.json'], dest: 'dist/data/abundance.json'},
           {src: ['src/data/flight.json'], dest: 'dist/data/flight.json'},
-          {src: ['src/images/1.jpg'], dest: 'dist/images/1.jpg'}
+          {src: ['src/images/sample.jpg'], dest: 'dist/images/sample.jpg'}
         ]
       }
     },
@@ -70,6 +70,8 @@ module.exports = function (grunt) {
           'src/scripts/conf.js',
           'src/scripts/app/controller/*.js',
           'src/scripts/app/helpers.js',
+          'src/scripts/app/models.js',
+          'src/scripts/app/collections.js',
           'src/scripts/app/views.js',
           'src/scripts/app/routes.js',
           'src/scripts/app/app.js'

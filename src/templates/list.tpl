@@ -40,6 +40,4 @@
             </div>
         </div>
     </div>
-    <div data-role="content">
-        <div id="list-placeholder"></div>
-    </div>
+    <div data-role="content" id="list-placeholder"></div>

@@ -54,8 +54,11 @@ function _log(message, level) {
       }
     });
   } else {
-    app.data = app.data || {};
-    app.data.species = morel.storage.get('species');
+   // app.data = app.data || {};
+  //  app.data.species = morel.storage.get('species');
+
+    //create global species collection
+    app.collections.species = new app.collections.Species(morel.storage.get('species'));
   }
 }
 
@@ -64,7 +67,7 @@ $(document).ready(function(){
 
   prepareData();
 
-  app.router = new AppRouter();
+  app.router = new app.Router();
   Backbone.history.start();
 
   checkForUpdates();
