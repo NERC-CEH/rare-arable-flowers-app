@@ -10,7 +10,4 @@
        </div>
     </div>
 
-    <div data-role="content">
-        <div id="species-placeholder"></div>
-
-    </div>
+    <div data-role="content" id="species-profile-placeholder"></div>

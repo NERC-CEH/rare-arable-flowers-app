@@ -89,7 +89,7 @@ app.views = app.views || {};
 
     render: function () {
       this.collection.each(function (specie) {
-        var listSpeciesView = new app.views.ListSpecies({model: specie.attributes});
+        var listSpeciesView = new ListSpecies({model: specie.attributes});
         this.$el.append(listSpeciesView.render().el);
       }, this);
 
@@ -97,7 +97,7 @@ app.views = app.views || {};
     }
   });
 
-  app.views.ListSpecies = Backbone.View.extend({
+  var ListSpecies = Backbone.View.extend({
     tagName: "li",
 
     attributes: {
@@ -138,7 +138,12 @@ app.views = app.views || {};
       var heading = $('#species_heading');
       heading.text(species.attributes.common_name);
 
-      this.$el.html(this.template(species.attributes));
+      this.$el.html(this.template());
+
+      //append the profile
+      var $profile = this.$el.find('#species-profile-placeholder');
+      var profileView = new SpeciesProfile({model: species});
+      $profile.html(profileView.render().el);
 
       return this;
     },
@@ -154,6 +159,15 @@ app.views = app.views || {};
       var species = app.collections.species.find({id:speciesID});
       var favourite = species.get('favourite');
       species.set('favourite', !favourite);
+    }
+  });
+
+  var SpeciesProfile = Backbone.View.extend({
+    template: app.templates.species_profile,
+
+    render: function () {
+      this.$el.html(this.template(this.model.attributes));
+      return this;
     }
   });
 })();
