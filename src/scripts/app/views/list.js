@@ -66,11 +66,12 @@ app.views = app.views || {};
     },
 
     render: function () {
+      var container = document.createDocumentFragment(); //optimising the performance
       this.collection.each(function (specie) {
         var listSpeciesView = new ListSpecies({model: specie.attributes});
-        this.$el.append(listSpeciesView.render().el);
-      }, this);
-
+        container.appendChild(listSpeciesView.render().el);
+      });
+      this.$el.append(container); //appends to DOM only once
       return this;
     }
   });
