@@ -6,15 +6,15 @@ import json
 import copy
 
 if len(sys.argv) == 1 :
-    print 'You need to provide a file to parse from'
+    print ('You need to provide a file to parse from')
     sys.exit()
 if len(sys.argv) == 2 :
-    print 'You need to provide a file to write to'
+    print ('You need to provide a file to write to')
     sys.exit()
 
-csv_file = open(sys.argv[1], 'rb')
+csv_file = open(sys.argv[1], 'rt')
 reader = csv.reader(csv_file)
-json_file = open(sys.argv[2], 'wb')
+json_file = open(sys.argv[2], 'wt')
 
 data = []
 row_data = {}
