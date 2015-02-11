@@ -11,6 +11,7 @@ app.views = app.views || {};
 
     initialize: function () {
       this.render();
+      this.appendBackButtonListeners();
     },
 
     render: function () {

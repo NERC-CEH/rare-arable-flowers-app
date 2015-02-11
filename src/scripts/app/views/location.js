@@ -16,6 +16,7 @@ app.views = app.views || {};
 
     initialize: function () {
       this.render();
+      this.appendBackButtonListeners();
 
       app.models.user.bind('change', this.saveLocation);
 

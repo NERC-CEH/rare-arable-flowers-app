@@ -17,7 +17,7 @@ app.views = app.views || {};
 
     initialize: function () {
       this.render();
-      //this.prob.loadData();
+      this.appendBackButtonListeners();
     },
 
     render: function () {
@@ -29,6 +29,7 @@ app.views = app.views || {};
       this.$list.html(list.render().el);
 
       $('body').append($(this.el));
+
       return this;
     },
 

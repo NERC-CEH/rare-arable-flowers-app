@@ -17,13 +17,7 @@ app.views = app.views || {};
 
       $('body').append($(this.el));
 
-      $('a[data-role="button"]').on('click', function (event) {
-        var $this = $(this);
-        if ($this.attr('data-rel') === 'back') {
-          window.history.back();
-          return false;
-        }
-      });
+      this.appendBackButtonListeners();
     },
 
     render: function () {
@@ -35,6 +29,16 @@ app.views = app.views || {};
       return {
         "data-role": this.role
       };
+    },
+
+    appendBackButtonListeners: function () {
+      $('a[data-role="button"]').on('click', function (event) {
+        var $this = $(this);
+        if ($this.attr('data-rel') === 'back') {
+          window.history.back();
+          return false;
+        }
+      });
     }
   });
 })();
