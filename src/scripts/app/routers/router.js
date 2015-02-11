@@ -9,107 +9,98 @@
 
     routes: {
       "": function () {
-        this.changePage(new app.views.Page('welcome'));
+        this.navigateToStandardPage('welcome');
       },
 
       "welcome": function () {
-        this.changePage(new app.views.Page('welcome'));
+        this.navigateToStandardPage('welcome');
       },
 
       "list": function () {
-        var pageAddedFirstTime = this.changePage(new app.views.ListPage());
-
-        if (pageAddedFirstTime) {
-
+        if (!app.views.listPage){
+          app.views.listPage = new app.views.ListPage();
         }
-        // app.controller.list.show();
+        this.changePage(app.views.listPage);
       },
 
       "species/:id": function (id) {
-        var pageAddedFirstTime = this.changePage(new app.views.SpeciesPage(id));
-
-        if (pageAddedFirstTime) {
-        //  app.controller.species.init();
+        if (!app.views.speciesPage){
+          app.views.speciesPage = new app.views.SpeciesPage();
         }
-      //  app.controller.species.show(id);
+        this.changePage(app.views.speciesPage);
+
+        app.views.speciesPage.update(id);
       },
 
       "record/:id": function (id) {
-        var prevPageID = $.mobile.activePage ? $.mobile.activePage.attr('id') : '';
-        var pageAddedFirstTime = this.changePage(new app.views.Page('record'));
-
-        if (pageAddedFirstTime) {
-          app.controller.record.init();
+        if (!app.views.recordPage){
+          app.views.recordPage = new app.views.RecordPage();
         }
-        app.controller.record.show(prevPageID, id);
+        this.changePage(app.views.recordPage);
+
+        var prevPageID = $.mobile.activePage ? $.mobile.activePage.attr('id') : '';
+        app.views.recordPage.update(prevPageID, id);
       },
 
       "location": function () {
-        var prevPageID = $.mobile.activePage.attr('id');
-        var pageAddedFirstTime = this.changePage(new app.views.Page('location'));
-
-        if (pageAddedFirstTime) {
-          app.controller.location.init();
+        if (!app.views.locationPage){
+          app.views.locationPage = new app.views.LocationPage();
         }
-        app.controller.location.show(prevPageID);
+        this.changePage(app.views.locationPage);
+
+        var prevPageID = $.mobile.activePage ? $.mobile.activePage.attr('id') : '';
+        app.views.locationPage.update(prevPageID);
       },
 
       "comment": function () {
-        this.changePage(new app.views.Page('comment'));
+        this.navigateToStandardPage('comment');
       },
 
       "number": function () {
-        this.changePage(new app.views.Page('number'));
+        this.navigateToStandardPage('number');
       },
 
       "locationdetails": function () {
-        this.changePage(new app.views.Page('locationdetails'));
+        this.navigateToStandardPage('locationdetails');
       },
 
       "stage": function () {
-        this.changePage(new app.views.Page('stage'));
+        this.navigateToStandardPage('stage');
       },
 
       "date": function () {
-        this.changePage(new app.views.Page('date'));
+        this.navigateToStandardPage('date');
       },
 
       "mgmt": function () {
-        this.changePage(new app.views.Page('mgmt'));
+        this.navigateToStandardPage('mgmt');
       },
 
       "mgmthotspot": function () {
-        this.changePage(new app.views.Page('mgmthotspot'));
+        this.navigateToStandardPage('mgmthotspot');
       },
 
       "mgmtrequirements": function () {
-        this.changePage(new app.views.Page('mgmtrequirements'));
+        this.navigateToStandardPage('mgmtrequirements');
       },
 
       "mgmtwhere": function () {
-        this.changePage(new app.views.Page('mgmtwhere'));
+        this.navigateToStandardPage('mgmtwhere');
       },
 
       "mgmtschemes": function () {
-        this.changePage(new app.views.Page('mgmtschemes'));
+        this.navigateToStandardPage('mgmtschemes');
       }
     },
 
-    changePage: function (page) {
-      // Render and add page to DOM once
-      var pageAddedFirstTime = $('#' + page.id).length === 0;
-      if (pageAddedFirstTime) {
-        page.render();
-        $('body').append($(page.el));
-
-        $('a[data-role="button"]').on('click', function (event) {
-          var $this = $(this);
-          if ($this.attr('data-rel') === 'back') {
-            window.history.back();
-            return false;
-          }
-        });
+    navigateToStandardPage: function (pageID) {
+      if (!app.views[pageID + 'Page']){
+        app.views[pageID + 'Page'] = new app.views.Page(pageID);
       }
+      this.changePage(app.views[pageID + 'Page']);
+    },
+
+    changePage: function (page) {
       if (this.firstPage) {
         // We turned off $.mobile.autoInitializePage, but now that we've
         // added our first page to the DOM, we can now call initializePage.
@@ -118,8 +109,6 @@
       }
       $(":mobile-pagecontainer").pagecontainer("change", '#' + page.id,
         {changeHash: false});
-
-      return pageAddedFirstTime;
     },
 
     handleshow: function (event, ui) {

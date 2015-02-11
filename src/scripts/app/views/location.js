@@ -1,13 +1,16 @@
 var app = app || {};
-app.controller = app.controller || {};
+app.views = app.views || {};
 
-(function ($) {
-  app.controller.location = {
-    saveData: false,
+(function () {
+  'use strict';
 
-    init: function () {
-      _log('location: init.');
+  app.views.LocationPage = app.views.Page.extend({
+    id: 'location',
 
+    template: app.templates.location,
+
+    initialize: function () {
+      this.render();
       if (typeof google === 'undefined') {
         $('#location-opts').disableTab(1);
 
@@ -16,17 +19,26 @@ app.controller = app.controller || {};
          dummyText controls the caching of the file - always get fresh
          */
         var dummyText = '&' + (new Date()).getTime();
-        app.controller.location.loadScript('http://maps.googleapis.com/maps/api/js?sensor=false&' +
-          'callback=app.controller.location.initializeMap' +
+        this.loadScript('http://maps.googleapis.com/maps/api/js?sensor=false&' +
+          'callback=app.views.locationPage.initializeMap' +
           dummyText
         );
       }
     },
 
-    show: function (e, data) {
-      app.controller.location.renderGPStab('init');
+    render: function () {
+      this.$el.html(this.template());
+
+      $('body').append($(this.el));
+      return this;
+    },
+
+    update: function (prevPageId, speciesID) {
+      app.views.locationPage.renderGPStab('init');
       this.saveData = false; //reset
     },
+
+    saveData: false,
 
     /**
      * TODO: OBSOLETE
@@ -36,17 +48,17 @@ app.controller = app.controller || {};
     pagecontainerbeforechange: function (e, data) {
       _log('location: pagecontainerbeforechange.');
       if (typeof data.toPage === 'object' && data.toPage[0]) {
-        nextPage = data.toPage[0].id;
+        var nextPage = data.toPage[0].id;
 
         if (this.saveData && this.accuracy !== -1) {
           var location = this.saveLocation();
           //Save button
           switch (nextPage) {
             case 'record':
-              app.controller.record.saveLocation(location);
+              app.views.recordPage.saveLocation(location);
               break;
             case 'list':
-              app.controller.list.prob.runFilter();
+              app.views.listPage.prob.runFilter();
               break;
             default:
               _log('location: ERROR changing to unknown page.');
@@ -58,7 +70,7 @@ app.controller = app.controller || {};
               //the filter needs to be removed if canceled
               // at the location stage
               var filter = {'id': 'probability'};
-              app.controller.list.removeFilter(filter);
+              app.views.listPage.removeFilter(filter);
               break;
             default:
               _log('location: ERROR changing to unknown page.');
@@ -119,7 +131,7 @@ app.controller = app.controller || {};
 
       switch (state) {
         case 'init':
-          var currentLocation = app.controller.location.get();
+          var currentLocation = app.views.locationPage.get();
           if (currentLocation.acc === -1) {
             currentLocation = null;
           } else {
@@ -150,9 +162,9 @@ app.controller = app.controller || {};
       placeholder.trigger('create');
 
       //attach event listeners
-      $('#gps-start-button').on('click', app.controller.location.startGeoloc);
-      $('#gps-stop-button').on('click', app.controller.location.stopGeoloc);
-      $('#gps-improve-button').on('click', app.controller.location.startGeoloc);
+      $('#gps-start-button').on('click', app.views.locationPage.startGeoloc);
+      $('#gps-stop-button').on('click', app.views.locationPage.stopGeoloc);
+      $('#gps-improve-button').on('click', app.views.locationPage.startGeoloc);
 
     },
 
@@ -164,23 +176,23 @@ app.controller = app.controller || {};
 
       function onUpdate(location) {
         //if improved update current location
-        var currentLocation = app.controller.location.get();
+        var currentLocation = app.views.locationPage.get();
         if (currentLocation.acc === -1 || location.acc <= currentLocation.acc) {
           currentLocation = location;
-          app.controller.location.set(location.lat, location.lon, location.acc);
+          app.views.locationPage.set(location.lat, location.lon, location.acc);
         } else {
           location = currentLocation;
         }
 
         //modify the UI
-        app.controller.location.renderGPStab('running', location);
+        app.views.locationPage.renderGPStab('running', location);
       }
 
       function onSuccess(location) {
         $.mobile.loading('hide');
 
-        app.controller.location.set(location.lat, location.lon, location.acc);
-        app.controller.location.renderGPStab('finished', location);
+        app.views.locationPage.set(location.lat, location.lon, location.acc);
+        app.views.locationPage.renderGPStab('finished', location);
       }
 
       function onError(err) {
@@ -196,20 +208,20 @@ app.controller = app.controller || {};
 
         //modify the UI
 
-        app.controller.location.renderGPStab('init');
+        app.views.locationPage.renderGPStab('init');
       }
 
       //start geoloc
       morel.geoloc.run(onUpdate, onSuccess, onError);
 
       var location = null;
-      var currentLocation = app.controller.location.get();
+      var currentLocation = app.views.locationPage.get();
       if (currentLocation.acc !== -1) {
         location = currentLocation;
       }
 
       //modify the UI
-      app.controller.location.renderGPStab('running', location);
+      app.views.locationPage.renderGPStab('running', location);
     },
 
     /**
@@ -222,7 +234,7 @@ app.controller = app.controller || {};
       morel.geoloc.stop();
 
       //modify the UI
-      app.controller.location.renderGPStab('init');
+      app.views.locationPage.renderGPStab('init');
     },
 
     /**
@@ -308,7 +320,7 @@ app.controller = app.controller || {};
       this.map = new google.maps.Map(mapCanvas, mapOptions);
       var marker = new google.maps.Marker({
         position: new google.maps.LatLng(-25.363, 131.044),
-        map: app.controller.location.map,
+        map: app.views.locationPage.map,
         icon: 'http://maps.google.com/mapfiles/marker_green.png',
         draggable: true
       });
@@ -338,8 +350,8 @@ app.controller = app.controller || {};
       //Set map centre
       if (this.latitude && this.longitude) {
         var latLong = new google.maps.LatLng(this.latitude, this.longitude);
-        app.controller.location.map.setCenter(latLong);
-        app.controller.location.map.setZoom(15);
+        app.views.locationPage.map.setCenter(latLong);
+        app.views.locationPage.map.setZoom(15);
       } else if (navigator.geolocation) {
         //Geolocation
         var options = {
@@ -351,8 +363,8 @@ app.controller = app.controller || {};
         navigator.geolocation.getCurrentPosition(function (position) {
           var latLng = new google.maps.LatLng(position.coords.latitude,
             position.coords.longitude);
-          app.controller.location.map.setCenter(latLng);
-          app.controller.location.map.setZoom(15);
+          app.views.locationPage.map.setCenter(latLng);
+          app.views.locationPage.map.setZoom(15);
         }, null, options);
       }
 
@@ -366,7 +378,7 @@ app.controller = app.controller || {};
           'lat': mapLatLng.lat(),
           'lon': mapLatLng.lng()
         };
-        app.controller.location.set(location.lat, location.lon, 1);
+        app.views.locationPage.set(location.lat, location.lon, 1);
 
         updateMapInfoMessage('#map-message', location);
       }
@@ -393,13 +405,13 @@ app.controller = app.controller || {};
       $(tabs).on("tabsactivate.googleMap", function (event, ui) {
           //check if this is a map tab
           if (ui.newPanel.selector === mapTab) {
-            google.maps.event.trigger(app.controller.location.map, 'resize');
-            if (app.controller.location.latitude !== null && app.controller.location.longitude !== null) {
-              var latLong = new google.maps.LatLng(app.controller.location.latitude,
-                app.controller.location.longitude);
+            google.maps.event.trigger(app.views.locationPage.map, 'resize');
+            if (app.views.locationPage.latitude !== null && app.views.locationPage.longitude !== null) {
+              var latLong = new google.maps.LatLng(app.views.locationPage.latitude,
+                app.views.locationPage.longitude);
 
-              app.controller.location.map.setCenter(latLong);
-              app.controller.location.map.setZoom(15);
+              app.views.locationPage.map.setCenter(latLong);
+              app.views.locationPage.map.setZoom(15);
             }
             $(tabs).off("tabsactivate.googleMap");
           }
@@ -434,9 +446,6 @@ app.controller = app.controller || {};
       script.src = src;
       document.body.appendChild(script);
     }
-  };
 
-
-
-
-}(jQuery));
+  });
+})();

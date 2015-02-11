@@ -16,6 +16,7 @@ app.views = app.views || {};
     },
 
     initialize: function () {
+      this.render();
       //this.prob.loadData();
     },
 
@@ -26,6 +27,8 @@ app.views = app.views || {};
       var list = new app.views.List({collection: app.collections.species});
 
       this.$list.html(list.render().el);
+
+      $('body').append($(this.el));
       return this;
     },
 
@@ -51,54 +54,8 @@ app.views = app.views || {};
       } else {
         $controls.slideUp("slow");
       }
-    }
-  });
-
-  app.views.List = Backbone.View.extend({
-    tagName: 'ul',
-
-    attributes: {
-      'data-role': 'listview'
     },
 
-    initialize: function () {
-      // this.listenTo(this.model, 'change', this.render);
-    },
-
-    render: function () {
-      var container = document.createDocumentFragment(); //optimising the performance
-      this.collection.each(function (specie) {
-        var listSpeciesView = new ListSpecies({model: specie.attributes});
-        container.appendChild(listSpeciesView.render().el);
-      });
-      this.$el.append(container); //appends to DOM only once
-      return this;
-    }
-  });
-
-  var ListSpecies = Backbone.View.extend({
-    tagName: "li",
-
-    attributes: {
-      "data-corners": false,
-      "data-shadow": false,
-      "data-iconshadow": true,
-      "data-wrapperels": "div",
-      "data-icon": "arrow-r",
-      "data-iconpos": "right",
-      "data-theme": "c"
-    },
-
-    template: app.templates.species_list_item,
-
-    render: function () {
-      this.$el.html(this.template(this.model));
-      return this;
-    }
-  });
-
-  app.controller = app.controller || {};
-  app.controller.list = {
     DEFAULT_SORT: 'taxonomic',
     FILTERS_KEY: 'listFilters',
     SORT_KEY: 'listSort',
@@ -152,45 +109,6 @@ app.views = app.views || {};
     /**
      *
      */
-    init: function () {
-      _log('list: init.');
-      app.controller.list.renderList();
-
-      this.prob.loadData();
-
-      $('#list-controls-save-button').on('click', this.toggleListControls);
-      $('#list-controls-button').on('click', this.toggleListControls);
-
-      $('#fav-button').on('click', this.filterFavourites);
-    },
-
-    /**
-     *
-     */
-    show: function () {
-      _log('list: show.');
-      //this.makeListControls();
-    },
-
-    printAppcacheData: function () {
-      var url = 'http://192.171.199.230';
-      //print pictures & maps
-      for (var i = 0, length = app.data.species; i < length; i++) {
-        //pics
-        _log(app.data.species[i].profile_pic.replace(url, ''));
-        for (var j = 0; j < app.data.species[i].gallery.length; j++) {
-          _log(app.data.species[i].gallery[j].url.replace(url, ''));
-
-        }
-        //maps
-        _log(app.data.species[i].map.replace(url, ''));
-
-      }
-    },
-
-    /**
-     *
-     */
     renderList: function (callback) {
       var filters = this.getCurrentFilters();
       var sort = this.getSortType();
@@ -216,7 +134,7 @@ app.views = app.views || {};
         var filter = filters.pop();
 
         onFilterSuccess = function (species) {
-          app.controller.list.renderListCore(species, sort, filters);
+          app.views.listPage.renderListCore(species, sort, filters);
         };
 
         list = this.filterList(list, filter, onFilterSuccess);
@@ -225,7 +143,7 @@ app.views = app.views || {};
 
       function onSortSuccess() {
         if (list) {
-          app.controller.list.printList(list);
+          app.views.listPage.printList(list);
           $.mobile.loading("hide");
 
           if (callback) {
@@ -330,42 +248,33 @@ app.views = app.views || {};
      */
     setListControlsListeners: function () {
       //initial list control button setup
-      var filters = app.controller.list.getCurrentFilters();
+      var filters = app.views.listPage.getCurrentFilters();
       if (filters.length === 1 && filters[0].id === 'favourites') {
         filters = [];
       }
       $('#list-controls-button').toggleClass('on', filters.length > 0);
 
       $('.sort').on('change', function () {
-        app.controller.list.setSortType(this.id);
-        app.controller.list.renderList();
+        app.views.listPage.setSortType(this.id);
+        app.views.listPage.renderList();
       });
 
       $('.filter').on('change', function () {
-        var filter = app.controller.list.getFilterById(this.id);
-        app.controller.list.setFilter(filter);
+        var filter = app.views.listPage.getFilterById(this.id);
+        app.views.listPage.setFilter(filter);
 
-        var filters = app.controller.list.getCurrentFilters();
+        var filters = app.views.listPage.getCurrentFilters();
         if (filters.length === 1 && filters[0].id === 'favourites') {
           filters = [];
         }
         $('#list-controls-button').toggleClass('on', filters.length > 0);
 
-        app.controller.list.renderList();
+        app.views.listPage.renderList();
       });
     },
 
-    /**
-     * Shows/closes list controlls.
-     */
-    toggleListControls: function () {
-      var controls = $('#list-controls-placeholder');
-      if (controls.is(":hidden")) {
-        controls.slideDown("slow");
-      } else {
-        controls.slideUp("slow");
-      }
-    },
+
+
 
     /**
      *
@@ -500,8 +409,8 @@ app.views = app.views || {};
           }
           break;
         case 'probability':
-          app.controller.list.prob.runFilter(list, function () {
-            filtered_list = app.controller.list.prob.filterList(list);
+          app.views.listPage.prob.runFilter(list, function () {
+            filtered_list = app.views.listPage.prob.filterList(list);
             onSuccess(filtered_list);
           });
           return;
@@ -520,8 +429,8 @@ app.views = app.views || {};
     sortList: function (list, sort, onSuccess) {
       switch (sort) {
         case 'probability_sort':
-          app.controller.list.prob.runFilter(list, function () {
-            list.sort(app.controller.list.prob.sort);
+          app.views.listPage.prob.runFilter(list, function () {
+            list.sort(app.views.listPage.prob.sort);
             onSuccess(list);
             return;
           });
@@ -635,12 +544,54 @@ app.views = app.views || {};
     },
 
     filterFavourites : function () {
-      var filter = app.controller.list.getFilterById('favourites');
-      app.controller.list.setFilter(filter);
+      var filter = app.views.listPage.getFilterById('favourites');
+      app.views.listPage.setFilter(filter);
       $("#fav-button").toggleClass("on");
 
-      app.controller.list.renderList();
+      app.views.listPage.renderList();
     }
-  };
+  });
 
+  app.views.List = Backbone.View.extend({
+    tagName: 'ul',
+
+    attributes: {
+      'data-role': 'listview'
+    },
+
+    initialize: function () {
+      // this.listenTo(this.model, 'change', this.render);
+    },
+
+    render: function () {
+      var container = document.createDocumentFragment(); //optimising the performance
+      this.collection.each(function (specie) {
+        var listSpeciesView = new ListSpecies({model: specie.attributes});
+        container.appendChild(listSpeciesView.render().el);
+      });
+      this.$el.append(container); //appends to DOM only once
+      return this;
+    }
+  });
+
+  var ListSpecies = Backbone.View.extend({
+    tagName: "li",
+
+    attributes: {
+      "data-corners": false,
+      "data-shadow": false,
+      "data-iconshadow": true,
+      "data-wrapperels": "div",
+      "data-icon": "arrow-r",
+      "data-iconpos": "right",
+      "data-theme": "c"
+    },
+
+    template: app.templates.species_list_item,
+
+    render: function () {
+      this.$el.html(this.template(this.model));
+      return this;
+    }
+  });
 })();

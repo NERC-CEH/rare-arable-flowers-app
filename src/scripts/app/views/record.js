@@ -1,13 +1,20 @@
 var app = app || {};
-app.controller = app.controller || {};
+app.views = app.views || {};
 
-(function ($) {
-    app.controller.record = {
-    /**
-     * Setting up a recording page.
-     */
-    init: function () {
-      _log('record: init.');
+(function () {
+  'use strict';
+
+  app.views.RecordPage = app.views.Page.extend({
+    id: 'record',
+
+    template: app.templates.record,
+
+    initialize: function () {
+      this.render();
+    },
+
+    render: function () {
+      this.$el.html(this.template());
 
       //set button event handlers
       var ele = document.getElementById('occAttr:223');
@@ -15,9 +22,12 @@ app.controller = app.controller || {};
         var checked = $(this).prop('checked');
         morel.record.inputs.set('occAttr:223', checked);
       });
+
+      $('body').append($(this.el));
+      return this;
     },
 
-    show: function (prevPageId, speciesID) {
+    update: function (prevPageId, speciesID) {
       _log('record: show.');
       switch (prevPageId) {
         case 'list':
@@ -44,9 +54,9 @@ app.controller = app.controller || {};
       this.clear(speciesID);
       //start geolocation
       function onGeolocSuccess(location) {
-        app.controller.record.saveLocation(location);
-        app.controller.location.set(location.lat, location.lon, location.acc);
-        app.controller.record.gpsButtonState('done');
+        app.views.recordPage.saveLocation(location);
+        app.views.locationPage.set(location.lat, location.lon, location.acc);
+        app.views.recordPage.gpsButtonState('done');
       }
 
       function onError(err) {
@@ -61,7 +71,7 @@ app.controller = app.controller || {};
         }, 5000);
 
         //modify the UI
-        app.controller.record.gpsButtonState('none');
+        app.views.recordPage.gpsButtonState('none');
       }
 
       morel.geoloc.run(null, onGeolocSuccess);
@@ -371,6 +381,7 @@ app.controller = app.controller || {};
           _log('record: ERROR no such GPS button state.');
       }
     }
-  };
+  });
 
-}(jQuery));
+})();
+

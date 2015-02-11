@@ -1,16 +1,34 @@
 var app = app || {};
-app.controller = app.controller || {};
+app.views = app.views || {};
 
-(function ($) {
-  app.controller.user = {
-    show: function () {
+(function () {
+  'use strict';
+
+  app.views.userPage = app.views.Page.extend({
+    id: 'user',
+
+    template: app.templates.user,
+
+    initialize: function () {
+      this.render();
+    },
+
+    render: function () {
+      this.$el.html(this.template());
+
+      $('body').append($(this.el));
+
+      return this;
+    },
+
+    update: function () {
       this.printUserControls();
       this.printList();
     },
 
     sendAllSavedRecords: function () {
       function onSuccess() {
-        app.controller.user.printList();
+        app.views.userPage.printList();
       }
 
       morel.io.sendAllSavedRecords(onSuccess);
@@ -34,7 +52,7 @@ app.controller = app.controller || {};
           }, 3000);
 
           morel.record.db.remove(recordKey, function () {
-            app.controller.user.printList();
+            app.views.userPage.printList();
           });
         };
 
@@ -71,7 +89,7 @@ app.controller = app.controller || {};
 
     deleteSavedRecord: function (recordKey) {
       morel.record.db.remove(recordKey, function () {
-        app.controller.user.printList();
+        app.views.userPage.printList();
       });
     },
 
@@ -79,7 +97,7 @@ app.controller = app.controller || {};
       var placeholder = $('#user-placeholder');
 
       var user = {
-        'loggedout': !app.controller.login.getLoginState()
+        'loggedout': !app.views.loginPage.getLoginState()
       };
       placeholder.html(app.templates.user_profile({'user': user}));
       placeholder.trigger('create');
@@ -121,6 +139,6 @@ app.controller = app.controller || {};
 
       morel.record.db.getAll(onSuccess);
     }
-  };
 
-}(jQuery));
+  });
+})();

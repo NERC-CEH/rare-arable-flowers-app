@@ -13,24 +13,27 @@ app.views = app.views || {};
       'click #species-profile-fav-button': 'toggleSpeciesFavourite'
     },
 
-    initialize: function (speciesID) {
-      this.speciesID = speciesID;
+    initialize: function () {
+      this.render();
     },
 
     render: function () {
       this.$el.html(this.template());
+      $('body').append($(this.el));
+      return this;
+    },
 
-      var species = app.collections.species.find({id: this.speciesID});
+    update: function (speciesID) {
+      var species = app.collections.species.find({id: speciesID});
 
-      var heading = $('#species_heading');
-      heading.text(species.attributes.common_name);
+      var $heading = $('#species_heading');
+      $heading.text(species.attributes.common_name);
 
       //append the profile
       var $profile = this.$el.find('#species-profile-placeholder');
       var profileView = new SpeciesProfile({model: species});
       $profile.html(profileView.render().el);
-
-      return this;
+      $profile.trigger('create');
     },
 
     /**
@@ -44,30 +47,8 @@ app.views = app.views || {};
       var species = app.collections.species.find({id:speciesID});
       var favourite = species.get('favourite');
       species.set('favourite', !favourite);
-    }
-  });
-
-  var SpeciesProfile = Backbone.View.extend({
-    template: app.templates.species_profile,
-
-    render: function () {
-      this.$el.html(this.template(this.model.attributes));
-      return this;
-    }
-  });
-
-  app.controller = app.controller || {};
-  app.controller.species = {
-    show: function (speciesID) {
-      _log('species: show.');
-
-      var species = app.collections.species.find({id:speciesID});
-
-      var heading = $('#species_heading');
-      heading.text(species.attributes.common_name);
-
-      this.renderSpecies(species.attributes);
     },
+
 
 
     /**
@@ -107,8 +88,6 @@ app.views = app.views || {};
         .attr('y', -margin);
     },
 
-
-
     /**
      *
      */
@@ -135,6 +114,15 @@ app.views = app.views || {};
         }
       }
     }
-  };
+  });
+
+  var SpeciesProfile = Backbone.View.extend({
+    template: app.templates.species_profile,
+
+    render: function () {
+      this.$el.html(this.template(this.model.attributes));
+      return this;
+    }
+  });
 })();
 

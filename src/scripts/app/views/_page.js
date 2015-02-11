@@ -12,6 +12,18 @@ app.views = app.views || {};
       this.el.id = id;
       this.id = id;
       this.template = app.templates[id];
+
+      this.render();
+
+      $('body').append($(this.el));
+
+      $('a[data-role="button"]').on('click', function (event) {
+        var $this = $(this);
+        if ($this.attr('data-rel') === 'back') {
+          window.history.back();
+          return false;
+        }
+      });
     },
 
     render: function () {

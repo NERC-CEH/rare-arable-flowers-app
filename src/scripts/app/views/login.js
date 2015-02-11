@@ -1,14 +1,37 @@
 var app = app || {};
-app.controller = app.controller || {};
+app.views = app.views || {};
 
-(function ($) {
-  app.controller.login = {
+(function () {
+  'use strict';
+
+  app.views.loginPage = app.views.Page.extend({
+    id: 'login',
+
+    template: app.templates.login,
+
+    initialize: function () {
+      this.render();
+    },
+
+    render: function () {
+      this.$el.html(this.template());
+
+      $('body').append($(this.el));
+
+      return this;
+    },
+
+    update: function () {
+      this.printUserControls();
+      this.printList();
+    },
+
     //controller configuration should be set up in an app config file
     CONF: {
       URL: "",
       TIMEOUT: 20000
     },
-    
+
 
     /**
      * Starts an app sign in to the Drupal site process.
@@ -61,7 +84,7 @@ app.controller = app.controller || {};
           'email': this.callback_data.email
         };
         $.mobile.loading('hide');
-        app.controller.login.setLogin(user);
+        app.views.loginPage.setLogin(user);
 
         $.mobile.changePage('#user');
         //history does not work in iOS 7.*
@@ -116,6 +139,5 @@ app.controller = app.controller || {};
     getLoginState: function () {
       return morel.auth.isUser();
     }
-  };
-
-}(jQuery));
+  });
+})();

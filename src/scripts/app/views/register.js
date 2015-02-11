@@ -1,8 +1,31 @@
 var app = app || {};
-app.controller = app.controller || {};
+app.views = app.views || {};
 
-(function ($) {
-  app.controller.register = {
+(function () {
+  'use strict';
+
+  app.views.userPage = app.views.Page.extend({
+    id: 'user',
+
+    template: app.templates.user,
+
+    initialize: function () {
+      this.render();
+    },
+
+    render: function () {
+      this.$el.html(this.template());
+
+      $('body').append($(this.el));
+
+      return this;
+    },
+
+    update: function () {
+      this.printUserControls();
+      this.printList();
+    },
+
     //controller configuration should be set up in an app config file
     CONF: {
       URL: "",
@@ -69,6 +92,5 @@ app.controller = app.controller || {};
       _log(xhr.responseText);
       $.mobile.loading('hide');
     }
-  };
-
-}(jQuery));
+  });
+})();

@@ -1,19 +1,26 @@
 var app = app || {};
-app.controller = app.controller || {};
+app.views = app.views || {};
 
-(function ($) {
-  app.controller.about = {
+(function () {
+  'use strict';
 
-    show: function () {
-      var template_src = $('#app-version-template').html();
-      var placeholder = $('#app-version-placeholder');
+  app.views.aboutPage = app.views.Page.extend({
+    id: 'about',
 
-      var template = _.template(template_src);
+    template: app.templates.about,
 
-      placeholder.html(template({'version': morel.CONF.VERSION}));
-      placeholder.trigger('create');
+    initialize: function () {
+      this.render();
+    },
+
+    render: function () {
+      this.$el.html(this.template());
+
+      //update the app version number
+
+      $('body').append($(this.el));
+      return this;
     }
 
-  };
-
-}(jQuery));
+  });
+})();
