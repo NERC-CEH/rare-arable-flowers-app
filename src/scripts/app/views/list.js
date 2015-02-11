@@ -24,7 +24,7 @@ app.views = app.views || {};
       this.$el.html(this.template());
       this.$list = this.$el.find('#list-placeholder');
 
-      var list = new app.views.List({collection: app.collections.species});
+      var list = new SpeciesListView({collection: app.collections.species});
 
       this.$list.html(list.render().el);
 
@@ -553,7 +553,7 @@ app.views = app.views || {};
     }
   });
 
-  app.views.List = Backbone.View.extend({
+  var SpeciesListView = Backbone.View.extend({
     tagName: 'ul',
 
     attributes: {
@@ -561,21 +561,28 @@ app.views = app.views || {};
     },
 
     initialize: function () {
-      // this.listenTo(this.model, 'change', this.render);
+      this.listenTo(this.collection, 'change', this.update);
     },
 
     render: function () {
       var container = document.createDocumentFragment(); //optimising the performance
       this.collection.each(function (specie) {
-        var listSpeciesView = new ListSpecies({model: specie.attributes});
+        var listSpeciesView = new SpeciesListItemView({model: specie});
         container.appendChild(listSpeciesView.render().el);
       });
-      this.$el.append(container); //appends to DOM only once
+      this.$el.html(container); //appends to DOM only once
       return this;
+    },
+
+    update: function () {
+      _log('list: updating', app.LOG_INFO);
+
+      this.render();
+      this.$el.listview('refresh');
     }
   });
 
-  var ListSpecies = Backbone.View.extend({
+  var SpeciesListItemView = Backbone.View.extend({
     tagName: "li",
 
     attributes: {
@@ -591,7 +598,7 @@ app.views = app.views || {};
     template: app.templates.species_list_item,
 
     render: function () {
-      this.$el.html(this.template(this.model));
+      this.$el.html(this.template(this.model.attributes));
       return this;
     }
   });

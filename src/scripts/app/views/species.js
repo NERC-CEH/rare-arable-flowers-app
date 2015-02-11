@@ -21,20 +21,27 @@ app.views = app.views || {};
     render: function () {
       this.$el.html(this.template());
       $('body').append($(this.el));
-      return this;
     },
 
     update: function (speciesID) {
-      var species = app.collections.species.find({id: speciesID});
+      this.model = app.collections.species.find({id: speciesID});
 
       var $heading = $('#species_heading');
-      $heading.text(species.attributes.common_name);
+      $heading.text(this.model.attributes.common_name);
 
       //append the profile
       var $profile = this.$el.find('#species-profile-placeholder');
-      var profileView = new SpeciesProfile({model: species});
+      var profileView = new SpeciesProfile({model: this.model});
       $profile.html(profileView.render().el);
       $profile.trigger('create');
+
+      //turn on/off fav button
+      var $favButton = $("#species-profile-fav-button");
+      if (app.models.user.get('config').isFavourite(speciesID)) {
+        $favButton.removeClass("on");
+      } else {
+        $favButton.addClass("on");
+      }
     },
 
     /**
@@ -44,10 +51,8 @@ app.views = app.views || {};
     toggleSpeciesFavourite: function (e) {
       var $favButton = $(e.target);
       $favButton.toggleClass("on");
-
-      var species = app.collections.species.find({id:speciesID});
-      var favourite = species.get('favourite');
-      species.set('favourite', !favourite);
+      var speciesID = this.model.get('id');
+      app.models.user.get('config').toggleFavourite(speciesID);
     },
 
 

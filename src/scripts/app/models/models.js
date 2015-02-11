@@ -19,13 +19,47 @@ app.collections = app.collections || {};
   });
 
   app.collections.Species = Backbone.Collection.extend({
-    model: Specie
+    model: Specie,
+
+    initialize: function () {
+      this.updateFavourites();
+      this.listenTo(app.models.user.get('config'), 'change', this.updateFavourites)
+    },
+
+    updateFavourites: function () {
+      var favourites = app.models.user.get('config').get('favourites');
+      for (var fav_count = 0, length = favourites.length; fav_count < length; fav_count++) {
+        var model =_.find(app.collections.species.models, function(item){
+          return item.get('id') == favourites[fav_count];
+        });
+        model.set('favourite', true);
+      }
+    }
   });
 
   var UserConfig = Backbone.Model.extend({
     defaults: {
       sort: 'common_name',
-      filters: []
+      filters: [],
+      favourites: []
+    },
+
+    toggleFavourite: function (speciesID) {
+      var favourites = this.get('favourites');
+
+      if (_.indexOf(favourites, speciesID) >= 0) {
+        favourites = _.without(favourites, speciesID);
+      } else {
+        favourites.push(speciesID);
+      }
+
+      this.set('favourites', favourites);
+    },
+
+    isFavourite: function (speciesID) {
+      var favourites = this.get('favourites');
+
+      return _.indexOf(favourites, speciesID);
     },
 
     toggleSpeciesFilter: function (filter) {
@@ -38,7 +72,6 @@ app.collections = app.collections || {};
 
       this.set('filters', filters);
     },
-
 
     setFilter: function (filter) {
       var filters = this.getCurrentFilters();
