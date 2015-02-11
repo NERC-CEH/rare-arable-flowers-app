@@ -6,9 +6,8 @@
         <h1>Stage</h1>
 
         <div class='ui-btn-right' data-role='controlgroup' data-type='horizontal'>
-            <a href='#' data-rel="back" data-role="button" data-iconpos="notext"
-               data-icon="check"
-               onclick="app.controller.record.saveInput('sample:stage')">Save</a>
+            <a href='#' id="stage-save" data-rel="back" data-role="button"
+               data-iconpos="notext" data-icon="check">Save</a>
         </div>
     </div>
     <div data-role="content">

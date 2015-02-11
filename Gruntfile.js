@@ -43,7 +43,7 @@ module.exports = function (grunt) {
       compile: {
         options: {
           namespace: 'app.templates',
-          prettify: true,
+         // prettify: true,
           templateSettings: {
             interpolate : /\{\{(.+?)\}\}/g
           },

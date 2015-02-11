@@ -6,7 +6,7 @@
             geolocation on and are well away from large objects.<br/> e.g. <i>trees,
                 buildings </i></p>
     </div>
-    <% if (location) { %>
+    <% if (obj.location) { %>
     <div class="success-message">
         <p> Grid Ref: <%- location.gref %> <br/><br/>
             Lat: <%- location.lat %> <br/>

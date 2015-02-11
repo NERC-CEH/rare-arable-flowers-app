@@ -4,7 +4,7 @@ app.views = app.views || {};
 (function () {
   'use strict';
 
-  app.views.aboutPage = app.views.Page.extend({
+  app.views.AboutPage = app.views.Page.extend({
     id: 'about',
 
     template: app.templates.about,

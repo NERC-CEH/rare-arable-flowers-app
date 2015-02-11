@@ -55,7 +55,11 @@ app.views = app.views || {};
       //start geolocation
       function onGeolocSuccess(location) {
         app.views.recordPage.saveLocation(location);
-        app.views.locationPage.set(location.lat, location.lon, location.acc);
+        app.models.user.set('location', {
+            'lat': location.lat,
+            'lon': location.lon,
+            'acc': location.acc
+        });
         app.views.recordPage.gpsButtonState('done');
       }
 

@@ -53,23 +53,38 @@
       },
 
       "comment": function () {
-        this.navigateToStandardPage('comment');
+        if (!app.views.commentPage){
+          app.views.commentPage = new app.views.CommentPage();
+        }
+        this.changePage(app.views.commentPage);
       },
 
       "number": function () {
-        this.navigateToStandardPage('number');
+        if (!app.views.numberPage){
+          app.views.numberPage = new app.views.NumberPage();
+        }
+        this.changePage(app.views.numberPage);
       },
 
       "locationdetails": function () {
-        this.navigateToStandardPage('locationdetails');
+        if (!app.views.locationDetailsPage){
+          app.views.locationDetailsPage = new app.views.LocationdetailsPage();
+        }
+        this.changePage(app.views.locationDetailsPage);
       },
 
       "stage": function () {
-        this.navigateToStandardPage('stage');
+        if (!app.views.stagePage){
+          app.views.stagePage = new app.views.StagePage();
+        }
+        this.changePage(app.views.stagePage);
       },
 
       "date": function () {
-        this.navigateToStandardPage('date');
+        if (!app.views.datePage){
+          app.views.datePage = new app.views.DatePage();
+        }
+        this.changePage(app.views.datePage);
       },
 
       "mgmt": function () {

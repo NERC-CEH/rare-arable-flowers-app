@@ -75,6 +75,7 @@ app.collections = app.collections || {};
     defaults: {
       name: '',
       email: '',
+      location: null,
       config: new UserConfig()
     }
   });

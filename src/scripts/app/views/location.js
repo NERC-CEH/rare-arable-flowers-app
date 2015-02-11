@@ -9,8 +9,16 @@ app.views = app.views || {};
 
     template: app.templates.location,
 
+    events: {
+      'click #grid-ref-set': 'gridRefConvert',
+      'click #location-save': 'save'
+    },
+
     initialize: function () {
       this.render();
+
+      app.models.user.bind('change', this.saveLocation);
+
       if (typeof google === 'undefined') {
         $('#location-opts').disableTab(1);
 

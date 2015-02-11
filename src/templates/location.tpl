@@ -6,8 +6,8 @@
         <h1>Location</h1>
 
         <div class='ui-btn-right' data-role='controlgroup' data-type='horizontal'>
-            <a href='#' data-rel="back" data-role="button" data-iconpos="notext"
-               data-icon="check" onclick="app.controller.location.save()">Save</a>
+            <a href='#' id="location-save" data-rel="back" data-role="button" data-iconpos="notext"
+               data-icon="check">Save</a>
         </div>
     </div>
     <div data-role="content">
@@ -36,8 +36,7 @@
                         <br/> e.g. <i>"TQ 28170 77103"</i></p>
                 </div>
                 <input type="text" id="grid-ref" placeholder="Grid Reference"/>
-                <input type="button" onclick="app.controller.location.gridRefConvert()"
-                       value="Set"/>
+                <input type="button" id="grid-ref-set" value="Set"/>
             </div>
         </div>
     </div>
