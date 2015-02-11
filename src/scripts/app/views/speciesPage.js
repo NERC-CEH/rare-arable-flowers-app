@@ -52,7 +52,7 @@ app.views = app.views || {};
       var $favButton = $(e.target);
       $favButton.toggleClass("on");
       var speciesID = this.model.get('id');
-      app.models.user.get('config').toggleFavourite(speciesID);
+      app.models.user.get('config').toggleFavouriteSpecies(speciesID);
     },
 
 
@@ -92,33 +92,6 @@ app.views = app.views || {};
         .attr('y', -margin);
       $('#species-map-data').attr('transform', 'scale(' + scale + ')')
         .attr('y', -margin);
-    },
-
-    /**
-     *
-     */
-    gallery: {
-      gallery: {},
-      init: function (gallery_id) {
-        var images = $('#species_gallery a');
-
-        if (images.length > 0) {
-          this.gallery = images.photoSwipe({
-            jQueryMobile: true,
-            loop: false,
-            enableMouseWheel: false,
-            enableKeyboard: false
-          });
-        }
-      },
-
-      show: function () {
-        if ($('.gallery')) {
-          this.gallery.show(0);
-        } else {
-          app.navigation.message('I have no pictures to show :(');
-        }
-      }
     }
   });
 

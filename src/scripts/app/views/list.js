@@ -4,57 +4,11 @@ app.views = app.views || {};
 (function () {
   'use strict';
 
-  app.views.ListPage = app.views.Page.extend({
-    id: 'list',
+  app.views.SpeciesList = Backbone.View.extend({
+    tagName: 'ul',
 
-    template: app.templates.list,
-
-    events: {
-      'click #list-controls-save-button': 'toggleListControls',
-      'click #list-controls-button': 'toggleListControls',
-      'click #fav-button': 'toggleListFavourites'
-    },
-
-    initialize: function () {
-      this.render();
-      this.appendBackButtonListeners();
-    },
-
-    render: function () {
-      this.$el.html(this.template());
-      this.$list = this.$el.find('#list-placeholder');
-
-      var list = new SpeciesListView({collection: app.collections.species});
-
-      this.$list.html(list.render().el);
-
-      $('body').append($(this.el));
-
-      return this;
-    },
-
-    toggleListFavourites: function () {
-      var userConfig = app.models.user.get('config');
-      userConfig.toggleSpeciesFilter('favourites');
-    },
-
-    filter: function () {
-
-    },
-
-    sort: function () {
-
-    },
-    /**
-     * Shows/closes list controlls.
-     */
-    toggleListControls: function (e) {
-      var $controls = $('#list-controls-placeholder');
-      if ($controls.is(":hidden")) {
-        $controls.slideDown("slow");
-      } else {
-        $controls.slideUp("slow");
-      }
+    attributes: {
+      'data-role': 'listview'
     },
 
     DEFAULT_SORT: 'taxonomic',
@@ -110,13 +64,43 @@ app.views = app.views || {};
     /**
      *
      */
-    renderList: function (callback) {
+    initialize: function () {
+      this.listenTo(this.collection, 'change', this.update);
+      this.listenTo(app.models.user.get('config'), 'change:filters',  this.update);
+      this.listenTo(app.models.user.get('config'), 'change:sort',  this.update);
+    },
+
+    /**
+     * Renders the species list.
+     * @returns {SpeciesListView}
+     */
+    render: function () {
+      var that = this;
+      this.prepareList(function (list){
+        var container = document.createDocumentFragment(); //optimising the performance
+        _.each(list, function (specie) {
+          var listSpeciesView = new SpeciesListItemView({model: specie});
+          container.appendChild(listSpeciesView.render().el);
+        });
+        that.$el.html(container); //appends to DOM only once
+      });
+      return this;
+    },
+
+    update: function () {
+      _log('list: updating', app.LOG_INFO);
+      this.render();
+      this.$el.listview('refresh');
+    },
+
+    /**
+     *
+     */
+    prepareList: function (callback) {
       var filters = this.getCurrentFilters();
       var sort = this.getSortType();
-      var species = app.data.species;
-      if (species) {
-        this.renderListCore(species, sort, filters, callback);
-      }
+      var list = this.collection.models.slice(); //shallow copy of array
+      this.prepareListCore(list, sort, filters, callback);
     },
 
     /**
@@ -125,7 +109,7 @@ app.views = app.views || {};
      * @param sort
      * @param filters
      */
-    renderListCore: function (list, sort, filters, callback) {
+    prepareListCore: function (list, sort, filters, callback) {
       //todo: might need to move UI functionality to higher grounds
       $.mobile.loading("show");
 
@@ -135,7 +119,7 @@ app.views = app.views || {};
         var filter = filters.pop();
 
         onFilterSuccess = function (species) {
-          app.views.listPage.renderListCore(species, sort, filters);
+          app.views.listPage.listView.prepareListCore(species, sort, filters, callback);
         };
 
         list = this.filterList(list, filter, onFilterSuccess);
@@ -143,239 +127,14 @@ app.views = app.views || {};
       }
 
       function onSortSuccess() {
-        if (list) {
-          app.views.listPage.printList(list);
-          $.mobile.loading("hide");
-
-          if (callback) {
-            callback();
-          }
+        //todo: might need to move UI functionality to higher grounds
+        $.mobile.loading("hide");
+        if (callback) {
+          callback(list);
         }
       }
 
       list = this.sortList(list, sort, onSortSuccess);
-    },
-
-
-    /**
-     * Prints the species list.
-     * @param species
-     */
-    printList: function (species) {
-      //assign favourites
-      var s = objClone(species);
-
-      var favourites = this.getFavourites();
-      var keys = Object.keys(favourites);
-      for (var j = 0; j < s.length; j++) {
-        for (var i = 0; i < keys.length; i++) {
-          if (keys[i] === s[j].id) {
-            s[j].favourite = "favourite";
-          }
-        }
-      }
-
-      var placeholder = $('#list-placeholder');
-
-      placeholder.html(app.templates.species_list({'species': s}));
-      placeholder.trigger('create');
-
-      /*
-       iOS app mode a link fix, making the HOME-MODE app not to redirect
-       browser window to Safari's new tab.
-       Will fix all a tagged elements with the class 'ios-enhanced'
-       */
-      $("a.ios-enhanced").click(function (event) {
-        event.preventDefault();
-        window.location = jQuery(this).attr("href");
-      });
-    },
-
-    /**
-     *
-     */
-    makeListControls: function () {
-      this.makeListSortControls();
-      this.makeListFilterControls();
-      this.setListControlsListeners();
-    },
-
-    /**
-     *
-     */
-    makeListSortControls: function () {
-      for (var i = 0; i < this.sorts.length; i++) {
-        var sort = this.getSortType();
-        if (this.sorts[i].id === sort) {
-          this.sorts[i].checked = "checked";
-        }
-      }
-
-      var placeholder = $('#list-controls-sort-placeholder');
-
-      placeholder.html(app.templates.list_controls_sort(this.sorts));
-      placeholder.trigger('create');
-    },
-
-    /**
-     *
-     */
-    makeListFilterControls: function () {
-      var filtersToRender = [];
-      var currentFilters = this.getCurrentFilters();
-
-      for (var i = 0; i < this.filters.length; i++) {
-        //only render those that have label
-        if (this.filters[i].label) {
-          for (var j = 0; j < currentFilters.length; j++) {
-            if (currentFilters[j].id === this.filters[i].id) {
-              this.filters[i].checked = "checked";
-            } else {
-              this.filters[i].checked = "";
-            }
-          }
-          filtersToRender.push(this.filters[i]);
-        }
-      }
-
-      var placeholder = $('#list-controls-filter-placeholder');
-
-      placeholder.html(app.templates.list_controls_filter(filtersToRender));
-      placeholder.trigger('create');
-    },
-
-    /**
-     * Has to be done once on list creation.
-     */
-    setListControlsListeners: function () {
-      //initial list control button setup
-      var filters = app.views.listPage.getCurrentFilters();
-      if (filters.length === 1 && filters[0].id === 'favourites') {
-        filters = [];
-      }
-      $('#list-controls-button').toggleClass('on', filters.length > 0);
-
-      $('.sort').on('change', function () {
-        app.views.listPage.setSortType(this.id);
-        app.views.listPage.renderList();
-      });
-
-      $('.filter').on('change', function () {
-        var filter = app.views.listPage.getFilterById(this.id);
-        app.views.listPage.setFilter(filter);
-
-        var filters = app.views.listPage.getCurrentFilters();
-        if (filters.length === 1 && filters[0].id === 'favourites') {
-          filters = [];
-        }
-        $('#list-controls-button').toggleClass('on', filters.length > 0);
-
-        app.views.listPage.renderList();
-      });
-    },
-
-
-
-
-    /**
-     *
-     * @returns {*|Object|{}}
-     */
-    getSpecies: function () {
-      return morel.settings('listSpecies') || {};
-    },
-
-    setSpecies: function (species) {
-      return morel.settings('listSpecies', species);
-    },
-
-    /**
-     *
-     * @returns {*|Object|Array}
-     */
-    getCurrentFilters: function () {
-      return morel.settings(this.FILTERS_KEY) || [];
-    },
-
-    /**
-     *
-     * @param filter
-     * @returns {Array}
-     */
-    getFilterCurrentGroup: function (filter) {
-      var current_filter = this.getCurrentFilters();
-      var grouped = [];
-      for (var i = 0; i < current_filter.length; i++) {
-        if (current_filter[i].group === filter.group) {
-          grouped.push(current_filter[i]);
-        }
-      }
-      return grouped;
-    },
-
-    /**
-     *
-     * @returns {*|Object|string}
-     */
-    getSortType: function () {
-      return morel.settings(this.SORT_KEY) || this.DEFAULT_SORT;
-    },
-
-    /**
-     *
-     * @param type
-     * @returns {*|Object}
-     */
-    setSortType: function (type) {
-      return morel.settings(this.SORT_KEY, type);
-    },
-
-    /**
-     *
-     * @param id
-     * @returns {*}
-     */
-    getFilterById: function (id) {
-      for (var i = 0; i < this.filters.length; i++) {
-        if (this.filters[i].id === id) {
-          return this.filters[i];
-        }
-      }
-      return null;
-    },
-
-
-    /**
-     *
-     * @param id
-     * @param favourite
-     */
-    changeFavourite: function (id, favourite) {
-      var species = this.getSpecies();
-      if (!species[id]) {
-        species[id] = {'favourite': favourite};
-      } else {
-        species[id].favourite = favourite;
-      }
-      this.setSpecies(species);
-    },
-
-    /**
-     *
-     * @returns {{}}
-     */
-    getFavourites: function () {
-      var species = this.getSpecies();
-      var favourites = {};
-
-      var keys = Object.keys(species);
-      for (var i = 0; i < keys.length; i++) {
-        var specie = species[keys[i]];
-        if (specie.favourite && specie.favourite) {
-          favourites[keys[i]] = species[keys[i]];
-        }
-      }
-      return favourites;
     },
 
     /**
@@ -390,11 +149,10 @@ app.views = app.views || {};
 
       switch (filter.group) {
         case 'favourites':
-          $("#fav-button").addClass("on");
-          var keys = Object.keys(this.getFavourites());
+          var keys = app.models.user.get('config').get('favourites');
           for (var i = 0; i < keys.length; i++) {
             for (var j = 0; j < list.length; j++) {
-              if (list[j].id === keys[i]) {
+              if (list[j].attributes.id === keys[i]) {
                 filtered_list.push(list[j]);
               }
             }
@@ -438,8 +196,8 @@ app.views = app.views || {};
           break;
         case 'taxonomic':
           list.sort(function (a, b) {
-            a = a.taxon.toLowerCase();
-            b = b.taxon.toLowerCase();
+            a = a.attributes.taxon.toLowerCase();
+            b = b.attributes.taxon.toLowerCase();
             if (a === b) {
               return 0;
             }
@@ -448,8 +206,8 @@ app.views = app.views || {};
           break;
         case 'taxonomic_r':
           list.sort(function (a, b) {
-            a = a.taxon.toLowerCase();
-            b = b.taxon.toLowerCase();
+            a = a.attributes.taxon.toLowerCase();
+            b = b.attributes.taxon.toLowerCase();
             if (a === b) {
               return 0;
             }
@@ -458,8 +216,8 @@ app.views = app.views || {};
           break;
         case this.DEFAULT_SORT + '_r':
           list.sort(function (a, b) {
-            a = a.common_name.toLowerCase();
-            b = b.common_name.toLowerCase();
+            a = a.attributes.common_name.toLowerCase();
+            b = b.attributes.common_name.toLowerCase();
             if (a === b) {
               return 0;
             }
@@ -469,8 +227,8 @@ app.views = app.views || {};
         case this.DEFAULT_SORT:
         default:
           list.sort(function (a, b) {
-            a = a.common_name.toLowerCase();
-            b = b.common_name.toLowerCase();
+            a = a.attributes.common_name.toLowerCase();
+            b = b.attributes.common_name.toLowerCase();
             if (a === b) {
               return 0;
             }
@@ -481,67 +239,68 @@ app.views = app.views || {};
     },
 
     /**
-     * Asks the user to start an appcache download
-     * process.
+     *
+     * @returns {*|Object|Array}
      */
-    download: function () {
-      var OFFLINE = 'offline';
-      var offline = morel.settings(OFFLINE);
-
-      if (!offline || (!offline.downloaded && !offline.dontAsk)) {
-        var donwloadBtnId = "download-button";
-        var donwloadCancelBtnId = "download-cancel-button";
-        var downloadCheckbox = "download-checkbox";
-
-        var message =
-          '<h3>Start downloading the app for offline use?</h3></br>' +
-
-          '<label><input id="' + downloadCheckbox + '" type="checkbox" name="checkbox-0 ">Don\'t ask again' +
-          '</label> </br>' +
-
-          '<button id="' + donwloadBtnId + '" class="ui-btn">Download</button>' +
-          '<button id="' + donwloadCancelBtnId + '" class="ui-btn">Cancel</button>';
-
-        app.navigation.message(message, 0);
-
-        $('#' + donwloadBtnId).on('click', function () {
-          _log('list: starting appcache downloading process.', morel.LOG_DEBUG);
-
-          $.mobile.loading('hide');
-
-          //for some unknown reason on timeout the popup does not disappear
-          setTimeout(function () {
-            function onSuccess() {
-              offline = {
-                'downloaded': true,
-                'dontAsk': false
-              };
-              morel.settings(OFFLINE, offline);
-              location.reload();
-            }
-
-            function onError() {
-              _log('list: ERROR appcache.');
-            }
-
-            startManifestDownload('appcache', morel.CONF.APPCACHE_FILES,
-              morel.CONF.APPCACHE_LOADER_URL, onSuccess, onError);
-          }, 500);
-        });
-
-        $('#' + donwloadCancelBtnId).on('click', function () {
-          _log('list: appcache dowload canceled.', morel.LOG_DEBUG);
-          $.mobile.loading('hide');
-
-          var dontAsk = $('#' + downloadCheckbox).prop('checked');
-          offline = {
-            'downloaded': false,
-            'dontAsk': dontAsk
-          };
-
-          morel.settings(OFFLINE, offline);
-        });
+    getCurrentFilters: function () {
+      var filtersIDs =  app.models.user.get('config').get('filters');
+      var filters = this.filters;
+      var currentFilters = [];
+      for (var j = 0; j < filtersIDs.length; j++) {
+        for (var i = 0; i < filters.length; i++) {
+          if (filters[i].id === filtersIDs[j]) {
+            currentFilters.push(filters[i]);
+          }
+        }
       }
+      return currentFilters;
+    },
+
+    /**
+     *
+     * @param filter
+     * @returns {Array}
+     */
+    getFilterCurrentGroup: function (filter) {
+      var current_filter = this.filters;
+      var grouped = [];
+      for (var i = 0; i < current_filter.length; i++) {
+        if (current_filter[i].group === filter.group) {
+          grouped.push(current_filter[i]);
+        }
+      }
+      return grouped;
+    },
+
+    /**
+     *
+     * @returns {*|Object|string}
+     */
+    getSortType: function () {
+      return app.models.user.get('config').get('sort');
+    },
+
+    /**
+     *
+     * @param type
+     * @returns {*|Object}
+     */
+    setSortType: function (type) {
+      return app.models.user.get('config').set('sort', type);
+    },
+
+    /**
+     *
+     * @param id
+     * @returns {*}
+     */
+    getFilterById: function (id) {
+      for (var i = 0; i < this.filters.length; i++) {
+        if (this.filters[i].id === id) {
+          return this.filters[i];
+        }
+      }
+      return null;
     },
 
     filterFavourites : function () {
@@ -550,35 +309,6 @@ app.views = app.views || {};
       $("#fav-button").toggleClass("on");
 
       app.views.listPage.renderList();
-    }
-  });
-
-  var SpeciesListView = Backbone.View.extend({
-    tagName: 'ul',
-
-    attributes: {
-      'data-role': 'listview'
-    },
-
-    initialize: function () {
-      this.listenTo(this.collection, 'change', this.update);
-    },
-
-    render: function () {
-      var container = document.createDocumentFragment(); //optimising the performance
-      this.collection.each(function (specie) {
-        var listSpeciesView = new SpeciesListItemView({model: specie});
-        container.appendChild(listSpeciesView.render().el);
-      });
-      this.$el.html(container); //appends to DOM only once
-      return this;
-    },
-
-    update: function () {
-      _log('list: updating', app.LOG_INFO);
-
-      this.render();
-      this.$el.listview('refresh');
     }
   });
 

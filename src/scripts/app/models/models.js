@@ -22,20 +22,22 @@ app.collections = app.collections || {};
     model: Specie,
 
     initialize: function () {
+      this.listenTo(app.models.user.get('config'), 'change', this.updateFavourites);
       this.updateFavourites();
-      this.listenTo(app.models.user.get('config'), 'change', this.updateFavourites)
     },
 
     updateFavourites: function () {
       var favourites = app.models.user.get('config').get('favourites');
-      for (var fav_count = 0, length = favourites.length; fav_count < length; fav_count++) {
-        var model =_.find(app.collections.species.models, function(item){
-          return item.get('id') == favourites[fav_count];
-        });
-        model.set('favourite', true);
-      }
+      _.each(this.models, function(model){
+        if (favourites.indexOf(model.get('id')) >= 0) {
+          model.set('favourite', true);
+        } else {
+          model.set('favourite', false);
+        }
+      });
     }
   });
+
 
   var UserConfig = Backbone.Model.extend({
     defaults: {
@@ -44,8 +46,9 @@ app.collections = app.collections || {};
       favourites: []
     },
 
-    toggleFavourite: function (speciesID) {
-      var favourites = this.get('favourites');
+    toggleFavouriteSpecies: function (speciesID) {
+      var favourites = _.clone(this.get('favourites'));  //CLONING problem as discussed:
+      //https://stackoverflow.com/questions/9909799/backbone-js-change-not-firing-on-model-change
 
       if (_.indexOf(favourites, speciesID) >= 0) {
         favourites = _.without(favourites, speciesID);
@@ -58,47 +61,20 @@ app.collections = app.collections || {};
 
     isFavourite: function (speciesID) {
       var favourites = this.get('favourites');
-
       return _.indexOf(favourites, speciesID);
     },
 
-    toggleSpeciesFilter: function (filter) {
-      var filters = this.get('filters');
-      if (_.indexOf(filters, filter) >= 0) {
-        filters = _.without(filters, filter);
+    toggleListFilter: function (filterID) {
+      var filters = _.clone(this.get('filters'));  //CLONING problem as discussed:
+      //https://stackoverflow.com/questions/9909799/backbone-js-change-not-firing-on-model-change
+
+      if (_.indexOf(filters, filterID) >= 0) {
+        filters = _.without(filters, filterID);
       } else {
-        filters.push(filter);
+        filters.push(filterID);
       }
 
       this.set('filters', filters);
-    },
-
-    setFilter: function (filter) {
-      var filters = this.getCurrentFilters();
-
-      for (var i = 0; i < filters.length; i++) {
-        if (filters[i].id === filter.id) {
-          this.removeFilter(filter);
-          return;
-        }
-      }
-      filters.push(filter);
-      morel.settings(this.FILTERS_KEY, filters);
-    },
-
-    removeFilter: function (filter) {
-      var filters = this.getCurrentFilters();
-      var index = -1;
-      for (var i = 0; i < filters.length; i++) {
-        if (filters[i].id === filter.id) {
-          index = i;
-        }
-      }
-
-      if (index !== -1) {
-        filters.splice(index, 1);
-        morel.settings(this.FILTERS_KEY, filters);
-      }
     }
   });
 
