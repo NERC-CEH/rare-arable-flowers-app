@@ -19,9 +19,7 @@ app.collections = app.collections || {};
   });
 
   app.collections.Species = Backbone.Collection.extend({
-    model: Specie,
-    filter: false,
-    sort: 'name'
+    model: Specie
   });
 
   var UserConfig = Backbone.Model.extend({
