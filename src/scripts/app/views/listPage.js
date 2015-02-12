@@ -18,6 +18,11 @@ app.views = app.views || {};
     initialize: function () {
       this.listView = new app.views.SpeciesList({collection: app.collections.species});
 
+      var sorts = this.listView.sorts;
+      var filters = this.listView.filters;
+
+      this.listControlsView = new ListControlsView(sorts, filters);
+
       this.render();
       this.appendBackButtonListeners();
     },
@@ -29,107 +34,20 @@ app.views = app.views || {};
 
       $('body').append($(this.el));
 
+      //add list controls
+      var $listControls = $('#list-controls-placeholder');
+      $listControls.html(this.listControlsView.el);
+
       return this;
     },
 
     toggleListFavourites: function () {
-      var userConfig = app.models.user.get('config');
+      var userConfig = app.models.user;
       userConfig.toggleListFilter('favourites');
     },
 
-    /**
-     * Shows/closes list controlls.
-     */
-    toggleListControls: function (e) {
-      var $controls = $('#list-controls-placeholder');
-      if ($controls.is(":hidden")) {
-        $controls.slideDown("slow");
-      } else {
-        $controls.slideUp("slow");
-      }
-    },
-
-    /**
-     *
-     */
-    makeListControls: function () {
-      this.makeListSortControls();
-      this.makeListFilterControls();
-      this.setListControlsListeners();
-    },
-
-    /**
-     *
-     */
-    makeListSortControls: function () {
-      for (var i = 0; i < this.sorts.length; i++) {
-        var sort = this.getSortType();
-        if (this.sorts[i].id === sort) {
-          this.sorts[i].checked = "checked";
-        }
-      }
-
-      var placeholder = $('#list-controls-sort-placeholder');
-
-      placeholder.html(app.templates.list_controls_sort(this.sorts));
-      placeholder.trigger('create');
-    },
-
-    /**
-     *
-     */
-    makeListFilterControls: function () {
-      var filtersToRender = [];
-      var currentFilters = this.getCurrentFilters();
-
-      for (var i = 0; i < this.filters.length; i++) {
-        //only render those that have label
-        if (this.filters[i].label) {
-          for (var j = 0; j < currentFilters.length; j++) {
-            if (currentFilters[j].id === this.filters[i].id) {
-              this.filters[i].checked = "checked";
-            } else {
-              this.filters[i].checked = "";
-            }
-          }
-          filtersToRender.push(this.filters[i]);
-        }
-      }
-
-      var placeholder = $('#list-controls-filter-placeholder');
-
-      placeholder.html(app.templates.list_controls_filter(filtersToRender));
-      placeholder.trigger('create');
-    },
-
-    /**
-     * Has to be done once on list creation.
-     */
-    setListControlsListeners: function () {
-      //initial list control button setup
-      var filters = app.views.listPage.getCurrentFilters();
-      if (filters.length === 1 && filters[0].id === 'favourites') {
-        filters = [];
-      }
-      $('#list-controls-button').toggleClass('on', filters.length > 0);
-
-      $('.sort').on('change', function () {
-        app.views.listPage.setSortType(this.id);
-        app.views.listPage.renderList();
-      });
-
-      $('.filter').on('change', function () {
-        var filter = app.views.listPage.getFilterById(this.id);
-        app.views.listPage.setFilter(filter);
-
-        var filters = app.views.listPage.getCurrentFilters();
-        if (filters.length === 1 && filters[0].id === 'favourites') {
-          filters = [];
-        }
-        $('#list-controls-button').toggleClass('on', filters.length > 0);
-
-        app.views.listPage.renderList();
-      });
+    toggleListControls: function () {
+      this.listControlsView.toggleListControls();
     },
 
     /**
@@ -196,4 +114,139 @@ app.views = app.views || {};
       }
     }
   });
+
+  var ListControlsView = Backbone.View.extend({
+    tagName: 'div',
+    id: 'list-controls-tabs',
+
+    template: app.templates.list_controls,
+    template_sort: app.templates.list_controls_sort,
+    template_filter: app.templates.list_controls_filter,
+
+    initialize: function (sorts, filters) {
+      this.sorts = sorts;
+      this.filters = filters;
+      this.render();
+    },
+
+    render: function () {
+      this.$el.html(this.template());
+
+      this.renderListSortControls();
+      this.renderListFilterControls();
+      this.setListControlsListeners();
+    },
+
+    attributes: function () {
+      return {
+        "data-role": 'tabs'
+      };
+    },
+
+    /**
+     * Shows/closes list controlls.
+     */
+    toggleListControls: function (e) {
+      var $controls = $('#list-controls-placeholder');
+      if ($controls.is(":hidden")) {
+        $controls.slideDown("slow");
+      } else {
+        $controls.slideUp("slow");
+      }
+    },
+
+
+    /**
+     *
+     */
+    renderListSortControls: function () {
+      var keys = Object.keys(this.sorts);
+      for (var i = 0, length = keys.length; i < length; i++) {
+        var sort = app.models.user.get('sort');
+
+        if (keys[i] === sort) {
+          this.sorts[keys[i]].checked = "checked";
+        }
+      }
+
+      var placeholder = this.$el.find('#list-controls-sort-placeholder');
+
+      placeholder.html(this.template_sort(this.sorts));
+      placeholder.trigger('create');
+    },
+
+    /**
+     *
+     */
+    renderListFilterControls: function () {
+      var filtersToRender = [];
+      var currentFilters = this.getCurrentFilters(this.filters);
+
+      _.each(this.filters, function (filterGroup, filterGroupID) {
+        _.each(filterGroup, function (filter, filterID) {
+          //only render those that have label
+          if (filter.label) {
+            for (var j = 0; j < currentFilters.length; j++) {
+              if (currentFilters[j].id === filter.id) {
+                filter.checked = "checked";
+              } else {
+                filter.checked = "";
+              }
+            }
+            filtersToRender.push(filter);
+          }
+        });
+      });
+
+      var placeholder = this.$el.find('#list-controls-filter-placeholder');
+
+      placeholder.html(this.template_filter(filtersToRender));
+      placeholder.trigger('create');
+    },
+
+    //TODO: DUPLICATE FROM ListView
+    getCurrentFilters: function (filters) {
+      var filtersIDs =  app.models.user.get('filters');
+      var filters = filters;
+      var currentFilters = [];
+      for (var j = 0; j < filtersIDs.length; j++) {
+        for (var i = 0; i < filters.length; i++) {
+          if (filters[i].id === filtersIDs[j]) {
+            currentFilters.push(filters[i]);
+          }
+        }
+      }
+      return currentFilters;
+    },
+
+    /**
+     * Has to be done once on list creation.
+     */
+    setListControlsListeners: function () {
+      //initial list control button setup
+      var filters = this.getCurrentFilters(this.filters);
+      if (filters.length === 1 && filters[0].id === 'favourites') {
+        filters = [];
+      }
+      this.$el.find('#list-controls-button').toggleClass('on', filters.length > 0);
+
+      this.$el.find('.sort').on('change', function () {
+        app.models.user.save('sort', this.id);
+      });
+
+      var that = this;
+      this.$el.find('.filter').on('change', function () {
+        var filter = app.views.listPage.getFilterById(this.id);
+        app.models.user.toggleListFilter(filter);
+
+        var filters = app.views.listPage.getCurrentFilters();
+        if (filters.length === 1 && filters[0].id === 'favourites') {
+          filters = [];
+        }
+        that.$el.find('#list-controls-button').toggleClass('on', filters.length > 0);
+      });
+    }
+
+  });
+
 })();

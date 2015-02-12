@@ -37,7 +37,7 @@ app.views = app.views || {};
 
       //turn on/off fav button
       var $favButton = $("#species-profile-fav-button");
-      if (app.models.user.get('config').isFavourite(speciesID)) {
+      if (app.models.user.isFavourite(speciesID)) {
         $favButton.removeClass("on");
       } else {
         $favButton.addClass("on");
@@ -52,7 +52,7 @@ app.views = app.views || {};
       var $favButton = $(e.target);
       $favButton.toggleClass("on");
       var speciesID = this.model.get('id');
-      app.models.user.get('config').toggleFavouriteSpecies(speciesID);
+      app.models.user.toggleFavouriteSpecies(speciesID);
     },
 
 

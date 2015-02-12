@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "dependencies": {
     "backbone": "latest",
+    "backbone.localstorage": "jeromegn/Backbone.localStorage",
     "lodash": "latest",
     "jquery-mobile": "jobrapido/jquery-mobile-bower",
     "morel": "NERC-CEH/morel#develop",

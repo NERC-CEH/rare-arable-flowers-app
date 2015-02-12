@@ -22,12 +22,11 @@ app.collections = app.collections || {};
     model: Specie,
 
     initialize: function () {
-      this.listenTo(app.models.user.get('config'), 'change', this.updateFavourites);
-      this.updateFavourites();
+      this.listenTo(app.models.user, 'change', this.updateFavourites);
     },
 
     updateFavourites: function () {
-      var favourites = app.models.user.get('config').get('favourites');
+      var favourites = app.models.user.get('favourites');
       _.each(this.models, function(model){
         if (favourites.indexOf(model.get('id')) >= 0) {
           model.set('favourite', true);
@@ -38,13 +37,24 @@ app.collections = app.collections || {};
     }
   });
 
+  var User = Backbone.Model.extend({
+    id: 'user',
 
-  var UserConfig = Backbone.Model.extend({
     defaults: {
+      name: '',
+      email: '',
+      location: null,
       sort: 'common_name',
       filters: [],
       favourites: []
     },
+
+    initialize: function () {
+      this.fetch();
+    },
+
+    // Save all of the todo items under the `"todos-backbone"` namespace.
+    localStorage: new Backbone.LocalStorage(app.CONF.NAME + "-user"),
 
     toggleFavouriteSpecies: function (speciesID) {
       var favourites = _.clone(this.get('favourites'));  //CLONING problem as discussed:
@@ -56,7 +66,7 @@ app.collections = app.collections || {};
         favourites.push(speciesID);
       }
 
-      this.set('favourites', favourites);
+      this.save('favourites', favourites);
     },
 
     isFavourite: function (speciesID) {
@@ -74,20 +84,10 @@ app.collections = app.collections || {};
         filters.push(filterID);
       }
 
-      this.set('filters', filters);
-    }
-  });
-
-  var User = Backbone.Model.extend({
-    defaults: {
-      name: '',
-      email: '',
-      location: null,
-      config: new UserConfig()
+      this.save('filters', filters);
     }
   });
 
   //create global user
   app.models.user = new User();
-
 })();

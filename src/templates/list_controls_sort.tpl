@@ -1,9 +1,9 @@
     <div class="ui-field-contain list-controls">
         <fieldset data-role="controlgroup">
-            <% _.each(this, function (control){ %>
-            <input name="sort" type="radio" id="<%- control.id %>"
+            <% _.each(obj, function (control, controlID){ %>
+            <input name="sort" type="radio" id="<%- controlID %>"
                    class="sort" <%- control.checked %> data-iconpos="right">
-            <label for="<%- control.id %>" class="sort"><%- control.label %></label>
+            <label for="<%- controlID %>" class="sort"><%- control.label %></label>
             <% }); %>
         </fieldset>
     </div>

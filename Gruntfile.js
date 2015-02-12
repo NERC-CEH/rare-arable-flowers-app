@@ -92,7 +92,8 @@ module.exports = function (grunt) {
           'src/scripts/libs/fastclick/fastclick.js',
           'src/scripts/libs/morel/morel.js',
           'src/scripts/libs/lodash/lodash.js',
-          'src/scripts/libs/backbone/backbone.js'
+          'src/scripts/libs/backbone/backbone.js',
+          'src/scripts/libs/backbone.localstorage/backbone.localstorage.js'
         ],
         // the location of the resulting JS file
         dest: DEST + LIBS_NAME

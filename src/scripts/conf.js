@@ -10,11 +10,11 @@ app.CONF.SPECIES_DATA_SRC = "data/species.json";
 app.CONF.PROB_DATA_SRC = "data/abundance.json";
 
 //morel configuration
-morel.CONF.VERSION = '0'; //grunt replaced. Application (controllers and data) version
-morel.CONF.NAME = 'app'; //grunt replaced.
+app.CONF.VERSION = '0'; //grunt replaced. Application (controllers and data) version
+app.CONF.NAME = 'app'; //grunt replaced.
 
-morel.CONF.HOME = "raf/dist/";
-morel.CONF.LOG = morel.LOG_DEBUG;
+app.CONF.HOME = "raf/dist/";
+app.CONF.LOG = morel.LOG_DEBUG;
 
 //JQM configuration
 $.mobile.ns = "";
