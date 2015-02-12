@@ -144,6 +144,6 @@ module.exports = function (grunt) {
 
   // the default task can be run just by typing "grunt" on the command line
   grunt.registerTask('init', ['bower']);
-  grunt.registerTask('build', ['copy', 'jst', 'concat', 'replace', 'uglify']);
-  grunt.registerTask('default', ['init', 'build']);
+  grunt.registerTask('build', ['copy', 'jst', 'concat', 'replace']);
+  grunt.registerTask('default', ['init', 'build', 'uglify']);
 };
