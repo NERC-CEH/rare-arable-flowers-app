@@ -117,6 +117,8 @@ app.views = app.views || {};
      *
      */
     initialize: function () {
+      _log('views.SpeciesList: initialize', app.LOG_DEBUG);
+
       this.listenTo(this.collection, 'change', this.update);
       this.listenTo(app.models.user, 'change:filters',  this.update);
       this.listenTo(app.models.user, 'change:sort',  this.update);
@@ -127,6 +129,8 @@ app.views = app.views || {};
      * @returns {SpeciesListView}
      */
     render: function (onSuccess) {
+      _log('views.SpeciesList: render', app.LOG_DEBUG);
+
       var that = this;
       this.prepareList(function (list){
         var container = document.createDocumentFragment(); //optimising the performance

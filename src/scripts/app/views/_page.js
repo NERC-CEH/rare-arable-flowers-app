@@ -9,6 +9,8 @@ app.views = app.views || {};
     role: "page",
 
     initialize: function (id) {
+      _log('views.Page(' + id + '): initialize', app.LOG_DEBUG);
+
       this.el.id = id;
       this.id = id;
       this.template = app.templates[id];
@@ -21,6 +23,8 @@ app.views = app.views || {};
     },
 
     render: function () {
+      _log('views.Page(' + this.id + '): render', app.LOG_DEBUG);
+
       $(this.el).html(this.template());
       return this;
     },
@@ -32,12 +36,11 @@ app.views = app.views || {};
     },
 
     appendBackButtonListeners: function () {
-      $('a[data-role="button"]').on('click', function (event) {
-        var $this = $(this);
-        if ($this.attr('data-rel') === 'back') {
-          window.history.back();
-          return false;
-        }
+      _log('views.Page(' + this.id + '): appending Back button listeners', app.LOG_DEBUG);
+
+      $('a[data-rel="back"]').on('click', function (event) {
+        window.history.back();
+        return false;
       });
     }
   });

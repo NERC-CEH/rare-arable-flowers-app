@@ -14,11 +14,15 @@ app.views = app.views || {};
     },
 
     initialize: function () {
+      _log('views.SpeciesPage: initialize', app.LOG_DEBUG);
+
       this.render();
       this.appendBackButtonListeners();
     },
 
     render: function () {
+      _log('views.SpeciesPage: render', app.LOG_DEBUG);
+
       this.$el.html(this.template());
       $('body').append($(this.el));
     },

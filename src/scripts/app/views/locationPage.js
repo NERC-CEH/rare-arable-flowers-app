@@ -15,6 +15,8 @@ app.views = app.views || {};
     },
 
     initialize: function () {
+      _log('views.LocationPage: initialize', app.LOG_DEBUG);
+
       this.render();
       this.appendBackButtonListeners();
 
@@ -36,6 +38,8 @@ app.views = app.views || {};
     },
 
     render: function () {
+      _log('views.LocationPage: render', app.LOG_DEBUG);
+
       this.$el.html(this.template());
 
       $('body').append($(this.el));

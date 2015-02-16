@@ -15,11 +15,15 @@ app.views = app.views || {};
     },
 
     initialize: function () {
+      _log('views.RecordPage: initialize', app.LOG_DEBUG);
+
       this.render();
       this.appendBackButtonListeners();
     },
 
     render: function () {
+      _log('views.RecordPage: render', app.LOG_DEBUG);
+
       this.$el.html(this.template());
 
       //set button event handlers

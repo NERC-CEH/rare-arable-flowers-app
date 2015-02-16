@@ -3,7 +3,8 @@
 
   app.Router = Backbone.Router.extend({
     initialize: function () {
-      this.firstPage = true;
+      _log('app.Router: initialize.', app.LOG_DEBUG);
+
       $(document).on("show", _.bind(this.handleshow, this));
     },
 
@@ -143,12 +144,15 @@
     },
 
     changePage: function (page) {
-      if (this.firstPage) {
-        // We turned off $.mobile.autoInitializePage, but now that we've
-        // added our first page to the DOM, we can now call initializePage.
+      // We turned off $.mobile.autoInitializePage, but now that we've
+      // added our first page to the DOM, we can now call initializePage.
+      if (!this.initializedFirstPage) {
+        _log('app.Router: loading first page.', app.LOG_DEBUG);
+
         $.mobile.initializePage();
-        this.firstPage = false;
+        this.initializedFirstPage = true;
       }
+
       $(":mobile-pagecontainer").pagecontainer("change", '#' + page.id,
         {changeHash: false});
     },

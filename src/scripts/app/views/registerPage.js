@@ -14,11 +14,15 @@ app.views = app.views || {};
     },
 
     initialize: function () {
+      _log('views.RegisterPage: initialize', app.LOG_DEBUG);
+
       this.render();
       this.appendBackButtonListeners();
     },
 
     render: function () {
+      _log('views.RegisterPage: render', app.LOG_DEBUG);
+
       this.$el.html(this.template());
 
       $('body').append($(this.el));

@@ -14,6 +14,8 @@ app.views = app.views || {};
     },
 
     initialize: function () {
+      _log('views.DatePage: initialize', app.LOG_DEBUG);
+
       this.render();
       this.appendBackButtonListeners();
     },
@@ -40,6 +42,8 @@ app.views = app.views || {};
     },
 
     initialize: function () {
+      _log('views.NumberPage: initialize', app.LOG_DEBUG);
+
       this.render();
       this.appendBackButtonListeners();
     },
@@ -66,6 +70,8 @@ app.views = app.views || {};
     },
 
     initialize: function () {
+      _log('views.StagePage: initialize', app.LOG_DEBUG);
+
       this.render();
       this.appendBackButtonListeners();
     },
@@ -92,6 +98,8 @@ app.views = app.views || {};
     },
 
     initialize: function () {
+      _log('views.LocationdetailsPage: initialize', app.LOG_DEBUG);
+
       this.render();
       this.appendBackButtonListeners();
     },
@@ -118,11 +126,15 @@ app.views = app.views || {};
     },
 
     initialize: function () {
+      _log('views.CommentPage: initialize', app.LOG_DEBUG);
+
       this.render();
       this.appendBackButtonListeners();
     },
 
     render: function () {
+      _log('views.CommentPage: render', app.LOG_DEBUG);
+
       this.$el.html(this.template());
 
       $('body').append($(this.el));

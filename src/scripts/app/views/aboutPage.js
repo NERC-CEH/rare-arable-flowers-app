@@ -10,11 +10,15 @@ app.views = app.views || {};
     template: app.templates.about,
 
     initialize: function () {
+      _log('views.AboutPage: initialize', app.LOG_DEBUG);
+
       this.render();
       this.appendBackButtonListeners();
     },
 
     render: function () {
+      _log('views.AboutPage: render', app.LOG_DEBUG);
+
       this.$el.html(this.template());
 
       //update the app version number

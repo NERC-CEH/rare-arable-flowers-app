@@ -10,10 +10,14 @@ app.views = app.views || {};
     template: app.templates.login,
 
     initialize: function () {
+      _log('views.LoginPage: initialize', app.LOG_DEBUG);
+
       this.render();
     },
 
     render: function () {
+      _log('views.LoginPage: render', app.LOG_DEBUG);
+
       this.$el.html(this.template());
 
       $('body').append($(this.el));

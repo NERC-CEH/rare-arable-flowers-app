@@ -17,11 +17,15 @@ app.views = app.views || {};
     },
 
     initialize: function () {
+      _log('views.UserPage: initialize', app.LOG_DEBUG);
+
       this.render();
       this.appendBackButtonListeners();
     },
 
     render: function () {
+      _log('views.UserPage: render', app.LOG_DEBUG);
+
       this.$el.html(this.template());
 
       $('body').append($(this.el));
