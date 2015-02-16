@@ -55,15 +55,13 @@
     <div data-role="footer" data-position="fixed" data-tap-toggle="false">
         <div class='ui-btn-left' data-role='controlgroup' data-type='horizontal'>
             <input id="entry-form-save" type="button" value="Save" data-icon="plus"
-                   onclick="app.controller.record.save()" data-theme="b"
-                   data-iconpos="right">
+                   data-theme="b" data-iconpos="right">
         </div>
         <h1 id='record_footer'></h1>
 
         <div class='ui-btn-right' data-role='controlgroup' data-type='horizontal'>
             <input id="entry-form-send" type="button" value="Send" data-icon="mail"
-                   onclick="app.controller.record.send()" data-theme="b"
-                   data-iconpos="right">
+                   data-theme="b" data-iconpos="right">
         </div>
 
     </div>

@@ -8,11 +8,11 @@
 function _log(message, level) {
 
   //do nothing if logging turned off
-  if (morel.CONF.LOG == morel.LOG_NONE) {
+  if (app.CONF.LOG == morel.LOG_NONE) {
     return;
   }
 
-  if (morel.CONF.LOG >= level || !level) {
+  if (app.CONF.LOG >= level || !level) {
     switch (level) {
       case morel.LOG_ERROR:
   	    console.error(message.message, message.url, message.line);
@@ -48,6 +48,7 @@ function _log(message, level) {
 
         //saves for quicker loading
         morel.storage.set('species', json);
+        app.collections.species = new app.collections.Species(morel.storage.get('species'));
 
         //todo: what if data comes first before show
         app.controller.list.renderList();
@@ -62,10 +63,15 @@ function _log(message, level) {
   }
 }
 
+//overwrite morel user append function to match backbone
+morel.auth.getUser = function () {
+  return app.models.user.attributes;
+};
+
 $(document).ready(function(){
   _log('document ready!');
 
-  prepareData();
+  //prepareData();
 
   app.router = new app.Router();
   Backbone.history.start();

@@ -18,10 +18,14 @@ app.collections = app.collections || {};
     }
   });
 
-  app.collections.Species = Backbone.Collection.extend({
+  var Species = Backbone.Collection.extend({
     model: Specie,
 
+    localStorage: new Backbone.LocalStorage(app.CONF.NAME),
+
     initialize: function (species) {
+      this.fetch();
+
       this.listenTo(app.models.user, 'change', this.updateFavourites);
 
       // Udate the species with favourites for first time
@@ -34,6 +38,17 @@ app.collections = app.collections || {};
         }
       });
 
+    },
+
+    loadData: function () {
+      $.ajax({
+        url: app.CONF.SPECIES_DATA_SRC,
+        dataType: 'json',
+        async: false,
+        success: function (json) {
+
+        }
+      });
     },
 
     updateFavourites: function () {
@@ -54,7 +69,9 @@ app.collections = app.collections || {};
     defaults: {
       name: '',
       email: '',
+      password: '',
       location: null,
+      location_acc: -1,
       sort: 'common_name',
       filters: [],
       favourites: []
@@ -65,7 +82,13 @@ app.collections = app.collections || {};
     },
 
     // Save all of the todo items under the `"todos-backbone"` namespace.
-    localStorage: new Backbone.LocalStorage(app.CONF.NAME + "-user"),
+    localStorage: new Backbone.LocalStorage(app.CONF.NAME),
+
+    signOut: function () {
+      this.set('email', '');
+      this.set('password', '');
+      this.save();
+    },
 
     toggleFavouriteSpecies: function (speciesID) {
       var favourites = _.clone(this.get('favourites'));  //CLONING problem as discussed:
@@ -99,6 +122,8 @@ app.collections = app.collections || {};
     }
   });
 
-  //create global user
+  //create global
   app.models.user = new User();
+  app.collections.species = new Species();
+
 })();

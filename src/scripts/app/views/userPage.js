@@ -13,7 +13,7 @@ app.views = app.views || {};
       'click #sendall-button': 'sendAllSavedRecords',
       'click #send-button': 'sendSavedRecord',
       'click #delete-button': 'deleteSavedRecord',
-      'click #logout-button': 'sendAllSavedRecords'
+      'click #logout-button': 'signOut'
     },
 
     initialize: function () {
@@ -42,7 +42,9 @@ app.views = app.views || {};
       morel.io.sendAllSavedRecords(onSuccess);
     },
 
-    sendSavedRecord: function (recordKey) {
+    sendSavedRecord: function (e) {
+      var recordKey = $(e.currentTarget).data('id');
+
       var onSuccess = null, onError = null;
       if (navigator.onLine) {
         $.mobile.loading('show');
@@ -65,11 +67,14 @@ app.views = app.views || {};
         };
 
         onError = function (xhr, ajaxOptions, thrownError) {
-          _log("user: ERROR record ajax (" + xhr.status + " " + thrownError + ").");
-          _log(xhr.responseText);
+          if (!xhr.responseText) {
+            xhr.responseText = "Sorry. Some Error Occurred."
+          }
+          _log("user: ERROR record ajax (" + xhr.status + " " + thrownError + ").", app.LOG_ERROR);
+          _log(xhr.responseText, app.LOG_ERROR);
 
           $.mobile.loading('show', {
-            text: xhr.responseText.replace(/<br\/>/g, ' '),
+            text: xhr.responseText,
             theme: "b",
             textVisible: true,
             textonly: true
@@ -95,18 +100,27 @@ app.views = app.views || {};
       }
     },
 
-    deleteSavedRecord: function (recordKey) {
+    deleteSavedRecord: function (e) {
+      var recordKey = $(e.currentTarget).data('id');
       morel.record.db.remove(recordKey, function () {
         app.views.userPage.printList();
       });
     },
 
     printUserControls: function () {
-      var placeholder = $('#user-placeholder');
+      var $logoutButton = $('#logout-button');
+      var $loginWarning = $('#login-warning');
 
       var user = app.models.user.attributes;
-      placeholder.html(app.templates.user_profile({'user': user}));
-      placeholder.trigger('create');
+      if (user.email){
+        //logged in
+        $logoutButton.show();
+        $loginWarning.hide();
+      } else {
+        //logged out
+        $logoutButton.hide();
+        $loginWarning.show();
+      }
     },
 
     printList: function () {
@@ -144,6 +158,12 @@ app.views = app.views || {};
       }
 
       morel.record.db.getAll(onSuccess);
+    },
+
+    signOut: function () {
+      _log('user: logging out', app.LOG_INFO);
+      app.models.user.signOut();
+      this.update();
     }
 
   });

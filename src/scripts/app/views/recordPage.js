@@ -9,6 +9,11 @@ app.views = app.views || {};
 
     template: app.templates.record,
 
+    events: {
+      'click #entry-form-save': 'save',
+      'click #entry-form-send': 'send'
+    },
+
     initialize: function () {
       this.render();
       this.appendBackButtonListeners();
@@ -226,7 +231,7 @@ app.views = app.views || {};
         }
 
         message += "</ul>";
-        app.navigation.popup(message, true);
+        app.navigation.message(message, true);
         return morel.FALSE;
       }
 

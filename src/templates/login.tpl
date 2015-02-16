@@ -18,7 +18,7 @@
                 <a href="register" data-role="button" role="button">Create new account</a>
             </li>
             <li data-icon="arrow-r" class="last">
-                <a href="/drupal/user/password" data-role="button" rel="external">Request new password</a>
+                <a href="http://www.brc.ac.uk/irecord/user/password" data-role="button" rel="external">Request new password</a>
             </li>
         </ul>
     </div>
