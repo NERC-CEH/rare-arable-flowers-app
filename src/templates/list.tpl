@@ -3,6 +3,8 @@
         <div class='ui-btn-left' data-role='controlgroup' data-type='horizontal'>
             <a href='#' data-rel='back' data-role="button" data-icon="arrow-l"
                data-iconpos="notext">Back</a>
+            <a href="#user" data-role="button"
+               data-icon="user" data-iconpos="notext">User</a>
         </div>
 
         <h1 id='list_heading'></h1>

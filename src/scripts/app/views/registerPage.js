@@ -4,10 +4,14 @@ app.views = app.views || {};
 (function () {
   'use strict';
 
-  app.views.UserPage = app.views.Page.extend({
-    id: 'user',
+  app.views.RegisterPage = app.views.Page.extend({
+    id: 'register',
 
-    template: app.templates.user,
+    template: app.templates.register,
+
+    events: {
+      'click #register-button': 'register'
+    },
 
     initialize: function () {
       this.render();
@@ -20,11 +24,6 @@ app.views = app.views || {};
       $('body').append($(this.el));
 
       return this;
-    },
-
-    update: function () {
-      this.printUserControls();
-      this.printList();
     },
 
     //controller configuration should be set up in an app config file

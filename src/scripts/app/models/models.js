@@ -21,8 +21,19 @@ app.collections = app.collections || {};
   app.collections.Species = Backbone.Collection.extend({
     model: Specie,
 
-    initialize: function () {
+    initialize: function (species) {
       this.listenTo(app.models.user, 'change', this.updateFavourites);
+
+      // Udate the species with favourites for first time
+      var favourites = app.models.user.get('favourites');
+      _.each(species, function(specie){
+        if (favourites.indexOf(specie.id) >= 0) {
+          specie.favourite = true;
+        } else {
+          specie.favourite = false;
+        }
+      });
+
     },
 
     updateFavourites: function () {

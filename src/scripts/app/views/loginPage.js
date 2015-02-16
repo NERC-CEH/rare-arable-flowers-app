@@ -11,7 +11,6 @@ app.views = app.views || {};
 
     initialize: function () {
       this.render();
-      this.appendBackButtonListeners();
     },
 
     render: function () {
@@ -20,11 +19,6 @@ app.views = app.views || {};
       $('body').append($(this.el));
 
       return this;
-    },
-
-    update: function () {
-      this.printUserControls();
-      this.printList();
     },
 
     //controller configuration should be set up in an app config file

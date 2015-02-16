@@ -3,12 +3,7 @@
             <a href='#' data-rel='back' data-role="button" data-icon="arrow-l"
                data-iconpos="notext">Back</a>
         </div>
-        <h1 id='user_heading'></h1>
-
-        <div class='ui-btn-right' data-role='controlgroup' data-type='horizontal'>
-            <a href="#location" data-role="button" data-icon="location"
-               data-iconpos="notext">Set your location</a>
-        </div>
+        <h1 id='user_heading'> My Account </h1>
     </div>
 
     <div data-role="content">

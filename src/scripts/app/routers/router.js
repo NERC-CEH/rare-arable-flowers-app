@@ -32,6 +32,33 @@
         app.views.speciesPage.update(id);
       },
 
+      "user": function () {
+        if (!app.views.userPage){
+          app.views.userPage = new app.views.UserPage();
+        }
+        this.changePage(app.views.userPage);
+
+        app.views.userPage.update();
+      },
+
+      "terms": function () {
+        this.navigateToStandardPage('terms');
+      },
+
+      "login": function () {
+        if (!app.views.loginPage){
+          app.views.loginPage = new app.views.LoginPage();
+        }
+        this.changePage(app.views.loginPage);
+      },
+
+      "register": function () {
+        if (!app.views.registerPage){
+          app.views.registerPage = new app.views.RegisterPage();
+        }
+        this.changePage(app.views.registerPage);
+      },
+
       "record/:id": function (id) {
         if (!app.views.recordPage){
           app.views.recordPage = new app.views.RecordPage();

@@ -18,16 +18,16 @@ app.views = app.views || {};
      * label - label to represent the filter in the UI
      */
     filters: {
-      probability: {
-        probability:{
-          label: 'Probability',
-          filter: function (list, onSuccess) {
-            app.views.listPage.prob.runFilter(list, function () {
-              var filtered_list = app.views.listPage.prob.filterList(list);
-              onSuccess(filtered_list);
-            });
-          }
-      }},
+      //probability: {
+      //  probability:{
+      //    label: 'Probability',
+      //    filter: function (list, onSuccess) {
+      //      app.views.listPage.prob.runFilter(list, function () {
+      //        var filtered_list = app.views.listPage.prob.filterList(list);
+      //        onSuccess(filtered_list);
+      //      });
+      //    }
+      //}},
       favourites: {
         favourites: {
           id: 'favourites',
@@ -126,7 +126,7 @@ app.views = app.views || {};
      * Renders the species list.
      * @returns {SpeciesListView}
      */
-    render: function () {
+    render: function (onSuccess) {
       var that = this;
       this.prepareList(function (list){
         var container = document.createDocumentFragment(); //optimising the performance
@@ -135,14 +135,18 @@ app.views = app.views || {};
           container.appendChild(listSpeciesView.render().el);
         });
         that.$el.html(container); //appends to DOM only once
+        if (onSuccess){
+          onSuccess(that.$el);
+        }
       });
       return this;
     },
 
     update: function () {
       _log('list: updating', app.LOG_INFO);
-      this.render();
-      this.$el.listview('refresh');
+      this.render(function($el){
+        $el.listview('refresh');
+      });
     },
 
     /**

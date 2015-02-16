@@ -9,6 +9,13 @@ app.views = app.views || {};
 
     template: app.templates.user,
 
+    events: {
+      'click #sendall-button': 'sendAllSavedRecords',
+      'click #send-button': 'sendSavedRecord',
+      'click #delete-button': 'deleteSavedRecord',
+      'click #logout-button': 'sendAllSavedRecords'
+    },
+
     initialize: function () {
       this.render();
       this.appendBackButtonListeners();
@@ -97,9 +104,7 @@ app.views = app.views || {};
     printUserControls: function () {
       var placeholder = $('#user-placeholder');
 
-      var user = {
-        'loggedout': !app.views.loginPage.getLoginState()
-      };
+      var user = app.models.user.attributes;
       placeholder.html(app.templates.user_profile({'user': user}));
       placeholder.trigger('create');
     },
@@ -117,7 +122,7 @@ app.views = app.views || {};
                 record.date = value;
                 break;
               case morel.record.inputs.KEYS.TAXON:
-                var species = app.data.species;
+                var species = app.collections.species.models;
                 for (var k = 0; k < species.length; k++) {
                   if (species[k].warehouse_id === value) {
                     record.common_name = species[k].common_name;
