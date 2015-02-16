@@ -91,7 +91,7 @@ app.collections = app.collections || {};
 
     isFavourite: function (speciesID) {
       var favourites = this.get('favourites');
-      return _.indexOf(favourites, speciesID);
+      return _.indexOf(favourites, speciesID) >= 0;
     },
 
     toggleListFilter: function (filterID) {

@@ -431,3 +431,7 @@ ul[data-role="listview"] > li > p {
     width: 80%;
     height: 65vh;
 }
+
+#list {
+    min-height: 94vh;
+}

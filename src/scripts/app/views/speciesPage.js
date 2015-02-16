@@ -42,10 +42,13 @@ app.views = app.views || {};
       //turn on/off fav button
       var $favButton = $("#species-profile-fav-button");
       if (app.models.user.isFavourite(speciesID)) {
-        $favButton.removeClass("on");
-      } else {
         $favButton.addClass("on");
+      } else {
+        $favButton.removeClass("on");
       }
+
+      //add Gallery
+      this.gallery.init();
     },
 
     /**
@@ -96,7 +99,35 @@ app.views = app.views || {};
         .attr('y', -margin);
       $('#species-map-data').attr('transform', 'scale(' + scale + ')')
         .attr('y', -margin);
+    },
+
+    /**
+     *
+     */
+    gallery: {
+      gallery: {},
+      init: function (gallery_id) {
+        var images = $('#species_gallery a');
+
+        if (images.length > 0) {
+          this.gallery = images.photoSwipe({
+            jQueryMobile: true,
+            loop: false,
+            enableMouseWheel: false,
+            enableKeyboard: false
+          });
+        }
+      },
+
+      show: function () {
+        if ($('.gallery')) {
+          this.gallery.show(0);
+        } else {
+          app.navigation.message('I have no pictures to show :(');
+        }
+      }
     }
+
   });
 
   var SpeciesProfile = Backbone.View.extend({
