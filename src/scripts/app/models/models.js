@@ -18,14 +18,12 @@ app.collections = app.collections || {};
     }
   });
 
-  var Species = Backbone.Collection.extend({
+  app.collections.Species = Backbone.Collection.extend({
     model: Specie,
 
     localStorage: new Backbone.LocalStorage(app.CONF.NAME),
 
     initialize: function (species) {
-      this.fetch();
-
       this.listenTo(app.models.user, 'change', this.updateFavourites);
 
       // Udate the species with favourites for first time
@@ -35,18 +33,6 @@ app.collections = app.collections || {};
           specie.favourite = true;
         } else {
           specie.favourite = false;
-        }
-      });
-
-    },
-
-    loadData: function () {
-      $.ajax({
-        url: app.CONF.SPECIES_DATA_SRC,
-        dataType: 'json',
-        async: false,
-        success: function (json) {
-
         }
       });
     },
@@ -124,6 +110,4 @@ app.collections = app.collections || {};
 
   //create global
   app.models.user = new User();
-  app.collections.species = new Species();
-
 })();

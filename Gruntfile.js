@@ -2,6 +2,7 @@ module.exports = function (grunt) {
   var DEST = 'dist/scripts/';
   var APP_NAME = 'app.js';
   var LIBS_NAME = 'libs.js';
+  var DATA_NAME = 'data.js';
 
   var banner = "/*!\n" +
     " * <%= pkg.title %>. \n" +
@@ -32,9 +33,6 @@ module.exports = function (grunt) {
           {src: ['src/scripts/libs/photoswipe/photoswipe.css'], dest: 'dist/css/photoswipe.css'},
           {src: ['src/scripts/libs/photoswipe/icons.png'], dest: 'dist/css/icons.png'},
           {src: ['src/scripts/libs/photoswipe/icons@2x.png'], dest: 'dist/css/icons@2x.png'},
-          {src: ['src/data/species.json'], dest: 'dist/data/species.json'},
-          {src: ['src/data/abundance.json'], dest: 'dist/data/abundance.json'},
-          {src: ['src/data/flight.json'], dest: 'dist/data/flight.json'},
           {src: ['src/images/sample.jpg'], dest: 'dist/images/sample.jpg'}
         ]
       }
@@ -93,10 +91,18 @@ module.exports = function (grunt) {
           'src/scripts/libs/morel/morel.js',
           'src/scripts/libs/lodash/lodash.js',
           'src/scripts/libs/backbone/backbone.js',
-          'src/scripts/libs/backbone.localstorage/backbone.localstorage.js'
+          'src/scripts/libs/backbone.localstorage/backbone.localStorage.js'
         ],
         // the location of the resulting JS file
         dest: DEST + LIBS_NAME
+      },
+      data: {
+        // the files to concatenate
+        src: [
+          'src/data/*.js'
+        ],
+        // the location of the resulting JS file
+        dest: DEST + DATA_NAME
       }
     },
     replace: {

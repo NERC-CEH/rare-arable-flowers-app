@@ -1,4 +1,4 @@
-[
+app.collections.species = new app.collections.Species([
   {
     "id": "1",
     "profile_pic": "images/sample.jpg",
@@ -1088,4 +1088,4 @@
     "common_name": "Wild Pansy",
     "taxon": "Viola tricolor ssp. tricolor"
   }
-]
+]);
