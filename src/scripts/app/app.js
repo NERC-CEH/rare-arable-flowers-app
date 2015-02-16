@@ -76,9 +76,9 @@ $(document).ready(function(){
   app.router = new app.Router();
   Backbone.history.start();
 
-  checkForUpdates();
+  app.checkForUpdates();
+  app.extendDisableTabFunctionality();
+  app.fixIOSbuttons();
 
-  fixIOSbuttons();
   FastClick.attach(document.body);
-  extendDisableTabFunctionality();
 });

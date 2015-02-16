@@ -1,138 +1,38 @@
-/***********************************************************************
- * JQM NAVIGATION MODULE
- **********************************************************************/
-
 var app = app || {};
-app.navigation = (function (m, $) {
-  "use strict";
-  /*global _log*/
 
-  /**
-   * Updates the dialog box appended to the page
-   * todo: remove hardcoded dialog ID
-   */
-  m.makeDialog = function (text) {
-    $('#app-dialog-content').empty().append(text);
-  };
+/**
+ * Displays a self disappearing lightweight message.
+ *
+ * @param text
+ * @param time 0 if no hiding, null gives default 3000ms delay
+ */
+app.message = function (text, time) {
+  if (!text) {
+    _log('NAVIGATION: no text provided to message.', morel.LOG_ERROR);
+    return;
+  }
 
-  /**
-   * Created a popup.
-   * todo: remove hardcoded popup ID
-   *
-   * @param text
-   * @param addClose
-   */
-  m.popup = function (text, addClose) {
-    this.makePopup(text, addClose);
-    var popup = $('#app-popup');
-    popup.popup();
-    popup.popup('open').trigger('create');
-  };
+  var messageId = 'morelLoaderMessage';
 
-  /**
-   * Updates the popup div appended to the page
-   */
-  m.makePopup = function (text, addClose) {
-    var PADDING_WIDTH = 10;
-    var PADDING_HEIGHT = 20;
-    var CLOSE_KEY = "<a href='#' data-rel='back' data-role='button '" +
-      "data-theme='b' data-icon='delete' data-iconpos='notext '" +
-      "class='ui-btn-right ui-link ui-btn ui-btn-b ui-icon-delete " +
-      "ui-btn-icon-notext ui-shadow ui-corner-all '" +
-      "role='button'>Close</a>";
+  text = '<div id="' + messageId + '">' + text + '</div>';
 
-    if (addClose) {
-      text = CLOSE_KEY + text;
-    }
+  $.mobile.loading('show', {
+    theme: "b",
+    textVisible: true,
+    textonly: true,
+    html: text
+  });
 
-    if (PADDING_WIDTH > 0 || PADDING_HEIGHT > 0) {
-      text = "<div style='padding:" + PADDING_WIDTH + "px " + PADDING_HEIGHT + "px;'>" +
-      text + "<div>";
-    }
+  //trigger JQM beauty
+  $('#' + messageId).trigger('create');
 
-    $('#app-popup').empty().append(text);
-  };
-
-  /**
-   * Closes a popup.
-   * todo: remove hardcoded popup ID
-   */
-  m.closePopup = function () {
-    $('#app-popup').popup("close");
-  };
-
-  /**
-   * Creates a loader
-   */
-  m.makeLoader = function (text, time) {
-    //clear previous loader
-    $.mobile.loading('hide');
-
-    //display new one
-    $.mobile.loading('show', {
-      theme: "b",
-      html: "<div style='padding:5px 5px;'>" + text + "</div>",
-      textVisible: true,
-      textonly: true
-    });
-
+  if (time !== 0) {
     setTimeout(function () {
       $.mobile.loading('hide');
-    }, time);
-  };
+    }, time || 3000);
+  }
+};
 
-  /**
-   * Displays a self disappearing lightweight message.
-   *
-   * @param text
-   * @param time 0 if no hiding, null gives default 3000ms delay
-   */
-  m.message = function (text, time) {
-    if (!text) {
-      _log('NAVIGATION: no text provided to message.', morel.LOG_ERROR);
-      return;
-    }
-
-    var messageId = 'morelLoaderMessage';
-
-    text = '<div id="' + messageId + '">' + text + '</div>';
-
-    $.mobile.loading('show', {
-      theme: "b",
-      textVisible: true,
-      textonly: true,
-      html: text
-    });
-
-    //trigger JQM beauty
-    $('#' + messageId).trigger('create');
-
-    if (time !== 0) {
-      setTimeout(function () {
-        $.mobile.loading('hide');
-      }, time || 3000);
-    }
-  };
-
-  /**
-   * Opens particular morel page-path.
-   *
-   * @param delay
-   * @param path If no path supplied goes to morel.PATH
-   */
-  m.go = function (delay, basePath, path) {
-    setTimeout(function () {
-      path = path ? "" : path;
-      window.location = basePath + morel.CONF.HOME + path;
-    }, delay);
-  };
-
-  return m;
-}(app.navigation || {}, jQuery));
-
-/*****************
- * Module END
- *****************/
 
 /**
  * Since the back button does not work in current iOS 7.1.1 while in app mode,
@@ -149,33 +49,12 @@ app.navigation = (function (m, $) {
  */
 
 /**
- * Fixes back buttons for specific page
- */
-/*jslint unparam: true*/
-function fixPageBackButtons(currentPageURL, nextPageId) {
-  "use strict";
-  console.log('FIXING: back buttons ( ' + nextPageId + ')');
-
-  var $buttons = jQuery("div[id='" + nextPageId + "'] a[data-rel='back']");
-  $buttons.each(function (index, button) {
-    jQuery(button).removeAttr('data-rel');
-
-    //skip external pages
-    if (currentPageURL) {
-      //assign new url to the button
-      jQuery(button).attr('href', currentPageURL);
-    }
-  });
-}
-/*jslint unparam: false*/
-
-/**
  * Generic function to detect the browser
  *
  * Chrome has to have and ID of both Chrome and Safari therefore
  * Safari has to have an ID of only Safari and not Chrome
  */
-function browserDetect(browser) {
+app.browserDetect = function (browser) {
   "use strict";
   if (browser === 'Chrome' || browser === 'Safari') {
     var isChrome = navigator.userAgent.indexOf('Chrome') > -1,
@@ -197,7 +76,7 @@ function browserDetect(browser) {
     return false;
   }
   return (navigator.userAgent.indexOf(browser) > -1);
-}
+};
 
 /**
  * Starts an Appcache Manifest Downloading.
@@ -208,7 +87,7 @@ function browserDetect(browser) {
  * @param callback
  * @param onError
  */
-function startManifestDownload(id, filesNum, src, callback, onError) {
+app.startManifestDownload = function (id, filesNum, src, callback, onError) {
   "use strict";
   /*todo: Add better offline handling:
    If there is a network connection, but it cannot reach any
@@ -223,7 +102,6 @@ function startManifestDownload(id, filesNum, src, callback, onError) {
       frame.contentWindow.applicationCache.update();
     } else {
       //init
-      //app.navigation.popup('<iframe id="' + id + '" src="' + src + '" width="215px" height="215px" scrolling="no" frameBorder="0"></iframe>', true);
       app.navigation.message('<iframe id="' + id + '" src="' + src + '" width="215px" height="215px" scrolling="no" frameBorder="0"></iframe>', 0);
       frame = document.getElementById(id);
 
@@ -247,7 +125,7 @@ function startManifestDownload(id, filesNum, src, callback, onError) {
       textonly: true
     });
   }
-}
+};
 
 /**
  * Adds Enable/Disable JQM Tab functionality
@@ -256,7 +134,7 @@ function startManifestDownload(id, filesNum, src, callback, onError) {
  * $('MyTabSelector').disableTab(0);        // Disables the first tab
  * $('MyTabSelector').disableTab(1, true);  // Disables & hides the second tab
  */
-function extendDisableTabFunctionality() {
+app.extendDisableTabFunctionality = function () {
   "use strict";
 
   $.fn.disableTab = function (tabIndex, hide) {
@@ -297,13 +175,13 @@ function extendDisableTabFunctionality() {
     return this;
 
   };
-}
+};
 
 
-function fixIOSbuttons () {
+app.fixIOSbuttons = function () {
   //Fixing back buttons for Mac 7.* History bug.
-  $(document).on('pagecreate', function(event, ui) {
-    if (browserDetect('Safari')){
+  $(document).on('pagecreate', function (event, ui) {
+    if (app.browserDetect('Safari')) {
       if (jQuery.mobile.activePage) {
         var nextPageid = event.target.id;
         var currentPageURL = null;
@@ -316,22 +194,43 @@ function fixIOSbuttons () {
       }
     }
   });
-}
+
+  /**
+   * Fixes back buttons for specific page
+   */
+  /*jslint unparam: true*/
+  function fixPageBackButtons  (currentPageURL, nextPageId) {
+    "use strict";
+    console.log('FIXING: back buttons ( ' + nextPageId + ')');
+
+    var $buttons = jQuery("div[id='" + nextPageId + "'] a[data-rel='back']");
+    $buttons.each(function (index, button) {
+      jQuery(button).removeAttr('data-rel');
+
+      //skip external pages
+      if (currentPageURL) {
+        //assign new url to the button
+        jQuery(button).attr('href', currentPageURL);
+      }
+    });
+  }
+  /*jslint unparam: false*/
+};
 
 /**
  * Updates the app's data if the source code version mismatches the
  * stored data's version.
  */
-function checkForUpdates(){
+app.checkForUpdates = function () {
   var CONTROLLER_VERSION_KEY = 'controllerVersion';
   var controllerVersion = morel.settings(CONTROLLER_VERSION_KEY);
   //set for the first time
-  if (!controllerVersion){
+  if (!controllerVersion) {
     morel.settings(CONTROLLER_VERSION_KEY, morel.CONF.VERSION);
     return;
   }
 
-  if (controllerVersion !== morel.CONF.VERSION){
+  if (controllerVersion !== morel.CONF.VERSION) {
     _log('app: controller version differs. Updating the morel.', morel.LOG_INFO);
 
     //TODO: add try catch for any problems
@@ -341,4 +240,4 @@ function checkForUpdates(){
     //set new version
     morel.settings(CONTROLLER_VERSION_KEY, morel.CONF.VERSION);
   }
-}
+};

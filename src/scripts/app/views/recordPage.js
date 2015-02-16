@@ -84,7 +84,7 @@ app.views = app.views || {};
         app.views.recordPage.gpsButtonState('none');
       }
 
-      morel.geoloc.run(null, onGeolocSuccess);
+      morel.geoloc.run(null, onGeolocSuccess, onError);
       this.gpsButtonState('running');
     },
 
