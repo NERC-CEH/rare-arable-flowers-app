@@ -6,7 +6,7 @@
         <h1 id='species_heading'></h1>
 
        <div class='ui-btn-right' data-role='controlgroup' data-type='horizontal'>
-           <button id="species-profile-fav-button" data-icon="star">Fav</button>
+           <button id="species-profile-fav-button" data-icon="star">Favourite</button>
        </div>
     </div>
 

@@ -20,8 +20,6 @@ app.views = app.views || {};
       this.render();
       this.appendBackButtonListeners();
 
-      app.models.user.bind('change', this.saveLocation);
-
       if (typeof google === 'undefined') {
         $('#location-opts').disableTab(1);
 
@@ -48,68 +46,13 @@ app.views = app.views || {};
 
     update: function (prevPageId, speciesID) {
       app.views.locationPage.renderGPStab('init');
-      this.saveData = false; //reset
     },
 
-    saveData: false,
-
-    /**
-     * TODO: OBSOLETE
-     * @param e
-     * @param data
-     */
-    pagecontainerbeforechange: function (e, data) {
-      _log('location: pagecontainerbeforechange.');
-      if (typeof data.toPage === 'object' && data.toPage[0]) {
-        var nextPage = data.toPage[0].id;
-
-        if (this.saveData && this.accuracy !== -1) {
-          var location = this.saveLocation();
-          //Save button
-          switch (nextPage) {
-            case 'record':
-              app.views.recordPage.saveLocation(location);
-              break;
-            case 'list':
-              app.views.listPage.prob.runFilter();
-              break;
-            default:
-              _log('location: ERROR changing to unknown page.');
-          }
-        } else {
-          //Cancel button
-          switch (nextPage) {
-            case 'list':
-              //the filter needs to be removed if canceled
-              // at the location stage
-              var filter = {'id': 'probability'};
-              app.views.listPage.removeFilter(filter);
-              break;
-            default:
-              _log('location: ERROR changing to unknown page.');
-          }
-        }
-      }
-    },
-
-    saveLocation: function () {
-      //save in storage
-      var location = {
-        'lat': this.latitude,
-        'lon': this.longitude,
-        'acc': this.accuracy
-      };
-      morel.settings('location', location);
-      morel.geoloc.set(location.lat, location.lon, location.acc);
-      return location;
-    },
-
-    /**
-     * Should be overwritten by page-specific saving procedure
-     */
     save: function () {
-      _log('location: saving location.');
-      this.saveData = true;
+      var location = this.get();
+
+      app.models.record.saveLocation(location);
+      window.history.back();
     },
 
     map: {},
@@ -160,7 +103,7 @@ app.views = app.views || {};
           template = app.templates.location_gps_finished;
           break;
         default:
-          _log('location: unknown render gps tab.');
+          _log('views.LocationPage: unknown render gps tab.');
       }
 
       if (location) {

@@ -1,13 +1,12 @@
     <div data-role="header" data-position="fixed" data-tap-toggle="false">
         <div class='ui-btn-left' data-role='controlgroup' data-type='horizontal'>
-            <a href='#' data-rel="back" data-role="button" data-iconpos="notext"
+            <a href='#' data-rel="back" data-role="button"
                data-icon="delete">Cancel</a>
         </div>
         <h1>Stage</h1>
 
         <div class='ui-btn-right' data-role='controlgroup' data-type='horizontal'>
-            <a href='#' id="stage-save" data-rel="back" data-role="button"
-               data-iconpos="notext" data-icon="check">Save</a>
+            <button id="stage-save" data-icon="star">Save</button>
         </div>
     </div>
     <div data-role="content">

@@ -28,7 +28,12 @@ app.views = app.views || {};
     },
 
     save: function () {
-      app.views.recordPage.saveInput('sample:date')
+      var ele = document.getElementById('sample:date');
+      var value = $(ele).val();
+      if (value !== "") {
+        morel.record.inputs.set('sample:date', value);
+      }
+      window.history.back();
     }
   });
 

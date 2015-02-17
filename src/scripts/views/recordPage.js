@@ -38,7 +38,7 @@ app.views = app.views || {};
     },
 
     update: function (prevPageId, speciesID) {
-      _log('record: show.');
+      _log('views.RecordPage: show.');
       switch (prevPageId) {
         case 'list':
           this.initRecording(speciesID);
@@ -52,7 +52,7 @@ app.views = app.views || {};
           }
           break;
         default:
-          _log('record: coming from unknown page.', app.LOG_WARNING);
+          _log('views.RecordPage: coming from unknown page.', app.LOG_WARNING);
           this.initRecording(speciesID);
       }
     },
@@ -61,88 +61,64 @@ app.views = app.views || {};
      * Initialises the recording form: sets empty image, clears geolocation etc.
      */
     initRecording: function (speciesID) {
-      this.clear(speciesID);
+      app.models.record = new app.models.Record(speciesID);
+
       //start geolocation
       function onGeolocSuccess(location) {
-        app.views.recordPage.saveLocation(location);
-        app.models.user.set('location', {
-            'lat': location.lat,
-            'lon': location.lon,
-            'acc': location.acc
-        });
+        app.models.record.saveLocation(location);
         app.views.recordPage.gpsButtonState('done');
       }
-
       function onError(err) {
         //modify the UI
         app.views.recordPage.gpsButtonState('none');
       }
-
       morel.geoloc.run(null, onGeolocSuccess, onError);
+
       this.gpsButtonState('running');
-    },
-
-    /**
-     * Clears the recording page from existing inputs.
-     */
-    clear: function (speciesID) {
-      _log('record: clearing recording page.');
       this.setImage('input[type="file"]');
-
-      morel.record.clear(speciesID);
-
-      this.saveSpecies(speciesID);
-      this.saveDate();
     },
 
-    /*
-     * Validates and sends the record. Saves it if no network.
-     */
     send: function () {
       _log('views.RecordPage: sending record.', app.LOG_INFO);
 
-      var onOnlineSuccess = null, onSaveSuccess = null;
       $.mobile.loading('show');
 
       if (!this.valid()) {
         return;
       }
 
-      function onError(err) {
-        $.mobile.loading('hide');
-        var message = "<center><h3>Sorry!</h3></center>" +
-          "<p>" + err.message + "</p>";
-        app.message(message);
-      }
-
       if (navigator.onLine) {
         //online
-        onOnlineSuccess = function () {
-          $.mobile.loading('hide');
+        var onSendSuccess = function () {
           app.message("<center><h2>Submitted successfully. </br>Thank You!</h2></center>");
           setTimeout(function () {
             Backbone.history.navigate('list', {trigger:true});
           }, 3000);
         };
+        app.models.record.send(onSendSuccess, onError);
 
-        this.processOnline(onOnlineSuccess, onError);
       } else {
         //offline
-        onSaveSuccess = function () {
-          $.mobile.loading('hide');
+        var onSaveSuccess = function () {
           app.message("<center><h2>No Internet. Record saved.</h2></center>");
           setTimeout(function () {
             Backbone.history.navigate('list', {trigger:true});
           }, 3000);
         };
+        app.models.record.save(onSaveSuccess, onError);
+      }
 
-        this.processOffline(onSaveSuccess, onError);
+      function onError(err) {
+        var message = "<center><h3>Sorry!</h3></center>" +
+          "<p>" + err.message + "</p>" +
+          "<p> Record Saved </p>";
+        app.message(message);
+        setTimeout(function () {
+          Backbone.history.navigate('list', {trigger:true});
+        }, 3000);
       }
     },
 
-    /*
-     * Validates and saves the record.
-     */
     save: function () {
       _log('views.RecordPage: saving record.', app.LOG_INFO);
       $.mobile.loading('show');
@@ -152,7 +128,6 @@ app.views = app.views || {};
       }
 
       function onSuccess() {
-        $.mobile.loading('hide');
         app.message("<center><h2>Record saved.</h2></center>");
         setTimeout(function () {
           Backbone.history.navigate('list', {trigger:true});
@@ -160,166 +135,12 @@ app.views = app.views || {};
       }
 
       function onError(err) {
-        $.mobile.loading('hide');
         var message = "<center><h3>Sorry!</h3></center>" +
           "<p>" + err.message + "</p>";
         app.message(message);
       }
 
-      this.processOffline(onSuccess, onError);
-    },
-
-    /**
-     * Saves and submits the record.
-     */
-    processOnline: function (callback, onError) {
-      _log("record: process online.");
-      var onSaveSuccess = function (savedRecordId) {
-        morel.record.clear();
-
-        function onSendSuccess() {
-          morel.record.db.remove(savedRecordId);
-          if (callback) {
-            callback();
-          }
-        }
-        //#2 Post the record
-        morel.io.sendSavedRecord(savedRecordId, onSendSuccess, onError);
-      };
-      //#1 Save the record first
-      morel.record.db.save(onSaveSuccess, onError);
-    },
-
-    /**
-     * Saves the record.
-     */
-    processOffline: function (callback, onError) {
-      _log("record: process offline");
-      var onSaveSuccess = function (savedRecordId) {
-        morel.record.clear();
-
-        if (callback) {
-          callback();
-        }
-      };
-      morel.record.db.save(onSaveSuccess, onError);
-    },
-
-    /**
-     * Validates the record and GPS lock. If not valid then
-     * takes some action - popup/gps page redirect.
-     * @returns {*}
-     */
-    valid: function () {
-      //validate record
-      var invalids = this.validateInputs();
-      if (invalids.length > 0) {
-        var message =
-          "<br/> <p>The following is still missing:</p><ul>";
-
-        for (var i = 0; i < invalids.length; i++) {
-          message += "<li>" + invalids[i].name + "</li>";
-        }
-
-        message += "</ul>";
-        app.message(message);
-        return morel.FALSE;
-      }
-
-      //validate gps
-      var gps = morel.geoloc.valid();
-      if (gps === morel.ERROR || gps === morel.FALSE) {
-        //redirect to gps page
-        Backbone.history.navigate('location', {trigger:true});
-        return morel.FALSE;
-      }
-      return morel.TRUE;
-    },
-
-    /**
-     * Validates the record inputs.
-     */
-    validateInputs: function () {
-      var invalids = [];
-
-      if (!morel.record.inputs.is('sample:date')) {
-        invalids.push({
-          'id': 'sample:date',
-          'name': 'Date'
-        });
-      }
-      if (!morel.record.inputs.is('sample:entered_sref')) {
-        invalids.push({
-          'id': 'sample:entered_sref',
-          'name': 'Location'
-        });
-      }
-      if (!morel.record.inputs.is('occurrence:taxa_taxon_list_id')) {
-        invalids.push({
-          'id': 'occurrence:taxa_taxon_list_id',
-          'name': 'Species'
-        });
-      }
-      return invalids;
-    },
-
-    saveLocation: function (location) {
-      if (!location) {
-        return morel.ERROR;
-      }
-      var sref = location.lat + ', ' + location.lon;
-      var sref_system = "4326";
-      var sref_accuracy = location.acc;
-      morel.record.inputs.set(morel.record.inputs.KEYS.SREF, sref);
-      morel.record.inputs.set(morel.record.inputs.KEYS.SREF_SYSTEM, sref_system);
-      morel.record.inputs.set(morel.record.inputs.KEYS.SREF_ACCURACY, sref_accuracy);
-    },
-
-    /**
-     * Saves the user comment into current record.
-     */
-    saveInput: function (name) {
-      if (!name && name === "") {
-        _log('record: ERROR, no input name provided.');
-        return morel.ERROR;
-      }
-      var ele = document.getElementById(name);
-      var value = $(ele).val();
-      if (value !== "") {
-        morel.record.inputs.set(name, value);
-      }
-    },
-
-    /**
-     * Saves the selected species into current record.
-     */
-    saveSpecies: function (speciesID) {
-      var specie = app.collections.species.find({id:speciesID});
-      if (specie.attributes.warehouse_id && specie.attributes.warehouse_id) {
-        var name = 'occurrence:taxa_taxon_list_id';
-        var value = specie.attributes.warehouse_id;
-        morel.record.inputs.set(name, value);
-
-        //add header to the page
-        $('#record_heading').text(specie.attributes.common_name);
-      }
-    },
-
-    /**
-     * Saves the current date and populates the date input.
-     */
-    saveDate: function () {
-      var now = new Date();
-      var day = ("0" + now.getDate()).slice(-2);
-      var month = ("0" + (now.getMonth() + 1)).slice(-2);
-
-      var value = now.getFullYear() + "-" + (month) + "-" + (day);
-      var name = 'sample:date';
-
-      var ele = document.getElementById(name);
-      $(ele).val(value);
-
-      morel.record.inputs.set(name, value);
+      app.models.record.save(onSuccess, onError);
     },
 
     setImage: function (input) {
@@ -360,6 +181,38 @@ app.views = app.views || {};
       });
     },
 
+    /**
+     * Validates the record and GPS lock.
+     *
+     * @returns {*}
+     */
+    valid: function () {
+      //validate gps
+      var gps = morel.geoloc.valid();
+      if (gps === morel.ERROR || gps === morel.FALSE) {
+        //redirect to gps page
+        Backbone.history.navigate('location', {trigger:true});
+        return morel.FALSE;
+      }
+
+      //validate the rest
+      var invalids = app.models.record.validateInputs();
+      if (invalids.length > 0) {
+        var message =
+          "<br/> <p>The following is still missing:</p><ul>";
+
+        for (var i = 0; i < invalids.length; i++) {
+          message += "<li>" + invalids[i].name + "</li>";
+        }
+
+        message += "</ul>";
+        app.message(message);
+        return morel.FALSE;
+      }
+
+      return morel.TRUE;
+    },
+
     gpsButtonState: function (state) {
       var button = $('#location-top-button');
       switch (state) {
@@ -379,7 +232,7 @@ app.views = app.views || {};
           button.removeClass('running');
           break;
         default:
-          _log('record: ERROR no such GPS button state.');
+          _log('views.RecordPage: ERROR no such GPS button state.');
       }
     }
   });

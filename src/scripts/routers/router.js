@@ -64,9 +64,9 @@
         if (!app.views.recordPage){
           app.views.recordPage = new app.views.RecordPage();
         }
-        this.changePage(app.views.recordPage);
-
         var prevPageID = $.mobile.activePage ? $.mobile.activePage.attr('id') : '';
+
+        this.changePage(app.views.recordPage);
         app.views.recordPage.update(prevPageID, id);
       },
 
@@ -75,9 +75,7 @@
           app.views.locationPage = new app.views.LocationPage();
         }
         this.changePage(app.views.locationPage);
-
-        var prevPageID = $.mobile.activePage ? $.mobile.activePage.attr('id') : '';
-        app.views.locationPage.update(prevPageID);
+        app.views.locationPage.update();
       },
 
       "comment": function () {
