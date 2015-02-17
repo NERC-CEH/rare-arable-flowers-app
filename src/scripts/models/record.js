@@ -106,14 +106,19 @@ app.collections = app.collections || {};
     /**
      * Saves the current date and populates the date input.
      */
-    saveDate: function () {
-      var now = new Date();
-      var day = ("0" + now.getDate()).slice(-2);
-      var month = ("0" + (now.getMonth() + 1)).slice(-2);
+    saveDate: function (date) {
+      if (!date){
+        var now = new Date();
+        var day = ("0" + now.getDate()).slice(-2);
+        var month = ("0" + (now.getMonth() + 1)).slice(-2);
 
-      var value = now.getFullYear() + "-" + (month) + "-" + (day);
+        var date = now.getFullYear() + "-" + (month) + "-" + (day);
+      }
       var name = 'sample:date';
+      morel.record.inputs.set(name, date);
+    },
 
+    saveInput: function (name, value) {
       morel.record.inputs.set(name, value);
     }
   });

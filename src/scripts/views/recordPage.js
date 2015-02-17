@@ -25,14 +25,6 @@ app.views = app.views || {};
       _log('views.RecordPage: render', app.LOG_DEBUG);
 
       this.$el.html(this.template());
-
-      //set button event handlers
-      var ele = document.getElementById('occAttr:223');
-      $(ele).change(function () {
-        var checked = $(this).prop('checked');
-        morel.record.inputs.set('occAttr:223', checked);
-      });
-
       $('body').append($(this.el));
       return this;
     },
@@ -51,9 +43,10 @@ app.views = app.views || {};
             this.gpsButtonState('none');
           }
           break;
-        default:
+        case '':
           _log('views.RecordPage: coming from unknown page.', app.LOG_WARNING);
           this.initRecording(speciesID);
+        default:
       }
     },
 

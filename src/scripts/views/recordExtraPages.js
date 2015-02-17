@@ -31,7 +31,7 @@ app.views = app.views || {};
       var ele = document.getElementById('sample:date');
       var value = $(ele).val();
       if (value !== "") {
-        morel.record.inputs.set('sample:date', value);
+        app.models.record.saveDate(value);
       }
       window.history.back();
     }
@@ -61,7 +61,13 @@ app.views = app.views || {};
     },
 
     save: function () {
-      app.views.recordPage.saveInput('sample:number')
+      var inputID = 'sample:number';
+      var ele = document.getElementById(inputID);
+      var value = $(ele).val();
+      if (value !== "") {
+        app.models.record.saveInput(inputID, value);
+      }
+      window.history.back();
     }
   });
 
@@ -89,7 +95,13 @@ app.views = app.views || {};
     },
 
     save: function () {
-      app.views.recordPage.saveInput('sample:stage')
+      var inputID = 'sample:stage';
+      var ele = document.getElementById(inputID);
+      var value = $(ele).val();
+      if (value !== "") {
+        app.models.record.saveInput(inputID, value);
+      }
+      window.history.back();
     }
   });
 
@@ -117,7 +129,13 @@ app.views = app.views || {};
     },
 
     save: function () {
-      app.views.recordPage.saveInput('sample:locationdetails')
+      var inputID = 'sample:locationdetails';
+      var ele = document.getElementById(inputID);
+      var value = $(ele).val();
+      if (value !== "") {
+        app.models.record.saveInput(inputID, value);
+      }
+      window.history.back();
     }
   });
 
@@ -147,7 +165,13 @@ app.views = app.views || {};
     },
 
     save: function () {
-      app.views.recordPage.saveInput('sample:comment')
+      var inputID = 'sample:comment';
+      var ele = document.getElementById(inputID);
+      var value = $(ele).val();
+      if (value !== "") {
+        app.models.record.saveInput(inputID, value);
+      }
+      window.history.back();
     }
   });
 })();

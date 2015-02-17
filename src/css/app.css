@@ -435,3 +435,17 @@ ul[data-role="listview"] > li > p {
 #list {
     min-height: 94vh;
 }
+
+/* Record Input buttons */
+.heading, .descript {
+    display: inline-block !important;
+    vertical-align: middle;
+    margin: 0 !important;
+}
+.heading {
+    width: 50%;
+}
+.descript {
+    width: 45%;
+    padding-right: 40px;
+}

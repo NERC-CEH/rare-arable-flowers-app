@@ -18,5 +18,5 @@
         <div id="list-controls-filter-placeholder"></div>
     </div>
     <center>
-        <button id="list-controls-save-button">Save</button>
+        <button id="list-controls-save-button">Close</button>
     </center>

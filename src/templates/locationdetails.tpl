@@ -4,10 +4,6 @@
                data-icon="delete">Cancel</a>
         </div>
         <h1>Location Details</h1>
-
-        <div class='ui-btn-right' data-role='controlgroup' data-type='horizontal'>
-            <button id="locationdetails-save" data-icon="star">Save</button>
-        </div>
     </div>
     <div data-role="content">
         <div class="info-message">

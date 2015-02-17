@@ -34,21 +34,32 @@
         <ul data-role="listview" data-inset="true">
             <li>
                 <a href="#number" id="number-button" class="record-button"
-                   data-role="button"
-                   data-icon="arrow-r" data-iconpos="right"> Number </a>
+                   data-role="button" data-icon="arrow-r" data-iconpos="right">
+                    <h3 class="heading">Number</h3>
+                    <p class="descript"></p>
+                </a>
             </li>
             <li>
                 <a href="#stage" id="stage-button" class="record-button" data-role="button"
-                   data-icon="arrow-r" data-iconpos="right"> Life Stage </a>
+                   data-icon="arrow-r" data-iconpos="right">
+                    <h3 class="heading">Life Stage</h3>
+                    <p class="descript"></p>
+                </a>
             </li>
             <li>
                 <a href="#locationdetails" id="locationdetails-button" class="record-button" data-role="button"
-                   data-icon="arrow-r" data-iconpos="right"> Location Details </a>
+                   data-icon="arrow-r" data-iconpos="right">
+                    <h3 class="heading">Location Details</h3>
+                    <p class="descript"></p>
+                </a>
             </li>
             <li>
                 <a href="#comment" id="comment-button" class="record-button"
                    data-role="button"
-                   data-icon="arrow-r" data-iconpos="right"> Comment </a>
+                   data-icon="arrow-r" data-iconpos="right">
+                    <h3 class="heading">Comment</h3>
+                    <p class="descript"></p>
+                </a>
             </li>
         </ul>
     </div>
