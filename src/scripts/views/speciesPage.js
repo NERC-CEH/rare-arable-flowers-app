@@ -123,7 +123,7 @@ app.views = app.views || {};
         if ($('.gallery')) {
           this.gallery.show(0);
         } else {
-          app.navigation.message('I have no pictures to show :(');
+          app.message('I have no pictures to show :(');
         }
       }
     }

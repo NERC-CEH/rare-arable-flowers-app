@@ -75,7 +75,7 @@ app.views = app.views || {};
           '<button id="' + donwloadBtnId + '" class="ui-btn">Download</button>' +
           '<button id="' + donwloadCancelBtnId + '" class="ui-btn">Cancel</button>';
 
-        app.navigation.message(message, 0);
+        app.message(message, 0);
 
         $('#' + donwloadBtnId).on('click', function () {
           _log('list: starting appcache downloading process.', morel.LOG_DEBUG);

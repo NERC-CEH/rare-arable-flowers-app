@@ -41,10 +41,11 @@ morel.auth.getUser = function () {
 };
 
 $(document).ready(function(){
+  app.checkForUpdates();
+
   app.router = new app.Router();
   Backbone.history.start();
 
-  app.checkForUpdates();
   app.extendDisableTabFunctionality();
   app.fixIOSbuttons();
 

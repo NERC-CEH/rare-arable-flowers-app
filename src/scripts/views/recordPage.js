@@ -74,16 +74,6 @@ app.views = app.views || {};
       }
 
       function onError(err) {
-        $.mobile.loading('show', {
-          text: "Sorry! " + err.message + '.',
-          theme: "b",
-          textVisible: true,
-          textonly: true
-        });
-        setTimeout(function () {
-          $.mobile.loading('hide');
-        }, 5000);
-
         //modify the UI
         app.views.recordPage.gpsButtonState('none');
       }
@@ -109,11 +99,12 @@ app.views = app.views || {};
      * Validates and sends the record. Saves it if no network.
      */
     send: function () {
+      _log('views.RecordPage: sending record.', app.LOG_INFO);
+
       var onOnlineSuccess = null, onSaveSuccess = null;
       $.mobile.loading('show');
 
       if (!this.valid()) {
-        $.mobile.loading('hide');
         return;
       }
 
@@ -121,17 +112,16 @@ app.views = app.views || {};
         $.mobile.loading('hide');
         var message = "<center><h3>Sorry!</h3></center>" +
           "<p>" + err.message + "</p>";
-        app.navigation.makePopup(message, true);
-        $('#app-popup').popup().popup('open');
+        app.message(message);
       }
 
       if (navigator.onLine) {
         //online
         onOnlineSuccess = function () {
           $.mobile.loading('hide');
-          app.navigation.popup("<center><h2>Submitted successfully. </br>Thank You!</h2></center>", false);
+          app.message("<center><h2>Submitted successfully. </br>Thank You!</h2></center>");
           setTimeout(function () {
-            $("body").pagecontainer("change", "#list");
+            Backbone.history.navigate('list', {trigger:true});
           }, 3000);
         };
 
@@ -140,9 +130,9 @@ app.views = app.views || {};
         //offline
         onSaveSuccess = function () {
           $.mobile.loading('hide');
-          app.navigation.popup("<center><h2>No Internet. Record saved.</h2></center>", false);
+          app.message("<center><h2>No Internet. Record saved.</h2></center>");
           setTimeout(function () {
-            $("body").pagecontainer("change", "#list");
+            Backbone.history.navigate('list', {trigger:true});
           }, 3000);
         };
 
@@ -154,18 +144,18 @@ app.views = app.views || {};
      * Validates and saves the record.
      */
     save: function () {
+      _log('views.RecordPage: saving record.', app.LOG_INFO);
       $.mobile.loading('show');
 
       if (!this.valid()) {
-        $.mobile.loading('hide');
         return;
       }
 
       function onSuccess() {
         $.mobile.loading('hide');
-        app.navigation.popup("<center><h2>Record saved.</h2></center>", false);
+        app.message("<center><h2>Record saved.</h2></center>");
         setTimeout(function () {
-          $("body").pagecontainer("change", "#list");
+          Backbone.history.navigate('list', {trigger:true});
         }, 3000);
       }
 
@@ -173,9 +163,7 @@ app.views = app.views || {};
         $.mobile.loading('hide');
         var message = "<center><h3>Sorry!</h3></center>" +
           "<p>" + err.message + "</p>";
-        //xhr.status+ " " + thrownError + "</p><p>" + xhr.responseText +
-        app.navigation.makePopup(message, true);
-        $('#app-popup').popup().popup('open');
+        app.message(message);
       }
 
       this.processOffline(onSuccess, onError);
@@ -195,7 +183,6 @@ app.views = app.views || {};
             callback();
           }
         }
-
         //#2 Post the record
         morel.io.sendSavedRecord(savedRecordId, onSendSuccess, onError);
       };
@@ -235,7 +222,7 @@ app.views = app.views || {};
         }
 
         message += "</ul>";
-        app.navigation.message(message, true);
+        app.message(message);
         return morel.FALSE;
       }
 
@@ -243,7 +230,7 @@ app.views = app.views || {};
       var gps = morel.geoloc.valid();
       if (gps === morel.ERROR || gps === morel.FALSE) {
         //redirect to gps page
-        $('body').pagecontainer("change", "#location");
+        Backbone.history.navigate('location', {trigger:true});
         return morel.FALSE;
       }
       return morel.TRUE;
