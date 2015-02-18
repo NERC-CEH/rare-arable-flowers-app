@@ -149,6 +149,9 @@
 
         $.mobile.initializePage();
         this.initializedFirstPage = true;
+
+        //ask user to appcache
+        setTimeout(app.download, 1000);
       }
 
       $(":mobile-pagecontainer").pagecontainer("change", '#' + page.id,

@@ -26,6 +26,9 @@ app.views = app.views || {};
       this.listenTo(this.model,
         'change:' + morel.record.inputs.KEYS.COMMENT, this.updateCommentButton);
 
+      this.listenTo(this.model,
+        'change:' + morel.record.inputs.KEYS.SREF_ACCURACY, this.updateGPSButton);
+
       this.render();
       this.appendBackButtonListeners();
     },
@@ -43,14 +46,6 @@ app.views = app.views || {};
       switch (prevPageId) {
         case 'list':
           this.initRecording(speciesID);
-          break;
-        case 'location':
-          //update GPS button color
-          if (morel.record.inputs.is('sample:entered_sref')) {
-            this.gpsButtonState('done');
-          } else {
-            this.gpsButtonState('none');
-          }
           break;
         case '':
           _log('views.RecordPage: coming from unknown page.', app.LOG_WARNING);
@@ -71,6 +66,12 @@ app.views = app.views || {};
       this.resetButtons();
 
       //start geolocation
+      this.runGeoloc();
+
+      this.setImage('input[type="file"]');
+    },
+
+    runGeoloc: function () {
       function onGeolocSuccess(location) {
         _log('views.RecordPage: saving location.', app.LOG_DEBUG);
         morel.geoloc.set(location.lat, location.lon, location.acc);
@@ -78,17 +79,13 @@ app.views = app.views || {};
         var sref = location.lat + ', ' + location.lon;
         app.views.recordPage.model.set(morel.record.inputs.KEYS.SREF, sref);
         app.views.recordPage.model.set(morel.record.inputs.KEYS.SREF_ACCURACY, location.acc);
-
-        app.views.recordPage.gpsButtonState('done');
       }
       function onError(err) {
         //modify the UI
-        app.views.recordPage.gpsButtonState('none');
+        app.views.recordPage.model.set(morel.record.inputs.KEYS.SREF_ACCURACY, -1); //stopped
       }
       morel.geoloc.run(null, onGeolocSuccess, onError);
-
-      this.gpsButtonState('running');
-      this.setImage('input[type="file"]');
+      this.model.set(morel.record.inputs.KEYS.SREF_ACCURACY, 0); //running
     },
 
     send: function () {
@@ -226,26 +223,30 @@ app.views = app.views || {};
       return morel.TRUE;
     },
 
-    gpsButtonState: function (state) {
+    updateGPSButton: function () {
       var button = $('#location-top-button');
-      switch (state) {
-        case 'running':
-          button.addClass('running');
-          button.removeClass('done');
-          button.removeClass('none');
-          break;
-        case 'done':
-          button.addClass('done');
-          button.removeClass('running');
-          button.removeClass('none');
-          break;
-        case 'none':
+      var accuracy = this.model.get(morel.record.inputs.KEYS.SREF_ACCURACY);
+      switch (true) {
+        case (accuracy == -1):
+          //none
           button.addClass('none');
           button.removeClass('done');
           button.removeClass('running');
           break;
+        case (accuracy > 0):
+          //done
+          button.addClass('done');
+          button.removeClass('running');
+          button.removeClass('none');
+          break;
+        case (accuracy == 0):
+          //running
+          button.addClass('running');
+          button.removeClass('done');
+          button.removeClass('none');
+          break;
         default:
-          _log('views.RecordPage: ERROR no such GPS button state.');
+          _log('views.RecordPage: ERROR no such GPS button state: ' + accuracy, app.LOG_WARNING);
       }
     },
 

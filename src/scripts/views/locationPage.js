@@ -392,8 +392,8 @@ app.views = app.views || {};
         message.removeClass();
         message.addClass('success-message');
         message.empty().append('<p>Grid Ref:<br/>' + gref + '</p>');
+        this.save();
       }
-      //todo: set accuracy dependant on Gref
     },
 
     /**

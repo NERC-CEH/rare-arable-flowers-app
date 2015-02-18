@@ -6,12 +6,12 @@ app.collections = app.collections || {};
   'use strict';
 
   var Record = Backbone.Model.extend({
-
     reset: function (warehouseID) {
       _log('models.Record: reset.', app.LOG_DEBUG);
 
       this.clear();
       this.set(morel.record.inputs.KEYS.DATE, this.getCurrentDate());
+      this.set(morel.record.inputs.KEYS.SREF_ACCURACY, '-1');
       this.set(morel.record.inputs.KEYS.SREF_SYSTEM, '4326');
       warehouseID ? this.set(morel.record.inputs.KEYS.TAXON, warehouseID) : null;
     },

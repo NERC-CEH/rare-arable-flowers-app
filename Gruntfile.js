@@ -33,7 +33,27 @@ module.exports = function (grunt) {
           {src: ['src/scripts/libs/photoswipe/photoswipe.css'], dest: 'dist/css/photoswipe.css'},
           {src: ['src/scripts/libs/photoswipe/icons.png'], dest: 'dist/css/icons.png'},
           {src: ['src/scripts/libs/photoswipe/icons@2x.png'], dest: 'dist/css/icons@2x.png'},
-          {src: ['src/images/sample.jpg'], dest: 'dist/images/sample.jpg'}
+          {src: ['src/images/sample.jpg'], dest: 'dist/images/sample.jpg'},
+          {src: ['src/appcache.html'], dest: 'dist/appcache.html'},
+          {src: ['src/appcache.mf'], dest: 'dist/appcache.mf'}
+        ]
+      },
+      libs: {
+        files: [
+          {src: ['src/scripts/libs/jquery/jquery.js'], dest: 'dist/scripts/lib/jquery.js'},
+          {src: ['src/scripts/libs/jquery-mobile/jquery.mobile-1.4.5.js'], dest: 'dist/scripts/lib/jquery.mobile-1.4.5.js'},
+          {src: ['src/scripts/libs/IndexedDBShim/IndexedDBShim.js'], dest: 'dist/scripts/lib/IndexedDBShim.js'},
+          {src: ['src/scripts/libs/latlon/vector3d.js'], dest: 'dist/scripts/lib/vector3d.js'},
+          {src: ['src/scripts/libs/latlon/geo.js'], dest: 'dist/scripts/lib/geo.js'},
+          {src: ['src/scripts/libs/latlon/latlon-ellipsoid.js'], dest: 'dist/scripts/lib/latlon-ellipsoid.js'},
+          {src: ['src/scripts/libs/latlon/osgridref.js'], dest: 'dist/scripts/lib/osgridref.js'},
+          {src: ['src/scripts/libs/photoswipe/lib/klass.min.js'], dest: 'dist/scripts/lib/klass.min.js'},
+          {src: ['src/scripts/libs/photoswipe/code.photoswipe.jquery-3.0.5.min.js'], dest: 'dist/scripts/lib/code.photoswipe.jquery-3.0.5.min.js'},
+          {src: ['src/scripts/libs/fastclick/fastclick.js'], dest: 'dist/scripts/lib/fastclick.js'},
+          {src: ['src/scripts/libs/morel/morel.js'], dest: 'dist/scripts/lib/morel.js'},
+          {src: ['src/scripts/libs/lodash/lodash.js'], dest: 'dist/scripts/lib/lodash.js'},
+          {src: ['src/scripts/libs/backbone/backbone.js'], dest: 'dist/scripts/lib/backbone.js'},
+          {src: ['src/scripts/libs/backbone.localstorage/backbone.localStorage.js'], dest: 'dist/scripts/lib/backbone.localStorage.js'}
         ]
       }
     },
@@ -74,27 +94,6 @@ module.exports = function (grunt) {
         ],
         // the location of the resulting JS file
         dest: DEST + APP_NAME
-      },
-      libs: {
-        // the files to concatenate
-        src: [
-          'src/scripts/libs/jquery/jquery.js',
-          'src/scripts/libs/jquery-mobile/jquery.mobile-1.4.5.js',
-          'src/scripts/libs/IndexedDBShim/IndexedDBShim.js',
-          'src/scripts/libs/latlon/vector3d.js',
-          'src/scripts/libs/latlon/geo.js',
-          'src/scripts/libs/latlon/latlon-ellipsoid.js',
-          'src/scripts/libs/latlon/osgridref.js',
-          'src/scripts/libs/photoswipe/lib/klass.min.js',
-          'src/scripts/libs/photoswipe/code.photoswipe.jquery-3.0.5.min.js',
-          'src/scripts/libs/fastclick/fastclick.js',
-          'src/scripts/libs/morel/morel.js',
-          'src/scripts/libs/lodash/lodash.js',
-          'src/scripts/libs/backbone/backbone.js',
-          'src/scripts/libs/backbone.localstorage/backbone.localStorage.js'
-        ],
-        // the location of the resulting JS file
-        dest: DEST + LIBS_NAME
       },
       data: {
         // the files to concatenate

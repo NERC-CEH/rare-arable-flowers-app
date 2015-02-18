@@ -295,13 +295,13 @@ form, body {
 }
 
 
-#sref-top-button.none:after {
+#location-top-button.none:after {
     background-color: rgb(188, 143, 143);
 }
-#sref-top-button.running:after {
+#location-top-button.running:after {
     background-color: rgb(205, 155, 0);
 }
-#sref-top-button.done:after {
+#location-top-button.done:after {
     background-color: rgb(46, 139, 87);
 }
 

@@ -8,7 +8,7 @@
     "jquery-mobile": "jobrapido/jquery-mobile-bower",
     "morel": "NERC-CEH/morel#develop",
     "latlon": "chrisveness/geodesy#ddde271a16c06f9c0696c76a989e04140c2790f5",
-    "indexeDBShim": "axemclion/IndexedDBShim",
+    "IndexedDBShim": "axemclion/IndexedDBShim",
     "photoswipe": "https://github.com/downloads/codecomputerlove/PhotoSwipe/code.photoswipe-3.0.5.zip",
     "fastclick": "1.0.3"
   }
