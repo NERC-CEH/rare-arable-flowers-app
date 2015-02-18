@@ -17,6 +17,15 @@ app.views = app.views || {};
     initialize: function () {
       _log('views.RecordPage: initialize', app.LOG_DEBUG);
 
+      this.listenTo(this.model,
+        'change:' + morel.record.inputs.KEYS.NUMBER, this.updateNumberButton);
+      this.listenTo(this.model,
+        'change:' + morel.record.inputs.KEYS.STAGE, this.updateStageButton);
+      this.listenTo(this.model,
+        'change:' + morel.record.inputs.KEYS.LOCATIONDETAILS, this.updateLocationdetailsButton);
+      this.listenTo(this.model,
+        'change:' + morel.record.inputs.KEYS.COMMENT, this.updateCommentButton);
+
       this.render();
       this.appendBackButtonListeners();
     },
@@ -54,11 +63,22 @@ app.views = app.views || {};
      * Initialises the recording form: sets empty image, clears geolocation etc.
      */
     initRecording: function (speciesID) {
-      app.models.record = new app.models.Record(speciesID);
+      var specie = app.collections.species.find({id:speciesID});
+      this.model.reset(specie.attributes.warehouse_id);
+
+      //add header to the page
+      $('#record_heading').text(specie.attributes.common_name);
+      this.resetButtons();
 
       //start geolocation
       function onGeolocSuccess(location) {
-        app.models.record.saveLocation(location);
+        _log('views.RecordPage: saving location.', app.LOG_DEBUG);
+        morel.geoloc.set(location.lat, location.lon, location.acc);
+
+        var sref = location.lat + ', ' + location.lon;
+        app.views.recordPage.model.set(morel.record.inputs.KEYS.SREF, sref);
+        app.views.recordPage.model.set(morel.record.inputs.KEYS.SREF_ACCURACY, location.acc);
+
         app.views.recordPage.gpsButtonState('done');
       }
       function onError(err) {
@@ -189,13 +209,13 @@ app.views = app.views || {};
       }
 
       //validate the rest
-      var invalids = app.models.record.validateInputs();
-      if (invalids.length > 0) {
+      var invalids = app.models.record.validate();
+      if (invalids) {
         var message =
           "<br/> <p>The following is still missing:</p><ul>";
 
         for (var i = 0; i < invalids.length; i++) {
-          message += "<li>" + invalids[i].name + "</li>";
+          message += "<li>" + invalids[i] + "</li>";
         }
 
         message += "</ul>";
@@ -227,6 +247,38 @@ app.views = app.views || {};
         default:
           _log('views.RecordPage: ERROR no such GPS button state.');
       }
+    },
+
+    resetButtons: function () {
+      this.updateNumberButton();
+      this.updateStageButton();
+      this.updateLocationdetailsButton();
+      this.updateCommentButton();
+    },
+
+    updateNumberButton: function () {
+      var $numberButton = jQuery('#number-button .descript');
+      var value = this.model.get(morel.record.inputs.KEYS.NUMBER);
+      value = value || '';
+      $numberButton.html(value);
+    },
+    updateStageButton: function () {
+      var $stageButton = jQuery('#stage-button .descript');
+      var value = this.model.get(morel.record.inputs.KEYS.STAGE);
+      value = value || '';
+      $stageButton.html(value);
+    },
+    updateLocationdetailsButton: function () {
+      var $locationdetailsButton = jQuery('#locationdetails-button .descript');
+      var value = this.model.get(morel.record.inputs.KEYS.LOCATIONDETAILS);
+      value = value || '';
+      $locationdetailsButton.html(value);
+    },
+    updateCommentButton: function () {
+      var $commentButton = jQuery('#comment-button .descript');
+      var value = this.model.get(morel.record.inputs.KEYS.COMMENT);
+      value = value ? value.substring(0, 20) : ''; //cut it down a bit
+      $commentButton.html(value);
     }
   });
 

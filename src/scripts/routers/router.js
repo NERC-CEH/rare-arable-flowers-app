@@ -62,7 +62,7 @@
 
       "record/:id": function (id) {
         if (!app.views.recordPage){
-          app.views.recordPage = new app.views.RecordPage();
+          app.views.recordPage = new app.views.RecordPage({model: app.models.record});
         }
         var prevPageID = $.mobile.activePage ? $.mobile.activePage.attr('id') : '';
 
@@ -72,7 +72,7 @@
 
       "location": function () {
         if (!app.views.locationPage){
-          app.views.locationPage = new app.views.LocationPage();
+          app.views.locationPage = new app.views.LocationPage({model: app.models.record});
         }
         this.changePage(app.views.locationPage);
         app.views.locationPage.update();
@@ -80,35 +80,35 @@
 
       "comment": function () {
         if (!app.views.commentPage){
-          app.views.commentPage = new app.views.CommentPage();
+          app.views.commentPage = new app.views.CommentPage({model: app.models.record});
         }
         this.changePage(app.views.commentPage);
       },
 
       "number": function () {
         if (!app.views.numberPage){
-          app.views.numberPage = new app.views.NumberPage();
+          app.views.numberPage = new app.views.NumberPage({model: app.models.record});
         }
         this.changePage(app.views.numberPage);
       },
 
       "locationdetails": function () {
         if (!app.views.locationDetailsPage){
-          app.views.locationDetailsPage = new app.views.LocationdetailsPage();
+          app.views.locationDetailsPage = new app.views.LocationdetailsPage({model: app.models.record});
         }
         this.changePage(app.views.locationDetailsPage);
       },
 
       "stage": function () {
         if (!app.views.stagePage){
-          app.views.stagePage = new app.views.StagePage();
+          app.views.stagePage = new app.views.StagePage({model: app.models.record});
         }
         this.changePage(app.views.stagePage);
       },
 
       "date": function () {
         if (!app.views.datePage){
-          app.views.datePage = new app.views.DatePage();
+          app.views.datePage = new app.views.DatePage({model: app.models.record});
         }
         this.changePage(app.views.datePage);
       },

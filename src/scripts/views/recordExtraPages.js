@@ -7,6 +7,8 @@ app.views = app.views || {};
   app.views.DatePage = app.views.Page.extend({
     id: 'date',
 
+    warehouse_id: morel.record.inputs.KEYS.DATE,
+
     template: app.templates.date,
 
     events: {
@@ -28,10 +30,11 @@ app.views = app.views || {};
     },
 
     save: function () {
-      var ele = document.getElementById('sample:date');
+      var name = this.warehouse_id;
+      var ele = document.getElementById(name);
       var value = $(ele).val();
       if (value !== "") {
-        app.models.record.saveDate(value);
+        this.model.set(name, value);
       }
       window.history.back();
     }
@@ -40,14 +43,19 @@ app.views = app.views || {};
   app.views.NumberPage = app.views.Page.extend({
     id: 'number',
 
+    warehouse_id: morel.record.inputs.KEYS.NUMBER,
+
     template: app.templates.number,
 
     events: {
-      'click #number-save': 'save'
+      'change input[type=radio]': 'save'
     },
 
     initialize: function () {
       _log('views.NumberPage: initialize', app.LOG_DEBUG);
+
+      this.listenTo(this.model,
+        'change:'+ this.warehouse_id, this.update);
 
       this.render();
       this.appendBackButtonListeners();
@@ -60,12 +68,19 @@ app.views = app.views || {};
       return this;
     },
 
-    save: function () {
-      var inputID = 'sample:number';
-      var ele = document.getElementById(inputID);
-      var value = $(ele).val();
+    update: function () {
+      var value = this.model.get(this.warehouse_id);
+      if (!value) {
+        //unset all radio buttons
+        this.$el.find("input:radio").attr("checked", false).checkboxradio("refresh");
+      }
+    },
+
+    save: function (e) {
+      var name = this.warehouse_id;
+      var value = e.currentTarget.value;
       if (value !== "") {
-        app.models.record.saveInput(inputID, value);
+        this.model.set(name, value);
       }
       window.history.back();
     }
@@ -74,10 +89,12 @@ app.views = app.views || {};
   app.views.StagePage = app.views.Page.extend({
     id: 'stage',
 
+    warehouse_id: morel.record.inputs.KEYS.STAGE,
+
     template: app.templates.stage,
 
     events: {
-      'click #stage-save': 'save'
+      'change input[type=radio]': 'save'
     },
 
     initialize: function () {
@@ -90,16 +107,26 @@ app.views = app.views || {};
     render: function () {
       this.$el.html(this.template());
 
+      this.listenTo(this.model,
+        'change:'+ this.warehouse_id, this.update);
+
       $('body').append($(this.el));
       return this;
     },
 
-    save: function () {
-      var inputID = 'sample:stage';
-      var ele = document.getElementById(inputID);
-      var value = $(ele).val();
+    update: function () {
+      var value = this.model.get(this.warehouse_id);
+      if (!value) {
+        //unset all radio buttons
+        this.$el.find("input:radio").attr("checked", false).checkboxradio("refresh");
+      }
+    },
+
+    save: function (e) {
+      var name = this.warehouse_id;
+      var value = e.currentTarget.value;
       if (value !== "") {
-        app.models.record.saveInput(inputID, value);
+        this.model.set(name, value);
       }
       window.history.back();
     }
@@ -107,15 +134,19 @@ app.views = app.views || {};
 
   app.views.LocationdetailsPage = app.views.Page.extend({
     id: 'locationdetails',
+    warehouse_id: morel.record.inputs.KEYS.LOCATIONDETAILS,
 
     template: app.templates.locationdetails,
 
     events: {
-      'click #locationdetails-save': 'save'
+      'change input[type=radio]': 'save'
     },
 
     initialize: function () {
       _log('views.LocationdetailsPage: initialize', app.LOG_DEBUG);
+
+      this.listenTo(this.model,
+        'change:'+ this.warehouse_id, this.update);
 
       this.render();
       this.appendBackButtonListeners();
@@ -128,12 +159,19 @@ app.views = app.views || {};
       return this;
     },
 
-    save: function () {
-      var inputID = 'sample:locationdetails';
-      var ele = document.getElementById(inputID);
-      var value = $(ele).val();
+    update: function () {
+      var value = this.model.get(this.warehouse_id);
+      if (!value) {
+        //unset all radio buttons
+        this.$el.find("input:radio").attr("checked", false).checkboxradio("refresh");
+      }
+    },
+
+    save: function (e) {
+      var name = this.warehouse_id;
+      var value = e.currentTarget.value;
       if (value !== "") {
-        app.models.record.saveInput(inputID, value);
+        this.model.set(name, value);
       }
       window.history.back();
     }
@@ -165,11 +203,11 @@ app.views = app.views || {};
     },
 
     save: function () {
-      var inputID = 'sample:comment';
-      var ele = document.getElementById(inputID);
+      var name = morel.record.inputs.KEYS.COMMENT;
+      var ele = document.getElementById(name);
       var value = $(ele).val();
       if (value !== "") {
-        app.models.record.saveInput(inputID, value);
+        this.model.set(name, value);
       }
       window.history.back();
     }

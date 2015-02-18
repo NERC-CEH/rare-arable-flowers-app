@@ -130,28 +130,28 @@ app.views = app.views || {};
     printList: function () {
       function onSuccess(savedRecords) {
         var records = [];
-        for (var i = 0; i < savedRecords.length; i++) {
+        var savedRecordIDs = Object.keys(savedRecords);
+        for (var i = 0, length = savedRecordIDs.length; i < length; i++) {
           var record = {};
-          for (var j = 0; j < savedRecords[i].length; j++) {
-            var name = savedRecords[i][j].name;
-            var value = savedRecords[i][j].value;
+          record.id = savedRecordIDs[i];
+
+          var inputKeys = Object.keys(savedRecords[record.id]);
+          for (var j = 0, inputsLength = inputKeys.length; j < inputsLength; j++) {
+            var name = inputKeys[j];
+            var value = savedRecords[record.id][inputKeys[j]];
             switch (name) {
               case morel.record.inputs.KEYS.DATE:
                 record.date = value;
                 break;
               case morel.record.inputs.KEYS.TAXON:
-                var species = app.collections.species.models;
-                for (var k = 0; k < species.length; k++) {
-                  if (species[k].warehouse_id === value) {
-                    record.common_name = species[k].common_name;
-                    break;
-                  }
-                }
+                var specie = app.collections.species.find(function(model) {
+                  return model.get('warehouse_id') == value;
+                });
+                record.common_name = specie ? specie.attributes.common_name : '';
                 break;
               default:
             }
           }
-          record.id = savedRecords[i].id;
           records.push(record);
         }
 

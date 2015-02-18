@@ -3,7 +3,7 @@
             <a href='#' data-rel='back' data-role="button" data-icon="arrow-l"
                data-iconpos="notext">Back</a>
         </div>
-        <h1 id='record_heading'></h1>
+        <h3 id='record_heading'></h3>
 
         <div class='ui-btn-right' data-role='controlgroup' data-type='horizontal'>
             <a href="#date" id="date-top-button" data-role="button"

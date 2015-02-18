@@ -10,12 +10,11 @@
             <p>Please select the stage the plants are generally in.</p>
         </div>
         <fieldset data-role="controlgroup" data-iconpos="right">
-            <input type="radio" name="stage" id="radio-choice-vegative">
+            <input type="radio" name="stage" id="radio-choice-vegative" value="Vegatative">
             <label for="radio-choice-vegative">Vegatative</label>
-            <input type="radio" name="stage" id="radio-choice-flowering">
+            <input type="radio" name="stage" id="radio-choice-flowering" value="Flowering">
             <label for="radio-choice-flowering">Flowering</label>
-            <input type="radio" name="stage" id="radio-choice-seed">
+            <input type="radio" name="stage" id="radio-choice-seed" value="In Seed">
             <label for="radio-choice-seed">In Seed</label>
         </fieldset>
     </div>
-    <div data-role="footer" data-position="fixed" data-tap-toggle="false"></div>

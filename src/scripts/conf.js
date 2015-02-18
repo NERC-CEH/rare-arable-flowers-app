@@ -24,6 +24,9 @@ morel.auth.CONF = {
   WEBSITE_ID: 23,
   SURVEY_ID: 42
 };
+morel.record.inputs.KEYS.NUMBER = 'sample:number';
+morel.record.inputs.KEYS.STAGE = 'sample:stage';
+morel.record.inputs.KEYS.LOCATIONDETAILS = 'sample:locationdetails';
 
 //JQM configuration
 $.mobile.ns = "";

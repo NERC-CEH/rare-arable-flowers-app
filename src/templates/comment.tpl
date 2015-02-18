@@ -13,4 +13,3 @@
     <textarea id="sample:comment" name="sample:comment" class=" " cols="80"
               rows="4"></textarea>
     </div>
-    <div data-role="footer" data-position="fixed" data-tap-toggle="false"></div>

@@ -51,7 +51,12 @@ app.views = app.views || {};
     save: function () {
       var location = this.get();
 
-      app.models.record.saveLocation(location);
+      morel.geoloc.set(location.lat, location.lon, location.acc);
+
+      var sref = location.lat + ', ' + location.lon;
+      app.models.record.set(morel.record.inputs.KEYS.SREF, sref);
+      app.models.record.set(morel.record.inputs.KEYS.SREF_ACCURACY, location.acc);
+
       window.history.back();
     },
 
