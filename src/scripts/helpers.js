@@ -174,58 +174,6 @@ app.browserDetect = function (browser) {
   return (navigator.userAgent.indexOf(browser) > -1);
 };
 
-
-/**
- * Adds Enable/Disable JQM Tab functionality
- * FROM: http://kylestechnobabble.blogspot.co.uk/2013/08/easy-way-to-enable-disable-hide-jquery.html
- * USAGE:
- * $('MyTabSelector').disableTab(0);        // Disables the first tab
- * $('MyTabSelector').disableTab(1, true);  // Disables & hides the second tab
- */
-app.extendDisableTabFunctionality = function () {
-  "use strict";
-
-  $.fn.disableTab = function (tabIndex, hide) {
-
-    // Get the array of disabled tabs, if any
-    var disabledTabs = this.tabs("option", "disabled");
-
-    if ($.isArray(disabledTabs)) {
-      var pos = $.inArray(tabIndex, disabledTabs);
-
-      if (pos < 0) {
-        disabledTabs.push(tabIndex);
-      }
-    }
-    else {
-      disabledTabs = [tabIndex];
-    }
-
-    this.tabs("option", "disabled", disabledTabs);
-
-    if (hide === true) {
-      $(this).find('li:eq(' + tabIndex + ')').addClass('ui-state-hidden');
-    }
-
-    // Enable chaining
-    return this;
-  };
-
-  $.fn.enableTab = function (tabIndex) {
-
-    // Remove the ui-state-hidden class if it exists
-    $(this).find('li:eq(' + tabIndex + ')').removeClass('ui-state-hidden');
-
-    // Use the built-in enable function
-    this.tabs("enable", tabIndex);
-
-    // Enable chaining
-    return this;
-
-  };
-};
-
-
 app.fixIOSbuttons = function () {
   //Fixing back buttons for Mac 7.* History bug.
   $(document).on('pagecreate', function (event, ui) {

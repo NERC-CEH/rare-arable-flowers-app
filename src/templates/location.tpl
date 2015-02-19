@@ -10,17 +10,15 @@
         </div>
     </div>
     <div data-role="content">
-        <div data-role="tabs" id="sref-opts">
+        <div data-role="tabs" id="location-opts">
             <div data-role="navbar">
                 <ul>
-                    <li><a href="#gps" data-ajax="false" class="ui-btn-active">GPS</a>
-                    </li>
+                    <li><a href="#gps" data-ajax="false" class="ui-btn-active">GPS</a></li>
                     <li><a href="#map" data-ajax="false">Map</a></li>
                     <li><a href="#gref" data-ajax="false">Grid Ref</a></li>
                 </ul>
             </div>
             <div id="gps" class="ui-body-d ui-content">
-
                 <div id="location-gps-placeholder"></div>
             </div>
             <div id="map" class="ui-body-d ui-content">

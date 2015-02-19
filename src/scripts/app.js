@@ -46,7 +46,6 @@ $(document).ready(function(){
   app.router = new app.Router();
   Backbone.history.start();
 
-  app.extendDisableTabFunctionality();
   app.fixIOSbuttons();
 
   FastClick.attach(document.body);

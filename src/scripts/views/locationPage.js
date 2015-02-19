@@ -11,7 +11,8 @@ app.views = app.views || {};
 
     events: {
       'click #grid-ref-set': 'gridRefConvert',
-      'click #location-save': 'save'
+      'click #location-save': 'save',
+      'tabsactivate #location-opts': 'refreshMap'
     },
 
     initialize: function () {
@@ -21,8 +22,6 @@ app.views = app.views || {};
       this.appendBackButtonListeners();
 
       if (typeof google === 'undefined') {
-        $('#location-opts').disableTab(1);
-
         /*
          If the browser is offline then we should not proceed and so the
          dummyText controls the caching of the file - always get fresh
@@ -39,13 +38,15 @@ app.views = app.views || {};
       _log('views.LocationPage: render', app.LOG_DEBUG);
 
       this.$el.html(this.template());
-
       $('body').append($(this.el));
+
+      $('#location-opts').tabs().tabs( "option", "disabled", [1] ); //disable map
       return this;
     },
 
     update: function (prevPageId, speciesID) {
       app.views.locationPage.renderGPStab('init');
+
     },
 
     save: function () {
@@ -204,6 +205,9 @@ app.views = app.views || {};
     initializeMap: function () {
       _log("location: initialising map.");
       //todo: add checking
+
+      $('#location-opts').tabs( "option", "disabled", [] ); //enable map tab
+
       var mapCanvas = $('#map-canvas')[0];
       var mapOptions = {
         zoom: 5,
@@ -329,11 +333,6 @@ app.views = app.views || {};
         }, null, options);
       }
 
-      this.fixTabMap("#location-opts", '#map');
-
-      //todo: create event
-      $('#location-opts').enableTab(1);
-
       function updateMapCoords(mapLatLng) {
         var location = {
           'lat': mapLatLng.lat(),
@@ -362,22 +361,18 @@ app.views = app.views || {};
      * @param tabs
      * @param mapTab
      */
-    fixTabMap: function (tabs, mapTab) {
-      $(tabs).on("tabsactivate.googleMap", function (event, ui) {
-          //check if this is a map tab
-          if (ui.newPanel.selector === mapTab) {
-            google.maps.event.trigger(app.views.locationPage.map, 'resize');
-            if (app.views.locationPage.latitude !== null && app.views.locationPage.longitude !== null) {
-              var latLong = new google.maps.LatLng(app.views.locationPage.latitude,
-                app.views.locationPage.longitude);
+    refreshMap: function (event, ui) {
+      //check if this is a map tab
+      if (ui.newPanel.selector === '#map') {
+        google.maps.event.trigger(app.views.locationPage.map, 'resize');
+        if (app.views.locationPage.latitude !== null && app.views.locationPage.longitude !== null) {
+          var latLong = new google.maps.LatLng(app.views.locationPage.latitude,
+            app.views.locationPage.longitude);
 
-              app.views.locationPage.map.setCenter(latLong);
-              app.views.locationPage.map.setZoom(15);
-            }
-            $(tabs).off("tabsactivate.googleMap");
-          }
+          app.views.locationPage.map.setCenter(latLong);
+          app.views.locationPage.map.setZoom(15);
         }
-      );
+      }
     },
 
     gridRefConvert: function () {

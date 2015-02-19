@@ -20,6 +20,8 @@
             <label for="radio-choice-wildflower">Wildflower / Clover rich margin</label>
             <input type="radio" name="location-details" id="radio-choice-corner" value="Grass margin / corner">
             <label for="radio-choice-corner">Grass margin / corner</label>
+            <input type="radio" name="location-details" id="radio-choice-crop" value="Crop">
+            <label for="radio-choice-crop">Crop</label>
             <input type="radio" name="location-details" id="radio-choice-stubble" value="Stubble">
             <label for="radio-choice-stubble">Stubble</label>
             <input type="radio" name="location-details" id="radio-choice-track" value="Track / gateway">
