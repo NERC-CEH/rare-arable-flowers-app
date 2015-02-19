@@ -23,7 +23,7 @@ app.models = app.models || {};
     },
 
     // Save all of the todo items under the `"todos-backbone"` namespace.
-    localStorage: new Backbone.LocalStorage(app.CONF.NAME),
+    localStorage: new Store(app.CONF.NAME),
 
     signOut: function () {
       this.set('email', '');
@@ -60,7 +60,8 @@ app.models = app.models || {};
         filters.push(filterID);
       }
 
-      this.save('filters', filters);
+      this.set('filters', filters);
+      this.save();
 
       return !exists; //return the state of the filter added/removed
     },

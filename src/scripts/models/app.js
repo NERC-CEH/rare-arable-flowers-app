@@ -8,7 +8,7 @@ app.models = app.models || {};
 
     id: 'app',
 
-    localStorage: new Backbone.LocalStorage(app.CONF.NAME),
+    localStorage: new Store(app.CONF.NAME),
 
     initialize: function () {
       this.fetch();
