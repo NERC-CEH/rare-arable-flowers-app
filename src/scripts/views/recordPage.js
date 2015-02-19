@@ -103,7 +103,7 @@ app.views = app.views || {};
           app.message("<center><h2>Submitted successfully. </br>Thank You!</h2></center>");
           setTimeout(function () {
             Backbone.history.navigate('list', {trigger:true});
-          }, 3000);
+          }, 2000);
         };
         app.models.record.send(onSendSuccess, onError);
 
@@ -113,7 +113,7 @@ app.views = app.views || {};
           app.message("<center><h2>No Internet. Record saved.</h2></center>");
           setTimeout(function () {
             Backbone.history.navigate('list', {trigger:true});
-          }, 3000);
+          }, 2000);
         };
         app.models.record.save(onSaveSuccess, onError);
       }
@@ -125,7 +125,7 @@ app.views = app.views || {};
         app.message(message);
         setTimeout(function () {
           Backbone.history.navigate('list', {trigger:true});
-        }, 3000);
+        }, 2000);
       }
     },
 
@@ -141,7 +141,7 @@ app.views = app.views || {};
         app.message("<center><h2>Record saved.</h2></center>");
         setTimeout(function () {
           Backbone.history.navigate('list', {trigger:true});
-        }, 3000);
+        }, 2000);
       }
 
       function onError(err) {
