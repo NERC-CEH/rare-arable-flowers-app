@@ -21,8 +21,6 @@ app.collections = app.collections || {};
   app.collections.Species = Backbone.Collection.extend({
     model: Specie,
 
-    localStorage: new Backbone.LocalStorage(app.CONF.NAME),
-
     initialize: function (species) {
       this.listenTo(app.models.user, 'change', this.updateFavourites);
 

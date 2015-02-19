@@ -1,6 +1,5 @@
 var app = app || {};
 app.models = app.models || {};
-app.collections = app.collections || {};
 
 (function () {
   'use strict';

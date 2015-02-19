@@ -218,22 +218,11 @@ app.fixIOSbuttons = function () {
  * stored data's version.
  */
 app.checkForUpdates = function () {
-  var CONTROLLER_VERSION_KEY = 'controllerVersion';
-  var controllerVersion = morel.settings(CONTROLLER_VERSION_KEY);
-  //set for the first time
-  if (!controllerVersion) {
-    morel.settings(CONTROLLER_VERSION_KEY, morel.CONF.VERSION);
-    return;
-  }
-
-  if (controllerVersion !== morel.CONF.VERSION) {
-    _log('app: controller version differs. Updating the morel.', morel.LOG_INFO);
-
-    //TODO: add try catch for any problems
-    morel.storage.remove('species');
-    morel.storage.tmpClear();
+  var appVer = app.models.app.get('appVer');
+  if (appVer !== app.CONF.VERSION) {
+    _log('helpers: app version differs. Updating.', morel.LOG_INFO);
 
     //set new version
-    morel.settings(CONTROLLER_VERSION_KEY, morel.CONF.VERSION);
+    app.models.app.save('appVer', app.CONF.VERSION);
   }
 };
