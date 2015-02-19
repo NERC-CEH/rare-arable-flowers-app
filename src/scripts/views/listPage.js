@@ -12,6 +12,7 @@ app.views = app.views || {};
     events: {
       'click #list-controls-save-button': 'toggleListControls',
       'click #list-controls-button': 'toggleListControls',
+      'change input[type=radio]': 'toggleListControls',
       'click #fav-button': 'toggleListFavourites'
     },
 
@@ -41,12 +42,17 @@ app.views = app.views || {};
       var $listControls = $('#list-controls-placeholder');
       $listControls.html(this.listControlsView.el);
 
+      //turn on/off filter button
+      var on = app.models.user.hasListFilter('favourites');
+      $("#fav-button").toggleClass("on", on);
+
       return this;
     },
 
     toggleListFavourites: function () {
       var userConfig = app.models.user;
-      userConfig.toggleListFilter('favourites');
+      var on  = userConfig.toggleListFilter('favourites');
+      $("#fav-button").toggleClass("on", on);
     },
 
     toggleListControls: function () {

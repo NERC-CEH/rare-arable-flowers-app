@@ -54,13 +54,21 @@ app.collections = app.collections || {};
       var filters = _.clone(this.get('filters'));  //CLONING problem as discussed:
       //https://stackoverflow.com/questions/9909799/backbone-js-change-not-firing-on-model-change
 
-      if (_.indexOf(filters, filterID) >= 0) {
+      var exists = this.hasListFilter(filterID, filters);
+      if (exists) {
         filters = _.without(filters, filterID);
       } else {
         filters.push(filterID);
       }
 
       this.save('filters', filters);
+
+      return !exists; //return the state of the filter added/removed
+    },
+
+    hasListFilter: function (filterID, filters) {
+      filters = filters || this.get('filters');
+      return _.indexOf(filters, filterID) >= 0;
     }
   });
 

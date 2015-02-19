@@ -16,7 +16,8 @@
             <p>Please check filters to apply. </p>
         </div>
         <div id="list-controls-filter-placeholder"></div>
+        <center>
+            <button id="list-controls-save-button">Close</button>
+        </center>
     </div>
-    <center>
-        <button id="list-controls-save-button">Close</button>
-    </center>
+

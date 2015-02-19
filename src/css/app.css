@@ -296,7 +296,7 @@ form, body {
 
 
 #location-top-button.none:after {
-    background-color: rgb(188, 143, 143);
+    background-color: rgb(195, 109, 109);
 }
 #location-top-button.running:after {
     background-color: rgb(205, 155, 0);
