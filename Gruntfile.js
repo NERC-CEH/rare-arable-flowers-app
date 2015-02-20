@@ -28,29 +28,32 @@ module.exports = function (grunt) {
       main: {
         files: [
           // includes files within path
-          {src: ['src/index.html'], dest: 'dist/index.html'},
-          {src:  "src/css/*", dest: 'dist/css/', expand: true, flatten: true},
           {
-            src:  "src/scripts/libs/**/css/*",
-            dest: 'dist/css/',
-            expand: true,
-            flatten: true
+            src:  "src/*.html", dest: 'dist/',
+            expand: true, flatten: true
           },
           {
-            src:  "src/scripts/libs/**/css/images/*", //JQM
-            dest: 'dist/css/images/',
-            expand: true,
-            flatten: true
+            src:  "src/css/*", dest: 'dist/css/',
+            expand: true, flatten: true},
+          {
+            src:  "src/scripts/libs/**/css/*", dest: 'dist/css/',
+            expand: true, flatten: true
           },
           {
-            src:  "src/scripts/libs/**/js/*",
-            dest: 'dist/scripts/lib/',
-            expand: true,
-            flatten: true
+            src:  "src/scripts/libs/**/css/images/*", dest: 'dist/css/images/',
+            expand: true, flatten: true
           },
-          {src: ['src/images/sample.jpg'], dest: 'dist/images/sample.jpg'},
-          {src: ['src/appcache.html'], dest: 'dist/appcache.html'},
-          {src: ['src/appcache.mf'], dest: 'dist/appcache.mf'}
+          {
+            src:  "src/scripts/libs/**/js/*", dest: 'dist/scripts/lib/',
+            expand: true, flatten: true
+          },
+          {
+            src:  "src/images/*", dest: 'dist/images/',
+            expand: true, flatten: true
+          },
+          {
+            src: ['src/appcache.mf'], dest: 'dist/appcache.mf'
+          }
         ]
       }//,
       //libs: {

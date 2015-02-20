@@ -129,8 +129,24 @@
         this.navigateToStandardPage('mgmtwhere');
       },
 
-      "mgmtschemes": function () {
-        this.navigateToStandardPage('mgmtschemes');
+      "info": function () {
+        this.navigateToStandardPage('info');
+      },
+
+      "about": function () {
+        this.navigateToStandardPage('about');
+      },
+
+      "credits": function () {
+        this.navigateToStandardPage('credits');
+      },
+
+      "privacy": function () {
+        this.navigateToStandardPage('privacy');
+      },
+
+      "brc-approved": function () {
+        this.navigateToStandardPage('brc-approved');
       }
     },
 
