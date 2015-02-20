@@ -13,6 +13,7 @@ app.views = app.views || {};
       _log('views.LoginPage: initialize', app.LOG_DEBUG);
 
       this.render();
+      this.appendBackButtonListeners();
     },
 
     render: function () {
@@ -21,7 +22,6 @@ app.views = app.views || {};
       this.$el.html(this.template());
 
       $('body').append($(this.el));
-
       return this;
     },
 

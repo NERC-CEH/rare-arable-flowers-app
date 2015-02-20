@@ -83,6 +83,7 @@ app.views = app.views || {};
         this.model.set(name, value);
       }
       window.history.back();
+      return false;
     }
   });
 

@@ -38,7 +38,7 @@ app.views = app.views || {};
     appendBackButtonListeners: function () {
       _log('views.Page(' + this.id + '): appending Back button listeners', app.LOG_DEBUG);
 
-      $('a[data-rel="back"]').on('click', function (event) {
+      $('a[data-rel="back"]').on('click', function (e) {
         window.history.back();
         return false;
       });

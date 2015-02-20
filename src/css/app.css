@@ -446,6 +446,6 @@ ul[data-role="listview"] > li > p {
 }
 .descript {
     font-weight: bold !important;
-    width: 45%;
+    width: 30%;
     padding-right: 40px;
 }

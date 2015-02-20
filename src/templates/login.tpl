@@ -14,7 +14,7 @@
     </form>
     <ul data-role="listview" data-inset="true" data-theme="a" data-divider-theme="a" data-count-theme="a" data-split-theme="a" data-split-icon="arrow-r">
         <li data-icon="arrow-r" class="first">
-            <a href="register" data-role="button" role="button">Create new account</a>
+            <a href="#register" data-role="button" role="button">Create new account</a>
         </li>
         <li data-icon="arrow-r" class="last">
             <a href="http://www.brc.ac.uk/irecord/user/password" data-role="button" rel="external">Request new password</a>
