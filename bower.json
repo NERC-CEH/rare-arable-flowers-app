@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "dependencies": {
     "backbone": "latest",
-    "backbone.localstorage": "jeromegn/Backbone.localStorage",
+    "jquery": "latest",
+    "backbone.localStorage": "jeromegn/Backbone.localStorage",
     "lodash": "latest",
     "jquery-mobile": "jobrapido/jquery-mobile-bower",
     "morel": "NERC-CEH/morel#develop",
@@ -11,5 +12,49 @@
     "IndexedDBShim": "axemclion/IndexedDBShim",
     "photoswipe": "https://github.com/downloads/codecomputerlove/PhotoSwipe/code.photoswipe-3.0.5.zip",
     "fastclick": "1.0.3"
+  },
+  "exportsOverride": {
+    "backbone": {
+      "js": "backbone.js"
+    },
+    "backbone.localStorage": {
+      "js": ["backbone.localStorage.js", "backbone.localStorage-min.js"]
+    },
+    "fastclick": {
+      "js": "lib/fastclick.js"
+    },
+    "IndexedDBShim": {
+      "js": ["dist/IndexedDBShim.js", "dist/IndexedDBShim.min.js"]
+    },
+    "jquery": {
+      "js": ["jquery.js", "jquery.min.js"]
+    },
+    "jquery-mobile": {
+      "js": ["js/jquery.mobile-1.4.5.js", "js/jquery.mobile-1.4.5.min.js"],
+      "css": "css/jquery.mobile-1.4.5.css",
+      "css/images": "css/images/ajax-loader.gif"
+    },
+    "latlon": {
+      "js": [
+        "vector3d.js",
+        "geo.js",
+        "latlon-ellipsoid.js",
+        "osgridref.js"
+      ]
+    },
+    "lodash": {
+      "js": ["lodash.js", "lodash.min.js"]
+    },
+    "morel": {
+      "js": "dist/morel.js"
+    },
+    "photoswipe": {
+      "js": [
+        "code.photoswipe.jquery-3.0.5.js",
+        "code.photoswipe.jquery-3.0.5.min.js",
+        "lib/klass.min.js"
+        ],
+      "css": [ "photoswipe.css","*.png", "*.gif"]
+    }
   }
 }
