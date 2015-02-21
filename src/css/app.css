@@ -165,17 +165,17 @@ input.numberInput{
 }
 
 form, body {
-    background: #FCFFD9 !important;
+    background: #F1FFE8 !important;
 }
 
 .ui-page {
-    background: #EFF2CD;
+    background: rgba(112, 208, 99, 0.15);
 }
 
 .ui-header-fixed, .ui-footer-fixed {
     min-height: 45px;
 
-    background-color: #D5CB5F !important;
+    background-color: #70D063 !important;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
@@ -222,9 +222,9 @@ form, body {
     right: 0;
 
     border-style: dashed;
-    border-color: #A0A286;
+    border-color: #90A286;
 
-    background-color: #E5E1B2;
+    background-color: #C7E5B2;
     background-size: 44px auto;
     background-repeat: no-repeat;
     background-position: center;
@@ -340,7 +340,7 @@ a.ui-btn > img {
 .ui-btn-icon-top:after,
 .ui-btn-icon-bottom:after,
 .ui-btn-icon-notext:after {
-    background-color: #828829;
+    background-color: #3A8829;
 }
 
 /* Species list record button */

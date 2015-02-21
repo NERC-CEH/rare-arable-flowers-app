@@ -27,6 +27,7 @@ app.views = app.views || {};
 
       $(this.el).html(this.template());
       return this;
+
     },
 
     attributes: function () {
