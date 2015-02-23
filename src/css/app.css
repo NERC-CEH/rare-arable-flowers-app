@@ -165,21 +165,26 @@ input.numberInput{
 }
 
 form, body {
-    background: #F1FFE8 !important;
+    background: #F8FFF3 !important;
 }
 
 .ui-page {
-    background: rgba(112, 208, 99, 0.15);
+    background: rgba(236, 247, 235, 1);
 }
 
 .ui-header-fixed, .ui-footer-fixed {
     min-height: 45px;
 
-    background-color: #70D063 !important;
+    background-color: #3A8829 !important;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
     overflow: hidden;
+}
+
+.ui-title {
+    color: white;
+    text-shadow: none !important;
 }
 
 /* Move loader dialog up */

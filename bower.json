@@ -46,7 +46,7 @@
       "js": ["lodash.js", "lodash.min.js"]
     },
     "morel": {
-      "js": "dist/morel.js"
+      "js": ["morel.js", "model.min.js"]
     },
     "photoswipe": {
       "js": [
