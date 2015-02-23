@@ -10,24 +10,7 @@
         <li>
             <p>We are very greatful for all the people that helped to create this app:</p>
             <ul class="list-normal-white-space">
-                <li>
-                    <p>Karolis Kazlauskis</p>
-                </li>
-                <li>
-                    <p>British Dragonfly Society</p>
-                </li>
-                <li>
-                    <p>Jim Bacon</p>
-                </li>
-                <li>
-                    <p>Dr Tom August</p>
-                </li>
-                <li>
-                    <p>Bjorn Beckmann </p>
-                </li>
-                <li>
-                    <p>Tom Humphrey </p>
-                </li>
+
             </ul>
         </li>
     </ul>
