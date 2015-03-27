@@ -117,16 +117,16 @@
         this.navigateToStandardPage('mgmt');
       },
 
-      "mgmthotspot": function () {
-        this.navigateToStandardPage('mgmthotspot');
+      "mgmtlocation": function () {
+        this.navigateToStandardPage('mgmtlocation');
       },
 
-      "mgmtrequirements": function () {
-        this.navigateToStandardPage('mgmtrequirements');
+      "mgmtconservation": function () {
+        this.navigateToStandardPage('mgmtconservation');
       },
 
-      "mgmtwhere": function () {
-        this.navigateToStandardPage('mgmtwhere');
+      "mgmtschemes": function () {
+        this.navigateToStandardPage('mgmtschemes');
       },
 
       "info": function () {

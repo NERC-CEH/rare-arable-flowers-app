@@ -8,20 +8,16 @@
     <div data-role="content">
         <ul data-role="listview" data-inset="true">
             <li>
-                <a href="#mgmthotspot" data-role="button" data-icon="arrow-r"
-                   data-iconpos="right">Arable Plant Hotspot</a>
+                <a href="#mgmtlocation" data-role="button" data-icon="arrow-r"
+                   data-iconpos="right">Pick the right Location</a>
             </li>
             <li>
-                <a href="#mgmtrequirements" data-role="button" data-icon="arrow-r"
-                   data-iconpos="right">Management Requirements</a>
-            </li>
-            <li>
-                <a href="#mgmtwhere" data-role="button" data-icon="arrow-r"
-                   data-iconpos="right">Where to site conservation margins</a>
+                <a href="#mgmtconservation" data-role="button" data-icon="arrow-r"
+                   data-iconpos="right">Conserving Arable Flowers</a>
             </li>
             <li>
                 <a href="#mgmtschemes" data-role="button" data-icon="arrow-r"
-                   data-iconpos="right">Agri-environment schemes</a>
+                   data-iconpos="right">Agri-environment Schemes </a>
             </li>
         </ul>
     </div>
