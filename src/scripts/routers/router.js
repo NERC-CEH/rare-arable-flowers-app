@@ -125,6 +125,11 @@
         this.navigateToStandardPage('mgmtconservation');
       },
 
+      "mgmtundesirable": function () {
+        this.navigateToStandardPage('mgmtundesirable');
+      },
+
+
       "mgmtschemes": function () {
         this.navigateToStandardPage('mgmtschemes');
       },

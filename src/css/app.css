@@ -14,7 +14,7 @@ body {
     padding: 1em;
     text-align: center;
 }
-
+.ui-collapsible-content p,
 .ui-listview>li p {
     font-size: 90%;
 }
@@ -377,6 +377,7 @@ label.filter, label.sort {
     padding-top: 2.5em !important;
 }
 
+
 .list-normal-white-space > li > p,
 ul[data-role="listview"] > li > strong,
 ul[data-role="listview"] > li > p {
@@ -401,7 +402,7 @@ ul[data-role="listview"] > li > p {
 
 .sponsor-logo {
     margin-top: 50px;
-    height: 100px;
+    height: 150px;
     background: url('../images/sponsor_logo.png') center center no-repeat;
     background-size: contain;
 }
@@ -420,10 +421,6 @@ ul.welcome-page{
 @media only screen and (max-width: 400px) {
     .app-logo {
         height: 100px;
-    }
-
-    .sponsor-logo {
-        height: 50px;
     }
 }
 
