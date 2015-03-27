@@ -1,7 +1,7 @@
     <div data-role="content">
-        <center><h1>Rare Arable Flowers</h1></center>
+        <div class="app-logo"></div>
         <br/>
-        <ul data-role="listview" data-inset="true">
+        <ul class="welcome-page" data-role="listview" data-inset="true">
             <li>
                 <a href="#mgmt" data-role="button" data-icon="bars"
                    data-iconpos="right">Management</a>
@@ -16,5 +16,5 @@
             </li>
         </ul>
         <br/>
-        <center><h3>Logos go here</h3></center>
+        <div class="sponsor-logo"></div>
     </div>

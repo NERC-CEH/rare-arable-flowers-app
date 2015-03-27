@@ -77,9 +77,6 @@ module.exports = function (grunt) {
         options: {
           namespace: 'app.templates',
          // prettify: true,
-          templateSettings: {
-            interpolate : /\{\{(.+?)\}\}/g
-          },
           processName: function(filepath) {
             return filepath.split('/')[2].split('.')[0];
           }

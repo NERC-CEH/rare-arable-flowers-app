@@ -10,7 +10,7 @@
                 <div class="taxon"><%- taxon %></div>
             </li>
             <li>
-                <p><%- description %></p>
+                <p><%= description %></p>
             </li>
             <li>
                 <p><strong>Flowering period:</strong> <%- flowering_period %></p>
@@ -20,7 +20,7 @@
             </li>
             <li>
                 <strong>Management:</strong>
-                <p><%- management %></p>
+                <p><%= management %></p>
             </li>
         </ul>
     </center>
