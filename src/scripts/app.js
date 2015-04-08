@@ -41,6 +41,8 @@ morel.auth.getUser = function () {
 };
 
 $(document).ready(function(){
+  console.log(app.BRC);
+
   app.checkForUpdates();
 
   app.router = new app.Router();
