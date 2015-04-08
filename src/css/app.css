@@ -473,3 +473,7 @@ ul.welcome-page{
     width: 30%;
     padding-right: 40px;
 }
+
+#heat-map{
+    height:100%;
+}

@@ -48,6 +48,10 @@ module.exports = function (grunt) {
             expand: true, flatten: true
           },
           {
+            src:  "src/data/*.json", dest: 'dist/scripts/',
+            expand: true, flatten: true
+          },
+          {
             src:  "src/images/*", dest: 'dist/images/',
             expand: true, flatten: true
           },

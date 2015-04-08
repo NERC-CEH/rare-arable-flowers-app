@@ -27,10 +27,12 @@ app.views = app.views || {};
          dummyText controls the caching of the file - always get fresh
          */
         var dummyText = '&' + (new Date()).getTime();
-        this.loadScript('http://maps.googleapis.com/maps/api/js?sensor=false&' +
+        app.loadScript('http://maps.googleapis.com/maps/api/js?sensor=false&' +
           'callback=app.views.locationPage.initializeMap' +
           dummyText
         );
+      } else {
+        this.initializeMap();
       }
     },
 
@@ -209,80 +211,11 @@ app.views = app.views || {};
       $('#location-opts').tabs( "option", "disabled", [] ); //enable map tab
 
       var mapCanvas = $('#map-canvas')[0];
-      var mapOptions = {
-        zoom: 5,
-        center: new google.maps.LatLng(57.686988, -14.763319),
-        zoomControl: true,
-        zoomControlOptions: {
-          style: google.maps.ZoomControlStyle.SMALL
-        },
-        panControl: false,
-        linksControl: false,
-        streetViewControl: false,
-        overviewMapControl: false,
-        scaleControl: false,
-        rotateControl: false,
-        mapTypeControl: true,
-        mapTypeControlOptions: {
-          style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR
-        },
-        styles: [
-          {
-            "featureType": "landscape",
-            "stylers": [
-              {"hue": "#FFA800"},
-              {"saturation": 0},
-              {"lightness": 0},
-              {"gamma": 1}
-            ]
-          },
-          {
-            "featureType": "road.highway",
-            "stylers": [
-              {"hue": "#53FF00"},
-              {"saturation": -73},
-              {"lightness": 40},
-              {"gamma": 1}
-            ]
-          },
-          {
-            "featureType": "road.arterial",
-            "stylers": [
-              {"hue": "#FBFF00"},
-              {"saturation": 0},
-              {"lightness": 0},
-              {"gamma": 1}
-            ]
-          },
-          {
-            "featureType": "road.local",
-            "stylers": [
-              {"hue": "#00FFFD"},
-              {"saturation": 0},
-              {"lightness": 30},
-              {"gamma": 1}
-            ]
-          },
-          {
-            "featureType": "water",
-            "stylers": [
-              {"saturation": 43},
-              {"lightness": -11},
-              {"hue": "#0088ff"}
-            ]
-          },
-          {
-            "featureType": "poi",
-            "stylers": [
-              {"hue": "#679714"},
-              {"saturation": 33.4},
-              {"lightness": -25.4},
-              {"gamma": 1}
-            ]
-          }
-        ]
-      };
+      var mapOptions = app.CONF.MAP;
+
       this.map = new google.maps.Map(mapCanvas, mapOptions);
+      this.map.setCenter(new google.maps.LatLng(55.4, -4));
+
       var marker = new google.maps.Marker({
         position: new google.maps.LatLng(-25.363, 131.044),
         map: app.views.locationPage.map,
@@ -389,19 +322,6 @@ app.views = app.views || {};
         message.empty().append('<p>Grid Ref:<br/>' + gref + '</p>');
         this.save();
       }
-    },
-
-    /**
-     * Loads the google maps script.
-     *
-     * @param src
-     */
-    loadScript: function (src) {
-      var script = document.createElement('script');
-      script.type = 'text/javascript';
-      script.src = src;
-      document.body.appendChild(script);
     }
-
   });
 })();

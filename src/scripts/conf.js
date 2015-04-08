@@ -17,6 +17,79 @@ app.CONF.NAME = 'app'; //grunt replaced.
 app.CONF.HOME = "raf/dist/";
 app.CONF.LOG = morel.LOG_DEBUG;
 
+app.CONF.MAP = {
+  zoom: 6,
+  zoomControl: true,
+  zoomControlOptions: {
+    style: 1
+  },
+  panControl: false,
+  linksControl: false,
+  streetViewControl: false,
+  overviewMapControl: false,
+  scaleControl: false,
+  rotateControl: false,
+  mapTypeControl: true,
+  mapTypeControlOptions: {
+    style: 1
+  },
+  styles: [
+    {
+      "featureType": "landscape",
+      "stylers": [
+        {"hue": "#FFA800"},
+        {"saturation": 0},
+        {"lightness": 0},
+        {"gamma": 1}
+      ]
+    },
+    {
+      "featureType": "road.highway",
+      "stylers": [
+        {"hue": "#53FF00"},
+        {"saturation": -73},
+        {"lightness": 40},
+        {"gamma": 1}
+      ]
+    },
+    {
+      "featureType": "road.arterial",
+      "stylers": [
+        {"hue": "#FBFF00"},
+        {"saturation": 0},
+        {"lightness": 0},
+        {"gamma": 1}
+      ]
+    },
+    {
+      "featureType": "road.local",
+      "stylers": [
+        {"hue": "#00FFFD"},
+        {"saturation": 0},
+        {"lightness": 30},
+        {"gamma": 1}
+      ]
+    },
+    {
+      "featureType": "water",
+      "stylers": [
+        {"saturation": 43},
+        {"lightness": -11},
+        {"hue": "#0088ff"}
+      ]
+    },
+    {
+      "featureType": "poi",
+      "stylers": [
+        {"hue": "#679714"},
+        {"saturation": 33.4},
+        {"lightness": -25.4},
+        {"gamma": 1}
+      ]
+    }
+  ]
+};
+
 morel.CONF.NAME = app.CONF.NAME;
 morel.io.CONF.RECORD_URL = 'http://192.171.199.230/iRecord/mobile/submit';
 morel.auth.CONF = {

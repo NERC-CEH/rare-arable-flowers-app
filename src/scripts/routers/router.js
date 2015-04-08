@@ -118,7 +118,10 @@
       },
 
       "mgmtlocation": function () {
-        this.navigateToStandardPage('mgmtlocation');
+        if (!app.views.mgmtlocationPage){
+          app.views.mgmtlocationPage = new app.views.MgmtlocationPage();
+        }
+        this.changePage(app.views.mgmtlocationPage);
       },
 
       "mgmtconservation": function () {

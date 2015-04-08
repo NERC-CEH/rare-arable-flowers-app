@@ -226,3 +226,15 @@ app.checkForUpdates = function () {
     app.models.app.save('appVer', app.CONF.VERSION);
   }
 };
+
+/**
+ * Loads script.
+ *
+ * @param src
+ */
+app.loadScript =  function (src) {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src = src;
+  document.body.appendChild(script);
+};

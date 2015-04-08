@@ -17,7 +17,14 @@
             <li>
                 <p>Sites with low levels of undesirable weeds such as couch, black-grass, brome, ryegrass and wild oats are easier to manage, although in some instances are unavoidable where target plant populations and species are found.</p>
             </li>
+            <li>
+                <div id="heat-map">
+                    <svg width="378" height="504">
+                        <image x="0" y="0" width="378" height="504" xlink:href="images/country_coastline.svg" />
+                    </svg>
+                </div>
+            </li>
         </ul>
-        <img src="images/hotspot.png" >
+
 
     </div>
