@@ -19,9 +19,12 @@
             </li>
             <li>
                 <div id="heat-map">
-                    <svg width="378" height="504">
-                        <image x="0" y="0" width="378" height="504" xlink:href="images/country_coastline.svg" />
-                    </svg>
+                    <center>
+                        <svg width="378" height="504">
+                            <image x="-10" y="-30" width="378" height="504" xlink:href="images/country_coastline.svg" />
+                        </svg>
+                    </center>
+
                 </div>
             </li>
         </ul>

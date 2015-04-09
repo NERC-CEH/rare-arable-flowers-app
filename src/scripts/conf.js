@@ -18,7 +18,7 @@ app.CONF.HOME = "raf/dist/";
 app.CONF.LOG = morel.LOG_DEBUG;
 
 app.CONF.MAP = {
-  zoom: 6,
+  zoom: 5,
   zoomControl: true,
   zoomControlOptions: {
     style: 1
