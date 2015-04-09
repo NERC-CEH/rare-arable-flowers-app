@@ -8,7 +8,7 @@
         <div data-role="navbar" data-iconpos="left">
             <ul>
                 <li>
-                    <button id="species-map-button">Distribution</button>
+                    <button id="species-map-button">Distribution Map</button>
                 </li>
             </ul>
         </div>
