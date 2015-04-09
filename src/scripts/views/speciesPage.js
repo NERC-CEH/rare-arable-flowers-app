@@ -10,7 +10,9 @@ app.views = app.views || {};
     template: app.templates.species,
 
     events: {
-      'click #species-profile-fav-button': 'toggleSpeciesFavourite'
+      'click #species-profile-fav-button': 'toggleSpeciesFavourite',
+      'click #species-map': 'toggleMap',
+      'click #species-map-button': 'toggleMap'
     },
 
     initialize: function () {
@@ -49,6 +51,15 @@ app.views = app.views || {};
 
       //add Gallery
       this.gallery.init();
+
+      //add Map
+      var $mapsHolder = $('#maps-holder');
+      $.get("images/country_coastline.svg", function(data) {
+        $mapsHolder.html(new XMLSerializer().serializeToString(data.documentElement));
+      });
+      $.get(this.model.attributes.map, function(data) {
+        $mapsHolder.append(new XMLSerializer().serializeToString(data.documentElement));
+      });
     },
 
     /**
@@ -126,6 +137,10 @@ app.views = app.views || {};
           app.message('I have no pictures to show :(');
         }
       }
+    },
+
+    toggleMap: function () {
+      $('#species-map').toggle('slow');
     }
 
   });
