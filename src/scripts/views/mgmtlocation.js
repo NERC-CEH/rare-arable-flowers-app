@@ -33,7 +33,7 @@ app.views = app.views || {};
          */
         var dummyText = '&' + (new Date()).getTime();
         app.loadScript('http://maps.googleapis.com/maps/api/js?sensor=false&' +
-          'callback=app.views.mgmtlocationPage.drawGoogleHeatMap' + dummyText
+          'callback=app.views.mgmtlocationPage.initializeMap' + dummyText
         );
         //todo: on error call drawHeatMap
       } else {
@@ -53,6 +53,8 @@ app.views = app.views || {};
     drawHeatMap: function () {
       var width = 378,
         height = 504;
+      $('#heat-map').html(app.templates.mgmtlocation_heatmap());
+
       var svg = d3.select('#heat-map svg').append('svg')
         .attr('x', 2)
         .attr('y', -15)
