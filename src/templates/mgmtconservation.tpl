@@ -24,6 +24,7 @@
         <div data-role="collapsible" data-collapsed-icon="carat-d"
              data-expanded-icon="carat-u">
             <h4>Uncropped Cultivated Land</h4>
+            <img src="images/option_27.png">
 
             <p>Aim to create an area of fine seedbed either in the spring or autumn,
                 depending on the target species (see species guide) and then allow a
@@ -50,12 +51,8 @@
         </div>
         <div data-role="collapsible" data-collapsed-icon="carat-d"
              data-expanded-icon="carat-u">
-            <h4>Agri-env scheme options</h4>
-            <p></p>
-        </div>
-        <div data-role="collapsible" data-collapsed-icon="carat-d"
-             data-expanded-icon="carat-u">
             <h4>Cereal Headlands</h4>
+            <img src="images/option_34B.png">
 
             <p>Some species, such as cornflower and shepherds needle will thrive in
                 a situation which mimics historical cropping patterns. </p>
@@ -85,6 +82,8 @@
         <div data-role="collapsible" data-collapsed-icon="carat-d"
              data-expanded-icon="carat-u">
             <h4>Whole Crop Cereals/Roots</h4>
+            <img src="images/option_30.png">
+            <img src="images/option_32.png">
 
             <p>Less intensive management of crops on a field scale can also benefit
                 arable flowers.</p>
@@ -99,7 +98,13 @@
         </div>
         <div data-role="collapsible" data-collapsed-icon="carat-d"
              data-expanded-icon="carat-u">
+            <h4>Agri-env scheme options</h4>
+            <p></p>
+        </div>
+        <div data-role="collapsible" data-collapsed-icon="carat-d"
+             data-expanded-icon="carat-u">
             <h4>Other methods</h4>
+            <img src="images/option_33.png">
 
             <p>Areas of un-cropped fallow land utilised under the new Basic Payment
                 Scheme as part of the Crop diversification rules and Environmental
