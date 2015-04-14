@@ -1,10 +1,13 @@
-var app = app || {};
-app.views = app.views || {};
-
-(function () {
+/******************************************************************************
+ * Management Locations page view.
+ *****************************************************************************/
+define([
+  'views/_page',
+  'templates'
+], function (Page) {
   'use strict';
 
-  app.views.AboutPage = app.views.Page.extend({
+  var About = Page.extend({
     id: 'about',
 
     template: app.templates.about,
@@ -26,6 +29,6 @@ app.views = app.views || {};
       $('body').append($(this.el));
       return this;
     }
-
   });
-})();
+  return About;
+});

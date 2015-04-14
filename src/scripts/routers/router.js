@@ -1,13 +1,50 @@
-(function () {
+/******************************************************************************
+ * Main app router.
+ *****************************************************************************/
+define([
+  'views/_page',
+  'views/listPage',
+  'views/speciesPage',
+  'views/userPage',
+  'views/loginPage',
+  'views/registerPage',
+  'views/recordPage',
+  'views/datePage',
+  'views/locationPage',
+  'views/numberPage',
+  'views/stagePage',
+  'views/commentPage',
+  'views/mgmtlocationPage',
+  'views/locationdetailsPage',
+  'helpers/download'
+], function(Page, ListPage, SpeciesPage, UserPage, LoginPage, RegisterPage,
+            RecordPage, DatePage, LocationPage, NumberPage, StagePage,
+            CommentPage, MgmtlocationPage, LocationdetailsPage, download) {
   'use strict';
 
-  app.Router = Backbone.Router.extend({
-    initialize: function () {
-      _log('app.Router: initialize.', app.LOG_DEBUG);
+  app.views = {};
 
-      $(document).on("show", _.bind(this.handleshow, this));
+  var Router = Backbone.Router.extend({
+    /**
+     * Initialize the router.
+     */
+    initialize: function () {
+      _log('app.Router: initialize.', log.DEBUG);
+
+     // $(document).on("show", _.bind(this.handleshow, this));
+
+      //track every route change as a page view in google analytics
+      this.bind('route', this.trackPageview);
+
+      //download app for offline usage
+      if (app.CONF.OFFLINE.STATUS){
+        setTimeout(download, 500);
+      }
     },
 
+    /**
+     * Routes to listen to.
+     */
     routes: {
       "": function () {
         this.navigateToStandardPage('welcome');
@@ -18,15 +55,15 @@
       },
 
       "list": function () {
-        if (!app.views.listPage){
-          app.views.listPage = new app.views.ListPage();
+        if (!app.views.listPage) {
+          app.views.listPage = new ListPage();
         }
         this.changePage(app.views.listPage);
       },
 
       "species/:id": function (id) {
-        if (!app.views.speciesPage){
-          app.views.speciesPage = new app.views.SpeciesPage();
+        if (!app.views.speciesPage) {
+          app.views.speciesPage = new SpeciesPage();
         }
         this.changePage(app.views.speciesPage);
 
@@ -34,8 +71,8 @@
       },
 
       "user": function () {
-        if (!app.views.userPage){
-          app.views.userPage = new app.views.UserPage();
+        if (!app.views.userPage) {
+          app.views.userPage = new UserPage();
         }
         this.changePage(app.views.userPage);
 
@@ -47,22 +84,22 @@
       },
 
       "login": function () {
-        if (!app.views.loginPage){
-          app.views.loginPage = new app.views.LoginPage();
+        if (!app.views.loginPage) {
+          app.views.loginPage = new LoginPage();
         }
         this.changePage(app.views.loginPage);
       },
 
       "register": function () {
-        if (!app.views.registerPage){
-          app.views.registerPage = new app.views.RegisterPage();
+        if (!app.views.registerPage) {
+          app.views.registerPage = new RegisterPage();
         }
         this.changePage(app.views.registerPage);
       },
 
       "record/:id": function (id) {
-        if (!app.views.recordPage){
-          app.views.recordPage = new app.views.RecordPage({model: app.models.record});
+        if (!app.views.recordPage) {
+          app.views.recordPage = new RecordPage({model: app.models.record});
         }
         var prevPageID = $.mobile.activePage ? $.mobile.activePage.attr('id') : '';
 
@@ -71,44 +108,44 @@
       },
 
       "location": function () {
-        if (!app.views.locationPage){
-          app.views.locationPage = new app.views.LocationPage({model: app.models.record});
+        if (!app.views.locationPage) {
+          app.views.locationPage = new LocationPage({model: app.models.record});
         }
         this.changePage(app.views.locationPage);
         app.views.locationPage.update();
       },
 
-      "comment": function () {
-        if (!app.views.commentPage){
-          app.views.commentPage = new app.views.CommentPage({model: app.models.record});
-        }
-        this.changePage(app.views.commentPage);
-      },
-
       "number": function () {
-        if (!app.views.numberPage){
-          app.views.numberPage = new app.views.NumberPage({model: app.models.record});
+        if (!app.views.numberPage) {
+          app.views.numberPage = new NumberPage({model: app.models.record});
         }
         this.changePage(app.views.numberPage);
       },
 
       "locationdetails": function () {
-        if (!app.views.locationDetailsPage){
-          app.views.locationDetailsPage = new app.views.LocationdetailsPage({model: app.models.record});
+        if (!app.views.locationDetailsPage) {
+          app.views.locationDetailsPage = new LocationdetailsPage({model: app.models.record});
         }
         this.changePage(app.views.locationDetailsPage);
       },
 
       "stage": function () {
-        if (!app.views.stagePage){
-          app.views.stagePage = new app.views.StagePage({model: app.models.record});
+        if (!app.views.stagePage) {
+          app.views.stagePage = new StagePage({model: app.models.record});
         }
         this.changePage(app.views.stagePage);
       },
 
+      "comment": function () {
+        if (!app.views.commentPage) {
+          app.views.commentPage = new CommentPage({model: app.models.record});
+        }
+        this.changePage(app.views.commentPage);
+      },
+
       "date": function () {
-        if (!app.views.datePage){
-          app.views.datePage = new app.views.DatePage({model: app.models.record});
+        if (!app.views.datePage) {
+          app.views.datePage = new DatePage({model: app.models.record});
         }
         this.changePage(app.views.datePage);
       },
@@ -119,7 +156,7 @@
 
       "mgmtlocation": function () {
         if (!app.views.mgmtlocationPage){
-          app.views.mgmtlocationPage = new app.views.MgmtlocationPage();
+          app.views.mgmtlocationPage = new MgmtlocationPage();
         }
         this.changePage(app.views.mgmtlocationPage);
       },
@@ -158,30 +195,45 @@
       }
     },
 
+    /**
+     * If the JQM page needs no controller and uses a rather static template
+     * we can use this function to create the view and open it as a page.
+     *
+     * @param pageID the ID of a page that matches the template name
+     */
     navigateToStandardPage: function (pageID) {
-      if (!app.views[pageID + 'Page']){
-        app.views[pageID + 'Page'] = new app.views.Page(pageID);
+      if (!app.views[pageID + 'Page']) {
+        app.views[pageID + 'Page'] = new Page(pageID);
       }
       this.changePage(app.views[pageID + 'Page']);
     },
 
+    /**
+     * Since the JQM page navigation is disabled with backbone this navigates to
+     * a new page view.
+     *
+     * @param page backbone page view
+     */
     changePage: function (page) {
       // We turned off $.mobile.autoInitializePage, but now that we've
       // added our first page to the DOM, we can now call initializePage.
       if (!this.initializedFirstPage) {
-        _log('app.Router: loading first page.', app.LOG_DEBUG);
+        _log('app.Router: loading first page.', log.DEBUG);
 
         $.mobile.initializePage();
         this.initializedFirstPage = true;
-
-        //ask user to appcache
-        //setTimeout(app.download, 1000);
       }
 
+      //update the URL hash
       $(":mobile-pagecontainer").pagecontainer("change", '#' + page.id,
         {changeHash: false});
     },
 
+    /**
+     *
+     * @param event
+     * @param ui
+     */
     handleshow: function (event, ui) {
       // Figure out what page we are showing and call 'app.views.Page.show' on it
       // TODO: JQM 1.4.3 has ui.toPage, which would be preferred to getActivePage
@@ -191,7 +243,29 @@
           page.show(event, ui);
         }
       });
+    },
+
+    /**
+     * Google analytics to track the page navigation.
+     */
+    trackPageview: function () {
+      //Google Analytics
+      if (app.CONF.GA.STATUS) {
+        require(['ga'], function(ga) {
+          var url = Backbone.history.getFragment();
+
+          // Add a slash if neccesary
+          if (!/^\//.test(url)) url = '/' + url;
+
+          // Record page view
+          ga('send', {
+            'hitType': 'pageview',
+            'page': url
+          });
+        });
+      }
     }
   });
 
-})();
+  return Router;
+});

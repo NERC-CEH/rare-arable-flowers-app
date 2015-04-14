@@ -2,7 +2,7 @@
 	"name": "rare-arable-plants",
 	"title": "Rare Arable Plants",
 	"description": "Rare Arable Plants mobile web application.",
-	"version": "0.1.0",
+	"version": "1.0.0-beta",
 	"homepage": "",
 	"author": {
 		"name": "Karolis Kazlauskis",
@@ -37,8 +37,9 @@
 		"grunt-contrib-watch": "0.6.0",
 		"grunt-text-replace": "0.3.12",
 		"grunt-contrib-jst": "0.6.0",
+    "grunt-contrib-requirejs": "0.4.4",
     "express": "latest"
-	 },
+  },
 	"keywords": [
 		"rare",
 		"arable",

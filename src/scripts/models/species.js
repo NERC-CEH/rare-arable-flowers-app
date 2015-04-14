@@ -1,26 +1,33 @@
-var app = app || {};
-app.models = app.models || {};
-app.collections = app.collections || {};
-
-(function () {
+/******************************************************************************
+ * Species collection.
+ *****************************************************************************/
+define([
+  'backbone'
+], function (Backbone) {
   'use strict';
 
   var Specie = Backbone.Model.extend({
     defaults: {
+      general: false,
       id: "",
       warehouse_id: 0,
       taxon: "",
       common_name: "",
-      profile_pic: "images/sample.jpg",
+      profile_pic: "images/unknown.png",
       description: "",
-      management: "",
+      map: "",
       favourite: false
     }
   });
 
-  app.collections.Species = Backbone.Collection.extend({
+  var Species = Backbone.Collection.extend({
     model: Specie,
 
+    /**
+     * Initializes the collection.
+     *
+     * @param species Array
+     */
     initialize: function (species) {
       this.listenTo(app.models.user, 'change', this.updateFavourites);
 
@@ -35,6 +42,9 @@ app.collections = app.collections || {};
       });
     },
 
+    /**
+     * Updates the object information about user favourite species.
+     */
     updateFavourites: function () {
       var favourites = app.models.user.get('favourites');
       _.each(this.models, function(model){
@@ -47,4 +57,5 @@ app.collections = app.collections || {};
     }
   });
 
-})();
+  return Species;
+});

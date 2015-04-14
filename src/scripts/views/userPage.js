@@ -1,10 +1,14 @@
-var app = app || {};
-app.views = app.views || {};
-
-(function () {
+/******************************************************************************
+ * User page view.
+ *****************************************************************************/
+define([
+  'views/_page',
+  'templates',
+  'latlon'
+], function (Page) {
   'use strict';
 
-  app.views.UserPage = app.views.Page.extend({
+  var UserPage = Page.extend({
     id: 'user',
 
     template: app.templates.user,
@@ -17,14 +21,16 @@ app.views = app.views || {};
     },
 
     initialize: function () {
-      _log('views.UserPage: initialize', app.LOG_DEBUG);
+      _log('views.UserPage: initialize', log.DEBUG);
+
+      this.listenTo(app.models.user, 'change:email', this.update);
 
       this.render();
       this.appendBackButtonListeners();
     },
 
     render: function () {
-      _log('views.UserPage: render', app.LOG_DEBUG);
+      _log('views.UserPage: render', log.DEBUG);
 
       this.$el.html(this.template());
 
@@ -38,14 +44,29 @@ app.views = app.views || {};
       this.printList();
     },
 
+    /**
+     * Recursively sends all the saved user records.
+     */
     sendAllSavedRecords: function () {
+      $.mobile.loading('show');
+
       function onSuccess() {
         app.views.userPage.printList();
       }
 
-      morel.io.sendAllSavedRecords(onSuccess);
+      function onSuccessAll() {
+        $.mobile.loading('hide');
+        app.views.listPage.updateUserPageButton();
+      }
+      morel.io.sendAllSavedRecords(onSuccess, onSuccessAll);
     },
 
+    /**
+     * Sends the saves user record.
+     *
+     * @param e Event of an element that contains the ID of the saved record as
+     * data attribute.
+     */
     sendSavedRecord: function (e) {
       var recordKey = $(e.currentTarget).data('id');
 
@@ -54,63 +75,53 @@ app.views = app.views || {};
         $.mobile.loading('show');
 
         onSuccess = function () {
-          $.mobile.loading('show', {
-            text: "Done!",
-            theme: "b",
-            textVisible: true,
-            textonly: true
-          });
-
+          //for some reason need a timeout
           setTimeout(function () {
-            $.mobile.loading('hide');
-          }, 3000);
+            app.views.listPage.updateUserPageButton();
+          }, 100);
+
+          app.message("<center><h2>Done</h2></center>");
 
           morel.record.db.remove(recordKey, function () {
             app.views.userPage.printList();
           });
         };
 
-        onError = function (xhr, ajaxOptions, thrownError) {
-          if (!xhr.responseText) {
-            xhr.responseText = "Sorry. Some Error Occurred."
-          }
-          _log("user: ERROR record ajax (" + xhr.status + " " + thrownError + ").", app.LOG_ERROR);
-          _log(xhr.responseText, app.LOG_ERROR);
+        onError = function (error) {
+          _log(error, log.ERROR);
 
-          $.mobile.loading('show', {
-            text: xhr.responseText,
-            theme: "b",
-            textVisible: true,
-            textonly: true
-          });
+          var message =
+            "<center><h2>Error</h2></center> <br/>" +
+            error.message || '<h3>Some problem occurred </h3>';
 
-          setTimeout(function () {
-            $.mobile.loading('hide');
-          }, 10000);
+          app.message(message);
         };
 
         morel.io.sendSavedRecord(recordKey, onSuccess, onError);
       } else {
-        $.mobile.loading('show', {
-          text: "Looks like you are offline!",
-          theme: "b",
-          textVisible: true,
-          textonly: true
-        });
-
-        setTimeout(function () {
-          $.mobile.loading('hide');
-        }, 3000);
+        app.message("<center><h2>Sorry</h2></center>" +
+        "<br/><h3>Looks like you are offline!</h3>");
       }
     },
 
+    /**
+     * Deletes the saves user record.
+     *
+     * @param e Event of an element that contains the ID of the saved record as
+     * data attribute.
+     */
     deleteSavedRecord: function (e) {
       var recordKey = $(e.currentTarget).data('id');
       morel.record.db.remove(recordKey, function () {
+        app.views.listPage.updateUserPageButton();
+
         app.views.userPage.printList();
       });
     },
 
+    /**
+     * Renders the user login information.
+     */
     printUserControls: function () {
       var $logoutButton = $('#logout-button');
       var $loginWarning = $('#login-warning');
@@ -118,15 +129,22 @@ app.views = app.views || {};
       var user = app.models.user.attributes;
       if (user.email){
         //logged in
+        $('#user_heading').html(user.name);
+
         $logoutButton.show();
         $loginWarning.hide();
       } else {
         //logged out
+        $('#user_heading').html('My Account');
+
         $logoutButton.hide();
         $loginWarning.show();
       }
     },
 
+    /**
+     * Renders the list of the saved records.
+     */
     printList: function () {
       function onSuccess(savedRecords) {
         var records = [];
@@ -164,11 +182,16 @@ app.views = app.views || {};
       morel.record.db.getAll(onSuccess);
     },
 
+    /**
+     * Signs the user out.
+     */
     signOut: function () {
-      _log('user: logging out', app.LOG_INFO);
+      _log('user: logging out', log.DEBUG);
       app.models.user.signOut();
       this.update();
     }
 
   });
-})();
+
+  return UserPage;
+});

@@ -1,4 +1,10 @@
-app.collections.species = new app.collections.Species([
+/**
+ * Species data. An array of species describing objects.
+ */
+
+app = window.app || {};
+app.data = app.data || [];
+app.data.species = [
   {
     "": "images/images/Adonis annua.svg", 
     "profile_pic": "images/Adonis_annua_2_CG.jpg", 
@@ -2298,4 +2304,4 @@ app.collections.species = new app.collections.Species([
     "confusion": "petal colour variable", 
     "type": "F"
   }
-]);
+];

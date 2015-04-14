@@ -1,10 +1,13 @@
-var app = app || {};
-app.views = app.views || {};
-
-(function () {
+/******************************************************************************
+ * Species list view used in ListPage view.
+ *****************************************************************************/
+define([
+  'backbone',
+  'templates'
+], function (Backbone) {
   'use strict';
 
-  app.views.SpeciesList = Backbone.View.extend({
+  var SpeciesList = Backbone.View.extend({
     tagName: 'ul',
 
     attributes: {
@@ -18,20 +21,8 @@ app.views = app.views || {};
      * label - label to represent the filter in the UI
      */
     filters: {
-      //probability: {
-      //  probability:{
-      //    label: 'Probability',
-      //    filter: function (list, onSuccess) {
-      //      app.views.listPage.prob.runFilter(list, function () {
-      //        var filtered_list = app.views.listPage.prob.filterList(list);
-      //        onSuccess(filtered_list);
-      //      });
-      //    }
-      //}},
       favourites: {
         favourites: {
-          id: 'favourites',
-          group: 'favourites',
           filter: function (list, onSuccess) {
             var filtered_list = [];
             var keys = app.models.user.get('favourites');
@@ -47,8 +38,6 @@ app.views = app.views || {};
         }}
     },
 
-    DEFAULT_SORT: 'scientific',
-
     /**
      * A collection of sorting options used to manage lists.
      * id - sort type identifier
@@ -59,8 +48,12 @@ app.views = app.views || {};
         label: 'Common Name',
         sort: function (list, onSuccess) {
           list.sort(function (a, b) {
+            if (a.attributes.general || b.attributes.general){
+              return a.attributes.general ? 1 : -1;
+            }
             a = a.attributes.common_name.toLowerCase();
             b = b.attributes.common_name.toLowerCase();
+
             if (a === b) {
               return 0;
             }
@@ -73,8 +66,12 @@ app.views = app.views || {};
         label: 'Common Name Reverse',
         sort: function (list, onSuccess) {
           list.sort(function (a, b) {
+            if (a.attributes.general || b.attributes.general){
+              return a.attributes.general ? 1 : -1;
+            }
             a = a.attributes.common_name.toLowerCase();
             b = b.attributes.common_name.toLowerCase();
+
             if (a === b) {
               return 0;
             }
@@ -87,8 +84,12 @@ app.views = app.views || {};
         label: 'Scientific Name',
         sort: function (list, onSuccess) {
           list.sort(function (a, b) {
+            if (a.attributes.general || b.attributes.general){
+              return a.attributes.general ? 1 : -1;
+            }
             a = a.attributes.taxon.toLowerCase();
             b = b.attributes.taxon.toLowerCase();
+
             if (a === b) {
               return 0;
             }
@@ -101,8 +102,12 @@ app.views = app.views || {};
         label: 'Scientific Name Reverse',
         sort: function (list, onSuccess) {
           list.sort(function (a, b) {
+            if (a.attributes.general || b.attributes.general){
+              return a.attributes.general ? 1 : -1;
+            }
             a = a.attributes.taxon.toLowerCase();
             b = b.attributes.taxon.toLowerCase();
+
             if (a === b) {
               return 0;
             }
@@ -110,14 +115,43 @@ app.views = app.views || {};
           });
           onSuccess(list);
         }
+      },
+      probability_sort: {
+        label: 'Probability',
+        sort: function (list, onSuccess){
+          var sref = app.models.user.getLocationSref();
+          if (sref == null) {
+            app.models.user.save('sort', 'common_name'); //todo: should be done with error handler
+            Backbone.history.navigate('location', {trigger:true});
+            return;
+          }
+
+          list.sort(function (a, b) {
+              if (a.attributes.general || b.attributes.general){
+                return a.attributes.general ? 1 : -1;
+              }
+              var a_prob = getProb(a);
+              var b_prob = getProb(b);
+              if (a_prob == b_prob) return 0;
+              return a_prob < b_prob ? 1 : -1;
+
+              function getProb(species) {
+                var id = species.attributes.id;
+                var data = app.data.probability;
+                return (data[sref] && data[sref][id]) || 0;
+              }
+            }
+         );
+          onSuccess(list);
+        }
       }
     },
 
     /**
-     *
+     * Initializes the species list view.
      */
     initialize: function () {
-      _log('views.SpeciesList: initialize', app.LOG_DEBUG);
+      _log('views.SpeciesList: initialize', log.DEBUG);
 
       this.listenTo(this.collection, 'change', this.update);
       this.listenTo(app.models.user, 'change:filters',  this.update);
@@ -129,7 +163,7 @@ app.views = app.views || {};
      * @returns {SpeciesListView}
      */
     render: function (onSuccess) {
-      _log('views.SpeciesList: render', app.LOG_DEBUG);
+      _log('views.SpeciesList: render', log.DEBUG);
 
       var that = this;
       this.prepareList(function (list){
@@ -147,14 +181,14 @@ app.views = app.views || {};
     },
 
     update: function () {
-      _log('list: updating', app.LOG_INFO);
+      _log('list: updating', log.DEBUG);
       this.render(function($el){
         $el.listview('refresh');
       });
     },
 
     /**
-     *
+     * Prepares the species list - filters, sorts.
      */
     prepareList: function (callback) {
       var filters = _.clone(app.models.user.get('filters'));
@@ -164,6 +198,7 @@ app.views = app.views || {};
     },
 
     /**
+     * Prepares the species list. Core functionality.
      *
      * @param list
      * @param sort
@@ -221,6 +256,9 @@ app.views = app.views || {};
       return group;
     },
 
+    /**
+     * Filters the species list to favourites only.
+     */
     filterFavourites : function () {
       var filter = app.views.listPage.getFilterById('favourites');
       app.views.listPage.setFilter(filter);
@@ -245,9 +283,16 @@ app.views = app.views || {};
 
     template: app.templates.species_list_item,
 
+    /**
+     * Renders the individual list item representing the species.
+     *
+     * @returns {SpeciesListItemView}
+     */
     render: function () {
       this.$el.html(this.template(this.model.attributes));
       return this;
     }
   });
-})();
+
+  return SpeciesList;
+});

@@ -1,12 +1,28 @@
 <!DOCTYPE HTML>
-<html manifest="appcache.mf">
+<html manifest="appcache.manifest">
 <head>
   <title>offline.html</title>
-  <script src="scripts/lib/jquery.js"></script>
+
+  <!-- CSS -->
+  <style>
+    body{
+      margin-left: 0;
+    }
+    .progress-radial-track {
+      fill: rgba(241, 250, 238, 1);
+    }
+
+    .progress-radial-bar {
+      fill: #3A8829;
+    }
+  </style>
+
+  <!-- JS -->
+  <script src="scripts/libs/jquery.js"></script>
   <script type="text/javascript">
     var lastUpdate = 0;
-    var TIME_DIFF = 100; //ms
-    var files_total = 20;
+    var TIME_DIFF = 50; //ms
+    var files_total = 195;
     var max = 1.0;
 
     $(document).ready(function($) {
@@ -34,7 +50,7 @@
                     case 'error':
                       message = "Error";
                       jQuery('path').css('fill', 'red');
-                      error();
+                      error(e.originalEvent);
                       break;
                     case 'cached':
                     case 'updateready':
@@ -42,11 +58,11 @@
                       finished();
                       break;
                     case 'checking':
-                      jQuery('path').css('fill', '#339933');
                       message = "Checking";
                       break;
                     case 'noupdate':
                       message = "No update";
+                      finished();
                       break;
                     case 'downloading':
                     case 'progress':
@@ -72,7 +88,6 @@
     function started(){
       console.log('Started');
     }
-
 
     function finished(){
       console.log('Finished');
@@ -106,18 +121,8 @@
       bar.setAttribute( 'd', animBar );
     }
   </script>
-  <style>
-    .progress-radial-track {
-      fill: #A2C139;
-    }
-
-    .progress-radial-bar {
-      fill: #339933;
-    }
-  </style>
 </head>
-<body width="20" height="200">
-<center>
+<body>
   <svg class="progress-radial" width="200" height="200" viewBox="0 0 200 200" shape-rendering="geometricPrecision">
     <defs>
       <mask id="circle_mask" x="0" y="0" width="200" height="200" maskUnits="userSpaceOnUse">
@@ -136,6 +141,5 @@
       <text text-anchor="middle" id="mytext" x="100" y="110" fill="white">  </text>
     </g>
   </svg>
-</center>
 </body>
 </html>

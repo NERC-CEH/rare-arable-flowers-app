@@ -29,7 +29,7 @@
                 please do not hesitate to <a href='mailto:karkaz@ceh.ac.uk'>contact us</a>.</p>
         </li>
         <li>
-            <p><i>Your App version: <%- app.CONF.VERSION %></i></p>
+            <p><i>Your App version: <%- app.VERSION %></i></p>
         </li>
     </ul>
 </div>

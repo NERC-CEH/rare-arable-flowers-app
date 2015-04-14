@@ -8,7 +8,8 @@
 <div data-role="content">
     <ul data-role="listview" data-inset="true" style="max-width:800px;">
         <li>
-            <p>We are very greatful for all the people that helped to create this app:</p>
+            <strong>We are very grateful for all the people that helped to
+                create this app:</strong>
             <ul class="list-normal-white-space">
 
             </ul>

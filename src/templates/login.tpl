@@ -10,7 +10,7 @@
         <input type="email" placeholder="Email" name="email" value="">
         <input type="password" placeholder="Password" name="password" value="">
 
-        <input type="button" onclick="app.controller.login.login()" value="Sign in">
+        <input type="button" id="login-button" value="Sign in">
     </form>
     <ul data-role="listview" data-inset="true" data-theme="a" data-divider-theme="a" data-count-theme="a" data-split-theme="a" data-split-icon="arrow-r">
         <li data-icon="arrow-r" class="first">

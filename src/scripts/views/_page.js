@@ -1,15 +1,23 @@
-var app = app || {};
-app.views = app.views || {};
-
-(function () {
+/******************************************************************************
+ * A default JQM page view.
+ *****************************************************************************/
+define([
+  'backbone'
+], function (Backbone) {
   'use strict';
 
-  app.views.Page = Backbone.View.extend({
+  var Page = Backbone.View.extend({
     tagName: 'div',
     role: "page",
 
+    /**
+     * Initializes the page view by rendering the template and appending it to
+     * the body.
+     *
+     * @param id
+     */
     initialize: function (id) {
-      _log('views.Page(' + id + '): initialize', app.LOG_DEBUG);
+      _log('views.Page(' + id + '): initialize', log.DEBUG);
 
       this.el.id = id;
       this.id = id;
@@ -22,22 +30,35 @@ app.views = app.views || {};
       this.appendBackButtonListeners();
     },
 
+    /**
+     * Renders the page view.
+     *
+     * @returns {Page}
+     */
     render: function () {
-      _log('views.Page(' + this.id + '): render', app.LOG_DEBUG);
+      _log('views.Page(' + this.id + '): render', log.DEBUG);
 
       $(this.el).html(this.template());
       return this;
-
     },
 
+    /**
+     * Append element attributes.
+     *
+     * @returns {{data-role: (string|Page.role)}}
+     */
     attributes: function () {
       return {
         "data-role": this.role
       };
     },
 
+    /**
+     * For JQM buttons to work correctly using backbone we need to append a listener
+     * to bring the history back.
+     */
     appendBackButtonListeners: function () {
-      _log('views.Page(' + this.id + '): appending Back button listeners', app.LOG_DEBUG);
+      _log('views.Page(' + this.id + '): appending Back button listeners', log.DEBUG);
 
       this.$el.find('a[data-rel="back"]').on('click', function (e) {
         window.history.back();
@@ -45,4 +66,6 @@ app.views = app.views || {};
       });
     }
   });
-})();
+
+  return Page;
+});

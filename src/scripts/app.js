@@ -1,54 +1,69 @@
-/*!
- * App wide logic.
- */
-
-/*
-!!!!QUICK FIX - REMOVE AFTER DONE!!!!
-*/
-function _log(message, level) {
-
-  //do nothing if logging turned off
-  if (app.CONF.LOG == morel.LOG_NONE) {
-    return;
-  }
-
-  if (app.CONF.LOG >= level || !level) {
-    switch (level) {
-      case morel.LOG_ERROR:
-  	    console.error(message.message, message.url, message.line);
-        break;
-      case morel.LOG_WARNING:
-        console.warn(message);
-        break;
-      case morel.LOG_INFO:
-        console.log(message);
-        break;
-      case morel.LOG_DEBUG:
-      default:
-        //IE does not support console.debug
-        if (!console.debug) {
-          console.log(message);
-          break;
+/******************************************************************************
+ * App object.
+ *****************************************************************************/
+define([
+    'jquery',
+    'jquery.mobile',
+    'backbone',
+    'fastclick',
+    'klass',
+    'routers/router',
+    'models/app',
+    'models/user',
+    'models/species',
+    'models/record',
+    'helpers/update',
+    'helpers/brcart',
+    'helpers/message',
+    'helpers/log',
+    'data'
+  ],
+  function ($, jqm, Backbone, FastClick, klass, Router, AppModel, UserModel,
+            SpeciesCollection, RecordModel, update, brcArt) {
+    var App = {
+      init: function () {
+        //init Google Analytics
+        //http://veithen.github.io/2015/02/14/requirejs-google-analytics.html
+        if (app.CONF.GA.STATUS){
+          window.GoogleAnalyticsObject = "__ga__";
+          window.__ga__ = {
+            q: [["create", app.CONF.GA.ID, "auto"]],
+            l: Date.now()
+          };
+          require(['ga'], function(ga) {
+            ga('set', 'appName', app.NAME);
+            ga('set', 'appVersion', app.VERSION);
+          });
         }
-        console.debug(message);
-    }
-  }
-}
 
-//overwrite morel user append function to match backbone
-morel.auth.getUser = function () {
-  return app.models.user.attributes;
-};
+        _log(brcArt, log.INFO);
 
-$(document).ready(function(){
-  console.log(app.BRC);
+        //overwrite morel user append function to match backbone
+        window.morel.auth.getUser = function () {
+          return app.models.user.attributes;
+        };
 
-  app.checkForUpdates();
+        //init data
+        app.models = {};
+        app.models.user = new UserModel();
+        app.models.app = new AppModel();
+        app.models.record = new RecordModel();
+        app.collections = {};
+        app.collections.species = new SpeciesCollection(app.data.species);
 
-  app.router = new app.Router();
-  Backbone.history.start();
+        //update app
+        update();
 
-  app.fixIOSbuttons();
+        app.router = new Router();
+        Backbone.history.start();
 
-  FastClick.attach(document.body);
-});
+        //app.fixIOSbuttons();
+
+        FastClick.attach(document.body);
+
+        //turn off the loading splash screen
+        $('.loading').css('display', 'none');
+      }
+    };
+    return App;
+  });

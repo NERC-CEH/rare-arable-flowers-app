@@ -1,5 +1,5 @@
-node_modules
-dist
-src/scripts/libs
 .DS_Store
 .idea
+dist
+node_modules
+src/scripts/libs

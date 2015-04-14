@@ -1,23 +1,30 @@
-var app = app || {};
-app.models = app.models || {};
+/******************************************************************************
+ * App model. Persistent.
+ *****************************************************************************/
+define([
+  'backbone',
+  'backbone.localStorage',
+  'conf'
+], function (Backbone) {
 
-(function () {
   'use strict';
 
   var App = Backbone.Model.extend({
 
     id: 'app',
 
-    localStorage: new Store(app.CONF.NAME),
+    localStorage: new Store(app.NAME),
 
+    /**
+     * Initializes the object.
+     */
     initialize: function () {
       this.fetch();
       if (!this.get('appVer')) {
-        this.save ('appVer', app.CONF.VERSION);
+        this.save ('appVer', app.VERSION);
       }
     }
-
   });
 
-  app.models.app = new App();
-})();
+  return App;
+});

@@ -2,20 +2,24 @@
   "name": "rare_arable_flowers",
   "version": "0.0.0",
   "dependencies": {
-    "backbone": "latest",
-    "jquery": "latest",
-    "backbone.localStorage": "jeromegn/Backbone.localStorage",
-    "lodash": "latest",
-    "jquery-mobile": "jobrapido/jquery-mobile-bower",
+    "requirejs": "2.1.16",
+    "backbone": "1.1.2",
+    "jquery": "1.10.2",
+    "backbone.localStorage": "jeromegn/Backbone.localStorage#1.1.16",
+    "lodash": "3.6.0",
+    "jquery-mobile": "jobrapido/jquery-mobile-bower#1.4.5",
     "morel": "NERC-CEH/morel#~2.0",
-    "latlon": "chrisveness/geodesy#ddde271a16c06f9c0696c76a989e04140c2790f5",
-    "IndexedDBShim": "axemclion/IndexedDBShim",
+    "latlon": "chrisveness/geodesy#d50580b5054b562f0d1c94441f74a9d0bf8ba710",
+    "IndexedDBShim": "axemclion/IndexedDBShim#3d1f549f106a9a078a6f7448796a241eee7f9a76",
     "photoswipe": "https://github.com/downloads/codecomputerlove/PhotoSwipe/code.photoswipe-3.0.5.zip",
     "fastclick": "1.0.3",
     "d3": "3.5.3",
     "topojson": "1.6.18"
   },
   "exportsOverride": {
+    "requirejs": {
+      "js": "require.js"
+    },
     "backbone": {
       "js": "backbone.js"
     },
@@ -25,6 +29,9 @@
     "fastclick": {
       "js": "lib/fastclick.js"
     },
+    "d3": {
+      "js": "d3.js"
+    },
     "IndexedDBShim": {
       "js": ["dist/IndexedDBShim.js", "dist/IndexedDBShim.min.js"]
     },
@@ -33,15 +40,14 @@
     },
     "jquery-mobile": {
       "js": ["js/jquery.mobile-1.4.5.js", "js/jquery.mobile-1.4.5.min.js"],
-      "css": "css/jquery.mobile-1.4.5.css",
-      "css/images": "css/images/ajax-loader.gif"
+      "css": "css/jquery.mobile-1.4.5.css"
     },
     "latlon": {
       "js": [
+        "latlon-ellipsoidal.js",
+        "osgridref.js",
         "vector3d.js",
-        "geo.js",
-        "latlon-ellipsoid.js",
-        "osgridref.js"
+        "dms.js"
       ]
     },
     "lodash": {
@@ -57,9 +63,6 @@
         "lib/klass.min.js"
         ],
       "css": [ "photoswipe.css","*.png", "*.gif"]
-    },
-    "d3": {
-      "js": "d3.js"
     },
     "topojson": {
       "js": "topojson.js"

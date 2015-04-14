@@ -1,21 +1,30 @@
-var app = app || {};
-app.views = app.views || {};
-
-(function () {
+/******************************************************************************
+ * Record page view.
+ *****************************************************************************/
+define([
+  'views/_page',
+  'templates',
+  'morel',
+  'conf'
+], function(Page) {
   'use strict';
 
-  app.views.RecordPage = app.views.Page.extend({
+  var RecordPage = Page.extend({
     id: 'record',
 
     template: app.templates.record,
 
     events: {
       'click #entry-form-save': 'save',
-      'click #entry-form-send': 'send'
+      'click #entry-form-send': 'send',
+      'change input[type="checkbox"]': 'saveCertain',
+      'click #photo': function(event) {
+          $('input[type="file"]').trigger('click');
+      }
     },
 
     initialize: function () {
-      _log('views.RecordPage: initialize', app.LOG_DEBUG);
+      _log('views.RecordPage: initialize', log.DEBUG);
 
       this.listenTo(this.model,
         'change:' + morel.record.inputs.KEYS.NUMBER, this.updateNumberButton);
@@ -25,7 +34,6 @@ app.views = app.views || {};
         'change:' + morel.record.inputs.KEYS.LOCATIONDETAILS, this.updateLocationdetailsButton);
       this.listenTo(this.model,
         'change:' + morel.record.inputs.KEYS.COMMENT, this.updateCommentButton);
-
       this.listenTo(this.model,
         'change:' + morel.record.inputs.KEYS.SREF_ACCURACY, this.updateGPSButton);
 
@@ -34,21 +42,25 @@ app.views = app.views || {};
     },
 
     render: function () {
-      _log('views.RecordPage: render', app.LOG_DEBUG);
+      _log('views.RecordPage: render', log.DEBUG);
 
       this.$el.html(this.template());
       $('body').append($(this.el));
+
+      this.$heading = $('#record_heading');
+      this.$photo = $('#photo');
+      this.$locationButton = $('#location-top-button');
       return this;
     },
 
     update: function (prevPageId, speciesID) {
-      _log('views.RecordPage: show.');
+      _log('views.RecordPage: update.', log.DEBUG);
       switch (prevPageId) {
         case 'list':
           this.initRecording(speciesID);
           break;
         case '':
-          _log('views.RecordPage: coming from unknown page.', app.LOG_WARNING);
+          _log('views.RecordPage: coming from unknown page.', log.WARNING);
           this.initRecording(speciesID);
         default:
       }
@@ -62,7 +74,7 @@ app.views = app.views || {};
       this.model.reset(specie.attributes.warehouse_id);
 
       //add header to the page
-      $('#record_heading').text(specie.attributes.common_name);
+      this.$heading.text(specie.attributes.common_name);
       this.resetButtons();
 
       //start geolocation
@@ -71,9 +83,12 @@ app.views = app.views || {};
       this.setImage('input[type="file"]');
     },
 
+    /**
+     * Runs geolocation service in the background and updates the record on success.
+     */
     runGeoloc: function () {
       function onGeolocSuccess(location) {
-        _log('views.RecordPage: saving location.', app.LOG_DEBUG);
+        _log('views.RecordPage: saving location.', log.DEBUG);
         morel.geoloc.set(location.lat, location.lon, location.acc);
 
         var sref = location.lat + ', ' + location.lon;
@@ -88,8 +103,11 @@ app.views = app.views || {};
       this.model.set(morel.record.inputs.KEYS.SREF_ACCURACY, 0); //running
     },
 
+    /**
+     * Submits the record.
+     */
     send: function () {
-      _log('views.RecordPage: sending record.', app.LOG_INFO);
+      _log('views.RecordPage: sending record.', log.DEBUG);
 
       $.mobile.loading('show');
 
@@ -100,17 +118,33 @@ app.views = app.views || {};
       if (navigator.onLine) {
         //online
         var onSendSuccess = function () {
-          app.message("<center><h2>Submitted successfully. </br>Thank You!</h2></center>");
+          app.message("<center><h2>Submitted successfully.</h2></center>" +
+          " </br><h3>Thank You!</h3>");
+
           setTimeout(function () {
             Backbone.history.navigate('list', {trigger:true});
           }, 2000);
         };
-        app.models.record.send(onSendSuccess, onError);
+
+        switch (app.CONF.SEND_RECORD.STATUS) {
+          case true:
+            app.models.record.send(onSendSuccess, onError);
+            break;
+          case 'simulate':
+            this.sendSimulate(onSendSuccess, onError);
+            break;
+          case false:
+          default:
+            _log('views.RecordPage: unknown feature state', log.WARNING);
+        }
 
       } else {
         //offline
         var onSaveSuccess = function () {
-          app.message("<center><h2>No Internet. Record saved.</h2></center>");
+          app.views.listPage.updateUserPageButton();
+
+          app.message("<center><h2>No Internet.</h2></center>" +
+          "<br/><h3> Record saved.</h3>");
           setTimeout(function () {
             Backbone.history.navigate('list', {trigger:true});
           }, 2000);
@@ -119,9 +153,11 @@ app.views = app.views || {};
       }
 
       function onError(err) {
-        var message = "<center><h3>Sorry!</h3></center>" +
+        app.views.listPage.updateUserPageButton();
+
+        var message = "<center><h2>Error</h2></center>" +
           "<p>" + err.message + "</p>" +
-          "<p> Record Saved </p>";
+          "<h3> Record Saved </h3>";
         app.message(message);
         setTimeout(function () {
           Backbone.history.navigate('list', {trigger:true});
@@ -129,8 +165,38 @@ app.views = app.views || {};
       }
     },
 
+    /**
+     * Simulates the login
+     * @param form
+     * @param person
+     */
+    sendSimulate: function (onSendSuccess, onError) {
+      var selection =
+        "<h1>Simulate:</h1>" +
+        "<button id='simulate-success-button'>Success</button>" +
+        "<button id='simulate-failure-button'>Failure</button>" +
+        "<button id='simulate-cancel-button'>Cancel</button>";
+      app.message(selection, 0);
+
+      var that = this;
+      $('#simulate-success-button').on('click', function () {
+        onSendSuccess();
+      });
+      $('#simulate-failure-button').on('click', function () {
+        app.models.record.save(function () {
+          onError({message: 'Some Error Message.'});
+        }, null);
+      });
+      $('#simulate-cancel-button').on('click', function () {
+        $.mobile.loading('hide');
+      });
+    },
+
+    /**
+     * Saves the record.
+     */
     save: function () {
-      _log('views.RecordPage: saving record.', app.LOG_INFO);
+      _log('views.RecordPage: saving record.', log.DEBUG);
       $.mobile.loading('show');
 
       if (!this.valid()) {
@@ -138,6 +204,8 @@ app.views = app.views || {};
       }
 
       function onSuccess() {
+        app.views.listPage.updateUserPageButton();
+
         app.message("<center><h2>Record saved.</h2></center>");
         setTimeout(function () {
           Backbone.history.navigate('list', {trigger:true});
@@ -145,7 +213,7 @@ app.views = app.views || {};
       }
 
       function onError(err) {
-        var message = "<center><h3>Sorry!</h3></center>" +
+        var message = "<center><h2>Error</h2></center>" +
           "<p>" + err.message + "</p>";
         app.message(message);
       }
@@ -153,6 +221,12 @@ app.views = app.views || {};
       app.models.record.save(onSuccess, onError);
     },
 
+    /**
+     * Sets the user selected species image as a background of the image picker.
+     *
+     * @param input
+     * @returns {boolean}
+     */
     setImage: function (input) {
       var img_holder = 'sample-image-placeholder';
       var upload = $(input);
@@ -162,11 +236,7 @@ app.views = app.views || {};
       }
 
       $('#' + img_holder).remove();
-      $('#photo').append('<div id="' + img_holder + '"></div>');
-
-      $('#sample-image-placeholder').on('click', function () {
-        $('input[type="file"]').click();
-      });
+      this.$photo.append('<div id="' + img_holder + '"></div>');
 
       upload.change(function (e) {
         e.preventDefault();
@@ -209,7 +279,7 @@ app.views = app.views || {};
       var invalids = app.models.record.validate();
       if (invalids) {
         var message =
-          "<br/> <p>The following is still missing:</p><ul>";
+          "<h2>Still missing:</h2><ul>";
 
         for (var i = 0; i < invalids.length; i++) {
           message += "<li>" + invalids[i] + "</li>";
@@ -223,11 +293,14 @@ app.views = app.views || {};
       return morel.TRUE;
     },
 
+    /**
+     * Udates the GPS button with the traffic light indication showing GPS status.
+     */
     updateGPSButton: function () {
-      var button = $('#location-top-button');
+      var button = this.$locationButton;
       var accuracy = this.model.get(morel.record.inputs.KEYS.SREF_ACCURACY);
       switch (true) {
-        case (accuracy == -1):
+        case (accuracy == -1 || !accuracy):
           //none
           button.addClass('none');
           button.removeClass('done');
@@ -246,10 +319,13 @@ app.views = app.views || {};
           button.removeClass('none');
           break;
         default:
-          _log('views.RecordPage: ERROR no such GPS button state: ' + accuracy, app.LOG_WARNING);
+          _log('views.RecordPage: ERROR no such GPS button state: ' + accuracy, log.WARNING);
       }
     },
 
+    /**
+     * Resets the record page buttons to initial state.
+     */
     resetButtons: function () {
       this.updateNumberButton();
       this.updateStageButton();
@@ -257,24 +333,60 @@ app.views = app.views || {};
       this.updateCommentButton();
     },
 
+    /**
+     * Updates the button info text.
+     */
     updateNumberButton: function () {
       var $numberButton = jQuery('#number-button .descript');
       var value = this.model.get(morel.record.inputs.KEYS.NUMBER);
-      value = value || '';
-      $numberButton.html(value);
+      var text = '';
+      var keys = Object.keys(morel.record.inputs.KEYS.NUMBER_VAL);
+      for (var i = 0; i < keys.length; i++){
+        if (morel.record.inputs.KEYS.NUMBER_VAL[keys[i]] === value) {
+          text = keys[i];
+          break;
+        }
+      }
+      $numberButton.html(text);
     },
+
+    /**
+     * Updates the button info text.
+     */
     updateStageButton: function () {
       var $stageButton = jQuery('#stage-button .descript');
       var value = this.model.get(morel.record.inputs.KEYS.STAGE);
-      value = value || '';
-      $stageButton.html(value);
+      var text = '';
+      var keys = Object.keys(morel.record.inputs.KEYS.STAGE_VAL);
+      for (var i = 0; i < keys.length; i++){
+        if (morel.record.inputs.KEYS.STAGE_VAL[keys[i]] === value) {
+          text = keys[i];
+          break;
+        }
+      }
+      $stageButton.html(text);
     },
+
+    /**
+     * Updates the button info text.
+     */
     updateLocationdetailsButton: function () {
       var $locationdetailsButton = jQuery('#locationdetails-button .descript');
       var value = this.model.get(morel.record.inputs.KEYS.LOCATIONDETAILS);
-      value = value || '';
-      $locationdetailsButton.html(value);
+      var text = '';
+      var keys = Object.keys(morel.record.inputs.KEYS.LOCATIONDETAILS_VAL);
+      for (var i = 0; i < keys.length; i++){
+        if (morel.record.inputs.KEYS.LOCATIONDETAILS_VAL[keys[i]] === value) {
+          text = keys[i];
+          break;
+        }
+      }
+      $locationdetailsButton.html(text);
     },
+
+    /**
+     * Updates the button info text.
+     */
     updateCommentButton: function () {
       var $commentButton = jQuery('#comment-button .descript');
       var value = this.model.get(morel.record.inputs.KEYS.COMMENT);
@@ -283,5 +395,6 @@ app.views = app.views || {};
     }
   });
 
-})();
+  return RecordPage;
+});
 

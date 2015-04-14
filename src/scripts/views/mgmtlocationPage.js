@@ -1,13 +1,17 @@
-var app = app || {};
-app.views = app.views || {};
-
-(function () {
+/******************************************************************************
+ * Management Locations page view.
+ *****************************************************************************/
+define([
+  'views/_page',
+  'topojson',
+  'templates',
+], function (Page, topojson) {
   'use strict';
 
-  app.views.MgmtlocationPage = app.views.Page.extend({
+  var MgmtlocationPage = Page.extend({
     id: 'mgtmlocation',
 
-    template: app.templates.mgmtlocation,
+    template: app.templates.locationdetails,
 
     MAX: 70,
     COLOR: 'red',
@@ -32,7 +36,7 @@ app.views = app.views || {};
          dummyText controls the caching of the file - always get fresh
          */
         var dummyText = '&' + (new Date()).getTime();
-        app.loadScript('http://maps.googleapis.com/maps/api/js?sensor=false&' +
+        this.loadScript('http://maps.googleapis.com/maps/api/js?sensor=false&' +
           'callback=app.views.mgmtlocationPage.initializeMap' + dummyText
         );
         //todo: on error call drawHeatMap
@@ -110,7 +114,19 @@ app.views = app.views || {};
         map.setCenter(new google.maps.LatLng(55.4, -4));
 
       });
-    }
+    },
 
+    /**
+     * Loads the google maps script.
+     *
+     * @param src
+     */
+    loadScript: function (src) {
+      var script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.src = src;
+      document.body.appendChild(script);
+    },
   });
-})();
+  return MgmtlocationPage;
+});

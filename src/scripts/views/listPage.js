@@ -1,10 +1,14 @@
-var app = app || {};
-app.views = app.views || {};
-
-(function () {
+/******************************************************************************
+ * List page view.
+ *****************************************************************************/
+define([
+  'views/_page',
+  'views/speciesList',
+  'templates'
+], function (Page, SpeciesList) {
   'use strict';
 
-  app.views.ListPage = app.views.Page.extend({
+  var ListPage = Page.extend({
     id: 'list',
 
     template: app.templates.list,
@@ -17,8 +21,8 @@ app.views = app.views || {};
     },
 
     initialize: function () {
-      _log('views.ListPage: initialize', app.LOG_DEBUG);
-      this.listView = new app.views.SpeciesList({collection: app.collections.species});
+      _log('views.ListPage: initialize', log.DEBUG);
+      this.listView = new SpeciesList({collection: app.collections.species});
 
       var sorts = this.listView.sorts;
       var filters = this.listView.filters;
@@ -27,10 +31,17 @@ app.views = app.views || {};
 
       this.render();
       this.appendBackButtonListeners();
+
+      this.$userPageButton = $('#user-page-button');
+      this.$listControlsButton = $('#list-controls-button');
+
+      this.listenTo(app.models.user, 'change:filters', this.updateListControlsButton);
+      this.updateListControlsButton();
+      this.updateUserPageButton();
     },
 
     render: function () {
-      _log('views.ListPage: render', app.LOG_DEBUG);
+      _log('views.ListPage: render', log.DEBUG);
 
       this.$el.html(this.template());
       this.$list = this.$el.find('#list-placeholder');
@@ -49,78 +60,44 @@ app.views = app.views || {};
       return this;
     },
 
+    /**
+     * Turns on/off favourite filtering.
+     */
     toggleListFavourites: function () {
       var userConfig = app.models.user;
       var on  = userConfig.toggleListFilter('favourites');
       $("#fav-button").toggleClass("on", on);
     },
 
+    /**
+     * Shows/hides the list controls.
+     */
     toggleListControls: function () {
       this.listControlsView.toggleListControls();
     },
 
     /**
-     * Asks the user to start an appcache download
-     * process.
+     * Updates the list controls button with the current state of the filtering.
+     * If one or more (non favourite) filters is turned on then the button is
+     * coloured accordingly.
      */
-    download: function () {
-      var OFFLINE = 'offline';
-      var offline = morel.settings(OFFLINE);
+    updateListControlsButton: function () {
+      var filters = _.without(app.models.user.get('filters'), 'favourites');
+      this.$listControlsButton.toggleClass('running', filters.length > 0);
+    },
 
-      if (!offline || (!offline.downloaded && !offline.dontAsk)) {
-        var donwloadBtnId = "download-button";
-        var donwloadCancelBtnId = "download-cancel-button";
-        var downloadCheckbox = "download-checkbox";
+    /**
+     * Updates the user page navigation button with the state of saved records.
+     * Todo: hook into some record counter event
+     */
+    updateUserPageButton: function () {
+      var $userPageButton = this.$userPageButton;
+      function onSuccess(savedRecords) {
+        var savedRecordIDs = Object.keys(savedRecords);
+        $userPageButton.toggleClass('running', savedRecordIDs.length > 0);
 
-        var message =
-          '<h3>Start downloading the app for offline use?</h3></br>' +
-
-          '<label><input id="' + downloadCheckbox + '" type="checkbox" name="checkbox-0 ">Don\'t ask again' +
-          '</label> </br>' +
-
-          '<button id="' + donwloadBtnId + '" class="ui-btn">Download</button>' +
-          '<button id="' + donwloadCancelBtnId + '" class="ui-btn">Cancel</button>';
-
-        app.message(message, 0);
-
-        $('#' + donwloadBtnId).on('click', function () {
-          _log('list: starting appcache downloading process.', morel.LOG_DEBUG);
-
-          $.mobile.loading('hide');
-
-          //for some unknown reason on timeout the popup does not disappear
-          setTimeout(function () {
-            function onSuccess() {
-              offline = {
-                'downloaded': true,
-                'dontAsk': false
-              };
-              morel.settings(OFFLINE, offline);
-              location.reload();
-            }
-
-            function onError() {
-              _log('list: ERROR appcache.');
-            }
-
-            startManifestDownload('appcache', morel.CONF.APPCACHE_FILES,
-              morel.CONF.APPCACHE_LOADER_URL, onSuccess, onError);
-          }, 500);
-        });
-
-        $('#' + donwloadCancelBtnId).on('click', function () {
-          _log('list: appcache dowload canceled.', morel.LOG_DEBUG);
-          $.mobile.loading('hide');
-
-          var dontAsk = $('#' + downloadCheckbox).prop('checked');
-          offline = {
-            'downloaded': false,
-            'dontAsk': dontAsk
-          };
-
-          morel.settings(OFFLINE, offline);
-        });
       }
+      morel.record.db.getAll(onSuccess);
     }
   });
 
@@ -166,7 +143,7 @@ app.views = app.views || {};
 
 
     /**
-     *
+     * Renders and appends the list sort controls.
      */
     renderListSortControls: function () {
       var keys = Object.keys(this.sorts);
@@ -185,7 +162,7 @@ app.views = app.views || {};
     },
 
     /**
-     *
+     * Renders and appends the list filter controls.
      */
     renderListFilterControls: function () {
       var filtersToRender = [];
@@ -195,13 +172,15 @@ app.views = app.views || {};
         _.each(filterGroup, function (filter, filterID) {
           //only render those that have label
           if (filter.label) {
-            for (var j = 0; j < currentFilters.length; j++) {
-              if (currentFilters[j].id === filter.id) {
+            var currentFiltersIDs = Object.keys(currentFilters);
+            for (var j = 0; j < currentFiltersIDs.length; j++) {
+              if (currentFiltersIDs[j] === filterID) {
                 filter.checked = "checked";
               } else {
                 filter.checked = "";
               }
             }
+            filter.id = filterID;
             filtersToRender.push(filter);
           }
         });
@@ -217,11 +196,12 @@ app.views = app.views || {};
     getCurrentFilters: function (filters) {
       var filtersIDs =  app.models.user.get('filters');
       var filters = filters;
-      var currentFilters = [];
+      var currentFilters = {};
       for (var j = 0; j < filtersIDs.length; j++) {
-        for (var i = 0; i < filters.length; i++) {
-          if (filters[i].id === filtersIDs[j]) {
-            currentFilters.push(filters[i]);
+        var filterGroupIDS = Object.keys(filters);
+        for (var i = 0, length = filterGroupIDS.length; i < length; i++) {
+          if (filters[filterGroupIDS[i]][filtersIDs[j]]) {
+            currentFilters[filtersIDs[j]] = filters[filterGroupIDS[i]][filtersIDs[j]];
           }
         }
       }
@@ -244,18 +224,18 @@ app.views = app.views || {};
       });
 
       var that = this;
-      this.$el.find('.filter').on('change', function () {
-        var filter = app.views.listPage.getFilterById(this.id);
-        app.models.user.toggleListFilter(filter);
+      this.$el.find('.filter').on('change', function (e) {
+          app.models.user.toggleListFilter(this.id);
 
-        var filters = app.views.listPage.getCurrentFilters();
-        if (filters.length === 1 && filters[0].id === 'favourites') {
-          filters = [];
-        }
-        that.$el.find('#list-controls-button').toggleClass('on', filters.length > 0);
+          var filters = that.getCurrentFilters(that.filters);
+          if (filters.length === 1 && filters[0].id === 'favourites') {
+            filters = [];
+          }
+          that.$el.find('#list-controls-button').toggleClass('on', filters.length > 0);
       });
     }
 
   });
 
-})();
+  return ListPage;
+});

@@ -1,10 +1,16 @@
-var app = app || {};
-app.views = app.views || {};
+/******************************************************************************
+ * Location page view.
+ *****************************************************************************/
+define([
+  'views/_page',
+  'templates',
+  'latlon',
+  'conf'
+], function (Page) {
 
-(function () {
   'use strict';
 
-  app.views.LocationPage = app.views.Page.extend({
+  var LocationPage = Page.extend({
     id: 'location',
 
     template: app.templates.location,
@@ -16,7 +22,7 @@ app.views = app.views || {};
     },
 
     initialize: function () {
-      _log('views.LocationPage: initialize', app.LOG_DEBUG);
+      _log('views.LocationPage: initialize', log.DEBUG);
 
       this.render();
       this.appendBackButtonListeners();
@@ -27,7 +33,7 @@ app.views = app.views || {};
          dummyText controls the caching of the file - always get fresh
          */
         var dummyText = '&' + (new Date()).getTime();
-        app.loadScript('http://maps.googleapis.com/maps/api/js?sensor=false&' +
+        this.loadScript('http://maps.googleapis.com/maps/api/js?sensor=false&' +
           'callback=app.views.locationPage.initializeMap' +
           dummyText
         );
@@ -37,7 +43,7 @@ app.views = app.views || {};
     },
 
     render: function () {
-      _log('views.LocationPage: render', app.LOG_DEBUG);
+      _log('views.LocationPage: render', log.DEBUG);
 
       this.$el.html(this.template());
       $('body').append($(this.el));
@@ -51,14 +57,24 @@ app.views = app.views || {};
 
     },
 
+    /**
+     * Saves the location to the record and returns to the previous page.
+     */
     save: function () {
       var location = this.get();
 
-      morel.geoloc.set(location.lat, location.lon, location.acc);
+      if (location.latitude && location.longitude) {
+        morel.geoloc.set(location.latitude, location.longitude, location.accuracy);
 
-      var sref = location.lat + ', ' + location.lon;
-      app.models.record.set(morel.record.inputs.KEYS.SREF, sref);
-      app.models.record.set(morel.record.inputs.KEYS.SREF_ACCURACY, location.acc);
+        var sref = location.latitude + ', ' + location.longitude;
+        app.models.record.set(morel.record.inputs.KEYS.SREF, sref);
+        app.models.record.set(morel.record.inputs.KEYS.SREF_ACCURACY, location.accuracy);
+        app.models.record.set(morel.record.inputs.KEYS.SREF_NAME, location.name);
+
+        app.models.user.saveLocation(location);
+      } else {
+        _log('views.LocationPage: invalid location to set', log.WARNING);
+      }
 
       window.history.back();
     },
@@ -67,36 +83,63 @@ app.views = app.views || {};
     latitude: null,
     longitude: null,
     accuracy: -1,
+    name: '',
 
-    set: function (lat, lon, acc) {
-      this.latitude = lat;
-      this.longitude = lon;
-      this.accuracy = acc;
+    /**
+     * Sets the location.
+     *
+     * @param latitude
+     * @param longitude
+     * @param accuracy
+     * @param name
+     */
+    set: function (latitude, longitude, accuracy, name) {
+      this.latitude = latitude;
+      this.longitude = longitude;
+      this.accuracy = accuracy;
+      this.name = name || ''
     },
 
+    /**
+     * Gets saved location.
+     *
+     * @returns {{latitude: *, longitude: *, accuracy: *, name: *}}
+     */
     get: function () {
       return {
-        'lat': this.latitude,
-        'lon': this.longitude,
-        'acc': this.accuracy
+        'latitude': this.latitude,
+        'longitude': this.longitude,
+        'accuracy': this.accuracy,
+        'name': this.name
       };
     },
 
-    updateCoordinateDisplay: function (lat, lon, acc) {
-      var info = 'Your coordinates: ' + lat + ', ' + lon + ' (Accuracy: ' + acc + ')';
+    /**
+     * Updates the text on the page with current location information as Grid Reference.
+     *
+     * @param latitude
+     * @param longitude
+     * @param accuracy
+     */
+    updateCoordinateDisplay: function (latitude, longitude, accuracy) {
+      var info = 'Your coordinates: ' + latitude + ', ' + longitude + ' (Accuracy: ' + accuracy + ')';
       $('#coordinates').text(info);
     },
 
+    /**
+     * Renders the GPS tab with the gps state.
+     *
+     * @param state
+     * @param location
+     */
     renderGPStab: function (state, location) {
       var template = null;
       var placeholder = $('#location-gps-placeholder');
-      var gref = "";
-      var data = {};
 
       switch (state) {
         case 'init':
           var currentLocation = app.views.locationPage.get();
-          if (currentLocation.acc === -1) {
+          if (currentLocation.accuracy === -1) {
             currentLocation = null;
           } else {
             location = currentLocation;
@@ -111,18 +154,10 @@ app.views = app.views || {};
           template = app.templates.location_gps_finished;
           break;
         default:
-          _log('views.LocationPage: unknown render gps tab.');
+          _log('views.LocationPage: unknown render gps tab.', log.WARNING);
       }
 
-      if (location) {
-        var p = new LatLonE(location.lat, location.lon, LatLonE.datum.OSGB36);
-        var grid = OsGridRef.latLonToOsGrid(p);
-        gref = grid.toString();
-        location.gref = gref;
-        data.location = location;
-      }
-
-      placeholder.html(template(data));
+      placeholder.html(template({location: location}));
       placeholder.trigger('create');
 
       //attach event listeners
@@ -133,20 +168,57 @@ app.views = app.views || {};
     },
 
     /**
+     * Variable for storing location details while running geolocation.
+     */
+    geoloc: {
+      latitude: null,
+      longitude: null,
+      accuracy: -1
+    },
+
+    /**
+     * Sets location if geolocation has an improved update of current location.
+     *
+     * @param location
+     */
+    setGeoloc: function (location){
+      if (location){
+        var geoloc = this.getGeoloc();
+        if (geoloc.accuracy === -1 || (geoloc.accuracy >= location.accuracy)) {
+          this.geoloc = location;
+          this.set(location.latitude, location.longitude, location.accuracy);
+          app.views.locationPage.updateLocationMessage();
+        } else if (geoloc.accuracy !== -1) {
+          //geoloc->map->geoloc case where we should set old geoloc
+          location = this.getGeoloc();
+          this.set(location.latitude, location.longitude, location.accuracy);
+          app.views.locationPage.updateLocationMessage();
+        }
+      }
+    },
+
+    /**
+     * Returns the geolocation variable.
+     *
+     * @returns {*}
+     */
+    getGeoloc: function() {
+      return this.geoloc;
+    },
+
+    /**
      * Starts a geolocation service and modifies the DOM with new UI.
      */
     startGeoloc: function () {
       $.mobile.loading('show');
 
       function onUpdate(location) {
-        //if improved update current location
-        var currentLocation = app.views.locationPage.get();
-        if (currentLocation.acc === -1 || location.acc <= currentLocation.acc) {
-          currentLocation = location;
-          app.views.locationPage.set(location.lat, location.lon, location.acc);
-        } else {
-          location = currentLocation;
-        }
+        app.views.locationPage.setGeoloc({
+          latitude: location.lat,
+          longitude: location.lon,
+          accuracy: location.acc
+        });
+        location = app.views.locationPage.getGeoloc();
 
         //modify the UI
         app.views.locationPage.renderGPStab('running', location);
@@ -155,7 +227,13 @@ app.views = app.views || {};
       function onSuccess(location) {
         $.mobile.loading('hide');
 
-        app.views.locationPage.set(location.lat, location.lon, location.acc);
+        app.views.locationPage.setGeoloc({
+          latitude: location.lat,
+          longitude: location.lon,
+          accuracy: location.acc
+        });
+        location = app.views.locationPage.getGeoloc();
+
         app.views.locationPage.renderGPStab('finished', location);
       }
 
@@ -175,17 +253,11 @@ app.views = app.views || {};
         app.views.locationPage.renderGPStab('init');
       }
 
+      //modify the UI
+      app.views.locationPage.renderGPStab('running');
+
       //start geoloc
       morel.geoloc.run(onUpdate, onSuccess, onError);
-
-      var location = null;
-      var currentLocation = app.views.locationPage.get();
-      if (currentLocation.acc !== -1) {
-        location = currentLocation;
-      }
-
-      //modify the UI
-      app.views.locationPage.renderGPStab('running', location);
     },
 
     /**
@@ -205,17 +277,87 @@ app.views = app.views || {};
      * Mapping
      */
     initializeMap: function () {
-      _log("location: initialising map.");
+      _log("location: initialising map.", log.DEBUG);
       //todo: add checking
 
       $('#location-opts').tabs( "option", "disabled", [] ); //enable map tab
 
       var mapCanvas = $('#map-canvas')[0];
-      var mapOptions = app.CONF.MAP;
+      var mapOptions = {
+        zoom: 5,
+        center: new google.maps.LatLng(57.686988, -14.763319),
+        zoomControl: true,
+        zoomControlOptions: {
+          style: google.maps.ZoomControlStyle.SMALL
+        },
+        panControl: false,
+        linksControl: false,
+        streetViewControl: false,
+        overviewMapControl: false,
+        scaleControl: false,
+        rotateControl: false,
+        mapTypeControl: true,
+        mapTypeControlOptions: {
+          style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR
+        },
+        styles: [
+          {
+            "featureType": "landscape",
+            "stylers": [
+              {"hue": "#FFA800"},
+              {"saturation": 0},
+              {"lightness": 0},
+              {"gamma": 1}
+            ]
+          },
+          {
+            "featureType": "road.highway",
+            "stylers": [
+              {"hue": "#53FF00"},
+              {"saturation": -73},
+              {"lightness": 40},
+              {"gamma": 1}
+            ]
+          },
+          {
+            "featureType": "road.arterial",
+            "stylers": [
+              {"hue": "#FBFF00"},
+              {"saturation": 0},
+              {"lightness": 0},
+              {"gamma": 1}
+            ]
+          },
+          {
+            "featureType": "road.local",
+            "stylers": [
+              {"hue": "#00FFFD"},
+              {"saturation": 0},
+              {"lightness": 30},
+              {"gamma": 1}
+            ]
+          },
+          {
+            "featureType": "water",
+            "stylers": [
+              {"saturation": 43},
+              {"lightness": -11},
+              {"hue": "#0088ff"}
+            ]
+          },
+          {
+            "featureType": "poi",
+            "stylers": [
+              {"hue": "#679714"},
+              {"saturation": 33.4},
+              {"lightness": -25.4},
+              {"gamma": 1}
+            ]
+          }
+        ]
+      };
 
       this.map = new google.maps.Map(mapCanvas, mapOptions);
-      this.map.setCenter(new google.maps.LatLng(55.4, -4));
-
       var marker = new google.maps.Marker({
         position: new google.maps.LatLng(-25.363, 131.044),
         map: app.views.locationPage.map,
@@ -268,29 +410,18 @@ app.views = app.views || {};
 
       function updateMapCoords(mapLatLng) {
         var location = {
-          'lat': mapLatLng.lat(),
-          'lon': mapLatLng.lng()
+          'latitude': mapLatLng.lat(),
+          'longitude': mapLatLng.lng()
         };
-        app.views.locationPage.set(location.lat, location.lon, 1);
-
-        updateMapInfoMessage('#map-message', location);
-      }
-
-      function updateMapInfoMessage(id, location) {
-        //convert coords to Grid Ref
-        var p = new LatLonE(location.lat, location.lon, LatLonE.datum.OSGB36);
-        var grid = OsGridRef.latLonToOsGrid(p);
-        var gref = grid.toString();
-
-        var message = $(id);
-        message.removeClass();
-        message.addClass('success-message');
-        message.empty().append('<p>Grid Ref:<br/>' + gref + '</p>');
+        app.views.locationPage.set(location.latitude, location.longitude, 1);
+        app.views.locationPage.updateLocationMessage();
+        $('#map-message').hide();
       }
     },
 
     /**
-     * Fix one tile rendering in jQuery tabs
+     * Fix one tile rendering in jQuery tabs.
+     *
      * @param tabs
      * @param mapTab
      */
@@ -308,20 +439,72 @@ app.views = app.views || {};
       }
     },
 
+    /**
+     * Converts the grid reference to Lat and Long.
+     */
     gridRefConvert: function () {
       var val = $('#grid-ref').val();
-      var gridref = OsGridRef.parse(val);
-      if (!isNaN(gridref.easting) && !isNaN(gridref.northing)) {
-        var latLon = OsGridRef.osGridToLatLon(gridref);
-        this.set(latLon.lat, latLon.lon, 1);
+      var name = $('#location-name').val();
 
-        var gref = val.toUpperCase();
-        var message = $('#gref-message');
-        message.removeClass();
-        message.addClass('success-message');
-        message.empty().append('<p>Grid Ref:<br/>' + gref + '</p>');
-        this.save();
+      var gridref = OsGridRef.parse(val);
+      gridref = normalizeGridRef(gridref);
+
+      if (!isNaN(gridref.easting) && !isNaN(gridref.northing)) {
+        var latLon = OsGridRef.osGridToLatLon(gridref, LatLon.datum.OSGB36);
+        this.set(latLon.lat, latLon.lon, 1, name);
+
+        $('#gref-message').hide();
+        this.updateLocationMessage();
       }
+
+      function normalizeGridRef(gridref) {
+        // normalise to 1m grid, rounding up to centre of grid square:
+        var e = gridref.easting;
+        var n = gridref.northing;
+
+        switch (gridref.easting.toString().length) {
+          case 1: e += '50000'; n += '50000'; break;
+          case 2: e += '5000'; n += '5000'; break;
+          case 3: e += '500'; n += '500'; break;
+          case 4: e += '50'; n += '50'; break;
+          case 5: e += '5'; n += '5'; break;
+          case 6: break; // 10-digit refs are already 1m
+          default: return new OsGridRef(NaN, NaN);
+        }
+        return new OsGridRef(e, n);
+      }
+    },
+
+    /**
+     * Loads the google maps script.
+     *
+     * @param src
+     */
+    loadScript: function (src) {
+      var script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.src = src;
+      document.body.appendChild(script);
+    },
+
+    /**
+     * Updates the main location page message.
+     */
+    updateLocationMessage: function () {
+      //convert coords to Grid Ref
+      var location = this.get();
+      var p = new LatLon(location.latitude, location.longitude, LatLon.datum.OSGB36);
+      var grid = OsGridRef.latLonToOsGrid(p);
+      var gref = grid.toString();
+
+      var message = $('#location-message');
+      message.show();
+      message.removeClass();
+      message.addClass('success-message');
+      message.empty().append('<p>Grid Ref:<br/>' + gref + '</p>');
     }
+
   });
-})();
+
+  return LocationPage;
+});
