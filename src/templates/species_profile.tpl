@@ -28,6 +28,7 @@
 
     <ul data-role="listview" data-inset="true" style="max-width:800px;">
         <li>
+            <div class="common-name"><%- common_name %></div>
             <div class="taxon"><%- taxon %></div>
         </li>
         <li>

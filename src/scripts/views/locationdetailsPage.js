@@ -1,5 +1,5 @@
 /******************************************************************************
- * Number page view.
+ * Locationdetails page view.
  *****************************************************************************/
 define([
   'views/_page',
@@ -9,8 +9,8 @@ define([
 ], function (Page) {
   'use strict';
 
-  var NumberPage = Page.extend({
-    id: 'number',
+  var LocationdetailsPage = Page.extend({
+    id: 'locationdetails',
 
     warehouse_id: morel.record.inputs.KEYS.LOCATIONDETAILS,
 
@@ -46,7 +46,7 @@ define([
     },
 
     /**
-     * Saves the number to the record.
+     * Saves the location details to the record.
      *
      * @param e
      * @returns {boolean}
@@ -63,5 +63,5 @@ define([
     }
   });
 
-  return NumberPage;
+  return LocationdetailsPage;
 });

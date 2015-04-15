@@ -328,6 +328,7 @@ div#welcome[data-role="page"]{
 #location-top-button.none:after {
     background-color: rgb(192, 68, 32);
 }
+#user-page-button.running:after,
 #location-top-button.running:after {
     background-color: rgb(205, 155, 0);
 }
@@ -464,11 +465,6 @@ ul.welcome-page{
     margin-right: auto !important;
     margin-left: auto !important;
     max-width: 400px;
-}
-
-/* Button text color */
-.ui-page-theme-a .ui-btn {
-    color: #2A2A2A !important;
 }
 
 @media only screen and (max-width: 400px) {

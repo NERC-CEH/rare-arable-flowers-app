@@ -11,7 +11,7 @@ define([
   var MgmtlocationPage = Page.extend({
     id: 'mgtmlocation',
 
-    template: app.templates.locationdetails,
+    template: app.templates.mgmtlocation,
 
     MAX: 70,
     COLOR: 'red',
