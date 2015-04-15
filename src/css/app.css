@@ -534,9 +534,23 @@ div.loading {
     margin-top: 10%;
 }
 
+.loading img {
+    margin-top: 5%;
+}
+
 .ui-loader .ui-icon-loading {
     background-color: white;
 }
+
+body.loading {
+    background: url('../images/background.jpg') no-repeat  !important;
+    -webkit-background-size: cover !important;
+    -moz-background-size: cover !important;
+    -o-background-size: cover !important;
+    background-size: cover !important;
+
+}
+
 #heat-map{
     height: 55%;
 }

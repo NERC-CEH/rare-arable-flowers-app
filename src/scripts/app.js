@@ -62,7 +62,8 @@ define([
         FastClick.attach(document.body);
 
         //turn off the loading splash screen
-        $('.loading').css('display', 'none');
+        $('div.loading').css('display', 'none');
+        $('body').removeClass('loading');
       }
     };
     return App;
