@@ -1,4 +1,4 @@
-    <div data-role="content">
+    <div data-role="content" class="welcome">
         <div class="app-logo"></div>
         <br/>
         <ul class="welcome-page" data-role="listview" data-inset="true">
