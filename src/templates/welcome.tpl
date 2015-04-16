@@ -1,5 +1,8 @@
-    <div data-role="content" class="welcome">
-        <div class="app-logo"></div>
+<div data-role="header" data-position="fixed" data-tap-toggle="false">
+    <div class="app-logo"></div>
+</div>
+<div data-role="content" class="welcome">
+
         <br/>
         <ul class="welcome-page" data-role="listview" data-inset="true">
             <li>
@@ -16,5 +19,8 @@
             </li>
         </ul>
         <br/>
-        <div class="sponsor-logo"></div>
+
     </div>
+<div data-role="footer" data-position="fixed" data-tap-toggle="false">
+    <div class="sponsor-logo"></div>
+</div>
