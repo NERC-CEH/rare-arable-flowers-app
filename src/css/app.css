@@ -328,6 +328,7 @@ div#welcome[data-role="page"]{
 #location-top-button.none:after {
     background-color: rgb(192, 68, 32);
 }
+#list-controls-button.running:after,
 #user-page-button.running:after,
 #location-top-button.running:after {
     background-color: rgb(205, 155, 0);

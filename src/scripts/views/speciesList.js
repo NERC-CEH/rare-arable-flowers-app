@@ -21,6 +21,32 @@ define([
      * label - label to represent the filter in the UI
      */
     filters: {
+      type: {
+        grass: {
+          label: 'Grasses',
+          filter: function (list, onSuccess) {
+            var filtered_list = [];
+            for (var j = 0; j < list.length; j++) {
+              if (list[j].attributes.type === 'G' || list[j].attributes.general) {
+                filtered_list.push(list[j]);
+              }
+            }
+            onSuccess(filtered_list);
+          }
+        },
+        flower: {
+          label: 'Flowers',
+          filter: function (list, onSuccess) {
+            var filtered_list = [];
+            for (var j = 0; j < list.length; j++) {
+              if (list[j].attributes.type === 'F' || list[j].attributes.general) {
+                filtered_list.push(list[j]);
+              }
+            }
+            onSuccess(filtered_list);
+          }
+        }
+      },
       favourites: {
         favourites: {
           filter: function (list, onSuccess) {
@@ -113,35 +139,6 @@ define([
             }
             return a < b ? 1 : -1;
           });
-          onSuccess(list);
-        }
-      },
-      probability_sort: {
-        label: 'Probability',
-        sort: function (list, onSuccess){
-          var sref = app.models.user.getLocationSref();
-          if (sref == null) {
-            app.models.user.save('sort', 'common_name'); //todo: should be done with error handler
-            Backbone.history.navigate('location', {trigger:true});
-            return;
-          }
-
-          list.sort(function (a, b) {
-              if (a.attributes.general || b.attributes.general){
-                return a.attributes.general ? 1 : -1;
-              }
-              var a_prob = getProb(a);
-              var b_prob = getProb(b);
-              if (a_prob == b_prob) return 0;
-              return a_prob < b_prob ? 1 : -1;
-
-              function getProb(species) {
-                var id = species.attributes.id;
-                var data = app.data.probability;
-                return (data[sref] && data[sref][id]) || 0;
-              }
-            }
-         );
           onSuccess(list);
         }
       }
