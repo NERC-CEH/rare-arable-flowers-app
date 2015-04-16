@@ -178,7 +178,7 @@ app.data.species = [
   }, 
   {
     "": "images/images/Anthoxanthum aristatum.svg", 
-    "profile_pic": "images/unknown.jpg", 
+    "profile_pic": "images/Anthoxanthum_aristatum.jpg", 
     "description": "Usually solitary but sometimes multiple stemmed annual up to 20cm tall. Leaves are 2-4 mm wide and up to 5cm long, hairless, but with tufts of long hair where leaf and stem meet. Spikelets (5-7mm long) have long and conspicuous bent awns and are gathered into a pale green terminal spike. Annual vernal grass was probably introduced in crop seed and has declined due to better seed-cleaning.", 
     "map": "images/Anthoxanthum aristatum.svg", 
     "soil": "Sandy loams and gravelly soils.", 
@@ -190,7 +190,7 @@ app.data.species = [
     "flowering_period": "June - October.", 
     "management": "\tGreening fallow land<br/>  Uncropped cultivated plots (annual).", 
     "germination_period": "Unknown.", 
-    "profile_pic_author": "", 
+    "profile_pic_author": "Christian Fischer", 
     "taxon": " Anthoxanthum aristatum", 
     "confusion": "Anthoxanthum odoratum (but different habitat = grassland)", 
     "type": "G"
@@ -216,7 +216,7 @@ app.data.species = [
   }, 
   {
     "": "images/images/Apera interrupta.svg", 
-    "profile_pic": "images/unknown.jpg", 
+    "profile_pic": "images/Apera_interrupta.jpg", 
     "description": "Erect annual grass, up to 70cm tall. The leaves can grow up to 10cm long and 4mm wide are mostly hairless. Each leaf has a long pointed ligule, up to 5mm long. The flowers are arranged in a loose interrupted spike with stalkless branches. Each spikelet has a very long straight awn. It was originally introduced as a seed contaminant from wool shoddy and has declined because of targeted gramnicide use and highly competitive fertilised crops.", 
     "map": "images/Apera interrupta.svg", 
     "soil": "Calcareous sandy loams.", 
@@ -228,7 +228,7 @@ app.data.species = [
     "flowering_period": "June - July.", 
     "management": "\tGreening fallow land<br/>  Uncropped cultivated plots (annual).", 
     "germination_period": "Autumn.", 
-    "profile_pic_author": "", 
+    "profile_pic_author": "Matt Lavin", 
     "taxon": " Apera interrupta", 
     "confusion": "", 
     "type": "G"
@@ -273,7 +273,7 @@ app.data.species = [
   }, 
   {
     "": "images/images/Arnoseris minima.svg", 
-    "profile_pic": "images/unknown.jpg", 
+    "profile_pic": "images/Arnoseris_minima.jpg", 
     "description": "A member of the daisy family that can grow up to 30cm tall. The hairless elliptical leaves form a rosette at the bottom of the flower spike. The yellow flowers are 7-11mm in diameter and are borne singly at the end of each stem. The flowering stems are inflated just below the flower head. Although this plant can look similar to other yellow daisy flowers, such as dandelions, hawkbits, cat's-ears and hawkweeds, the inflated flower stem is distinctive. Lamb's-succory is unable to cope in high nitrogen environments and the marginal low-intensity arable fields that it did occupy have tended to be abandoned for cultivation.", 
     "map": "images/Arnoseris minima.svg", 
     "soil": "Acidic sandy loams and sands.", 
@@ -292,7 +292,7 @@ app.data.species = [
   }, 
   {
     "": "images/images/Avena strigosa.svg", 
-    "profile_pic": "images/unknown.jpg", 
+    "profile_pic": "images/Avena_strigosa.jpg", 
     "description": "Tall erect grass, up to 120cm. The blunt, slightly-toothed membrane ligule at the base of each leaf is 1.5-5mm and the leaf blades are broad and flat tapering to a point much like other members of the oat grass family. The flower spike often flowers to one side and each spikelets bears two flowers 16-26mm. The lemmas have two teeth each with a bristle and there is an awn on both lemmas from the middle of the back. There is no obvious callus scar on the florets when they are separated and they do not shatter easily, which hinders the establishment of populations. Bristle oat was originally grown as a cereal crop in poorer soils in the North and West of Britain but modern varieties of cultivated oat Avena sativa have taken over.  ", 
     "map": "images/Avena strigosa.svg", 
     "soil": "Acidic sandy loams and sands.", 
@@ -349,7 +349,7 @@ app.data.species = [
   }, 
   {
     "": "images/images/Bromus arvensis.svg", 
-    "profile_pic": "images/unknown.jpg", 
+    "profile_pic": "images/Bromus_arvensis.jpg", 
     "description": "Robust tall grass, up to 100cm tall. Leaves and stem are softly-densely hairy. The leaves have a blunt ligule up to 4mm long and leaf blades can be up to 20cm long by 5mm wide. The spikelet of flowers is very branched and drooping with long-stalked spikelets that are laterally compressed 1.5cm long by 4m wide. The lemma is inrolled stopping the spikelets from breaking-up easily and short, less than 6.5mm long, with a rough straight awn up to 1cm long. Field brome probably relied on being spread as a contaminant of crop seed and more effective seed cleaning has probably been the cause for its decline.", 
     "map": "images/Bromus arvensis.svg", 
     "soil": "Loams and clay loams.", 
@@ -406,7 +406,7 @@ app.data.species = [
   }, 
   {
     "": "images/images/Bunium bulbocastanum.svg", 
-    "profile_pic": "images/unknown.jpg", 
+    "profile_pic": "images/Bunium_bulbocastanum.jpg", 
     "description": "A tall member of the carrot family, up to 60cm. This is a perennial plant over-wintering as an underground tuber formed at the base of the stem. Finely divided three-pinnately divided leaves appear feathery. The white umbellifer flowers are typical of the carrot family and may be 3-8cm across. Greater pignut has a solid stem compared with pignut Conopodium majus which has a hollow stem. This perennial plant needs occasional disturbance of field edge habitats every other year.", 
     "map": "images/Bunium bulbocastanum.svg", 
     "soil": "Calcareous loams over chalk.", 
@@ -418,7 +418,7 @@ app.data.species = [
     "flowering_period": "June - July.  ", 
     "management": "\tUncropped cultivated plots (biennial).", 
     "germination_period": "Unknown.", 
-    "profile_pic_author": "", 
+    "profile_pic_author": "Rob Hille", 
     "taxon": " Bunium bulbocastanum", 
     "confusion": "", 
     "type": "F"
@@ -444,7 +444,7 @@ app.data.species = [
   }, 
   {
     "": "images/images/Camelina sativa.svg", 
-    "profile_pic": "images/unknown.jpg", 
+    "profile_pic": "images/Camelina_sativa.jpg", 
     "description": "Tall member of the mustard family, up to 120cm tall. The lanceolate leaves are arranged alternatively up the stem which can become woody with age. The pale-yellow flowers have the typical four petals. The seeds, borne in seed pods, are a distinctive orange colour. False flax is often a component of bird seed mixtures.", 
     "map": "images/Camelina sativa.svg", 
     "soil": "Sandy soils, loams and clays.", 
@@ -456,7 +456,7 @@ app.data.species = [
     "flowering_period": "June - July.  ", 
     "management": "\tUnknown.  ", 
     "germination_period": "Spring.", 
-    "profile_pic_author": "", 
+    "profile_pic_author": "Fornax", 
     "taxon": " Camelina sativa", 
     "confusion": "Camelina microcarpa", 
     "type": "F"
@@ -539,7 +539,7 @@ app.data.species = [
   }, 
   {
     "": "images/images/Chenopodium hybridum.svg", 
-    "profile_pic": "images/unknown.jpg", 
+    "profile_pic": "images/Chenopodium_hybridum.jpg", 
     "description": "Tall plant, up to 100cm tall. The plant is not mealy. The leaves are hairless, cordate at the base with a few large acute triangular teeth making them resemble maple-leaves. The flower spike has clusters of small 2mm florets.", 
     "map": "images/Chenopodium hybridum.svg", 
     "soil": "Clay loams.", 
@@ -551,14 +551,14 @@ app.data.species = [
     "flowering_period": "July - October.  ", 
     "management": "\tGreening fallow land<br/>  Uncropped cultivated plots (annual)<br/>  Cereal headland<br/>  Unsprayed cereals<br/>  Unsprayed root crops<br/>  Wildlife cover.  ", 
     "germination_period": "Spring.", 
-    "profile_pic_author": "", 
+    "profile_pic_author": "Malcolm Storey, bioimages.org.uk", 
     "taxon": " Chenopodium hybridum", 
     "confusion": "", 
     "type": "F"
   }, 
   {
     "": "images/images/Chenopodium murale.svg", 
-    "profile_pic": "images/unknown.jpg", 
+    "profile_pic": "images/Chenopodium_murale.jpg", 
     "description": "Erect annual, up to 100cm with red streaked stem, mealy. Inflorescences in loose leafless clusters with powdery appearance. The flowers are petal-less and have yellow stamen and tiny green minutely toothed sepals. Leaves are sharp toothed and diamond shaped with smooth upper surface and powdery underside.", 
     "map": "images/Chenopodium murale.svg", 
     "soil": "Light sandy loams and clay soils.", 
@@ -570,7 +570,7 @@ app.data.species = [
     "flowering_period": "June - October.  ", 
     "management": "\tGreening fallow land<br/>  Uncropped cultivated plots (annual)<br/>  Cereal headland<br/>  Unsprayed cereals<br/>  Unsprayed root crops<br/>  Wildlife cover.  ", 
     "germination_period": "Spring.", 
-    "profile_pic_author": "", 
+    "profile_pic_author": "Forest & Kim Starr", 
     "taxon": " Chenopodium murale", 
     "confusion": "", 
     "type": "F"
@@ -596,7 +596,7 @@ app.data.species = [
   }, 
   {
     "": "images/images/Chenopodium urbicum.svg", 
-    "profile_pic": "images/unknown.jpg", 
+    "profile_pic": "images/Chenopodium_urbicum.jpg", 
     "description": "Erect annual, up to 100cm. The plant is not mealy. Inflorescences in loose leafless clusters. The flowers are petal-less and have yellow stamen and tiny green untoothed sepals. Leaves are toothed and triangular. Seeds are black.", 
     "map": "images/Chenopodium urbicum.svg", 
     "soil": "Light sandy loams and clay soils.", 
@@ -608,7 +608,7 @@ app.data.species = [
     "flowering_period": "August - September.  ", 
     "management": "\tGreening fallow land<br/>  Uncropped cultivated plots (annual)<br/>  Cereal headland<br/>  Unsprayed cereals<br/>  Unsprayed root crops<br/>  Wildlife cover.  ", 
     "germination_period": "Spring.", 
-    "profile_pic_author": "", 
+    "profile_pic_author": "Andrea Moro", 
     "taxon": " Chenopodium urbicum", 
     "confusion": "", 
     "type": "F"
@@ -881,7 +881,7 @@ app.data.species = [
   }, 
   {
     "": "images/images/Fumaria muralis ssp neglecta.svg", 
-    "profile_pic": "images/unknown.jpg", 
+    "profile_pic": "images/Fumaria_muralis.jpg", 
     "description": "This is a large-flowered fumitory with relatively broad and channelled blue-green leaf segments. The asymmetrical flowers have fused petals forming a tube but separating at the tip. Flowers 9-11mm long, pinkish-red with darker red tipped petals, 8-20 flowers per raceme, raceme longer than stalk.  The pale sepal is toothed mainly at the base and is 2.7-3mm long by 1.5-2mm wide and half the length of the flower. Fruits are spherical with a rounded apex. Each flower produces a spherical fruit 2mm diameter.", 
     "map": "images/Fumaria muralis ssp neglecta.svg", 
     "soil": "Freely-draining and acidic loams.", 
@@ -893,7 +893,7 @@ app.data.species = [
     "flowering_period": "June - October.  ", 
     "management": "\tGreening fallow land<br/>  Uncropped cultivated plots (annual)<br/>  Cereal headland<br/>  Unsprayed cereals<br/>  Unsprayed root crops<br/>  Wildlife cover.  ", 
     "germination_period": "Spring (limited autumn germination).", 
-    "profile_pic_author": "", 
+    "profile_pic_author": "Malcolm Storey, bioimages.org.uk", 
     "taxon": " Fumaria muralis ssp. neglecta", 
     "confusion": "other Fumaria spp.", 
     "type": "F"
@@ -938,7 +938,7 @@ app.data.species = [
   }, 
   {
     "": "images/images/Fumaria purpurea.svg", 
-    "profile_pic": "images/unknown.jpg", 
+    "profile_pic": "images/Fumaria_purpurea.jpg", 
     "description": "This is a large-flowered fumitory with relatively broad and flat green-blue leaf segments. The asymmetrical flowers have fused petals forming a tube but separating at the tip.  Flowers are 10-13mm long, pinkish-purple with petals tipped darker purple. Each raceme has 20-25 flowers and is the same length as the flower stalk.  The sepal is white, toothed and oblong and half the length of the flower 6mm long by 3mm wide. As fruits ripen the stalks can become gently-recurved. The fruits are squarish in shape and 2.5mm in diameter", 
     "map": "images/Fumaria purpurea.svg", 
     "soil": "Sandy loams.", 
@@ -950,7 +950,7 @@ app.data.species = [
     "flowering_period": "June - August.  ", 
     "management": "\tGreening fallow land<br/>  Uncropped cultivated plots (annual)<br/>  Cereal headland<br/>  Unsprayed cereals<br/>  Unsprayed root crops<br/>  Wildlife cover.  ", 
     "germination_period": "Spring.", 
-    "profile_pic_author": "", 
+    "profile_pic_author": "K.J. Walker", 
     "taxon": " Fumaria purpurea", 
     "confusion": "other Fumaria spp.", 
     "type": "F"
@@ -1052,7 +1052,7 @@ app.data.species = [
   }, 
   {
     "": "images/images/Galium spurium.svg", 
-    "profile_pic": "images/unknown.jpg", 
+    "profile_pic": "images/Galium_spurium.jpg", 
     "description": "Similar to common cleavers Galium aparine, but with shorter and narrower leaves.  Scrambling and climbing plant up to 100cm. Flowers are greenish-white, 1mm across and the flowering/fruiting stalk is straight. Fruits are less than 3mm across, blackish when ripe, and the bases of its hooked bristles not swollen.", 
     "map": "images/Galium spurium.svg", 
     "soil": "Sandy soils and clay loams.", 
@@ -1064,14 +1064,14 @@ app.data.species = [
     "flowering_period": "August - October.  ", 
     "management": "Greening fallow land<br/>  Uncropped cultivated plots (annual).", 
     "germination_period": "Autumn.", 
-    "profile_pic_author": "", 
+    "profile_pic_author": "Fornax", 
     "taxon": " Galium spurium", 
     "confusion": "", 
     "type": "F"
   }, 
   {
     "": "images/images/Galium tricornutum.svg", 
-    "profile_pic": "images/unknown.jpg", 
+    "profile_pic": "images/Galium_tricornutum.png", 
     "description": "Sprawling plant, with 4-angled prickly stems. Linear to lanceolate leaves in whorls. Cream flowers are 1-1.5mm across and grouped in sets of three. Fruit occur in groups of three and are covered with minute projections rather than hooked bristles with stalks strongly arched downwards. Very similar to false cleavers Galium spurium which are darker green. Corn cleavers has declined due to seed cleaning, the increased use of high-nitrogen fertilisers and competitive crop varieties.", 
     "map": "images/Galium tricornutum.svg", 
     "soil": "Sandy soils and clay loams.", 
@@ -1090,7 +1090,7 @@ app.data.species = [
   }, 
   {
     "": "images/images/Gastridium ventricosum.svg", 
-    "profile_pic": "images/unknown.jpg", 
+    "profile_pic": "images/Gastridium_ventricosum.jpg", 
     "description": "Erect, tufted grass, up to 50cm tall. The leaf blades are up to 10cm long by 4mm wide with a short ligule. The flower heads are spear shaped, tapering to a point. The lemmas have an bent awn up to 4mm in length. Nit-grass has declined due to targeted gramnicides, increased use of high-nitrogen fertilisers and competitive crop varieties. It has increased in set-aside land in the early 21th Century.", 
     "map": "images/Gastridium ventricosum.svg", 
     "soil": "Thin limestone soils and well-drained calcareous clays prone to drought.", 
@@ -1166,7 +1166,7 @@ app.data.species = [
   }, 
   {
     "": "images/images/Holosteum umbellatum.svg", 
-    "profile_pic": "images/unknown.jpg", 
+    "profile_pic": "images/Holosteum_umbellatum.jpg", 
     "description": "Up to 30cm tall. Ovate-lanceolate leaves are arranged opposite each other up the stem, up to 2cm long and 5-6mm wide. 5-10 flowers are clustered at the end of the stems with 5 white petals. The calyx has a white margin.", 
     "map": "images/Holosteum umbellatum.svg", 
     "soil": "Sandy and calcareous loams.", 
@@ -1299,7 +1299,7 @@ app.data.species = [
   }, 
   {
     "": "images/images/Lamium confertum.svg", 
-    "profile_pic": "images/unknown.jpg", 
+    "profile_pic": "images/Lamium_Confertum.jpg", 
     "description": "Spring germinating plant, up to 30cm. Irregularly branched stem with triangular-shaped toothed leaves in opposite pairs up the square stem. The pinkish-purple asymmetrical flowers are in whorls of 3-7 at the top of the stems. They are 1-1.8cm long and each flower produces four seeds.", 
     "map": "images/Lamium confertum.svg", 
     "soil": "Present on a wide variety of soils.", 
@@ -1413,7 +1413,7 @@ app.data.species = [
   }, 
   {
     "": "images/images/Lolium temulentum.svg", 
-    "profile_pic": "images/unknown.jpg", 
+    "profile_pic": "images/Lolium_temulentum.jpg", 
     "description": "A tall grass that can either grow in tufts or solitary stems. The green hairless leaves are up to 40cm in length and have a 2mm blunt ligule. Each flower spikelet is 12-20mm long by 4-6mm wide and is enclosed in a glume that is longer than the flower. The lemmas may have straight rough awns up to 2cm long but may be awnless. Darnel is thought to have declined due to better seed cleaning.", 
     "map": "images/Lolium temulentum.svg", 
     "soil": "Can live in a wide range of soils.", 
@@ -1546,7 +1546,7 @@ app.data.species = [
   }, 
   {
     "": "images/images/Microthlaspi perfoliatum.svg", 
-    "profile_pic": "images/unknown.jpg", 
+    "profile_pic": "images/Microthlaspi_perfoliatum.jpg", 
     "description": "Small, greyish-green plant, up to 30cm. The leaves are waxy, upper leaves are pointed and have no stalk. The leaf base almost encircles the stem, so the stem appears to perforate the leaf, hence the name 'perfoliate'. The inflorescences are clusters of white 4-petalled flowers occurring at the top of smooth hairless stems.  Fruits are 4mm long by 5mm wide, heart-shaped and flattened, with membranous wings along each edge. Perfoliate penny-cress has always been rare in arable habitats.", 
     "map": "images/Microthlaspi perfoliatum.svg", 
     "soil": "Calcareous clay loams.", 
@@ -1558,7 +1558,7 @@ app.data.species = [
     "flowering_period": "April - May.  ", 
     "management": " Greening fallow land<br/>  Uncropped cultivated plots (annual)<br/>  Cereal headland<br/>  Unsprayed cereals<br/>  Unsprayed root crops<br/>  Wildlife cover.  ", 
     "germination_period": "Autumn (limited spring germination).", 
-    "profile_pic_author": "", 
+    "profile_pic_author": "Stefan lefnaer", 
     "taxon": " Microthlaspi perfoliatum", 
     "confusion": "", 
     "type": ""
@@ -1660,7 +1660,7 @@ app.data.species = [
   }, 
   {
     "": "images/images/Papaver dubium ssp lecoqii.svg", 
-    "profile_pic": "images/unknown.jpg", 
+    "profile_pic": "images/Lolium_temulentum.jpg", 
     "description": "Basal rosette of leaves with branched stems growing from the centre, up to 60cm. Leaves are pinnately divided into broad, spear-shaped segments, and are coloured blue-green. The pinkish-red flowers are 5cm across with four unblotched petals. The seed capsule is elongated without prickles, similar to long-headed poppy Papaver dubium. The distinguishing characteristic is the latex which turns yellow on contact with air.", 
     "map": "images/Papaver dubium ssp lecoqii.svg", 
     "soil": "Heavy calcareous loams and clays.", 
@@ -1672,7 +1672,7 @@ app.data.species = [
     "flowering_period": "June - July.  ", 
     "management": " Greening fallow land<br/>  Uncropped cultivated plots (annual).", 
     "germination_period": "Spring and Autumn.", 
-    "profile_pic_author": "", 
+    "profile_pic_author": "Julia Kruse", 
     "taxon": " Papaver lecoqii", 
     "confusion": "", 
     "type": "F"
@@ -2154,7 +2154,7 @@ app.data.species = [
   }, 
   {
     "": "images/images/Veronica agrestis.svg", 
-    "profile_pic": "images/unknown.jpg", 
+    "profile_pic": "images/Veronica_agrestis.jpg", 
     "description": "Sprawling plant with branched, softly hairy stems. Green, oval leaves have toothed edges, and are slightly longer than wide (5-15mm wide). The solitary, 5mm across, pale blue and white centred flowers, are on stalks growing from the leaf axils. The fruit capsule is bi-lobed giving it a heart shape, wider 4-6mm than long 3-4mm. The hairs on the fruit capsule are visible using an x30 hand lens and all of the are glandular (with a spot of oil at the end).", 
     "map": "images/Veronica agrestis.svg", 
     "soil": "Neutral and sandy acid soils. Usually not found on calcareous soils.", 
@@ -2166,7 +2166,7 @@ app.data.species = [
     "flowering_period": "June - November.  ", 
     "management": "Greening fallow land<br/>  Uncropped cultivated plots (annual)<br/>  Cereal headland<br/>  Unsprayed cereals<br/>  Unsprayed root crops<br/>  Wildlife cover.  ", 
     "germination_period": "Spring.", 
-    "profile_pic_author": "", 
+    "profile_pic_author": "Malcolm Storey, bioimages.org.uk", 
     "taxon": " Veronica agrestis", 
     "confusion": "Veronica persica, Veronica polita", 
     "type": "F"
