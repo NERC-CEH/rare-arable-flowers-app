@@ -11,7 +11,7 @@
             </li>
             <li>
                 <a href="#list" data-role="button" data-icon="plus"
-                   data-iconpos="right">Guide and Recording</a>
+                   data-iconpos="right">Identification and Recording</a>
             </li>
             <li>
                 <a href="#info" data-role="button" data-icon="info"

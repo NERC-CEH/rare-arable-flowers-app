@@ -12,21 +12,20 @@
            </li>
            <li>
                <strong>England:</strong>
-               <p>Environmental Stewardship (closed to new applicants)</p>
                <p>Countryside Stewardship- the replacement scheme</p>
                <p>Farm Wildlife Package</p>
            </li>
            <li>
                <strong>Scotland:</strong>
-               <p>Rural Stewardship Scheme</p>
+               <p>Agri-environment Climatic Scheme</p>
             </li>
            <li>
                <strong>Wales:</strong>
-               <p>Tir Gofal</p>
+               <p>Glastir</p>
             </li>
            <li>
                <strong>Northern Ireland:</strong>
-               <p>Countryside Management Scheme</p>
+               <p>Environmental Farming Scheme</p>
            </li>
        </ul>
 
