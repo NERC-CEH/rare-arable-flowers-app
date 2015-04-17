@@ -555,3 +555,8 @@ body.loading {
 
     opacity: .70;
 }
+
+[data-role="listview"]  strong {
+    float: left;
+    min-width: 160px;
+}

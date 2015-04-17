@@ -35,13 +35,13 @@
             <p><%= description %></p>
         </li>
         <li>
-            <p><strong>Flowering period:</strong> <%- flowering_period %></p>
-            <p><strong>Germination period:</strong> <%- germination_period %></p>
-            <p><strong>Seed longetivity:</strong> <%- seed_longevity %></p>
-            <p><strong>Conservation status:</strong> <%- conservation_status %></p>
+            <p><strong>Flowering period:</strong> <span><%- flowering_period %></span></p>
+            <p><strong>Germination period:</strong> <span><%- germination_period %></span></p>
+            <p><strong>Seed longevity:</strong> <span><%- seed_longevity %></span></p>
+            <p><strong>Conservation status:</strong> <span><%- conservation_status %></span></p>
         </li>
         <li>
-            <strong>Management:</strong>
+            <p><strong>Management:</strong></p>
             <p><%= management %></p>
         </li>
     </ul>
