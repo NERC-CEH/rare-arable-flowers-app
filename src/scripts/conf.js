@@ -121,35 +121,35 @@ define(['morel', 'helpers/log'], function () {
     APPNAME: "test",
     APPSECRET: "mytest",
     WEBSITE_ID: 23,
-    SURVEY_ID: 42
+    SURVEY_ID: 258
   });
   $.extend(morel.record.inputs.KEYS, {
-    LOCATIONDETAILS: 'sample:locationdetails',
+    LOCATIONDETAILS: 'smpAttr:567',
     LOCATIONDETAILS_VAL: {
-      "Cultivated Strip / Block": 2211,
-      "Conservation headland": 222,
-      "Wild bird seed / Game cover": 4444,
-      "Wildflower / Clover rich margin": 3232,
-      "Grass margin / corner": 3123,
-      "Crop": 23,
-      "Stubble": 1232,
-      "Track / gateway": 122,
-      "Other":12
+      "Cultivated Strip / Block": 4783,
+      "Conservation headland": 4784,
+      "Wild bird seed / Game cover": 4785,
+      "Wildflower / Clover rich margin": 4786,
+      "Grass margin / corner": 4787,
+      "Crop": 4788,
+      "Stubble": 4789,
+      "Track / gateway": 4790,
+      "Other": 4791
     },
-    NUMBER: 'sample:number',
+    NUMBER: 'occAttr:383',
     NUMBER_VAL: {
-      '1': 665,
-      '2-10': 666,
-      '11-100': 667,
-      '101-1000': 668,
-      '1000+': 670,
-      'Present': 671 //default
+      '1': 4774,
+      '2-10': 4775,
+      '11-100': 4776,
+      '101-1000': 4777,
+      '1000+': 4778,
+      'Present': 4779 //default
     },
-    STAGE: 'sample:stage',
+    STAGE: 'occAttr:384',
     STAGE_VAL: {
-      Vegatative: 4756,
-      Flowering: 4757,
-      'In Seed': 4758
+      Vegatative: 4780,
+      Flowering: 4781,
+      'In Seed': 4782
     },
     SREF_NAME: 'smpAttr:566',
     COMMENT: 'sample:comment'

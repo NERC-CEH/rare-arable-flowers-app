@@ -14,7 +14,7 @@ define([
       this.set(morel.record.inputs.KEYS.DATE, this.getCurrentDate());
       this.set(morel.record.inputs.KEYS.SREF_ACCURACY, '-1');
       this.set(morel.record.inputs.KEYS.SREF_SYSTEM, '4326');
-      this.set(morel.record.inputs.KEYS.NUMBER, morel.record.inputs.KEYS.NUMBER_VAL.present);
+      this.set(morel.record.inputs.KEYS.NUMBER, morel.record.inputs.KEYS.NUMBER_VAL.Present);
       warehouseID ? this.set(morel.record.inputs.KEYS.TAXON, warehouseID) : null;
     },
 

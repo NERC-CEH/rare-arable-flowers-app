@@ -549,7 +549,7 @@ body.loading {
 }
 
 #heat-map{
-    height: 55%;
+    height: 55vh;
 }
 .ui-loader-default {
 
