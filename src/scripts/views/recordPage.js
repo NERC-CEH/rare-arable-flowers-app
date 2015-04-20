@@ -36,6 +36,10 @@ define([
         'change:' + morel.record.inputs.KEYS.COMMENT, this.updateCommentButton);
       this.listenTo(this.model,
         'change:' + morel.record.inputs.KEYS.SREF_ACCURACY, this.updateGPSButton);
+      this.listenTo(this.model,
+        'change:' + morel.record.inputs.KEYS.SREF, this.updateGPSButton);
+      this.listenTo(this.model,
+        'change:' + morel.record.inputs.KEYS.DATE, this.updateDateButton);
 
       this.render();
       this.appendBackButtonListeners();
@@ -50,6 +54,7 @@ define([
       this.$heading = $('#record_heading');
       this.$photo = $('#photo');
       this.$locationButton = $('#location-top-button');
+      this.$dateButton = $('#date-top-button');
       return this;
     },
 
@@ -297,6 +302,9 @@ define([
      * Udates the GPS button with the traffic light indication showing GPS status.
      */
     updateGPSButton: function () {
+      var $button = jQuery('#location-top-button .descript');
+      var text = '';
+
       var button = this.$locationButton;
       var accuracy = this.model.get(morel.record.inputs.KEYS.SREF_ACCURACY);
       switch (true) {
@@ -305,22 +313,44 @@ define([
           button.addClass('none');
           button.removeClass('done');
           button.removeClass('running');
+
+          text = 'Required';
           break;
         case (accuracy > 0):
           //done
           button.addClass('done');
           button.removeClass('running');
           button.removeClass('none');
+
+          var value = this.model.get(morel.record.inputs.KEYS.SREF);
+          var location = {
+            latitude: value.split(',')[0],
+            longitude: value.split(',')[1]
+          };
+          var p = new LatLon(location.latitude, location.longitude, LatLon.datum.OSGB36);
+          var grid = OsGridRef.latLonToOsGrid(p);
+          text =  grid.toString();
           break;
         case (accuracy == 0):
           //running
           button.addClass('running');
           button.removeClass('done');
           button.removeClass('none');
+
+          text = 'Locating..';
           break;
         default:
           _log('views.RecordPage: ERROR no such GPS button state: ' + accuracy, log.WARNING);
       }
+
+      $button.html(text);
+    },
+
+    updateDateButton: function () {
+      var $dateButton = jQuery('#date-top-button .descript');
+      var value = this.model.get(morel.record.inputs.KEYS.DATE);
+      var text = value || '';
+      $dateButton.html(text);
     },
 
     /**

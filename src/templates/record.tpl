@@ -4,31 +4,32 @@
            data-iconpos="notext">Back</a>
     </div>
     <h3 id='record_heading'></h3>
-
-    <div class='ui-btn-right' data-role='controlgroup' data-type='horizontal'>
-        <a href="#date" id="date-top-button" data-role="button"
-           data-icon="calendar" data-iconpos="notext">Date</a>
-        <a href="#location" id="location-top-button" data-role="button" class="none"
-           data-icon="location" data-iconpos="notext">GPS</a>
-    </div>
 </div>
 <div data-role="content">
-    <input type="hidden" id="occurrence:record_status"
-           name="occurrence:record_status" value="C"/>
-    <a href="#date" id="date-button" data-role="button" data-icon="arrow-r"
-       data-iconpos="right">
-        <h1>Date</h1>
-    </a><input type="hidden" id="imp-sref" name="sample:entered_sref" required/>
-    <input type="hidden" id="imp-sref-system" name="sample:entered_sref_system"
-           value="4326"/>
-    <input type="hidden" id="sref_accuracy" name="smpAttr:273" value="-1"/>
-
-    <div id="photo"></div>
-    <div id="photo-picker">
-        <input type="file" id="sample:image" name="sample:image"
-               accept="png|jpg|gif|jpeg"/>
-        <input type="hidden" id="sample_medium:path" name="sample_medium:path"
-               value=""/>
+    <div class="core-inputs">
+        <div id="photo"></div>
+        <div id="photo-picker">
+            <input type="file" id="sample:image" name="sample:image"
+                   accept="png|jpg|gif|jpeg"/>
+            <input type="hidden" id="sample_medium:path" name="sample_medium:path"
+                   value=""/>
+        </div>
+        <ul data-role="listview" data-inset="true">
+            <li>
+                <a href="#location" id="location-top-button" class="record-button"
+                   data-role="button" data-icon="location" data-iconpos="right">
+                    <h3 class="heading">Location</h3>
+                    <p class="descript"></p>
+                </a>
+            </li>
+            <li>
+                <a href="#date" id="date-top-button" class="record-button"
+                   data-role="button" data-icon="calendar" data-iconpos="right">
+                    <h3 class="heading">Date</h3>
+                    <p class="descript"></p>
+                </a>
+            </li>
+        </ul>
     </div>
     <ul data-role="listview" data-inset="true">
         <li>

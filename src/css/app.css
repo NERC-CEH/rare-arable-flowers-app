@@ -217,6 +217,13 @@ form, body {
     text-align: left;
 }
 
+.core-inputs ul {
+    display: inline-block;
+    width: 66%;
+    margin-left: 2% !important;
+    vertical-align: top;
+}
+
 /* 	Photo picker. */
 /*	Dynamic height css from:
 	http://stackoverflow.com/questions/5445491/height-equal-to-dynamic-width-css-fluid-layout */
@@ -520,11 +527,12 @@ ul.welcome-page{
     margin: 0 !important;
 }
 .heading {
-    width: 50%;
+    width: 54%;
 }
 .descript {
+    font-size: .75em !important;
     font-weight: bold !important;
-    width: 30%;
+    width: 50%;
     padding-right: 40px;
 }
 
