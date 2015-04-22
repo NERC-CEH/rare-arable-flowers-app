@@ -6,7 +6,7 @@ app = window.app || {};
 app.data = app.data || [];
 app.data.species = [
   {
-    "profile_pic": "images/Adonis_annua_2_CG.jpg",
+    "profile_pic": "images/Adonis_annua_2_CG.jpg", 
     "description": "Annual with deep red, anemone-like flower with central black spot and black anthers. Bright green, finely divided leaves. Elongated oval seed head bears approximately 30 olive green seeds, similar in shape to a grape pip. Plants grow up to 50cm. This plant does not seem to be able to survive in areas spread with high nitrogen fertiliser or compete against nitrophilous crops that quickly out-compete and shade out pheasant's-eye seedlings.", 
     "map": "images/Adonis annua.svg", 
     "color": [
@@ -1966,7 +1966,7 @@ app.data.species = [
     ], 
     "soil": "Sandy soils, calcareous loams and clays.", 
     "warehouse_id": "878771", 
-    "common_name": "Cornfield knotgrass Canclwm y tir \u00e2r", 
+    "common_name": "Cornfield knotgrass", 
     "seed_longevity": "Long-lived", 
     "conservation_status": "Least Concern   ", 
     "id": "93", 
@@ -2135,7 +2135,7 @@ app.data.species = [
     ], 
     "soil": "Dry sandy and gravelly soils, clay loams and chalky loams.  ", 
     "warehouse_id": "878779", 
-    "common_name": "Annual knawel Dinodd Flynyddol", 
+    "common_name": "Annual knawel ", 
     "seed_longevity": "Unknown", 
     "conservation_status": "Endangered   ", 
     "id": "101", 

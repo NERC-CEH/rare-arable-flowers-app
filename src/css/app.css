@@ -359,6 +359,7 @@ div#welcome[data-role="page"]{
 h1.taxon {
     text-shadow: none;
     font-style: italic;
+    margin: 0 10% 0 5% !important;
 }
 
 div.taxon {
@@ -375,10 +376,28 @@ div.taxon {
         float: left;
         display: block !important;
     }
+    
+    .common-name {
+        white-space: initial !important;
+        font-size: 1.2em;
+    }
+
+    .taxon {
+        margin-top: 10px;
+        white-space: initial !important;
+    }
 
     .species-list-common-name{
+        white-space: initial !important;
         font-size: smaller !important;
         font-weight: bold;
+        margin-top: 0 !important;
+    }
+
+    .species-list-taxon-name {
+        white-space: initial !important;
+        font-size: 0.75em !important;
+        margin-bottom: 0 !important;
     }
 
     .favourite{
