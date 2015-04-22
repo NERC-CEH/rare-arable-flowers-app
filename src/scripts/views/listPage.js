@@ -27,16 +27,17 @@ define([
       var sorts = this.listView.sorts;
       var filters = this.listView.filters;
 
-      this.listControlsView = new ListControlsView(sorts, filters);
+      this.$listControlsButton = this.$el.find('#list-controls-button');
+      this.listControlsView = new ListControlsView(sorts, filters, this.$listControlsButton);
 
       this.render();
       this.appendBackButtonListeners();
 
       this.$userPageButton = $('#user-page-button');
-      this.$listControlsButton = $('#list-controls-button');
 
-      this.listenTo(app.models.user, 'change:filters', this.updateListControlsButton);
-      this.updateListControlsButton();
+
+      this.listenTo(app.models.user, 'change:filters', this.listControlsView.updateListControlsButton);
+      this.listControlsView.updateListControlsButton();
       this.updateUserPageButton();
     },
 
@@ -54,7 +55,7 @@ define([
       $listControls.html(this.listControlsView.el);
 
       //turn on/off filter button
-      var on = app.models.user.hasListFilter('favourites');
+      var on = app.models.user.groupHasListFilter('favourites', 'favouritesGroup');
       $("#fav-button").toggleClass("on", on);
 
       return this;
@@ -64,8 +65,7 @@ define([
      * Turns on/off favourite filtering.
      */
     toggleListFavourites: function () {
-      var userConfig = app.models.user;
-      var on  = userConfig.toggleListFilter('favourites');
+      var on  = app.models.user.toggleListFilter('favourites', 'favouritesGroup');
       $("#fav-button").toggleClass("on", on);
     },
 
@@ -74,16 +74,6 @@ define([
      */
     toggleListControls: function () {
       this.listControlsView.toggleListControls();
-    },
-
-    /**
-     * Updates the list controls button with the current state of the filtering.
-     * If one or more (non favourite) filters is turned on then the button is
-     * coloured accordingly.
-     */
-    updateListControlsButton: function () {
-      var filters = _.without(app.models.user.get('filters'), 'favourites');
-      this.$listControlsButton.toggleClass('running', filters.length > 0);
     },
 
     /**
@@ -109,9 +99,10 @@ define([
     template_sort: app.templates.list_controls_sort,
     template_filter: app.templates.list_controls_filter,
 
-    initialize: function (sorts, filters) {
+    initialize: function (sorts, filters, $listControlsButton) {
       this.sorts = sorts;
       this.filters = filters;
+      this.$listControlsButton = $listControlsButton;
       this.render();
     },
 
@@ -165,47 +156,22 @@ define([
      * Renders and appends the list filter controls.
      */
     renderListFilterControls: function () {
-      var filtersToRender = [];
-      var currentFilters = this.getCurrentFilters(this.filters);
+      var currentFilters = app.models.user.get('filters');
 
       _.each(this.filters, function (filterGroup, filterGroupID) {
-        _.each(filterGroup, function (filter, filterID) {
-          //only render those that have label
-          if (filter.label) {
-            var currentFiltersIDs = Object.keys(currentFilters);
-            for (var j = 0; j < currentFiltersIDs.length; j++) {
-              if (currentFiltersIDs[j] === filterID) {
-                filter.checked = "checked";
-              } else {
-                filter.checked = "";
-              }
-            }
-            filter.id = filterID;
-            filtersToRender.push(filter);
+        _.each(filterGroup.filters, function (filter, filterID) {
+          if (currentFilters[filterGroupID] && currentFilters[filterGroupID].indexOf(filterID) >= 0) {
+            filter.checked = "checked";
+          } else {
+            filter.checked = "";
           }
         });
       });
 
       var placeholder = this.$el.find('#list-controls-filter-placeholder');
 
-      placeholder.html(this.template_filter(filtersToRender));
+      placeholder.html(this.template_filter(this.filters));
       placeholder.trigger('create');
-    },
-
-    //TODO: DUPLICATE FROM ListView
-    getCurrentFilters: function (filters) {
-      var filtersIDs =  app.models.user.get('filters');
-      var filters = filters;
-      var currentFilters = {};
-      for (var j = 0; j < filtersIDs.length; j++) {
-        var filterGroupIDS = Object.keys(filters);
-        for (var i = 0, length = filterGroupIDS.length; i < length; i++) {
-          if (filters[filterGroupIDS[i]][filtersIDs[j]]) {
-            currentFilters[filtersIDs[j]] = filters[filterGroupIDS[i]][filtersIDs[j]];
-          }
-        }
-      }
-      return currentFilters;
     },
 
     /**
@@ -213,11 +179,7 @@ define([
      */
     setListControlsListeners: function () {
       //initial list control button setup
-      var filters = this.getCurrentFilters(this.filters);
-      if (filters.length === 1 && filters[0].id === 'favourites') {
-        filters = [];
-      }
-      this.$el.find('#list-controls-button').toggleClass('on', filters.length > 0);
+      this.updateListControlsButton();
 
       this.$el.find('.sort').on('change', function () {
         app.models.user.save('sort', this.id);
@@ -225,16 +187,27 @@ define([
 
       var that = this;
       this.$el.find('.filter').on('change', function (e) {
-          app.models.user.toggleListFilter(this.id);
-
-          var filters = that.getCurrentFilters(that.filters);
-          if (filters.length === 1 && filters[0].id === 'favourites') {
-            filters = [];
-          }
-          that.$el.find('#list-controls-button').toggleClass('on', filters.length > 0);
+          app.models.user.toggleListFilter(this.id, $(this).data('group'));
+          that.updateListControlsButton();
       });
-    }
+    },
 
+    /**
+     * Updates the list controls button with the current state of the filtering.
+     * If one or more (non favourite) filters is turned on then the button is
+     * coloured accordingly.
+     */
+    updateListControlsButton: function () {
+      var filters = app.models.user.get('filters');
+      var activate = false;
+      _.each(filters, function (filterGroup, filterGroupID){
+        if (filterGroupID !== 'favouritesGroup' && filterGroup.length > 0) {
+          activate = true;
+        }
+      });
+
+      $(this.$listControlsButton.selector).toggleClass('running', activate);
+    }
   });
 
   return ListPage;

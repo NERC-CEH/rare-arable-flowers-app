@@ -19,7 +19,7 @@ define([
       location: null,
       location_acc: -1,
       sort: 'common_name',
-      filters: [],
+      filters: {},
       favourites: []
     },
 
@@ -121,22 +121,31 @@ define([
 
     /**
      * Adds/removes species list filter from user information.
+     *
      * @param filterID
+     * @param groupID group the filter belongs to
      * @returns {boolean}
      */
-    toggleListFilter: function (filterID) {
-      var filters = _.clone(this.get('filters'));  //CLONING problem as discussed:
+    toggleListFilter: function (filterID, groupID) {
+      // var userFilters = _.clone(this.get('filters'));  //CLONING problem as discussed:
       //https://stackoverflow.com/questions/9909799/backbone-js-change-not-firing-on-model-change
+      var userFilters = this.get('filters');
 
-      var exists = this.hasListFilter(filterID, filters);
-      if (exists) {
-        filters = _.without(filters, filterID);
+      var exists = false;
+      if (userFilters[groupID]) {
+        exists = userFilters[groupID].indexOf(filterID) >= 0;
+        if (exists) {
+          userFilters[groupID] = _.without(userFilters[groupID], filterID);
+        } else {
+          userFilters[groupID].push(filterID);
+        }
       } else {
-        filters.push(filterID);
+        userFilters[groupID] = [filterID];
       }
 
-      this.set('filters', filters);
+      this.set('filters', userFilters);
       this.save();
+      this.trigger('change:filters');
 
       return !exists; //return the state of the filter added/removed
     },
@@ -148,9 +157,9 @@ define([
      * @param filters
      * @returns {boolean}
      */
-    hasListFilter: function (filterID, filters) {
+    groupHasListFilter: function (filterID, groupID, filters) {
       filters = filters || this.get('filters');
-      return _.indexOf(filters, filterID) >= 0;
+      return _.indexOf(filters[groupID], filterID) >= 0;
     }
   });
 

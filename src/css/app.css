@@ -421,10 +421,32 @@ a.ui-btn > img {
     width: 3.5em;
 }
 
+
+#list-filters .ui-collapsible-content {
+    width: 80%;
+}
+
 label.filter, label.sort {
     width: 70%
 }
 
+#list-filters a{
+    width: 80%;
+}
+
+#list-filters fieldset,
+#list-filters .ui-collapsible-content{
+    padding: 0;
+    margin: 0;
+}
+
+
+#list-filters label {
+    width: 91%;
+    background-color: white;
+}
+
+#list-controls-clear-button,
 #list-controls-save-button{
     width: 30%;
 }

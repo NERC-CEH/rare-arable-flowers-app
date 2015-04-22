@@ -21,47 +21,148 @@ define([
      * label - label to represent the filter in the UI
      */
     filters: {
-      type: {
-        grass: {
-          label: 'Grasses',
-          filter: function (list, onSuccess) {
-            var filtered_list = [];
-            for (var j = 0; j < list.length; j++) {
-              if (list[j].attributes.type === 'G' || list[j].attributes.general) {
-                filtered_list.push(list[j]);
+      typeGroup: {
+        type: 'checkbox',
+        label: 'Plant type',
+
+        filters: {
+          grass: {
+            label: 'Grasses',
+            run: function (list, filteredList, onSuccess) {
+              for (var j = 0; j < list.length; j++) {
+                if (list[j].attributes.type === 'G' || list[j].attributes.general) {
+                  filteredList.push(list[j]);
+                }
               }
+              onSuccess(filteredList);
             }
-            onSuccess(filtered_list);
-          }
-        },
-        flower: {
-          label: 'Flowers',
-          filter: function (list, onSuccess) {
-            var filtered_list = [];
-            for (var j = 0; j < list.length; j++) {
-              if (list[j].attributes.type === 'F' || list[j].attributes.general) {
-                filtered_list.push(list[j]);
+          },
+          flower: {
+            label: 'Flowers',
+            run: function (list, filteredList, onSuccess) {
+              for (var j = 0; j < list.length; j++) {
+                if (list[j].attributes.type === 'F' || list[j].attributes.general) {
+                  filteredList.push(list[j]);
+                }
               }
+              onSuccess(filteredList);
             }
-            onSuccess(filtered_list);
           }
         }
       },
-      favourites: {
-        favourites: {
-          filter: function (list, onSuccess) {
-            var filtered_list = [];
-            var keys = app.models.user.get('favourites');
-            for (var i = 0; i < keys.length; i++) {
-              for (var j = 0; j < list.length; j++) {
-                if (list[j].attributes.id === keys[i]) {
-                  filtered_list.push(list[j]);
+      favouritesGroup: {
+        filters: {
+          favourites: {
+            run: function (list, filteredList, onSuccess) {
+              var keys = app.models.user.get('favourites');
+              for (var i = 0; i < keys.length; i++) {
+                for (var j = 0; j < list.length; j++) {
+                  if (list[j].attributes.id === keys[i]) {
+                    filteredList.push(list[j]);
+                  }
                 }
               }
+              onSuccess(filteredList);
             }
-            onSuccess(filtered_list);
           }
-        }}
+        }
+      },
+      colorGroup: {
+        type: 'checkbox',
+        label: 'Color',
+
+        filters: {
+          yellow: {
+            label: 'Yellow',
+            run: function (list, filteredList, onSuccess) {
+              for (var j = 0; j < list.length; j++) {
+                if (list[j].attributes.color.indexOf('y') >= 0) {
+                  filteredList.push(list[j]);
+                }
+              }
+              onSuccess(filteredList);
+            }
+          },
+          purple: {
+            label: 'Purple',
+            run: function (list, filteredList, onSuccess) {
+              for (var j = 0; j < list.length; j++) {
+                if (list[j].attributes.color.indexOf('pu') >= 0) {
+                  filteredList.push(list[j]);
+                }
+              }
+              onSuccess(filteredList);
+            }
+          },
+          white: {
+            label: 'White',
+            run: function (list, filteredList, onSuccess) {
+              for (var j = 0; j < list.length; j++) {
+                if (list[j].attributes.color.indexOf('w') >= 0) {
+                  filteredList.push(list[j]);
+                }
+              }
+              onSuccess(filteredList);
+            }
+          },
+          green: {
+            label: 'Green',
+            run: function (list, filteredList, onSuccess) {
+              for (var j = 0; j < list.length; j++) {
+                if (list[j].attributes.color.indexOf('gf') >= 0) {
+                  filteredList.push(list[j]);
+                }
+              }
+              onSuccess(filteredList);
+            }
+          },
+          blue: {
+            label: 'Blue',
+            run: function (list, filteredList, onSuccess) {
+              for (var j = 0; j < list.length; j++) {
+                if (list[j].attributes.color.indexOf('b') >= 0) {
+                  filteredList.push(list[j]);
+                }
+              }
+              onSuccess(filteredList);
+            }
+          },
+          orange: {
+            label: 'Orange',
+            run: function (list, filteredList, onSuccess) {
+              for (var j = 0; j < list.length; j++) {
+                if (list[j].attributes.color.indexOf('o') >= 0) {
+                  filteredList.push(list[j]);
+                }
+              }
+              onSuccess(filteredList);
+            }
+          },
+          red: {
+            label: 'Red',
+            run: function (list, filteredList, onSuccess) {
+              for (var j = 0; j < list.length; j++) {
+                if (list[j].attributes.color.indexOf('r') >= 0) {
+                  filteredList.push(list[j]);
+                }
+              }
+              onSuccess(filteredList);
+            }
+          },
+
+          ping: {
+            label: 'Pink',
+            run: function (list, filteredList, onSuccess) {
+              for (var j = 0; j < list.length; j++) {
+                if (list[j].attributes.color.indexOf('p') >= 0) {
+                  filteredList.push(list[j]);
+                }
+              }
+              onSuccess(filteredList);
+            }
+          }
+        }
+      }
     },
 
     /**
@@ -159,21 +260,23 @@ define([
      * Renders the species list.
      * @returns {SpeciesListView}
      */
-    render: function (onSuccess) {
+    render: function (callback) {
       _log('views.SpeciesList: render', log.DEBUG);
 
       var that = this;
-      this.prepareList(function (list){
+      var onSuccess = function (list){
         var container = document.createDocumentFragment(); //optimising the performance
         _.each(list, function (specie) {
           var listSpeciesView = new SpeciesListItemView({model: specie});
           container.appendChild(listSpeciesView.render().el);
         });
         that.$el.html(container); //appends to DOM only once
-        if (onSuccess){
-          onSuccess(that.$el);
+        if (callback){
+          callback(that.$el);
         }
-      });
+      };
+
+      this.prepareList(onSuccess);
       return this;
     },
 
@@ -188,10 +291,10 @@ define([
      * Prepares the species list - filters, sorts.
      */
     prepareList: function (callback) {
-      var filters = _.clone(app.models.user.get('filters'));
+      var filtersToApply = _.cloneDeep(app.models.user.get('filters'));
       var sort = app.models.user.get('sort');
       var list = this.collection.models.slice(); //shallow copy of array
-      this.prepareListCore(list, sort, filters, callback);
+      this.prepareListCore(list, sort, filtersToApply, callback);
     },
 
     /**
@@ -201,24 +304,30 @@ define([
      * @param sort
      * @param filters
      */
-    prepareListCore: function (list, sort, filters, callback) {
+    prepareListCore: function (list, sort, filtersToApply, callback) {
       //todo: might need to move UI functionality to higher grounds
       $.mobile.loading("show");
 
       var that = this;
       //filter list
-      var onFilterSuccess = null;
-      if (filters.length > 0) {
-        var filter = filters.pop();
+      var filterGroups = Object.keys(filtersToApply);
+      if (filterGroups.length > 0) {
+        var filterGroupID = filterGroups[0];
+        var filterGroup = filtersToApply[filterGroupID];
+        if (filterGroup.length > 0) {
+          var onFilterGroupSuccess = function (species) {
+            delete filtersToApply[filterGroup];
+            that.prepareListCore(species, sort, filtersToApply, callback);
+            return;
+          };
 
-        onFilterSuccess = function (species) {
-          that.prepareListCore(species, sort, filters, callback);
-        };
-
-        var group = this.getFilterCurrentGroup(filter);
-
-        this.filters[group][filter].filter(list, onFilterSuccess);
-        return;
+          this.filterGroupCore(list, [], filterGroup, filterGroupID, onFilterGroupSuccess);
+          return;
+        } else {
+          delete filtersToApply[filterGroupID];
+          that.prepareListCore(list, sort, filtersToApply, callback);
+          return;
+        }
       }
 
       function onSortSuccess() {
@@ -233,17 +342,43 @@ define([
     },
 
     /**
+     * Iterates through the grouped filters applying them to the list.
+     *
+     * @param list
+     * @param filteredList
+     * @param filterGroup filters to apply
+     * @param filterGroupID
+     * @param callback
+     */
+    filterGroupCore: function (list, filteredList, filterGroup, filterGroupID, callback) {
+      if (filterGroup.length > 0) {
+        var filterID = filterGroup.pop();
+        var filter = this.filters[filterGroupID].filters[filterID];
+        var that = this;
+
+        var onSuccess = function (filteredList) {
+          var uniqueFilteredList = _.uniq(filteredList);
+          that.filterGroupCore(list, uniqueFilteredList, filterGroup, filterGroupID, callback);
+        };
+        filter.run(list, filteredList, onSuccess);
+
+      } else {
+        callback(filteredList);
+      }
+    },
+
+    /**
      * Returns the roup of the filterID.
      *
      * @param filter
      * @returns {Array}
      */
     getFilterCurrentGroup: function (filterID) {
-      var group = null;
       //iterate all filter groups
+      var group = null;
       _.each(this.filters, function (groupFilters, groupID) {
         //and filters
-        _.each(groupFilters, function (_filter, _filterID) {
+        _.each(groupFilters.filters, function (_filter, _filterID) {
           if(_filterID === filterID) {
             group = groupID;
           }

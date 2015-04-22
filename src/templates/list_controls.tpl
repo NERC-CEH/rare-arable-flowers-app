@@ -12,12 +12,9 @@
     <div id="list-controls-sort-placeholder"></div>
 </div>
 <div id="filter" class="ui-body-d ui-content">
-    <div class="info-message">
-        <p>Please check filters to apply. </p>
-    </div>
     <div id="list-controls-filter-placeholder"></div>
     <center>
-        <button id="list-controls-save-button">Close</button>
+        <button id="list-controls-save-button">Done</button>
     </center>
 </div>
 
