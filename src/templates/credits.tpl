@@ -12,11 +12,15 @@
                 create this app:</strong>
             <ul class="list-normal-white-space">
                 <li><p>Dr Richard Pywell (CEH)</p></li>
-                <li><p>Dr David Roy (BRC)</p></li>
+                <li><p>Dr David Roy (CEH)</p></li>
                 <li><p>Karolis Kazlauskis (CEH, app development)</p></li>
+                <li><p>Emily Swan (Natural England)</p></li>
+                <li><p>Cath Shellswell (Plantlife, species maps)</p></li>
+                <li><p>Mike Green (Natural England)</p></li>
+                <li><p>Markus Wagner (CEH, species maps)</p></li>
                 <li><p>Dr Colin Harrower (CEH, species maps)</p></li>
                 <li><p>John Redhead (CEH, species heatmap)</p></li>
-                <li><p>Andrew Evans (Plantlife, management illustrations)</p></li>
+                <li><p>Andrew Evans (evansbleep.co.uk, management illustrations)</p></li>
             </ul>
         </li>
         <li>

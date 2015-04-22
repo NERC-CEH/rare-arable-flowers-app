@@ -8,9 +8,9 @@
 <div data-role="content">
     <ul data-role="listview" data-inset="true" style="max-width:800px;">
         <li>
-            <p>Thank you for your interest in this Dragonfly Recording Scheme
+            <p>Thank you for your interest in this rare plants recording scheme
                 and for your help in providing data on these species. This page explains
-                how any personal data you submit to the <i>iRecord Dragonflies</i> app will be stored and used.</p>
+                how any personal data you submit to the <i>Rare Arable Flowers</i> app will be stored and used.</p>
         </li>
         <li>
             <strong>Name</strong>
@@ -41,12 +41,12 @@
             <strong>How long will my data be stored?</strong>
 
             <p>Your submitted records will be stored permanently and used to inform the conservation and study
-                of dragonflies and related insects in the future.</p>
+                of rare plants in the future.</p>
         </li>
         <li>
             <strong>Who will have access to my personal data?</strong>
 
-            <p>Only those directly involved in developing this app and running this Dragonfly Recording Scheme
+            <p>Only those directly involved in developing this app and running this rare arable plants
                 or verifying records as experts, will have access to your email address.
                 Unless required by law, data will not be made available to any third parties unless we have
                 obtained your permission to do so.</p>

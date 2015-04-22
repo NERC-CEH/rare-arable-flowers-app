@@ -19,7 +19,9 @@
         <li>
             <strong>Further information</strong>
             <p>For further information about the <i>Rare Arable Flowers</i> app and
-                the survey, please visit ........</p>
+                the survey, please visit
+                <a href="http://randd.defra.gov.uk/Default.aspx?Menu=Menu&Module=More&Location=None&Completed=0&ProjectID=17322">project page</a>.
+            </p>
         </li>
     </ul>
     <ul data-role="listview" data-inset="true" style="max-width:800px;">
