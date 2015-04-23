@@ -13,7 +13,7 @@ define([
 
     template: app.templates.mgmtlocation,
 
-    MAX: 70,
+    MAX: 60,
     COLOR: 'red',
 
     initialize: function () {
