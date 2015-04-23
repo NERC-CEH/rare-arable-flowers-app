@@ -134,7 +134,8 @@ define(['morel', 'helpers/log'], function () {
       "Crop": 4788,
       "Stubble": 4789,
       "Track / gateway": 4790,
-      "Other": 4791
+      "Other": 4791,
+      "Grassland": 4792
     },
     NUMBER: 'occAttr:383',
     NUMBER_VAL: {

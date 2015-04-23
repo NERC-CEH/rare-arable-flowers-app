@@ -41,7 +41,7 @@
             <p><strong>Conservation status:</strong> <span><%- conservation_status %></span></p>
         </li>
         <li>
-            <p><strong>Management:</strong></p>
+            <p><strong>Occurrence in conservation habitats:</strong></p>
             <p><%= management %></p>
         </li>
     </ul>
