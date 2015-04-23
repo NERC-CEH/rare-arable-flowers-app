@@ -35,6 +35,40 @@
                 </li>
             </ul>
             <p>The majority of arable flowers are annual, but a few are biennial (forming a rosette in the first year, flowering in the second year to complete their lifecycle and then dying) and will require cultivations once every two years. For example, cat-mint is a biennial flower.</p>
+
+            <div data-role="collapsibleset" data-inset="true" class="schemes">
+                <div data-role="collapsible" data-collapsed-icon="plus">
+                    <h4>England</h4>
+                    <strong>Entry Level Stewardship</strong>
+                    <p><b>EF11</b> - Uncropped, cultivated margins for rare plants</p>
+                    <strong>Higher Level Stewardship</strong>
+                    <p>
+                        <b>HF11</b> - Uncropped, cultivated margins for rare plants </br>
+                        <b>HF20</b> - Cultivated fallow plots or margins for arable plants
+                    </p>
+                    <strong>Countryside Stewardship</strong>
+                    <p><b>AB11</b> - Cultivated areas for arable plants</p>
+                </div>
+                <div data-role="collapsible" data-collapsed-icon="plus">
+                    <h4>Wales</h4>
+                    <strong>Glastir</strong>
+                    <p><b>Option 29 </b>- Uncropped fallow margins alongside arable and root crops</p>
+                </div>
+                <div data-role="collapsible" data-collapsed-icon="plus">
+                    <h4>Scotland</h4>
+                    <strong>Rural Stewardship Scheme</strong>
+                    <p>N/A</p>
+                    <strong>Agri-environment Climatic Scheme</strong>
+                    <p>N/A</p>
+                </div>
+                <div data-role="collapsible" data-collapsed-icon="plus">
+                    <h4>Northern Ireland</h4>
+                    <strong>Countryside Management Scheme</strong>
+                    <p>N/A</p>
+                    <strong>Environmental Farming Scheme</strong>
+                    <p>To be confirmed</p>
+                </div>
+            </div>
         </div>
         <div data-role="collapsible" data-collapsed-icon="carat-d"
              data-expanded-icon="carat-u">
@@ -63,6 +97,39 @@
                     <p>If the headland is to be harvested, a pre-harvested desiccant could be applied. Unharvested cereal headlands can be left in place over the winter to provide a seed source for farmland birds that will eat both the cereal grain and seeds from the arable flowers.</p>
                 </li>
             </ul>
+            <div data-role="collapsibleset" data-inset="true" class="schemes">
+                <div data-role="collapsible" data-collapsed-icon="plus">
+                    <h4>England</h4>
+                    <strong>Entry Level Stewardship</strong>
+                    <p>
+                        <b>EF9 </b>- Unfertilised cereal headlands </br>
+                        <b>EF10 </b> - Unharvested cereal headlands
+                    </p>
+                    <strong>Higher Level Stewardship</strong>
+                    <p><b>HF14</b> - Unharvested fertiliser free conservation headlands</p>
+                    <strong>Countryside Stewardship</strong>
+                    <p><b>AB10</b> – Unharvested cereal headland </p>
+                </div>
+                <div data-role="collapsible" data-collapsed-icon="plus">
+                    <h4>Wales</h4>
+                    <strong>Glastir</strong>
+                    <p>N/A</p>
+                </div>
+                <div data-role="collapsible" data-collapsed-icon="plus">
+                    <h4>Scotland</h4>
+                    <strong>Rural Stewardship Scheme</strong>
+                    <p><b>Option 22.</b> Management Conservation Headlands</p>
+                    <strong>Agri-environment Climatic Scheme</strong>
+                    <p>Unharvested conservation headlands for wildlife</p>
+                </div>
+                <div data-role="collapsible" data-collapsed-icon="plus">
+                    <h4>Northern Ireland</h4>
+                    <strong>Countryside Management Scheme</strong>
+                    <p>N/A</p>
+                    <strong>Environmental Farming Scheme</strong>
+                    <p>To be confirmed</p>
+                </div>
+            </div>
         </div>
 
         <div data-role="collapsible" data-collapsed-icon="carat-d"
@@ -87,6 +154,56 @@
                     <p>Herbicides will kill the arable flowers and shouldn’t be used.</p>
                 </li>
             </ul>
+
+            <div data-role="collapsibleset" data-inset="true" class="schemes">
+                <div data-role="collapsible" data-collapsed-icon="plus">
+                    <h4>England</h4>
+                    <strong>Entry Level Stewardship</strong>
+                    <p><b>EF15</b> - Reduced herbicide cereal crops followed by overwintered stubble</p>
+
+                    <strong>Higher Level Stewardship</strong>
+                    <p>
+                        <b>HF15</b> - Reduced herbicide cereal crops followed by overwintered stubble </br>
+                        <b>HG6</b> - Fodder crop management to retain or re-create and arable mosaic </br>
+                        <b>HG7</b> - Low input spring cereal to retain or re-create and arable mosaic </br>
+                    </p>
+
+                    <strong>Countryside Stewardship</strong>
+                    <p><b>AB14</b> – Low input cereal</p>
+                </div>
+                <div data-role="collapsible" data-collapsed-icon="plus">
+                    <h4>Wales</h4>
+                    <strong>Glastir</strong>
+                    <p><b>Option 24.</b> Un-sprayed cereal, rape and linseed crops</p>
+                </div>
+                <div data-role="collapsible" data-collapsed-icon="plus">
+                    <h4>Scotland</h4>
+                    <strong>Rural Stewardship Scheme</strong>
+                    <p>
+                        <b>25.</b> Introduction or retention of extensive cropping.</br>
+                        <b>27.</b> Management of cropped Machair.</br>
+                        <b>28.</b> Unharvested Crops
+                    </p>
+                    <strong>Agri-environment Climatic Scheme</strong>
+                    <p>
+                        Wild bird seed for farmland birds </br>
+                        Forage brassica crops for farmland birds </br>
+                        Cropped machair
+                    </p>
+                </div>
+                <div data-role="collapsible" data-collapsed-icon="plus">
+                    <h4>Northern Ireland</h4>
+                    <strong>Countryside Management Scheme</strong>
+                    <p>Conservation Cereals </br>
+                        Wild bird cover
+                    </p>
+                    <strong>Environmental Farming Scheme</strong>
+                    <p>
+                        Winter feed crop for farmland birds (to be confirmed) </br>
+                        Spring cereal and winter stubble (to be confirmed)
+                    </p>
+                </div>
+            </div>
         </div>
         <div data-role="collapsible" data-collapsed-icon="carat-d"
              data-expanded-icon="carat-u">

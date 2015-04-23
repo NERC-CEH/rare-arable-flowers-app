@@ -366,6 +366,10 @@ div.taxon {
     display: none !important;
 }
 
+.schemes p {
+    margin-left: 5%;
+}
+
 @media only screen and (max-width: 400px) {
 
     h1.taxon {
