@@ -17,7 +17,7 @@
             <h4>Uncropped Cultivated Land</h4>
             <img src="images/option_27.png">
 
-            <p>Some arable flowers survive on the edges and in the corners of cultivated fields. These are locations that may not have been sprayed with herbicide in the past and may also have been missed by fertilisers. To mimic this management, uncropped cultivated plots and margins are the best management. Most arable plants respond favourably to this management, but it is especially suited to flowers that can’t compete with modern cropping, such as ground-pine, pheasant’s-eye, small-flowered catchfly and annual knawel. </p>
+            <p>Some arable flowers survive on the edges and in the corners of cultivated fields. These are locations that may not have been sprayed with herbicide in the past and may also have been missed by fertilisers. To mimic this management, uncropped cultivated plots and margins are the best management. Most arable plants respond favourably to this management, but it is especially suited to flowers that can’t compete with modern cropping, such as <a href="#species/3">ground-pine</a>, <a href="#species/1">pheasant’s-eye</a>, <a href="#species/103">small-flowered catchfly</a> and <a href="#species/101">annual knawel</a>. </p>
 
             <p>Aim to create a fine seedbed either in the spring or autumn, depending on the target species (see species guide), and then allow a natural cover to develop. </p>
             <ul class="list-normal-white-space">
@@ -34,11 +34,11 @@
                     <p>Try and leave the cultivated plots and/or margins as long as possible. Arable plants will flower long into the autumn letting them complete their lifecycle and set seed. Also, some of the common plants associated with arable habitat, such as red dead-nettle, can flower early in the spring providing an early nectar resource for insects, particularly bees, coming out of hibernation. </p>
                 </li>
             </ul>
-            <p>The majority of arable flowers are annual, but a few are biennial (forming a rosette in the first year, flowering in the second year to complete their lifecycle and then dying) and will require cultivations once every two years. For example, cat-mint is a biennial flower.</p>
+            <p>The majority of arable flowers are annual, but a few are biennial (forming a rosette in the first year, flowering in the second year to complete their lifecycle and then dying) and will require cultivations once every two years. For example, <a href="#species/85">cat-mint</a> is a biennial flower.</p>
 
-            <div data-role="collapsibleset" data-inset="true" class="schemes">
+            <div data-role="collapsibleset" data-mini="true" data-inset="true" class="schemes">
                 <div data-role="collapsible" data-collapsed-icon="plus">
-                    <h4>England</h4>
+                    <h2>England</h2>
                     <strong>Entry Level Stewardship</strong>
                     <p><b>EF11</b> - Uncropped, cultivated margins for rare plants</p>
                     <strong>Higher Level Stewardship</strong>
@@ -50,19 +50,19 @@
                     <p><b>AB11</b> - Cultivated areas for arable plants</p>
                 </div>
                 <div data-role="collapsible" data-collapsed-icon="plus">
-                    <h4>Wales</h4>
+                    <h2>Wales</h2>
                     <strong>Glastir</strong>
                     <p><b>Option 29 </b>- Uncropped fallow margins alongside arable and root crops</p>
                 </div>
                 <div data-role="collapsible" data-collapsed-icon="plus">
-                    <h4>Scotland</h4>
+                    <h2>Scotland</h2>
                     <strong>Rural Stewardship Scheme</strong>
                     <p>N/A</p>
                     <strong>Agri-environment Climatic Scheme</strong>
                     <p>N/A</p>
                 </div>
                 <div data-role="collapsible" data-collapsed-icon="plus">
-                    <h4>Northern Ireland</h4>
+                    <h2>Northern Ireland</h2>
                     <strong>Countryside Management Scheme</strong>
                     <p>N/A</p>
                     <strong>Environmental Farming Scheme</strong>
@@ -75,7 +75,7 @@
             <h4>Cereal Headlands</h4>
             <img src="images/option_34B.png">
 
-            <p>Some arable flowers, such as shepherds-needle and corn buttercup, will thrive in a situation which mimics historical cropping patterns. These plants can grow within crops as well as along the edges of crops, and can compete with modern cereal varieties that are sown at a reduced drill rate and have less fertiliser.</p>
+            <p>Some arable flowers, such as <a href="#species/100">shepherds-needle</a> and <a href="#species/94">corn buttercup</a>, will thrive in a situation which mimics historical cropping patterns. These plants can grow within crops as well as along the edges of crops, and can compete with modern cereal varieties that are sown at a reduced drill rate and have less fertiliser.</p>
             <p>Aim to create a widely spaced low-input cereal crop along the field margin:</p>
             <ul class="list-normal-white-space">
                 <li>
@@ -97,9 +97,9 @@
                     <p>If the headland is to be harvested, a pre-harvested desiccant could be applied. Unharvested cereal headlands can be left in place over the winter to provide a seed source for farmland birds that will eat both the cereal grain and seeds from the arable flowers.</p>
                 </li>
             </ul>
-            <div data-role="collapsibleset" data-inset="true" class="schemes">
+            <div data-role="collapsibleset" data-mini="true" data-inset="true" class="schemes">
                 <div data-role="collapsible" data-collapsed-icon="plus">
-                    <h4>England</h4>
+                    <h2>England</h2>
                     <strong>Entry Level Stewardship</strong>
                     <p>
                         <b>EF9 </b>- Unfertilised cereal headlands </br>
@@ -111,19 +111,19 @@
                     <p><b>AB10</b> – Unharvested cereal headland </p>
                 </div>
                 <div data-role="collapsible" data-collapsed-icon="plus">
-                    <h4>Wales</h4>
+                    <h2>Wales</h2>
                     <strong>Glastir</strong>
                     <p>N/A</p>
                 </div>
                 <div data-role="collapsible" data-collapsed-icon="plus">
-                    <h4>Scotland</h4>
+                    <h2>Scotland</h2>
                     <strong>Rural Stewardship Scheme</strong>
                     <p><b>Option 22.</b> Management Conservation Headlands</p>
                     <strong>Agri-environment Climatic Scheme</strong>
                     <p>Unharvested conservation headlands for wildlife</p>
                 </div>
                 <div data-role="collapsible" data-collapsed-icon="plus">
-                    <h4>Northern Ireland</h4>
+                    <h2>Northern Ireland</h2>
                     <strong>Countryside Management Scheme</strong>
                     <p>N/A</p>
                     <strong>Environmental Farming Scheme</strong>
@@ -138,7 +138,7 @@
             <img src="images/option_30.png">
             <img src="images/option_32.png">
 
-            <p>Less intensive management of crops on a field scale can also benefit arable flowers. This is particularly suitable where root crops are grown for livestock feed over the winter, such as beet, or spring sown cereals with peas are grown for whole crop silage. Plants that grow in this type of arable habitat include cornflower, corn marigold, weasel’s-snout and purple bugloss.</p>
+            <p>Less intensive management of crops on a field scale can also benefit arable flowers. This is particularly suitable where root crops are grown for livestock feed over the winter, such as beet, or spring sown cereals with peas are grown for whole crop silage. Plants that grow in this type of arable habitat include <a href="#species/26">cornflower</a>, <a href="#species/61">corn marigold</a>, <a href="#species/83">weasel’s-snout</a> and <a href="#species/34"> purple bugloss.</a></p>
             <p>Aim to create a field-sized cereal headland under the relevant crop:</p>
             <ul class="list-normal-white-space">
                 <li>
@@ -155,9 +155,9 @@
                 </li>
             </ul>
 
-            <div data-role="collapsibleset" data-inset="true" class="schemes">
+            <div data-role="collapsibleset" data-mini="true" data-inset="true" class="schemes">
                 <div data-role="collapsible" data-collapsed-icon="plus">
-                    <h4>England</h4>
+                    <h2>England</h2>
                     <strong>Entry Level Stewardship</strong>
                     <p><b>EF15</b> - Reduced herbicide cereal crops followed by overwintered stubble</p>
 
@@ -172,12 +172,12 @@
                     <p><b>AB14</b> – Low input cereal</p>
                 </div>
                 <div data-role="collapsible" data-collapsed-icon="plus">
-                    <h4>Wales</h4>
+                    <h2>Wales</h2>
                     <strong>Glastir</strong>
                     <p><b>Option 24.</b> Un-sprayed cereal, rape and linseed crops</p>
                 </div>
                 <div data-role="collapsible" data-collapsed-icon="plus">
-                    <h4>Scotland</h4>
+                    <h2>Scotland</h2>
                     <strong>Rural Stewardship Scheme</strong>
                     <p>
                         <b>25.</b> Introduction or retention of extensive cropping.</br>
@@ -192,7 +192,7 @@
                     </p>
                 </div>
                 <div data-role="collapsible" data-collapsed-icon="plus">
-                    <h4>Northern Ireland</h4>
+                    <h2>Northern Ireland</h2>
                     <strong>Countryside Management Scheme</strong>
                     <p>Conservation Cereals </br>
                         Wild bird cover

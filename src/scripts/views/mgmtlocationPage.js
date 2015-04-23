@@ -110,9 +110,11 @@ define([
             strokeColor: 'grey'
           };
         });
-        google.maps.event.trigger(map, 'resize');
         map.setCenter(new google.maps.LatLng(55.4, -4));
-
+        //fix one tile problem
+        setTimeout(function () {
+          google.maps.event.trigger(map, 'resize');
+        }, 100);
       });
     },
 
