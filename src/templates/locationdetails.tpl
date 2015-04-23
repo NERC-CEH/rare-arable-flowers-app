@@ -3,7 +3,7 @@
             <a href='#' data-rel="back" data-role="button"
                data-icon="delete">Cancel</a>
         </div>
-        <h1>Location Details</h1>
+        <h1>Habitat Details</h1>
     </div>
     <div data-role="content">
         <div class="info-message">

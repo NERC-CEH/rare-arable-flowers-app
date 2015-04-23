@@ -49,7 +49,7 @@
         <li>
             <a href="#locationdetails" id="locationdetails-button" class="record-button" data-role="button"
                data-icon="arrow-r" data-iconpos="right">
-                <h3 class="heading">Location Details</h3>
+                <h3 class="heading">Habitat Details</h3>
                 <p class="descript"></p>
             </a>
         </li>

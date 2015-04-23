@@ -22,45 +22,6 @@
     <div data-role="collapsibleset" data-inset="false">
         <div data-role="collapsible" data-collapsed-icon="carat-d"
              data-expanded-icon="carat-u">
-            <h4>Basic Payment Scheme - Greening</h4>
-            <img src="images/option_33.png">
-
-            <p>Areas of un-cropped fallow land utilised under the new Basic Payment
-                Scheme as part of the Crop diversification rules and Environmental
-                Focus Areas greening requirements can provide suitable conditions
-                for many arable plant species.</p>
-
-            <p>Arable flowers are essentially plants of disturbed ground. Therefore
-                other farm activities which provide disturbed ground at the relevant
-                times of year can allow arable plants to flourish.</p>
-            <ul class="list-normal-white-space">
-                <li>
-                    <p>Wild bird seed mixes- grown predominantly to provide winter
-                        seeds for farmland birds but can also have a rich arable
-                        flora.</p>
-                </li>
-                <li>
-                    <p>Pollen and nectar strips- legume based mixes but which do not
-                        receive chemical treatments.</p>
-                </li>
-                <li>
-                    <p>Including spring cropping in the rotation can introduced
-                        crops with lower inputs which benefit arable flowers.</p>
-                </li>
-                <li>
-                    <p>Summer fallows, used as break crop can provide a window of
-                        opportunity for arable flowers to germinate and set
-                        seed.</p>
-                </li>
-                <li>
-                    <p>Cereal stubbles, particularly those of a spring crop can
-                        provide extended flowering and seeding conditions for later
-                        species of arable flowers.</p>
-                </li>
-            </ul>
-        </div>
-        <div data-role="collapsible" data-collapsed-icon="carat-d"
-             data-expanded-icon="carat-u">
             <h4>Uncropped Cultivated Land</h4>
             <img src="images/option_27.png">
 
@@ -131,6 +92,45 @@
                         to provide extensive cropping conditions which provide less
                         competition for arable flowers and which are not treated
                         with herbicide.</p>
+                </li>
+            </ul>
+        </div>
+        <div data-role="collapsible" data-collapsed-icon="carat-d"
+             data-expanded-icon="carat-u">
+            <h4>Other</h4>
+            <img src="images/option_33.png">
+
+            <p>Areas of un-cropped fallow land utilised under the new Basic Payment
+                Scheme as part of the Crop diversification rules and Environmental
+                Focus Areas greening requirements can provide suitable conditions
+                for many arable plant species.</p>
+
+            <p>Arable flowers are essentially plants of disturbed ground. Therefore
+                other farm activities which provide disturbed ground at the relevant
+                times of year can allow arable plants to flourish.</p>
+            <ul class="list-normal-white-space">
+                <li>
+                    <p>Wild bird seed mixes- grown predominantly to provide winter
+                        seeds for farmland birds but can also have a rich arable
+                        flora.</p>
+                </li>
+                <li>
+                    <p>Pollen and nectar strips- legume based mixes but which do not
+                        receive chemical treatments.</p>
+                </li>
+                <li>
+                    <p>Including spring cropping in the rotation can introduced
+                        crops with lower inputs which benefit arable flowers.</p>
+                </li>
+                <li>
+                    <p>Summer fallows, used as break crop can provide a window of
+                        opportunity for arable flowers to germinate and set
+                        seed.</p>
+                </li>
+                <li>
+                    <p>Cereal stubbles, particularly those of a spring crop can
+                        provide extended flowering and seeding conditions for later
+                        species of arable flowers.</p>
                 </li>
             </ul>
         </div>

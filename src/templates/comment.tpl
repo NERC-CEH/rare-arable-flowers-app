@@ -11,7 +11,7 @@
 </div>
 <div data-role="content">
     <div class="info-message">
-        <p>Please add any extra info about this record.</p>
+        <p>Please add any extra info about this record </br> e.g. crop type, soil type, may originate from seed mixture</p>
     </div>
     <textarea id="sample:comment" name="sample:comment" class=" " cols="80"
           rows="4"></textarea>
