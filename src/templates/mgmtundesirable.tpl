@@ -12,9 +12,9 @@
                 <p>Topping un-cropped areas at a height of 1ft or more can be used to prevent seeding of undesirable weed species, such wild oats, creeping thistle during the growing season as many desirable arable species will be shorter than this and be unaffected by the cut.</p>
                 <p>Rotating the un-cropped areas around the farm can help control and prevent a build-up of undesirable weed species.</p>
                 <p>Varying the cultivation timing and depth can help control undesirable species whilst providing a range of conditions for both spring and autumn germinating arable plants.</p>
-                <p>Sterile Brome and Black-grass can be controlled by ploughing to 15cm or more.</p>
-                <p>Black-grass can also be controlled by swapping from an autumn to a spring cultivation periodically.</p>
-                <p>For margins/plots which remain in the same place every year strategic use of graminicides against grass weed species that cannot be controlled by cultivation  may be required. Similarly the periodic use (once every 3-5 years) of broad spectrum herbicide after the flowering period can be applied to control injurious weeds.</p>
+                <p>Sterile brome and black-grass can be controlled by ploughing to 15cm or more.</p>
+                <p>Black-grass can also be controlled by swapping from autumn to spring cultivation periodically.</p>
+                <p>For margins/plots, which remain in the same place every year, strategic use of graminicides against grass weed species that can’t be controlled by cultivation may be required. Similarly the periodic use (once every 3-5 years) of broad spectrum herbicide after the flowering period can be applied to control injurious weeds. </p>
                 <div class="warning-message">
                     <p style="white-space: normal">N.B. Where management may involve chemical treatments please ensure specialist advice and all label recommendations are observed.</p>
                 </div>

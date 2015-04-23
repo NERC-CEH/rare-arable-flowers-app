@@ -12,12 +12,11 @@
            </li>
            <li>
                <strong>England:</strong>
-               <p>Countryside Stewardship- the replacement scheme</p>
-               <p>Farm Wildlife Package</p>
+               <p>Countryside Stewardship wild pollinator and farm wildlife package</p>
            </li>
            <li>
                <strong>Scotland:</strong>
-               <p>Agri-environment Climatic Scheme</p>
+               <p>Voluntary and Agri-environment Climatic Scheme</p>
             </li>
            <li>
                <strong>Wales:</strong>
