@@ -3,10 +3,11 @@
  *****************************************************************************/
 define([
   'views/_page',
+  'views/contactDetailsDialog',
   'templates',
   'morel',
   'conf'
-], function(Page) {
+], function(Page, contactDetailsDialog) {
   'use strict';
 
   var RecordPage = Page.extend({
@@ -133,7 +134,14 @@ define([
 
         switch (app.CONF.SEND_RECORD.STATUS) {
           case true:
-            app.models.record.send(onSendSuccess, onError);
+            if (app.models.user.hasSignIn()) {
+              app.models.record.send(onSendSuccess, onError);
+            } else {
+              $.mobile.loading('show');
+              contactDetailsDialog(function() {
+                app.models.record.send(onSendSuccess, onError);
+              });
+            }
             break;
           case 'simulate':
             this.sendSimulate(onSendSuccess, onError);

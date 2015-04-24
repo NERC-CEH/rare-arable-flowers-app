@@ -14,6 +14,7 @@ define([
 
     defaults: {
       name: '',
+      surname: '',
       email: '',
       secret: '',
       location: null,
@@ -39,7 +40,7 @@ define([
       this.set('email', '');
       this.set('secret', '');
       this.set('name', '');
-
+      this.set('surname', '');
       this.save();
     },
 
@@ -50,10 +51,26 @@ define([
      * @param user User object or empty object
      */
     signIn: function (user) {
-      this.set('email', user.email);
-      this.set('secret', user.secret);
-      this.set('name', user.name);
+      this.set('secret', user.secret || '');
+      this.setContactDetails(user);
       this.save()
+    },
+
+    /**
+     * Sets user contact information.
+     */
+    setContactDetails: function (user) {
+      this.set('email', user.email || '');
+      this.set('name', user.name || '');
+      this.set('surname', user.surname || '');
+      this.save();
+    },
+
+    /**
+     * Returns user contact information.
+     */
+    hasSignIn: function () {
+      return this.get('secret');
     },
 
     /**

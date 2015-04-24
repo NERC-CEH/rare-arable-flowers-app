@@ -44,7 +44,8 @@
             <p><strong>Occurrence in conservation habitats:</strong></p>
             <p><%= management %></p>
             <p>
-                <a href="#mgmtconservation" data-role="button" data-mini="true">More About Conservation</a>
+                <a href="#mgmtconservation" data-role="button" data-icon="info"
+                   data-mini="true">More About Conservation</a>
             </p>
         </li>
     </ul>

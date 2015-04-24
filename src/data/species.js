@@ -1090,9 +1090,9 @@ app.data.species = [
     "type": "F"
   }, 
   {
-    "profile_pic": "images/Fumaria_vaillantii_CS.jpg", 
+    "profile_pic": "images/Galeopsis_angustifolia_CS.jpg", 
     "description": "Low-growing plant, up to 50cm. Shallowly-toothed, softly-hairy, spear-shaped leaves up to 1.5cm long by less than 1cm wide. The relatively large asymmetrical flowers have a hooded upper-lips, large three-lobed lower lip and very long corolla tube and are densely clustered in leaf axils. The pinkish-red petals have white patches and each flower produced four seeds. Red hemp-nettle has declined through the use of broad-spectrum herbicides, more competitive crop varieties and an increase in fertiliser application, and the general change from spring to autumn cultivation, which has reduced the amount of suitably managed habitat.", 
-    "map": "images/Fumaria vaillantii.svg", 
+    "map": "images/Galeopsis angustifolia.svg", 
     "color": [
       "pu", 
       "p"
@@ -1112,9 +1112,9 @@ app.data.species = [
     "type": "F"
   }, 
   {
-    "profile_pic": "images/Galeopsis_angustifolia_CS.jpg", 
+    "profile_pic": "images/Fumaria_vaillantii_CS.jpg", 
     "description": "A typical fumitory with blue-green leaves, leaf segments are relatively flat. The asymmetrical flowers have fused petals forming a tube but separating at the tip. Flowers are 5-6mm long, pale pink with reddish-black tipped petals. There are 6-16 loosely arranged flowers per raceme and the raceme is longer than flower stalk. The pale purple toothed sepal is very small 1mm long by 0.5mm wide. Fruits are spherical, rounded at apex and 2mm in diameter.", 
-    "map": "images/Galeopsis angustifolia.svg", 
+    "map": "images/Fumaria vaillantii.svg", 
     "color": [
       "r"
     ], 
@@ -1662,7 +1662,7 @@ app.data.species = [
     "type": "F"
   }, 
   {
-    "profile_pic": "images/Melampyrum_arvense_CS.jpg", 
+    "profile_pic": "images/Mentha_arvensis_CG.jpg", 
     "description": "Downy, aromatic herb with a 'peppery' mint smell when bruised, 10-30cm tall. Leaves are round-elliptical and blunt-tipped arranged in opposite pairs up the stem. Dense whorls of flowers are present at the leaf axils. The calyx of each flower is bell-shaped and very hairy with short triangular teeth. The petals are mauve with projecting stamens.", 
     "map": "images/Melampyrum arvense.svg", 
     "color": [
@@ -1683,7 +1683,7 @@ app.data.species = [
     "type": "F"
   }, 
   {
-    "profile_pic": "images/Mentha_arvensis_CG.jpg", 
+    "profile_pic": "images/Melampyrum_arvense_CS.jpg", 
     "description": "Erect plant with branching stems, up to 60cm. The leaves are glossy-green, spear-shaped and stalkless, often with a few teeth at the base. Flowers are bright coloured, borne in dense, cylindrical, terminal spikes and have a yellow corolla-tube and two mainly purple pink lips above a strongly toothed pinkish-red bract. Field cow-wheat has declined due to better seed cleaning and more intensive agriculture along field margins. It is partially parasitic on a range of other flowering plants.", 
     "map": "images/Mentha arvensis.svg", 
     "color": [

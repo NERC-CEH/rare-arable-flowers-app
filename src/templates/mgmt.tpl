@@ -9,19 +9,19 @@
         <ul data-role="listview" data-inset="true">
             <li>
                 <a href="#mgmtlocation" data-role="button" data-icon="arrow-r"
-                   data-iconpos="right">Pick the right Location</a>
+                   data-iconpos="right">Pick the right location</a>
             </li>
             <li>
                 <a href="#mgmtconservation" data-role="button" data-icon="arrow-r"
-                   data-iconpos="right">Conserving Arable Flowers</a>
+                   data-iconpos="right">Conserving arable flowers</a>
             </li>
             <li>
                 <a href="#mgmtundesirable" data-role="button" data-icon="arrow-r"
-                   data-iconpos="right">Managing Undesirable Species</a>
+                   data-iconpos="right">Managing undesirable species</a>
             </li>
             <li>
                 <a href="#mgmtschemes" data-role="button" data-icon="arrow-r"
-                   data-iconpos="right">Agri-environment Schemes </a>
+                   data-iconpos="right">Agri-environment schemes </a>
             </li>
         </ul>
     </div>
