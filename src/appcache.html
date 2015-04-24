@@ -15,14 +15,24 @@
     .progress-radial-bar {
       fill: #3A8829;
     }
+
+    .error {
+      word-wrap: break-word;
+      color: white;
+    }
+
+    .error h2{
+      margin-bottom: 10px;
+      color: red;
+    }
   </style>
 
   <!-- JS -->
   <script src="scripts/libs/jquery.js"></script>
   <script type="text/javascript">
     var lastUpdate = 0;
-    var TIME_DIFF = 50; //ms
-    var files_total = 195;
+    var TIME_DIFF = 20; //ms
+    var files_total = 278;
     var max = 1.0;
 
     $(document).ready(function($) {
@@ -48,10 +58,13 @@
                   var message = '';
                   switch (e.type) {
                     case 'error':
-                      message = "Error";
-                      jQuery('path').css('fill', 'red');
+                      message = "<div class='error'>" +
+                      "<center><h2>Error :(</h2></center>" +
+                      e.originalEvent.message + "</div>";
+
+                      $('body').html(message);
                       error(e.originalEvent);
-                      break;
+                      return;
                     case 'cached':
                     case 'updateready':
                       message = "Finished";

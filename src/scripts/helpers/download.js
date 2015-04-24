@@ -1,7 +1,7 @@
 /******************************************************************************
  * Asks the user to start an appcache download process.
  *****************************************************************************/
-define('jquery', function ($) {
+define(['jquery'], function ($) {
   var Download = function () {
     var downloadedApp = app.models.user.get('downloadedApp');
     var dontAskDownloadApp = app.models.user.get('dontAskDownloadApp');

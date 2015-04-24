@@ -8,7 +8,7 @@ app.data.species = [
   {
     "profile_pic": "images/Adonis_annua_2_CG.jpg", 
     "description": "Annual with deep red, anemone-like flower with central black spot and black anthers. Bright green, finely divided leaves. Elongated oval seed head bears approximately 30 olive green seeds, similar in shape to a grape pip. Plants grow up to 50cm. This plant does not seem to be able to survive in areas spread with high nitrogen fertiliser or compete against nitrophilous crops that quickly out-compete and shade out pheasant's-eye seedlings.", 
-    "map": "images/Adonis annua.svg", 
+    "map": "images/Adonis_annua.svg", 
     "color": [
       "r"
     ], 
@@ -29,7 +29,7 @@ app.data.species = [
   {
     "profile_pic": "images/Agrostemma_githago_2_CG.jpg", 
     "description": "Tall, hairy erect plant (up to 100cm) with long, narrow and undivided leaves, which taper to a point. Flowers are large (2-5cm across) and trumpet-shaped, bright pink with dark streaks and occur singly on long stems. There are very few natural populations originating from the soil seed bank and corncockle is often a component of annual seed mixtures. The seeds are short-lived rotting very quickly in damp weather and may not survive over the winter. This plant was thought to originally be spread in crop seeds as a contaminant, and seed cleaning has reduced its spread so that it is now critically endangered.", 
-    "map": "images/Agrostemma githago.svg", 
+    "map": "images/Agrostemma_githago.svg", 
     "color": [
       "p"
     ], 
@@ -50,7 +50,7 @@ app.data.species = [
   {
     "profile_pic": "images/Ajuga_chamaepitys_CS.jpg", 
     "description": "Small 5-20cm, often sprawling plant shaped like a tiny pine tree, with a reddish stem, long, narrow, hairy green leaves (often tinged yellow through to red) and little yellow flowers nestling close to the stem. Flowers and bruised leaves smell of pine-resin. This plant often reappears after deep ground disturbance along hedges and does not seem to be able to live in very shaded or crowded swards.", 
-    "map": "images/Ajuga chamaepitys.svg", 
+    "map": "images/Ajuga_chamaepitys.svg", 
     "color": [
       "y"
     ], 
@@ -71,7 +71,7 @@ app.data.species = [
   {
     "profile_pic": "images/Althaea_hirsuta_CS.jpg", 
     "description": "Bristly annual or biennial up to 60cm. Bristles have swollen bases. Lower leaves are stalked and kidney shaped with bluntly five-lobed. Upper leaves are deeply cut. Characteristic mallow flowers (2.5cm across) are pale pink with scarcely notched petals. The outer sepal ring forms a lobed cup. Rough marsh-mallow is often found adjacent to field boundaries and can be a sprawling plant climbing up through open vegetation. Plants on thinner soils tend to be smaller and short-lived whilst those on deeper soils are more vigorous.", 
-    "map": "images/Althaea hirsuta.svg", 
+    "map": "images/Althaea_hirsuta.svg", 
     "color": [
       "p"
     ], 
@@ -92,7 +92,7 @@ app.data.species = [
   {
     "profile_pic": "images/Alyssum_alyssoides_Spain_CG.jpg", 
     "description": "Erect plant up to 30cm, branched from the base. Leaves are spear-shaped, narrower at the base and covered with minute star-shaped hairs. The flowers are borne in a terminal spike and are small with four yellow petals, which fade to white as they dry.", 
-    "map": "images/Alyssum alyssoides.svg", 
+    "map": "images/Alyssum_alyssoides.svg", 
     "color": [
       "y"
     ], 
@@ -113,7 +113,7 @@ app.data.species = [
   {
     "profile_pic": "images/Anagallis_arvensis_ssp_foemina_CS.jpg", 
     "description": "Scrambling mat-forming plant with stems up to 30cm. The leaves are arranged in opposite pairs, are stalkless  and oval up to 20mm long by 9mm wide. The five blue petals are approximately 10mm in diameter, do not overlap, thereby showing the sepal between the petals. The flower stalks are shorter than the leaves. The petals have short hairs 4 cells (sections) in length.", 
-    "map": "images/Anagallis arvensis ssp foemina.svg", 
+    "map": "images/Anagallis_arvensis_ssp_foemina.svg", 
     "color": [
       "b"
     ], 
@@ -134,7 +134,7 @@ app.data.species = [
   {
     "profile_pic": "images/Anchusa_arvensis_3_CG.jpg", 
     "description": "Erect bristly plant, 15-40cm tall. The bristles have bulbous bases. Wavy-edged spear-shaped leaves 15cm long are stalked at the base of the stem, and clasp the stem further up the plant. Light sky-blue flowers are grouped together at the top of the stem or arising from the top leaf junctions.  ", 
-    "map": "images/Anchusa arvensis.svg", 
+    "map": "images/Anchusa_arvensis.svg", 
     "color": [
       "b"
     ], 
@@ -155,7 +155,7 @@ app.data.species = [
   {
     "profile_pic": "images/Anthemis_arvensis_CS.jpg", 
     "description": "Tall branched mayweed up to 50cm. Alternate, deeply divided leaves are slightly flattened. The typical daisy flowers have yellow ray-florets with no scales. The yellow disc-florets have a scale attached to the bottom of the flower receptacle. Corn chamomile leaves smell aromatically of chamomile when crushed. The disc floret scale is 2.5mm long by 1mm wide, and broadens to about two-thirds of its length and then tapers to a point.", 
-    "map": "images/Anthemis arvensis.svg", 
+    "map": "images/Anthemis_arvensis.svg", 
     "color": [
       "y", 
       "w"
@@ -177,7 +177,7 @@ app.data.species = [
   {
     "profile_pic": "images/Anthemis_cotula_CS.jpg", 
     "description": "Tall branched mayweed up to 50cm. Alternate, deeply divided leaves are slightly flattened. The typical daisy flowers have yellow ray-florets with no scales. The yellow disc-florets have a scale attached to the bottom of the flower receptacle. Stinking chamomile leaves smell unpleasant when crushed. The flowers tend to be slightly smaller and the similar sized scales are narrow with linear sides tapering to a point.  ", 
-    "map": "images/Anthemis cotula.svg", 
+    "map": "images/Anthemis_cotula.svg", 
     "color": [
       "y", 
       "w"
@@ -199,7 +199,7 @@ app.data.species = [
   {
     "profile_pic": "images/Anthoxanthum_aristatum.jpg", 
     "description": "Usually solitary but sometimes multiple stemmed annual up to 20cm tall. Leaves are 2-4 mm wide and up to 5cm long, hairless, but with tufts of long hair where leaf and stem meet. Spikelets (5-7mm long) have long and conspicuous bent awns and are gathered into a pale green terminal spike. Annual vernal grass was probably introduced in crop seed and has declined due to better seed-cleaning.", 
-    "map": "images/Anthoxanthum aristatum.svg", 
+    "map": "images/Anthoxanthum_aristatum.svg", 
     "color": [
       "gg"
     ], 
@@ -220,7 +220,7 @@ app.data.species = [
   {
     "profile_pic": "images/Anthriscus_caucalis_2_CG.jpg", 
     "description": "Downy plant, up to 50cm. The stems are hollow and hairless, but the finely branched leaves have tiny (5mm) pale-green leaflets. The white flowers are arranged in umbels and are 2mm across. The seeds are 3mm long, oval-shaped and covered with hooked spines. ", 
-    "map": "images/Anthriscus caucalis.svg", 
+    "map": "images/Anthriscus_caucalis.svg", 
     "color": [
       "w"
     ], 
@@ -241,7 +241,7 @@ app.data.species = [
   {
     "profile_pic": "images/Apera_interrupta.jpg", 
     "description": "Erect annual grass, up to 70cm tall. The leaves can grow up to 10cm long and 4mm wide are mostly hairless. Each leaf has a long pointed ligule, up to 5mm long. The flowers are arranged in a loose interrupted spike with stalkless branches. Each spikelet has a very long straight awn. It was originally introduced as a seed contaminant from wool shoddy and has declined because of targeted gramnicide use and highly competitive fertilised crops.", 
-    "map": "images/Apera interrupta.svg", 
+    "map": "images/Apera_interrupta.svg", 
     "color": [
       "gg"
     ], 
@@ -262,7 +262,7 @@ app.data.species = [
   {
     "profile_pic": "images/Apera_spica-venti_CG.jpg", 
     "description": "Erect annual grass, up to 100cm tall, with either solitary or multiple hairless stems. The leaves can grow up to 20cm long by 10mm wide and can be rough. Each leaf has a long pointed toothed ligule, up to 1cm long. The flowers are finely branched spreading widely making the whole flower head up to 20cm long and 15cm wide. Each spikelet has a long awn. Loose silky-bent has declined because of targeted gramnicides.", 
-    "map": "images/Apera spica-venti.svg", 
+    "map": "images/Apera_spica-venti.svg", 
     "color": [
       "gg"
     ], 
@@ -283,7 +283,7 @@ app.data.species = [
   {
     "profile_pic": "images/Aphanes_australis_LR.jpg", 
     "description": "Small, 2-20cm, low-growing plant. Fan-shaped leaves have three deeply-toothed main lobes, and are 2-10mm long. Minute flowers less than 2mm are present in leaf axils and are hidden by the larger green leaf stipules. The stipule lobes are oblong shaped whilst the closely related parsley-piert Aphanes arvensis has triangular stipule-lobes. ", 
-    "map": "images/Aphanes australis.svg", 
+    "map": "images/Aphanes_australis.svg", 
     "color": [
       "gf"
     ], 
@@ -304,7 +304,7 @@ app.data.species = [
   {
     "profile_pic": "images/Arnoseris_minima.jpg", 
     "description": "A member of the daisy family that can grow up to 30cm tall. The hairless elliptical leaves form a rosette at the bottom of the flower spike. The yellow flowers are 7-11mm in diameter and are borne singly at the end of each stem. The flowering stems are inflated just below the flower head. Although this plant can look similar to other yellow daisy flowers, such as dandelions, hawkbits, cat's-ears and hawkweeds, the inflated flower stem is distinctive. Lamb's-succory is unable to cope in high nitrogen environments and the marginal low-intensity arable fields that it did occupy have tended to be abandoned for cultivation.", 
-    "map": "images/Arnoseris minima.svg", 
+    "map": "images/Arnoseris_minima.svg", 
     "color": [
       "y"
     ], 
@@ -325,7 +325,7 @@ app.data.species = [
   {
     "profile_pic": "images/Avena_strigosa.jpg", 
     "description": "Tall erect grass, up to 120cm. The blunt, slightly-toothed membrane ligule at the base of each leaf is 1.5-5mm and the leaf blades are broad and flat tapering to a point much like other members of the oat grass family. The flower spike often flowers to one side and each spikelets bears two flowers 16-26mm. The lemmas have two teeth each with a bristle and there is an awn on both lemmas from the middle of the back. There is no obvious callus scar on the florets when they are separated and they do not shatter easily, which hinders the establishment of populations. Bristle oat was originally grown as a cereal crop in poorer soils in the North and West of Britain but modern varieties of cultivated oat Avena sativa have taken over.  ", 
-    "map": "images/Avena strigosa.svg", 
+    "map": "images/Avena_strigosa.svg", 
     "color": [
       "gg"
     ], 
@@ -346,7 +346,7 @@ app.data.species = [
   {
     "profile_pic": "images/Brassica_nigra_1_CG.jpg", 
     "description": "Tall plant, up to 100cm and member of the cabbage family. The lower bristly bright-green leaves are lyre-shaped and lobed. The upper leaves are undivided, elliptical hairless and do not clasp the stem. The 10-15mm yellow flowers are grouped at the top of the flowering spike in a loose raceme. The seed pods are adpressed, four-angled and 12-20mm long. A seedless slender beak extends at the end of the seed pod.", 
-    "map": "images/Brassica nigra.svg", 
+    "map": "images/Brassica_nigra.svg", 
     "color": [
       "y"
     ], 
@@ -367,7 +367,7 @@ app.data.species = [
   {
     "profile_pic": "images/Briza_minor_CG.jpg", 
     "description": "An erect grass, up to 50cm tall. Leaves are 3-7mm wide, hairless and blue-green in colour with a pointed ligule 3-6mm long. The branched flower-head has triangular flower spikelets and looks like a smaller version of the common quaking-grass associated with calcareous grasslands. It tends to grow in slightly damp areas of fields where water has pooled suppressing other plants and creating bare ground.", 
-    "map": "images/Briza minor.svg", 
+    "map": "images/Briza_minor.svg", 
     "color": [
       "gg"
     ], 
@@ -388,7 +388,7 @@ app.data.species = [
   {
     "profile_pic": "images/Bromus_arvensis.jpg", 
     "description": "Robust tall grass, up to 100cm tall. Leaves and stem are softly-densely hairy. The leaves have a blunt ligule up to 4mm long and leaf blades can be up to 20cm long by 5mm wide. The spikelet of flowers is very branched and drooping with long-stalked spikelets that are laterally compressed 1.5cm long by 4m wide. The lemma is inrolled stopping the spikelets from breaking-up easily and short, less than 6.5mm long, with a rough straight awn up to 1cm long. Field brome probably relied on being spread as a contaminant of crop seed and more effective seed cleaning has probably been the cause for its decline.", 
-    "map": "images/Bromus arvensis.svg", 
+    "map": "images/Bromus_arvensis.svg", 
     "color": [
       "gg"
     ], 
@@ -409,7 +409,7 @@ app.data.species = [
   {
     "profile_pic": "images/Bromus_interruptus_CG.jpg", 
     "description": "Tall grass, up to 100cm. Leaves and stem are softly-densely hairy. The leaves are 20cm long by 5mm wide and there is a blunt ligule up to 4mm long. The flower spike is branched with very short spikelet stalks that are grouped into clusters of three. The spikelets are oval and slightly laterally compressed 1-1.7cm long. The lemma has a rough straight awn up to 8mm long. Interrupted brome is very poorly competitive and cannot compete against modern crop varieties grown with nitrogen fertilisers.", 
-    "map": "images/Bromus interruptus.svg", 
+    "map": "images/Bromus_interruptus.svg", 
     "color": [
       "gg"
     ], 
@@ -430,7 +430,7 @@ app.data.species = [
   {
     "profile_pic": "images/Bromus_secalinus_CS.jpg", 
     "description": "An erect grass up to 1m tall. Leaves are 5mm wide and can be 20cm long with blunt ligules up to 4mm long. The stem and leaf are softly hairy. The branched flower-head has slightly laterally compressed long-stalked oval spikelets. The inrolled lemma stops the spikelets breaking-up and shedding when ripe keeping the seeds in a spikelet form until much later in the summer compared with other bromes.", 
-    "map": "images/Bromus secalinus.svg", 
+    "map": "images/Bromus_secalinus.svg", 
     "color": [
       "gg"
     ], 
@@ -451,7 +451,7 @@ app.data.species = [
   {
     "profile_pic": "images/Bunium_bulbocastanum.jpg", 
     "description": "A tall member of the carrot family, up to 60cm. This is a perennial plant over-wintering as an underground tuber formed at the base of the stem. Finely divided three-pinnately divided leaves appear feathery. The white umbellifer flowers are typical of the carrot family and may be 3-8cm across. Greater pignut has a solid stem compared with pignut Conopodium majus which has a hollow stem. This perennial plant needs occasional disturbance of field edge habitats every other year.", 
-    "map": "images/Bunium bulbocastanum.svg", 
+    "map": "images/Bunium_bulbocastanum.svg", 
     "color": [
       "w"
     ], 
@@ -472,7 +472,7 @@ app.data.species = [
   {
     "profile_pic": "images/Bupleurum_rotundifolium_CG.jpg", 
     "description": "Distinctive member of the carrot family, up to 75cm tall, which looks more like a member of the spurge family. The stem is reddish and branched and the leaves are round-oval with the upper leaves completely surrounding the stem. The small greenish-yellow flowers are clustered in small umbels at the end of the stems and cupped by a ring of green petal-like bracteoles. Thorow-wax has not been found in the wild since 1973.", 
-    "map": "images/Bupleurum rotundifolium.svg", 
+    "map": "images/Bupleurum_rotundifolium.svg", 
     "color": [
       "w"
     ], 
@@ -493,7 +493,7 @@ app.data.species = [
   {
     "profile_pic": "images/Camelina_sativa.jpg", 
     "description": "Tall member of the mustard family, up to 120cm tall. The lanceolate leaves are arranged alternatively up the stem which can become woody with age. The pale-yellow flowers have the typical four petals. The seeds, borne in seed pods, are a distinctive orange colour. False flax is often a component of bird seed mixtures.", 
-    "map": "images/Camelina sativa.svg", 
+    "map": "images/Camelina_sativa.svg", 
     "color": [
       "y"
     ], 
@@ -514,7 +514,7 @@ app.data.species = [
   {
     "profile_pic": "images/Caucalis_platycarpa_France_CG.jpg", 
     "description": "Small member of the carrot family, up to 30cm tall. The short leaves are three-pinnately divided and look feathery. Bristles are randomly scattered throughout the plant. Each umbel flower head has 2-5 branches and large seeds are formed in pairs splitting apart as they are shed from the plant. The seeds have distinctive long curved spines and are up to 13mm long. This plant has declined since the introduction of competitive crop varieties and increased use of nitrogen fertilisers. It is also susceptible to herbicides and seed cleaning as it was probably spread in crop seed.", 
-    "map": "images/Caucalis platycarpos.svg", 
+    "map": "images/Caucalis_platycarpos.svg", 
     "color": [
       "w"
     ], 
@@ -535,7 +535,7 @@ app.data.species = [
   {
     "profile_pic": "images/Centaurea_cyanus_1_CG.jpg", 
     "description": "Tall branched plant up to 1m. Grey-green hairy leaves with long, narrow and variably dissected lower leaves 10-20cm in length and smaller un-dissected upper leaves. The blue flower heads are typical of the daisy family and up to 3cm in diameter.", 
-    "map": "images/Centaurea cyanus.svg", 
+    "map": "images/Centaurea_cyanus.svg", 
     "color": [
       "b"
     ], 
@@ -556,7 +556,7 @@ app.data.species = [
   {
     "profile_pic": "images/Chaenorhinum_minus_3_ES.jpg", 
     "description": "Smallish plant up to 20cm tall. The narrow parallel-sided leaves are arranged alternatively up the stem. Solitary flower stalks are borne in leaf axils. The 6-9mm long asymmetrical flowers are purple outside and paler inside, with a short spur.", 
-    "map": "images/Chaenorhinum minus.svg", 
+    "map": "images/Chaenorhinum_minus.svg", 
     "color": [
       "pu"
     ], 
@@ -577,7 +577,7 @@ app.data.species = [
   {
     "profile_pic": "images/Chenopodium_ficifolium_CS.jpg", 
     "description": "Tall plant, up to 100cm tall. Powdery (termed mealy) plant especially under the leaves. The leaves are hairless, and deeply three-lobed resembling fig-leaves. The flower spike has clusters of small 2mm florets.", 
-    "map": "images/Chenopodium ficifolium.svg", 
+    "map": "images/Chenopodium_ficifolium.svg", 
     "color": [
       "gf"
     ], 
@@ -598,7 +598,7 @@ app.data.species = [
   {
     "profile_pic": "images/Chenopodium_hybridum.jpg", 
     "description": "Tall plant, up to 100cm tall. The plant is not mealy. The leaves are hairless, cordate at the base with a few large acute triangular teeth making them resemble maple-leaves. The flower spike has clusters of small 2mm florets.", 
-    "map": "images/Chenopodium hybridum.svg", 
+    "map": "images/Chenopodium_hybridum.svg", 
     "color": [
       "gf"
     ], 
@@ -619,7 +619,7 @@ app.data.species = [
   {
     "profile_pic": "images/Chenopodium_murale.jpg", 
     "description": "Erect annual, up to 100cm with red streaked stem, mealy. Inflorescences in loose leafless clusters with powdery appearance. The flowers are petal-less and have yellow stamen and tiny green minutely toothed sepals. Leaves are sharp toothed and diamond shaped with smooth upper surface and powdery underside.", 
-    "map": "images/Chenopodium murale.svg", 
+    "map": "images/Chenopodium_murale.svg", 
     "color": [
       "gf"
     ], 
@@ -640,7 +640,7 @@ app.data.species = [
   {
     "profile_pic": "images/Chenopodium_polyspermum_CG.jpg", 
     "description": "Tall plant, up to 100cm with square stems that may have a red tinge. The plant is not mealy. The oval untoothed leaves are hairless and 3-6cm long. The flower spike bears many tiny green flowers.", 
-    "map": "images/Chenopodium polyspermum.svg", 
+    "map": "images/Chenopodium_polyspermum.svg", 
     "color": [
       "gf"
     ], 
@@ -661,7 +661,7 @@ app.data.species = [
   {
     "profile_pic": "images/Chenopodium_urbicum.jpg", 
     "description": "Erect annual, up to 100cm. The plant is not mealy. Inflorescences in loose leafless clusters. The flowers are petal-less and have yellow stamen and tiny green untoothed sepals. Leaves are toothed and triangular. Seeds are black.", 
-    "map": "images/Chenopodium urbicum.svg", 
+    "map": "images/Chenopodium_urbicum.svg", 
     "color": [
       "gf"
     ], 
@@ -682,7 +682,7 @@ app.data.species = [
   {
     "profile_pic": "images/Descurainia_sophia_1_LR.jpg", 
     "description": "Annual plant up to 60cm. The lower leaves and stem are grey with star-shaped adpressed hairs. The leaves are three-pinnate with linear segments. The small pale yellow flowers develop into elongated fruits 1.5-2.5cm long by 1mm wide that curve upwards on slender stalks. The seed pods are the food plant of the grey carpet moth Lithostege griseata.", 
-    "map": "images/Descurainia sophia.svg", 
+    "map": "images/Descurainia_sophia.svg", 
     "color": [
       "y"
     ], 
@@ -703,7 +703,7 @@ app.data.species = [
   {
     "profile_pic": "images/Echium_plantagineum_CS.jpg", 
     "description": "This plant is covered in bristly hairs, and grows up to 75cm tall. The leaves are narrowly oval, forming a rosette at the base of the stem, also occurring along the stem. Flowers are large, arranged in a spike, have light purple petals fused into a tube with hair confined to the veins and petal margins, and two projecting stamens (viper's-bugloss Echium vulgare has smaller, hairy flowers and 4-5 stamens). Purple viper's-bugloss can be a contaminant of bird seed mixtures. This plant does re-grow from stubbles flowering again after harvest.", 
-    "map": "images/Echium plantagineum.svg", 
+    "map": "images/Echium_plantagineum.svg", 
     "color": [
       "pu"
     ], 
@@ -724,7 +724,7 @@ app.data.species = [
   {
     "profile_pic": "images/Erodium_cicutarium_2_CG.jpg", 
     "description": "This spreading plant can grow up to 30cm. All of the plant may be hairy, and can feel sticky. The long leaves look like a series of leaflets, which are divided almost down to the midrib, and arranged opposite each other with a terminal leaflet. All of the leaflets have teeth. At the base of each leaf are pointed whitish stipules. 3-7 flowers, less than 10mm in diameter, are grouped at the end of the flowering stem. The 5 unequal rose-purple to white petals are 6-8mm long.", 
-    "map": "images/Erodium cicutarium.svg", 
+    "map": "images/Erodium_cicutarium.svg", 
     "color": [
       "p"
     ], 
@@ -745,7 +745,7 @@ app.data.species = [
   {
     "profile_pic": "images/Erodium_moschatum_2_CG.jpg", 
     "description": "This spreading plant can grow up to 60cm and smells of musk. All of the plant may be hairy and is very sticky. The long leaves look like a series of leaflets, which are divided halfway or less to the midrib and arranged opposite each other with a terminal leaflet. The leaflets are shallowly toothed. At the base of each leaf are broad and blunt whitish stipules. 2-8 flowers, 15mm in diameter, are grouped at the end of the flowering stem. The 5 unequal rose-purple to white petals are 6-8mm long. Musk stork's-bill struggles to grow with competitive crops and is usually found in open bare ground environments, or very short grassland.", 
-    "map": "images/Erodium moschatum.svg", 
+    "map": "images/Erodium_moschatum.svg", 
     "color": [
       "p"
     ], 
@@ -766,7 +766,7 @@ app.data.species = [
   {
     "profile_pic": "images/Erysimum_cheiranthoides_Treacle_Mustard_PS.jpg", 
     "description": "Member of the cabbage family with tall spikes of flowers. The leaves are spear-shaped with shallow teeth and grow towards the base of the square stem. The small yellow flowers have four petals and are arranged spiralling up the stem. Each flower develops into a narrow seed pod.  ", 
-    "map": "images/Erysimum cheiranthoides.svg", 
+    "map": "images/Erysimum_cheiranthoides.svg", 
     "color": [
       "y"
     ], 
@@ -787,7 +787,7 @@ app.data.species = [
   {
     "profile_pic": "images/Euphorbia_exigua_LR.jpg", 
     "description": "A light-green, hairless plant, up to 10cm. The narrow, parallel-sided leaves can be up to 2cm long by 3mm wide. The petal-less yellowish-green flowers are arranged in a loose umbel with a leafy bract at the base. Fruits are smooth spherical capsules that explode on ripening.  ", 
-    "map": "images/Euphorbia exigua.svg", 
+    "map": "images/Euphorbia_exigua.svg", 
     "color": [
       "gf"
     ], 
@@ -808,7 +808,7 @@ app.data.species = [
   {
     "profile_pic": "images/Euphorbia_platyphyllos_CS.jpg", 
     "description": "A green, hairless plant up to 60cm with often reddish stems. The broad, narrowly-oblong pointed leaves can be up to 5cm long with serrated edges. The petal-less yellowish-green flowers are arranged in a loose umbel with a leafy bract at the base. Fruits are approximately 3mm in diameter and covered with warts. They explode on ripening.", 
-    "map": "images/Euphorbia platyphyllos.svg", 
+    "map": "images/Euphorbia_platyphyllos.svg", 
     "color": [
       "gf"
     ], 
@@ -829,7 +829,7 @@ app.data.species = [
   {
     "profile_pic": "images/Filago_gallica_1_CG.jpg", 
     "description": "Fine plant up to 25cm tall but often shorter. The stems may be branched from the base and the whole plant appears grey from the fine hairs covering the stems and leaves. The leaves are long, up to 18mm, pointed and fine. The flowers are clustered together in dense flower-heads at the top of stems and are grey and woolly. Narrow-leaved cudweed has been found from around 30 sites in Essex and Suffolk with the last record located near Colchester in 1955. There are some reintroduction sites in these counties but it is thought to be extinct elsewhere.", 
-    "map": "images/Filago gallica.svg", 
+    "map": "images/Filago_gallica.svg", 
     "color": [
       "w"
     ], 
@@ -850,7 +850,7 @@ app.data.species = [
   {
     "profile_pic": "images/Filago_lutescens_1_CG.jpg", 
     "description": "A small short lived grey-green annual, sometimes with a yellow tinge. Up to 25cm tall, usually with branched stems. Upper leaves often extend beyond flowering head. Flowers are clustered with minute red tipped bristles. Often confused with common cudweed Filago vulgaris which lacks red tips and has slightly narrower leaves that do not overtop the flowers.", 
-    "map": "images/Filago lutescens.svg", 
+    "map": "images/Filago_lutescens.svg", 
     "color": [
       "r", 
       "w"
@@ -872,7 +872,7 @@ app.data.species = [
   {
     "profile_pic": "images/Filago_pyramidata_LR.jpg", 
     "description": "A silvery-green plant that holds heads of 8-15 tiny hidden flowers on the tops of short stems. Up to 30cm tall. Flower heads appear as a cluster of tiny pyramids formed of grey scales. Leaves have rounded tips, are broader near the top than base and over-top the clusters of flowers. Often confused with common cudweed Filago vulgaris which lacks red tips and has slightly narrower leaves that do not overtop the flowers.", 
-    "map": "images/Filago pyramidata.svg", 
+    "map": "images/Filago_pyramidata.svg", 
     "color": [
       "w"
     ], 
@@ -893,7 +893,7 @@ app.data.species = [
   {
     "profile_pic": "images/Filago_vulgaris_2_CG.jpg", 
     "description": "A branched, erect silvery-grey plant up to 50cm. Woolly stems have strap-shaped, wavy, blunt-tipped, woolly leaves. The leaves below the flowering head are shorter than the terminal cluster of flowers. Globular flower clusters are present on each branch with outer woolly white bracts and inner pointed yellow-bristles.", 
-    "map": "images/Filago vulgaris.svg", 
+    "map": "images/Filago_vulgaris.svg", 
     "color": [
       "w"
     ], 
@@ -914,7 +914,7 @@ app.data.species = [
   {
     "profile_pic": "images/Fumaria_barstardii_CS.jpg", 
     "description": "Scrambling, much-branched plant. The blue-green leaves are irregularly divided almost to the leaf midrib and have narrow blunt lobes. The leaf segments are relatively broad and flat. The 10-18 flowers are in racemes at several points along the stem opposite leaves. The asymmetrical flowers have fused petals forming a tube but separating at the tip. Each flower is 9-11mm long, pale salmon-pink with only the mid-petal tipped darker purple at the end. The sepals present at the junction of the stem and flower on both sides of the flower are small, toothed and white 3mm long by 1.5mm wide. Each flower produces a spherical fruit 2-2.4mm diameter and the fruit stalks are never recurved.", 
-    "map": "images/Fumaria bastardii.svg", 
+    "map": "images/Fumaria_bastardii.svg", 
     "color": [
       "pu", 
       "p"
@@ -936,7 +936,7 @@ app.data.species = [
   {
     "profile_pic": "images/Fumaria_capreolata_CG.jpg", 
     "description": "Scrambling, much-branched plant. The blue-green leaves are irregularly divided almost to the leaf midrib and have narrow blunt lobes. The leaf segments are relatively broad and flat. Flower racemes are present at several points along the stem opposite leaves, the raceme is shorter than the stalk of the flower raceme and have around 20 flowers. The asymmetrical flowers have fused petals forming a tube but separating at the tip. Each flower is 10-14mm long, creamy-white with the mid-petal tipped, wing of the top petal and top of the lower petal forming a blackish red spot. The sepals are small, toothed at the base, white and 4-6mm long by 2.5-3mm wide. Each flower produces a spherical fruit 2mm diameter and the stalks are strongly recurved.", 
-    "map": "images/Fumaria capreolata.svg", 
+    "map": "images/Fumaria_capreolata.svg", 
     "color": [
       "pu", 
       "w"
@@ -958,7 +958,7 @@ app.data.species = [
   {
     "profile_pic": "images/Fumaria_densiflora_CS.jpg", 
     "description": "Scrambling, much-branched plant. The blue-green leaves are irregularly divided almost to the leaf midrib and have narrow blunt lobes. The leaf segments are channelled and very narrow. Flower racemes are present at several points along the stem opposite leaves and have around 20-25 flowers. The asymmetrical flowers have fused petals forming a tube but separating at the tip.  Each flower is 6-7mm long, pink-red with purple-black tipped petals. The sepals are large in comparison to the flower 2mm long by 3mm wide, and white. Each flower produces a spherical fruit 2mm diameter.", 
-    "map": "images/Fumaria densiflora.svg", 
+    "map": "images/Fumaria_densiflora.svg", 
     "color": [
       "pu", 
       "p"
@@ -980,7 +980,7 @@ app.data.species = [
   {
     "profile_pic": "images/Fumaria_muralis.jpg", 
     "description": "This is a large-flowered fumitory with relatively broad and channelled blue-green leaf segments. The asymmetrical flowers have fused petals forming a tube but separating at the tip. Flowers 9-11mm long, pinkish-red with darker red tipped petals, 8-20 flowers per raceme, raceme longer than stalk.  The pale sepal is toothed mainly at the base and is 2.7-3mm long by 1.5-2mm wide and half the length of the flower. Fruits are spherical with a rounded apex. Each flower produces a spherical fruit 2mm diameter.", 
-    "map": "images/Fumaria muralis ssp neglecta.svg", 
+    "map": "images/Fumaria_muralis_ssp_neglecta.svg", 
     "color": [
       "pu", 
       "p"
@@ -1002,7 +1002,7 @@ app.data.species = [
   {
     "profile_pic": "images/Fumaria_occidentalis_2_CG.jpg", 
     "description": "The most vigorous ramping-fumitory, scrambling and much branched. The asymmetrical flowers have fused petals forming a tube but separating at the tip. The white flowers are 12-15mm long becoming pink with age. The tips of the petals are blackish-red. Each flower raceme has 12-20 flowers and the raceme same length as flower stalk.  The sepal is white and toothed at the base and 5mm long by 3mm wide. The leaves are green-blue, irregularly divided, broad and flat. This plant is endemic to Cornwall and the Isles of Scilly.", 
-    "map": "images/Fumaria occidentalis.svg", 
+    "map": "images/Fumaria_occidentalis.svg", 
     "color": [
       "pu", 
       "p", 
@@ -1025,7 +1025,7 @@ app.data.species = [
   {
     "profile_pic": "images/Fumaria_parviflora_ES.jpg", 
     "description": "A typical fumitory with blue-green leaves, irregularly divided into very narrow and channelled segments. The asymmetrical flowers have fused petals forming a tube but separating at the tip. Flowers are 5-6mm long, white with reddish-black tipped petals. There are 16-20 flowers per raceme. The sepals are white, irregularly toothed and small 1mm by 0.8mm wide. Fruits are spherical, sometimes with short beak at apex.", 
-    "map": "images/Fumaria parviflora.svg", 
+    "map": "images/Fumaria_parviflora.svg", 
     "color": [
       "pu", 
       "w"
@@ -1047,7 +1047,7 @@ app.data.species = [
   {
     "profile_pic": "images/Fumaria_purpurea.jpg", 
     "description": "This is a large-flowered fumitory with relatively broad and flat green-blue leaf segments. The asymmetrical flowers have fused petals forming a tube but separating at the tip.  Flowers are 10-13mm long, pinkish-purple with petals tipped darker purple. Each raceme has 20-25 flowers and is the same length as the flower stalk.  The sepal is white, toothed and oblong and half the length of the flower 6mm long by 3mm wide. As fruits ripen the stalks can become gently-recurved. The fruits are squarish in shape and 2.5mm in diameter", 
-    "map": "images/Fumaria purpurea.svg", 
+    "map": "images/Fumaria_purpurea.svg", 
     "color": [
       "pu", 
       "p", 
@@ -1070,7 +1070,7 @@ app.data.species = [
   {
     "profile_pic": "images/Fumaria_reuteri_CS.jpg", 
     "description": "This is a large-flowered fumitory with relatively broad and flat green-blue leaf segments. The asymmetrical flowers have fused petals forming a tube but separating at the tip. Flowers are 11-13mm long, pink with blackish-red tipped petals. Each raceme has 15-20 flowers and the raceme is longer than stalk.  The sepal is white, with very few teeth and 4mm long by 2.5mm wide. Each flower produces a single spherical fruit 2.5mm in diameter. Martin's ramping fumitory is very restricted and has only been found at 14 sites in southern England, most of which are on allotments.", 
-    "map": "images/Fumaria reuteri.svg", 
+    "map": "images/Fumaria_reuteri.svg", 
     "color": [
       "pu", 
       "p"
@@ -1092,7 +1092,7 @@ app.data.species = [
   {
     "profile_pic": "images/Galeopsis_angustifolia_CS.jpg", 
     "description": "Low-growing plant, up to 50cm. Shallowly-toothed, softly-hairy, spear-shaped leaves up to 1.5cm long by less than 1cm wide. The relatively large asymmetrical flowers have a hooded upper-lips, large three-lobed lower lip and very long corolla tube and are densely clustered in leaf axils. The pinkish-red petals have white patches and each flower produced four seeds. Red hemp-nettle has declined through the use of broad-spectrum herbicides, more competitive crop varieties and an increase in fertiliser application, and the general change from spring to autumn cultivation, which has reduced the amount of suitably managed habitat.", 
-    "map": "images/Galeopsis angustifolia.svg", 
+    "map": "images/Galeopsis_angustifolia.svg", 
     "color": [
       "pu", 
       "p"
@@ -1114,7 +1114,7 @@ app.data.species = [
   {
     "profile_pic": "images/Fumaria_vaillantii_CS.jpg", 
     "description": "A typical fumitory with blue-green leaves, leaf segments are relatively flat. The asymmetrical flowers have fused petals forming a tube but separating at the tip. Flowers are 5-6mm long, pale pink with reddish-black tipped petals. There are 6-16 loosely arranged flowers per raceme and the raceme is longer than flower stalk. The pale purple toothed sepal is very small 1mm long by 0.5mm wide. Fruits are spherical, rounded at apex and 2mm in diameter.", 
-    "map": "images/Fumaria vaillantii.svg", 
+    "map": "images/Fumaria_vaillantii.svg", 
     "color": [
       "r"
     ], 
@@ -1135,7 +1135,7 @@ app.data.species = [
   {
     "profile_pic": "images/Galeopsis_segetum_CG.jpg", 
     "description": "Member of the mint family, up to 50cm tall. The stems are not thickened at the leaf nodes. Shallowly-toothed, softly-hairy, spear-shaped leaves up to 8cm long by 3cm wide. The sulphur-yellow flower are 2.5cm in length with asymmetrical petals formed into a tube with a large lower lip at the opening. There is a bright yellow tongue on the lower lip. Downy hemp-nettle was historically found in central England but the last record was in north Wales in 1975.", 
-    "map": "images/Galeopsis segetum.svg", 
+    "map": "images/Galeopsis_segetum.svg", 
     "color": [
       "y"
     ], 
@@ -1156,7 +1156,7 @@ app.data.species = [
   {
     "profile_pic": "images/Galeopsis_speciosa_2_PS.jpg", 
     "description": "Tall branched plant, up to 1m. Nettle-like ovate leaves are shallowly toothed and 2.5-8cm long. The large asymmetrical flowers have a hairy hooded upper-lips, large three-lobed lower lip and very long corolla tube up to 3cm. The pale-yellow petals have a large violet patch on the lower lip and each flower produced four seeds.  ", 
-    "map": "images/Galeopsis speciosa.svg", 
+    "map": "images/Galeopsis_speciosa.svg", 
     "color": [
       "pu", 
       "y"
@@ -1178,7 +1178,7 @@ app.data.species = [
   {
     "profile_pic": "images/Galium_spurium.jpg", 
     "description": "Similar to common cleavers Galium aparine, but with shorter and narrower leaves.  Scrambling and climbing plant up to 100cm. Flowers are greenish-white, 1mm across and the flowering/fruiting stalk is straight. Fruits are less than 3mm across, blackish when ripe, and the bases of its hooked bristles not swollen.", 
-    "map": "images/Galium spurium.svg", 
+    "map": "images/Galium_spurium.svg", 
     "color": [
       "w"
     ], 
@@ -1199,7 +1199,7 @@ app.data.species = [
   {
     "profile_pic": "images/Galium_tricornutum.png", 
     "description": "Sprawling plant, with 4-angled prickly stems. Linear to lanceolate leaves in whorls. Cream flowers are 1-1.5mm across and grouped in sets of three. Fruit occur in groups of three and are covered with minute projections rather than hooked bristles with stalks strongly arched downwards. Very similar to false cleavers Galium spurium which are darker green. Corn cleavers has declined due to seed cleaning, the increased use of high-nitrogen fertilisers and competitive crop varieties.", 
-    "map": "images/Galium tricornutum.svg", 
+    "map": "images/Galium_tricornutum.svg", 
     "color": [
       "w"
     ], 
@@ -1220,7 +1220,7 @@ app.data.species = [
   {
     "profile_pic": "images/Gastridium_ventricosum.jpg", 
     "description": "Erect, tufted grass, up to 50cm tall. The leaf blades are up to 10cm long by 4mm wide with a short ligule. The flower heads are spear shaped, tapering to a point. The lemmas have an bent awn up to 4mm in length. Nit-grass has declined due to targeted gramnicides, increased use of high-nitrogen fertilisers and competitive crop varieties. It has increased in set-aside land in the early 21th Century.", 
-    "map": "images/Gastridium ventricosum.svg", 
+    "map": "images/Gastridium_ventricosum.svg", 
     "color": [
       "gg"
     ], 
@@ -1241,7 +1241,7 @@ app.data.species = [
   {
     "profile_pic": "images/Geranium_columbinum_LR.jpg", 
     "description": "Slender annual, up to 40cm. The five-angles leaves have long stalks and are deeply divided 5/6 of the length into narrow segments. Pink unnotched petals are 7-9mm in diameter and are on long stalks, 2-6cm in length. The fruits are hairless and unwrinkled.  ", 
-    "map": "images/Geranium columbinum.svg", 
+    "map": "images/Geranium_columbinum.svg", 
     "color": [
       "p"
     ], 
@@ -1262,7 +1262,7 @@ app.data.species = [
   {
     "profile_pic": "images/Geranium_pusillum_ES.jpg", 
     "description": "Spreading plant with downy stems and leaves. The leaves are round with 7-9 lobes. Dingy-mauve petals are 2-4mm across and are notched. The fruits are downy and smooth. Small-flowered crane's-bill can easily be confused for dove's-foot crane's-bill Geranium molle which has wrinkled hairless seeds.", 
-    "map": "images/Geranium pusillum.svg", 
+    "map": "images/Geranium_pusillum.svg", 
     "color": [
       "p"
     ], 
@@ -1283,7 +1283,7 @@ app.data.species = [
   {
     "profile_pic": "images/Glebionis_segetum_CS.jpg", 
     "description": "Tall branched plant, up to 60cm. Deeply-shallowly lobed leaves are approximately 10cm long and greyish-green in colour with a waxy surface. The orangey-yellow flower heads are typical of the daisy family with disc florets producing cylindrical unwinged seeds and ray florets producing broad winged seeds.", 
-    "map": "images/Glebionis segetum.svg", 
+    "map": "images/Glebionis_segetum.svg", 
     "color": [
       "o"
     ], 
@@ -1304,7 +1304,7 @@ app.data.species = [
   {
     "profile_pic": "images/Holosteum_umbellatum.jpg", 
     "description": "Up to 30cm tall. Ovate-lanceolate leaves are arranged opposite each other up the stem, up to 2cm long and 5-6mm wide. 5-10 flowers are clustered at the end of the stems with 5 white petals. The calyx has a white margin.", 
-    "map": "images/Holosteum umbellatum.svg", 
+    "map": "images/Holosteum_umbellatum.svg", 
     "color": [
       "w"
     ], 
@@ -1325,7 +1325,7 @@ app.data.species = [
   {
     "profile_pic": "images/Hyoscyamus_nigra_2_spain_CG.jpg", 
     "description": "Tall bristly-stemmed annual and biennial plant, up to 80cm. Sticky-haired glaucous-green strong-smelling leaves that are oval-oblong and toothed. The upper leaves may clasp the stem. Two rows of flowers are present along a flowering stem, flowering in succession with new buds growing at the top of the stem. Dull-yellow flowers have purple veins and a purple centre. Whole plant is very poisonous.   ", 
-    "map": "images/Hyoscyamus niger.svg", 
+    "map": "images/Hyoscyamus_niger.svg", 
     "color": [
       "pu", 
       "y"
@@ -1347,7 +1347,7 @@ app.data.species = [
   {
     "profile_pic": "images/Hypochaeris_glabra_LR.jpg", 
     "description": "Small dandelion-like annual with a rosette of leaves and flowering stem up to 40cm. The scales on the flowering stem are shaped-like cats ears. Hairless 1-8cm long leaves are narrowly-spear shaped, broader closer to the tip than base with occasional teeth. Each inflorescent in the flower head has a single large yellow petal twice as long as broad only opening in full sunshine.", 
-    "map": "images/Hypochaeris glabra.svg", 
+    "map": "images/Hypochaeris_glabra.svg", 
     "color": [
       "y"
     ], 
@@ -1368,7 +1368,7 @@ app.data.species = [
   {
     "profile_pic": "images/Iberis_amara_1_CG.jpg", 
     "description": "Erect plant with a branched stem, up to 40cm. Lower leaves spoon-shaped, whilst the upper leaves are broader near the tip than the base, with 2-4 blunt teeth. The flowers are in open clusters at the ends of branches, each flower having four white (or lilac) petals of unequal size. Fruits circular with projecting wings that are triangular lobe-shaped and distinguish the species from other members of the cabbage family. Wild candytuft has declined due to more agriculturally intensive management of field margins.", 
-    "map": "images/Iberis amara.svg", 
+    "map": "images/Iberis_amara.svg", 
     "color": [
       "w"
     ], 
@@ -1389,7 +1389,7 @@ app.data.species = [
   {
     "profile_pic": "images/Kickxia_elatine_2_PS.jpg", 
     "description": "Long-stemmed, prostrate creeping plant with many branching stems and occasionally forming mats. Leaves are arranged alternatively up the stem and basal leaves are round. Sharp-leaved fluellen has hairy triangular-shaped leaves with teeth at the bottom projecting sideways similar to an arrow-head. These leaves are only present from the second or third set of leaves on the flowering stem. Asymmetrical yellow flowers have a purple upper lip. Flowers are borne solitarily on long stalks from the leaf axils.", 
-    "map": "images/Kickxia elatine.svg", 
+    "map": "images/Kickxia_elatine.svg", 
     "color": [
       "pu", 
       "y"
@@ -1411,7 +1411,7 @@ app.data.species = [
   {
     "profile_pic": "images/Kickxia_spuria_2_PS.jpg", 
     "description": "Long-stemmed, prostrate creeping plant with many branching stems and occasionally forming mats. Leaves are arranged alternatively up the stem and basal leaves are round. Round-leaved fluellen continues to grow hairy round-oval shaped leaves along the flowering stem. The leaves tend to be larger than those produced by sharp-leaved fluellen Kickxia elatine. Asymmetrical yellow flowers have a purple upper lip. Flowers are borne solitarily on long stalks from the leaf axils.", 
-    "map": "images/Kickxia spuria.svg", 
+    "map": "images/Kickxia_spuria.svg", 
     "color": [
       "pu", 
       "y"
@@ -1433,7 +1433,7 @@ app.data.species = [
   {
     "profile_pic": "images/Lamium_amplexicaule_CS.jpg", 
     "description": "Low-growing irregularly-branched plant up to 30cm. Round irregularly-toothed leaves arranged in opposite pairs up the stem. Lower leaves have short stalks and upper leaves are stalkless and clasp the stem. Up to 10 pinkish-purple asymmetrical flowers are borne in whorls in the leaf axils and at the end of the stem. Each flower produces four seeds.", 
-    "map": "images/Lamium amplexicaule.svg", 
+    "map": "images/Lamium_amplexicaule.svg", 
     "color": [
       "r"
     ], 
@@ -1454,7 +1454,7 @@ app.data.species = [
   {
     "profile_pic": "images/Lamium_Confertum.jpg", 
     "description": "Spring germinating plant, up to 30cm. Irregularly branched stem with triangular-shaped toothed leaves in opposite pairs up the square stem. The pinkish-purple asymmetrical flowers are in whorls of 3-7 at the top of the stems. They are 1-1.8cm long and each flower produces four seeds.", 
-    "map": "images/Lamium confertum.svg", 
+    "map": "images/Lamium_confertum.svg", 
     "color": [
       "r"
     ], 
@@ -1475,7 +1475,7 @@ app.data.species = [
   {
     "profile_pic": "images/Lathyrus_aphaca_LR.jpg", 
     "description": "A waxy grey-green scrambling member of the pea family, up to 40cm. True leaves are absent in mature plants, but the stipules are enlarged to replace leaves. These are large and triangular, borne in pairs along the stem with a flower and single tendril at each node. Yellow flowers, typical of pea family are borne singly on long stems in the leaf axils. The seed pod is 2-4cm long.", 
-    "map": "images/Lathyrus aphaca.svg", 
+    "map": "images/Lathyrus_aphaca.svg", 
     "color": [
       "y"
     ], 
@@ -1496,7 +1496,7 @@ app.data.species = [
   {
     "profile_pic": "images/Legousia_hybrida_LR.jpg", 
     "description": "Short plant, up to 25cm tall but often smaller. The stem has short hairs. The upper leaves are stalkless, oval with wavy edges and up to 1.5cm long. The purple five petalled flowers are up to 1cm across when fully open and close when the sun is not shining. The green sepals are longer than the petals enclosing the flower. The fruit capsule is distinctive up to 3cm long by 4mm wide and almost cylindrical in shape. The name originates from the ripe seeds which are slightly shiny.", 
-    "map": "images/Legousia hybrida.svg", 
+    "map": "images/Legousia_hybrida.svg", 
     "color": [
       "pu"
     ], 
@@ -1517,7 +1517,7 @@ app.data.species = [
   {
     "profile_pic": "images/Legousia_speculum-veneris_CG.jpg", 
     "description": "Grows up to 40cm. The stem is hairless. The large five-petalled purple flowers are 2.5cm across and close when the sun is not shining. Each flower has a white centre. The green sepals are as long as the petals. The distinctive fruit capsule is up to 1.5cm in length by 4mm wide. There is only one known field with greater Venus's-looking-glass in Hampshire.", 
-    "map": "images/Legousia speculum-veneris.svg", 
+    "map": "images/Legousia_speculum-veneris.svg", 
     "color": [
       "pu"
     ], 
@@ -1538,7 +1538,7 @@ app.data.species = [
   {
     "profile_pic": "images/Lepidium_campestre_CS.jpg", 
     "description": "Annual and biennial softly hairy plant up to 60cm. Lyre-shaped basal leaves wither, and triangular toothed stem leaves are stalkless with clasping pointed basal lobes. Inconspicuous white flowers are 2-2.5mm in diameter in long racemes. Fruits are 5 x 4 mm, covered in minute bumps, visible using a hand lens, and have a short style not projecting above the fruit notch.", 
-    "map": "images/Lepidium campestre.svg", 
+    "map": "images/Lepidium_campestre.svg", 
     "color": [
       "w"
     ], 
@@ -1559,7 +1559,7 @@ app.data.species = [
   {
     "profile_pic": "images/Lithospermum_arvense_MW.jpg", 
     "description": "A tall plant found scrambling amongst crops, up to 80cm. Small, white flowers are found where the uppermost leaves join the stem. Leaves are grey-green, narrow and pointed. The plant is covered in short bristles. Each flower produces 4 warty pale brown seeds. Field gromwell is susceptible to many herbicides. Recently, field gromwell has been found to be a good source of Omega 3 and is grown as a crop using imported seed from Europe.", 
-    "map": "images/Lithospermum arvense.svg", 
+    "map": "images/Lithospermum_arvense.svg", 
     "color": [
       "w"
     ], 
@@ -1580,7 +1580,7 @@ app.data.species = [
   {
     "profile_pic": "images/Lolium_temulentum.jpg", 
     "description": "A tall grass that can either grow in tufts or solitary stems. The green hairless leaves are up to 40cm in length and have a 2mm blunt ligule. Each flower spikelet is 12-20mm long by 4-6mm wide and is enclosed in a glume that is longer than the flower. The lemmas may have straight rough awns up to 2cm long but may be awnless. Darnel is thought to have declined due to better seed cleaning.", 
-    "map": "images/Lolium temulentum.svg", 
+    "map": "images/Lolium_temulentum.svg", 
     "color": [
       "gg"
     ], 
@@ -1601,7 +1601,7 @@ app.data.species = [
   {
     "profile_pic": "images/Lythrum_hyssopifolium_CG.jpg", 
     "description": "Low-growing spreading plant with a branched stem up to 20cm. Leaves are stalkless and oval at the base of the stem and become increasingly narrower with parallel-sided up the flowering stems. Flowers are borne signally in the leaf axels along the stem and have six pink petals. Grass-poly has specialised ecological requirements and is only found in areas that are wet in winter and remain crop-free as the stubble dies due to water-logging and dry-out in the summer.  ", 
-    "map": "images/Lythrum hyssopifolium.svg", 
+    "map": "images/Lythrum_hyssopifolium.svg", 
     "color": [
       "p"
     ], 
@@ -1622,7 +1622,7 @@ app.data.species = [
   {
     "profile_pic": "images/Malva_neglecta_CG.jpg", 
     "description": "Creeping, downy plant. The kidney-shaped to roundish leaves are very shallowly-lobed 5-7 times. The flowers are clustered along the stem and have five whitish petals with lilac veins. They are 8-13mm long. The fruit is segmented and smooth.", 
-    "map": "images/Malva neglecta.svg", 
+    "map": "images/Malva_neglecta.svg", 
     "color": [
       "p"
     ], 
@@ -1643,7 +1643,7 @@ app.data.species = [
   {
     "profile_pic": "images/Malva_pseudolavatera_2_CG.jpg", 
     "description": "Very similar to common mallow Malva sylvestris, but distinguished by the outer sepal-ring forming a lobed cup. Up to 150cm. The leaves are a paler green, less lobed and smooth. The five petalled flowers are pink-lilac. It is an annual or biennial.", 
-    "map": "images/Malva pseudolavatera.svg", 
+    "map": "images/Malva_pseudolavatera.svg", 
     "color": [
       "p"
     ], 
@@ -1664,7 +1664,7 @@ app.data.species = [
   {
     "profile_pic": "images/Mentha_arvensis_CG.jpg", 
     "description": "Downy, aromatic herb with a 'peppery' mint smell when bruised, 10-30cm tall. Leaves are round-elliptical and blunt-tipped arranged in opposite pairs up the stem. Dense whorls of flowers are present at the leaf axils. The calyx of each flower is bell-shaped and very hairy with short triangular teeth. The petals are mauve with projecting stamens.", 
-    "map": "images/Melampyrum arvense.svg", 
+    "map": "images/Melampyrum_arvense.svg", 
     "color": [
       "p"
     ], 
@@ -1685,7 +1685,7 @@ app.data.species = [
   {
     "profile_pic": "images/Melampyrum_arvense_CS.jpg", 
     "description": "Erect plant with branching stems, up to 60cm. The leaves are glossy-green, spear-shaped and stalkless, often with a few teeth at the base. Flowers are bright coloured, borne in dense, cylindrical, terminal spikes and have a yellow corolla-tube and two mainly purple pink lips above a strongly toothed pinkish-red bract. Field cow-wheat has declined due to better seed cleaning and more intensive agriculture along field margins. It is partially parasitic on a range of other flowering plants.", 
-    "map": "images/Mentha arvensis.svg", 
+    "map": "images/Mentha_arvensis.svg", 
     "color": [
       "b"
     ], 
@@ -1706,7 +1706,7 @@ app.data.species = [
   {
     "profile_pic": "images/Mercurialis_annua_2_LR.jpg", 
     "description": "Hairless, bright-light shiny green plant, with one or several flowering stems. Leaves are 2-5cm long and toothed. The plants are dioecious, with male catkins on stalks groin from the leaf axils, or female stalkless bristly fruits located in the leaf axils. This plant often lives in slightly nutrient enriched soils.  ", 
-    "map": "images/Mercurialis annua.svg", 
+    "map": "images/Mercurialis_annua.svg", 
     "color": [
       "gf"
     ], 
@@ -1727,7 +1727,7 @@ app.data.species = [
   {
     "profile_pic": "images/Microthlaspi_perfoliatum.jpg", 
     "description": "Small, greyish-green plant, up to 30cm. The leaves are waxy, upper leaves are pointed and have no stalk. The leaf base almost encircles the stem, so the stem appears to perforate the leaf, hence the name 'perfoliate'. The inflorescences are clusters of white 4-petalled flowers occurring at the top of smooth hairless stems.  Fruits are 4mm long by 5mm wide, heart-shaped and flattened, with membranous wings along each edge. Perfoliate penny-cress has always been rare in arable habitats.", 
-    "map": "images/Microthlaspi perfoliatum.svg", 
+    "map": "images/Microthlaspi_perfoliatum.svg", 
     "color": [
       "w"
     ], 
@@ -1748,7 +1748,7 @@ app.data.species = [
   {
     "profile_pic": "images/Misopates_orontium_LR.jpg", 
     "description": "Tall, branched plant with a leafy stem, growing up to 60cm. Shiny leaves up to 5cm long are dark-green and narrowly oval in shape. Stalkless asymmetrical flowers are borne in the leaf axis. The petals are deep pink with a slight yellow tinge in the flower tube and resemble those of the garden snapdragon.", 
-    "map": "images/Misopates orontium.svg", 
+    "map": "images/Misopates_orontium.svg", 
     "color": [
       "p"
     ], 
@@ -1769,7 +1769,7 @@ app.data.species = [
   {
     "profile_pic": "images/Myosurus_minimus_CG.jpg", 
     "description": "Low-growing distinctive plant in the buttercup family, growing from 2-15cm. Narrow, linear dark-green leaves form a basal rosette with flowering stems growing from the centre. The flower spikes have short-lived, small green-yellow petals below the seed baring receptacle which elongates forming a long narrowly conical tube resembling a mouse's tail. Mousetail occurs on water-retentive soils in disturbed areas such as tracks and hollows, particularly in gateways.", 
-    "map": "images/Myosurus minimus.svg", 
+    "map": "images/Myosurus_minimus.svg", 
     "color": [
       "gf"
     ], 
@@ -1790,7 +1790,7 @@ app.data.species = [
   {
     "profile_pic": "images/Nepeta_cataria_ES.jpg", 
     "description": "A short mint-like aromatic biennial/perennial plant, covered with a thick grey down. It can grow up to 100cm. Leaves are greyish-green, heart-shaped and toothed. Flowers are white with purplish spots.", 
-    "map": "images/Nepeta cataria.svg", 
+    "map": "images/Nepeta_cataria.svg", 
     "color": [
       "pu", 
       "w"
@@ -1812,7 +1812,7 @@ app.data.species = [
   {
     "profile_pic": "images/Orobanche_minor_CS.jpg", 
     "description": "A parasitic plant growing on roots of various plants. The leaves are reduced to scales and the plant has no chlorophyll. Instead the plant is a purplish colour. It consists of a single flower spike with tube-like flowers, with a yellow corolla with purple veins. The corolla has an arched back in a smooth curve and the stigma-lobes can be relatively variable. As this plant is parasitic, it relies on the germination and development of the host plant before it can grow.", 
-    "map": "images/Orobanche minor.svg", 
+    "map": "images/Orobanche_minor.svg", 
     "color": [
       "pu"
     ], 
@@ -1833,7 +1833,7 @@ app.data.species = [
   {
     "profile_pic": "images/Papaver_argemone_ES.jpg", 
     "description": "Basal rosettes of leaves with stems growing from the centre, up to 50cm. Leaves are pinnately divided with narrow, parallel-sided segments and can appear flattened. Flowering stems can branch at the base but more commonly the main stem is branched each bearing a single flower at the end with four petals. Prickly poppy flowers are up to 5cm across with orange-red petals that persist for a single day. The stamens have bright blue pollen. The elongated, club-shaped seed head is 2-2.5cm long with numerous prickles and a terminal disc.", 
-    "map": "images/Papaver argemone.svg", 
+    "map": "images/Papaver_argemone.svg", 
     "color": [
       "r"
     ], 
@@ -1854,7 +1854,7 @@ app.data.species = [
   {
     "profile_pic": "images/Lolium_temulentum.jpg", 
     "description": "Basal rosette of leaves with branched stems growing from the centre, up to 60cm. Leaves are pinnately divided into broad, spear-shaped segments, and are coloured blue-green. The pinkish-red flowers are 5cm across with four unblotched petals. The seed capsule is elongated without prickles, similar to long-headed poppy Papaver dubium. The distinguishing characteristic is the latex which turns yellow on contact with air.", 
-    "map": "images/Papaver dubium ssp lecoqii.svg", 
+    "map": "images/Papaver_dubium_ssp_lecoqii.svg", 
     "color": [
       "r"
     ], 
@@ -1875,7 +1875,7 @@ app.data.species = [
   {
     "profile_pic": "images/Papaver_hybridum_LR.jpg", 
     "description": "Basal rosettes of leaves with stems growing from the centre, up to 50cm. Leaves are pinnately divided with narrow, parallel-sided segments and can appear flattened. Flowering stems can branch at the base but more commonly the main stem is branched each bearing a single flower at the end with four petals. Rough poppy flowers are up to 5cm across with scarlet petals that have black blotches at their base. The stamens have deep blue pollen. The spherical seed head is 1-1.5cm in diameter with numerous upward pointing prickles and a terminal disc.", 
-    "map": "images/Papaver hybridum.svg", 
+    "map": "images/Papaver_hybridum.svg", 
     "color": [
       "r"
     ], 
@@ -1896,7 +1896,7 @@ app.data.species = [
   {
     "profile_pic": "images/Petroselinum_segetum_CS.jpg", 
     "description": "A member of the carrot family that can grow up to 80cm tall. The dark green basal leaves are comprised of a series of opposite spear-shaped, blunt-toothed leaflets with a terminal leaf segment. The small, white-petalled flowers are present on umbels held up on tall, fine, flowering stems. There may be 3-5 rays of unequally stalked flowers in each umbel array. The whole plant smells of parsley. This plant can be confused for stone parsley Sison amomum which has an unpleasant petrol smell and tends to grow in damp soils.", 
-    "map": "images/Petroselinum segetum.svg", 
+    "map": "images/Petroselinum_segetum.svg", 
     "color": [
       "w"
     ], 
@@ -1917,7 +1917,7 @@ app.data.species = [
   {
     "profile_pic": "images/Polycarpon_tetraphyllum_PS.jpg", 
     "description": "Low-growing branched plant, up to 15cm. The oval leaves are broader closer to the tip than at the base. The lower leaves look like they are arranged in whorls up the stem. The small, 2-3mm across, flowers have very short petals, 1mm long, that are shorter than the green sepals. The flowers are clustered at the end of the stem. The best location to find four-leaved allseed is on the Isles of Scilly, but there are populations in southwest and southern England.", 
-    "map": "images/Polycarpon tetraphyllum.svg", 
+    "map": "images/Polycarpon_tetraphyllum.svg", 
     "color": [
       "w", 
       "gf"
@@ -1939,7 +1939,7 @@ app.data.species = [
   {
     "profile_pic": "images/unknown.jpg", 
     "description": "Low-growing spreading plant with branched stems up to 30cm. Obovate leaves. All leaves have papery white sheaths (ochreae) at their base approximately 10mm long forming a tube around the stem. Singly or paired pinkish petalled flowers are borne in leaf axils. The distinctive fruits are greater than 3mm. This knotgrass is the commonest species present on Orkney and Shetland, but can be confused for other similar knotgrasses.", 
-    "map": "images/Polygonum boreale.svg", 
+    "map": "images/Polygonum_boreale.svg", 
     "color": [
       "p"
     ], 
@@ -1960,7 +1960,7 @@ app.data.species = [
   {
     "profile_pic": "images/Polygonum_rurivagum_CG.jpg", 
     "description": "Low-growing spreading plant with branched stems up to 30cm. Leaves are long 15-35mm and narrow 2-4mm with acute tips resembling grass leaves. All leaves have papery white sheaths (ochreae) at their base approximately 10mm long forming a tube around the stem. Singly or paired pinkish petalled flowers are borne in leaf axils. The distinctive fruits are 2.5-4.5mm with three concave sides and project from the flower. Cornfield knotgrass is under-recorded due to difficulties in distinguishing it from other knotgrasses.", 
-    "map": "images/Polygonum rurivagum.svg", 
+    "map": "images/Polygonum_rurivagum.svg", 
     "color": [
       "p"
     ], 
@@ -1981,7 +1981,7 @@ app.data.species = [
   {
     "profile_pic": "images/Ranunculus_arvensis_CS.jpg", 
     "description": "Branched plant, up to 50cm. Stalked, 3-5 lobed deeply-divided leaves are more elongated and linear than the leaves of common grassland buttercups. Typical but smaller, pale lemon-yellow buttercup flowers up to 12mm in diameter. Distinctive seeds up to 8mm in length, ovate and covered in spines up to 2mm in length. The increased use of broad-spectrum herbicides, increased nitrogen applications and more competitive nitrogen-demanding crops have caused the decline in corn buttercup.", 
-    "map": "images/Ranunculus arvensis.svg", 
+    "map": "images/Ranunculus_arvensis.svg", 
     "color": [
       "y"
     ], 
@@ -2002,7 +2002,7 @@ app.data.species = [
   {
     "profile_pic": "images/Ranunculus_muricatus_Crete_CG.jpg", 
     "description": "Branched plant, up to 50cm. The lower leaves are long-stalked and divided into 3-5 lobes. The stalks of the higher leaves have shorter stalks and fewer lobes. The yellow, 5-petalled flowers, are up to 15cm across and are slightly longer than the green sepals. The distinctive seeds are 7-8mm long, with a hooked beak at the tip, and covered in long hard spines with one spine-free edge. Rough-fruited buttercup is only present on the Isles of Scilly.", 
-    "map": "images/Ranunculus muricatus.svg", 
+    "map": "images/Ranunculus_muricatus.svg", 
     "color": [
       "y"
     ], 
@@ -2023,7 +2023,7 @@ app.data.species = [
   {
     "profile_pic": "images/Ranunculus_parviflorus_CS.jpg", 
     "description": "A spreading plant, up to 40cm long. Yellowish-green coloured leaves, rounded in shape, and shallowly divided into toothed lobes. The small, pale yellow petals are 3mm long with hairy green sepals bent back towards the stem (similar to bulbous buttercup Ranunculus bulbosus). Distinctive seeds about 2.5-3mm long with a short, hooked beak at the tip, and covered in short hooks.", 
-    "map": "images/Ranunculus parviflorus.svg", 
+    "map": "images/Ranunculus_parviflorus.svg", 
     "color": [
       "y"
     ], 
@@ -2044,7 +2044,7 @@ app.data.species = [
   {
     "profile_pic": "images/Ranunculus_sardous_2_CG.jpg", 
     "description": "A mid-height branched plant, up to 30cm. The basal rosette leaves are hairy and divided into three main lobes, with a stalked central leaflet. The upper leaves are also hairy, but are less deeply lobed and have shorter stalks. The flowers are borne on hairy stems. They are pale yellow, 12-25mm across and the sepals are bent back towards the stem when the flowers open (similar to the more common bulbous buttercup Ranunculus bulbosus). The round seeds are 2-3mm and lack spines but could have a few warts.", 
-    "map": "images/Ranunculus sardous.svg", 
+    "map": "images/Ranunculus_sardous.svg", 
     "color": [
       "y"
     ], 
@@ -2065,7 +2065,7 @@ app.data.species = [
   {
     "profile_pic": "images/Raphanus_raphanistrum_CS.jpg", 
     "description": "Bristly annual member of the cabbage family. The leaves are lyre-shaped and deeply lobed. The flowers have four large petals that are yellow or white and usually have deeper coloured visible veins. The fruits have 3-8 weakly-ribbed, bead-like joints which easily break apart when ripe and the tip of the fruit is five times the length of the top fruit joints.", 
-    "map": "images/Raphanus raphanistrum subsp Raphanistrum.svg", 
+    "map": "images/Raphanus_raphanistrum_subsp_Raphanistrum.svg", 
     "color": [
       "y", 
       "w"
@@ -2087,7 +2087,7 @@ app.data.species = [
   {
     "profile_pic": "images/Rhinanthus_angustifolius_1_CG.jpg", 
     "description": "Very similar to yellow rattle Rhinanthus minor, but more robust and branched growing up to 50cm. Leaves are linear, toothed and unstalked. It has asymmetrical yellow flowers with the tube curved upwards (rather than straight in yellow rattle). The two violet teeth are 1-2mm long and the stigma protrudes.  Its name comes from the ripe fruit rattling in the inflated sepals.", 
-    "map": "images/Rhinanthus angustifolius.svg", 
+    "map": "images/Rhinanthus_angustifolius.svg", 
     "color": [
       "y"
     ], 
@@ -2108,7 +2108,7 @@ app.data.species = [
   {
     "profile_pic": "images/Scandix_pecten-veneris_1_CG.jpg", 
     "description": "Tall, occasionally branched plant up to 60cm, typical of the carrot family. Finely divided leaves with narrow parallel-sided segments. Flowers are clustered on umbels at the end of the flowering stem and have small white petals. The distinctive fruits begin to form shortly after flowering, elongating from the base of the flower to form long 'needles' up to 5cm. Shepherd's-needle was once a problem weed and is resistant to some herbicides.", 
-    "map": "images/Scandix pecten-veneris.svg", 
+    "map": "images/Scandix_pecten-veneris.svg", 
     "color": [
       "w"
     ], 
@@ -2129,7 +2129,7 @@ app.data.species = [
   {
     "profile_pic": "images/Scleranthus_annuus_MW.jpg", 
     "description": "Low-growing, spreading mat-forming plant up to 20cm. Linear pointed leaves are paired up the stem. Clusters of minute flowers, 4mm across, are located at the stem terminals and have no petals. The sepals form the flower tube and are pointed, straight, grey-green with narrow white margins and enclose the stamens and ovary. Annual knawel is commonly found on disturbed grassland as well as arable land, but does not compete will within dense swards or cereal crops.", 
-    "map": "images/Scleranthus annuus.svg", 
+    "map": "images/Scleranthus_annuus.svg", 
     "color": [
       "gf"
     ], 
@@ -2150,7 +2150,7 @@ app.data.species = [
   {
     "profile_pic": "images/Sherardia_arvensis_ES.jpg", 
     "description": "Low growing, mat forming plant. Leaves with prickly edges in whorls of 4-6 round the stem. Pale purple-pink, 2-3mm in diameter, funnel-shaped flowers are arranged in dense clusters of 4-10 flowers at the end of the stems and in leaf axils. ", 
-    "map": "images/Sherardia arvensis.svg", 
+    "map": "images/Sherardia_arvensis.svg", 
     "color": [
       "p"
     ], 
@@ -2171,7 +2171,7 @@ app.data.species = [
   {
     "profile_pic": "images/Silene_gallica_LR.jpg", 
     "description": "Branched, sticky-haired plant, up to 30cm. A basal rosette of narrowly-oval leaves die back as the stem grows with smaller narrow leaves on the stem. White, or occasionally pink, small five-petalled flowers are 1.5cm across and each petal has a short notch. Behind the flower are oval seed capsules, approximately 1cm long. Small-flowered catchfly was widespread, but it is poorly competitive with modern crop varieties and susceptible to a wide range of herbicides. It's remaining sites are generally coastal in south-west England and Wales.  ", 
-    "map": "images/Silene gallica.svg", 
+    "map": "images/Silene_gallica.svg", 
     "color": [
       "w"
     ], 
@@ -2192,7 +2192,7 @@ app.data.species = [
   {
     "profile_pic": "images/Silene_noctiflora_CS.jpg", 
     "description": "Branched, sticky-haired plant, up to 50cm. A basal rosette of 5-10cm long elliptical leaves dies back as the stem grows with smaller, up to 8cm, narrow leaves. White-pink five-petalled flowers are 2cm across. They are coloured creamy-yellow on the back. Each petal is deeply divided into two. The flowers are tightly-rolled by mid-morning and open in the early evening for pollination by nocturnal flying insects. Behind the flower are oval seed capsules, approximately 1.5mm long.", 
-    "map": "images/Silene noctiflora.svg", 
+    "map": "images/Silene_noctiflora.svg", 
     "color": [
       "p"
     ], 
@@ -2213,7 +2213,7 @@ app.data.species = [
   {
     "profile_pic": "images/Sinapis_alba_12867_CG.jpg", 
     "description": "Tall annual that is part of the cabbage family. All of the leaves are pinnately lobed (compared with charlock Sinapis arvensis which has upper spear-shaped unlobed leaves). The stem is roughtly hairly and the yellow flowers have four petals that do not have apparent veins. The beak (tip) of the fruit is flat and sabre-like, and as long or longer than the lower two-valved part with the seeds.", 
-    "map": "images/Sinapis alba.svg", 
+    "map": "images/Sinapis_alba.svg", 
     "color": [
       "y"
     ], 
@@ -2234,7 +2234,7 @@ app.data.species = [
   {
     "profile_pic": "images/Spergula_arvensis_MW.jpg", 
     "description": "Slender scrambling plant with branched stems, up to 60cm. Long, 3cm narrow thread-like leaves are arranged in whorls up the stem. Loosely branched clusters of five-petalled white flowers 8mm in diameter, are present at the end of stems. Black round seeds are approximately 1.5mm in diameter.", 
-    "map": "images/Spergula arvensis.svg", 
+    "map": "images/Spergula_arvensis.svg", 
     "color": [
       "w"
     ], 
@@ -2255,7 +2255,7 @@ app.data.species = [
   {
     "profile_pic": "images/Stachys_arvensis_CS.jpg", 
     "description": "Hairy, spreading plant with branched stems from the base, growing to more than 20cm. Opposite paired oval-heart-shaped hairy leaves have short stalks. Asymmetrical pale purple flowers, with a large lower lip and three smaller lobes, up to 7mm long, are arranged in whorls of up to 6 flowers in leaf axils. Field woundwort has an unpleasant smell when bruised.", 
-    "map": "images/Stachys arvensis.svg", 
+    "map": "images/Stachys_arvensis.svg", 
     "color": [
       "pu"
     ], 
@@ -2276,7 +2276,7 @@ app.data.species = [
   {
     "profile_pic": "images/Teucrium_botrys_1_CG.jpg", 
     "description": "A member of the mint family, with a much-branched, erect, leafy stem. It can grow up to 30cm, and the whole plant is hairy. Leaves are long, 2.5cm, oval, and deeply divided into parallel sided segments. Pinkish-red flowers have very small upper lips, and a long lower lip. They are arranged in whorls in the axils of the leaves. Cut-leaved germander has always been rare and is only known from six locations in Surrey, Kent, Hampshire and Gloucestershire. It is a very poor competitor and does not grow well within modern cereal varieties.", 
-    "map": "images/Teucrium botrys.svg", 
+    "map": "images/Teucrium_botrys.svg", 
     "color": [
       "p"
     ], 
@@ -2297,7 +2297,7 @@ app.data.species = [
   {
     "profile_pic": "images/Torilis_arvensis_MW.jpg", 
     "description": "An annual member of the carrot family, up to 50cm tall. It has with greyish-green pointed leaves, covered in short bristles, giving a frosted appearance. White or pinkish flowers are borne in dense, compound heads. The characteristic fruit are covered with numerous hooked spines (4-6mm long). Spreading hedge-parsley was once widespread, but due to being a poor competitor with modern crop varieties, and changes in agriculture to harvesting and cultivating prior to the late fruiting plant setting-seed, it has declined dramatically. It now occurs at isolated sites from Devon to Suffolk and is most frequent in Somerset and East Anglia.  ", 
-    "map": "images/Torilis arvensis.svg", 
+    "map": "images/Torilis_arvensis.svg", 
     "color": [
       "w"
     ], 
@@ -2318,7 +2318,7 @@ app.data.species = [
   {
     "profile_pic": "images/Torilis_nodosa_CS.jpg", 
     "description": "A spreading member of the carrot family that can grow up to 50cm in length. The triangular shaped leaves are very deeply lobed, giving them a feathery appearance. The small, pinkish-white flowers, about 1mm in diameter, are arranged in dense, stalkless, clusters along the stem, opposite leaves. The seeds are oval 2.5-3.5mm in diameter with long or short un-hooked spines.", 
-    "map": "images/Torilis nodosa.svg", 
+    "map": "images/Torilis_nodosa.svg", 
     "color": [
       "w"
     ], 
@@ -2339,7 +2339,7 @@ app.data.species = [
   {
     "profile_pic": "images/Valerianella_dentata_CS.jpg", 
     "description": "Slender, branched plant with stems up to 30cm. Spear-shaped leaves with a few teeth are present up the hairless stem and the white - pale-pink flowers are borne in clusters at the end of the stem on a couple of branches. There is often a single flower located in the base of the stem branch immediately below the flower clusters which is the first to flower and set fruit. The seeds are the distinguishing characteristic but there is a degree of uncertainty surrounding inter-breeding, particularly with hairy-fruited cornsalad Valerianella eriocarpa. Narrow-fruited cornsalad seeds have a single large tooth at the apex with smaller sub-teeth. They are not swollen and are approximately 0.75mm across.", 
-    "map": "images/Valerianella dentata.svg", 
+    "map": "images/Valerianella_dentata.svg", 
     "color": [
       "w"
     ], 
@@ -2360,7 +2360,7 @@ app.data.species = [
   {
     "profile_pic": "images/Valerianella_eriocarpa_CS.jpg", 
     "description": "Slender, branched plants with stems up to 30cm. Spear-shaped leaves with a few teeth are present up the hairless stem and the white to pale-pink flowers are borne in clusters at the end of the stem on a couple of branches. There is often a single flower located in the base of the stem branch immediately below the flower clusters which is the first to flower and set fruit. The seeds are the distinguishing characteristic but there is a degree of uncertainty surrounding inter-breeding, particularly with narrow-fruited cornsalad Valerianella dentata. Hairy-fruited cornsalad seeds have 5-6 large teeth at the apex resembling a crown and the body of the fruit has small hairs visible using a x30 hand lens. It grows on coastal cliffs along the south coast fo England as well as arable field margins.", 
-    "map": "images/Valerianella eriocarpa.svg", 
+    "map": "images/Valerianella_eriocarpa.svg", 
     "color": [
       "w"
     ], 
@@ -2381,7 +2381,7 @@ app.data.species = [
   {
     "profile_pic": "images/Valerianella_rimosa_CS.jpg", 
     "description": "Slender, branched plants with stems up to 30cm. Spear-shaped leaves with a few teeth are present up the hairless stem and the white to pale-pink flowers are borne in clusters at the end of the stem on a couple of branches. There is often a single flower located in the base of the stem branch immediately below the flower clusters which is the first to flower and set fruit. The seeds are the distinguishing characteristic. Broad-fruited cornsalad seeds are grape-pip like and swollen 2mm long by 1.5mm wide. All of the teeth are short at the apex of the fruit.", 
-    "map": "images/Valerianella rimosa.svg", 
+    "map": "images/Valerianella_rimosa.svg", 
     "color": [
       "w"
     ], 
@@ -2402,7 +2402,7 @@ app.data.species = [
   {
     "profile_pic": "images/Veronica_agrestis.jpg", 
     "description": "Sprawling plant with branched, softly hairy stems. Green, oval leaves have toothed edges, and are slightly longer than wide (5-15mm wide). The solitary, 5mm across, pale blue and white centred flowers, are on stalks growing from the leaf axils. The fruit capsule is bi-lobed giving it a heart shape, wider 4-6mm than long 3-4mm. The hairs on the fruit capsule are visible using an x30 hand lens and all of the are glandular (with a spot of oil at the end).", 
-    "map": "images/Veronica agrestis.svg", 
+    "map": "images/Veronica_agrestis.svg", 
     "color": [
       "b"
     ], 
@@ -2423,7 +2423,7 @@ app.data.species = [
   {
     "profile_pic": "images/Veronica_polita_ES.jpg", 
     "description": "Sprawling, many-branched plant, sometimes forming extensive mats. The lower dull, greyish-green leaves are oval in shape with small teeth. The upper leaves may not have teeth. They are 5-15mm wide. The bright blue white-centred flowers are on stalks originating from the leaf axils. The lower petal is occasionally paler. The bi-lobed fruit capsule looks heart shaped, and is wider 4-6mm than longer 3-4mm. The hairs on the fruit capsule are visible using an x30 hand lens and are a mixture of glandular (with a spot of oil at the end) and short curled hairs.", 
-    "map": "images/Veronica polita.svg", 
+    "map": "images/Veronica_polita.svg", 
     "color": [
       "b"
     ], 
@@ -2444,7 +2444,7 @@ app.data.species = [
   {
     "profile_pic": "images/Veronica_praecox_ES_2.jpg", 
     "description": "Highly localised Breckland species with one outlying population in Oxfordshire. It has erect, sometimes branched, flowering stems, up to 20cm. The leaves are toothed but not deeply divided. Flowers are small, 3mm in diameter, and coloured light blue with dark streaks. They are present on long stalks, originating from the leaf-like bracts at the top of the stem. The bi-lobed fruit is heart shaped, and longer than wide.", 
-    "map": "images/Veronica praecox.svg", 
+    "map": "images/Veronica_praecox.svg", 
     "color": [
       "b"
     ], 
@@ -2465,7 +2465,7 @@ app.data.species = [
   {
     "profile_pic": "images/Veronica_triphyllos_ES.jpg", 
     "description": "Low-growing, erect, occasionally branched plant, up to 15cm. Leaves up to 1cm long and deeply divided into 3-7 parallel-fingered lobes. Upper leaves are stalkless, lower leaves have short stalks. Deep blue flowers are borne in the axils of the upper leaf-like bracts and are shorter than the surrounding calyx. The fruit capsule is deeply bi-lobed, making it heart shaped, and about 6-7mm long. Fingered speedwell is restricted to Breckland and Yorkshire.", 
-    "map": "images/Veronica triphyllos.svg", 
+    "map": "images/Veronica_triphyllos.svg", 
     "color": [
       "b"
     ], 
@@ -2486,7 +2486,7 @@ app.data.species = [
   {
     "profile_pic": "images/Veronica_verna_ES_4.jpg", 
     "description": "Erect, sometimes branched stem, up to 15cm. The leaves are pinnetely-lobed with 5-7 segments. Sky blue flowers are very small, 2-3mm in diameter, and are borne in the axils of leaf-like bracts. The fruit capsule is wider than long, and bi-lobed making it heart shaped. Spring speedwell is a highly localised Breckland species.", 
-    "map": "images/Veronica verna.svg", 
+    "map": "images/Veronica_verna.svg", 
     "color": [
       "b"
     ], 
@@ -2507,7 +2507,7 @@ app.data.species = [
   {
     "profile_pic": "images/Vicia_parviflora_Menorca_CG.jpg", 
     "description": "Scrambling annual, up to 60cm. Leaves are divided into 2-5 pairs of leaflets, each up to 2.5cm long. Flowers are pale purple and 6-8mm long, borne on long stalks. Each flower gives rise to a 5-8 seeded pod about 3mm wide. The seed scars (where the seed attaches to the pod) are 2 times as long as wide. Slender tare occurs in the South Midlands, Somerset, Dorset, Oxfordshire and Essex, and has become much rarer recently.  ", 
-    "map": "images/Vicia parviflora.svg", 
+    "map": "images/Vicia_parviflora.svg", 
     "color": [
       "p"
     ], 
@@ -2528,7 +2528,7 @@ app.data.species = [
   {
     "profile_pic": "images/Vicia_tetrasperma_1_CG.jpg", 
     "description": "Hairless annual plant with think leaves 10-20mm long with 3-6 pairs of leaflets. The calyx teeth at the base of the mauve-whitish flowers are unequal, with the upper two teeth shorter than the calyx-tube.The seed pod is oblong, hairless, 12-15mm long and has four seeds. The seed scars (where the seed attaches to the pod) is only slightly longer than wide.", 
-    "map": "images/Vicia tetrasperma.svg", 
+    "map": "images/Vicia_tetrasperma.svg", 
     "color": [
       "p"
     ], 
@@ -2549,7 +2549,7 @@ app.data.species = [
   {
     "profile_pic": "images/Viola_tricolor_2_CG.jpg", 
     "description": "Resembles a garden pansy. It is an erect, branched plant, sometimes up to 40cm. The leaves are very variable in shape with the lower leaves often oval, becoming narrower towards the top of the stem. There are large leafy stipules at the base of each leaf. The asymmetrical flowers have a short spur, are 15-25cm top to bottom and have long stems. The face of the flower is flat, and the lower petals are cream coloured, the centre is yellow and the upper petals are pale blue or purple. The sepals are shorter than the petals, enclosing the seed capsule after flowering. Wild pansy can be confused for field pansy Viola arvensis, which has smaller flowers that are cupped, cream upper petals and sepals longer than the petals. The two species hybridise.", 
-    "map": "images/Viola tricolor ssp tricolor.svg", 
+    "map": "images/Viola_tricolor_ssp_tricolor.svg", 
     "color": [
       "pu", 
       "y"

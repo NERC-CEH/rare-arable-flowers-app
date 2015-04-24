@@ -124,6 +124,7 @@ define(['morel', 'helpers/log'], function () {
     SURVEY_ID: 258
   });
   $.extend(morel.record.inputs.KEYS, {
+    SREF_ACCURACY: 'smpAttr:282',
     LOCATIONDETAILS: 'smpAttr:567',
     LOCATIONDETAILS_VAL: {
       "Cultivated Strip / Block": 4783,

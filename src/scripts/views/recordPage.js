@@ -137,8 +137,8 @@ define([
             if (app.models.user.hasSignIn()) {
               app.models.record.send(onSendSuccess, onError);
             } else {
-              $.mobile.loading('show');
               contactDetailsDialog(function() {
+                $.mobile.loading('show');
                 app.models.record.send(onSendSuccess, onError);
               });
             }
