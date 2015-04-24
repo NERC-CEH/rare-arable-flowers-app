@@ -30,7 +30,7 @@ define([
 
       $('body').append($(this.el));
 
-      if (typeof google === 'undefined') {
+      if (navigator.onLine && typeof google === 'undefined') {
         /*
          If the browser is offline then we should not proceed and so the
          dummyText controls the caching of the file - always get fresh

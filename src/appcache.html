@@ -58,6 +58,10 @@
                   var message = '';
                   switch (e.type) {
                     case 'error':
+                      if (e.originalEvent.message.search('exceed quota') >= 0) {
+                        e.originalEvent.message = 'Not enough space! </br>' +
+                        'Clearing your browser history might help.'
+                      }
                       message = "<div class='error'>" +
                       "<center><h2>Error :(</h2></center>" +
                       e.originalEvent.message + "</div>";
