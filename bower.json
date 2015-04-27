@@ -14,7 +14,8 @@
     "photoswipe": "https://github.com/downloads/codecomputerlove/PhotoSwipe/code.photoswipe-3.0.5.zip",
     "fastclick": "1.0.3",
     "d3": "3.5.3",
-    "topojson": "1.6.18"
+    "topojson": "1.6.18",
+    "tripjs": "EragonJ/Trip.js#3.0.0"
   },
   "exportsOverride": {
     "requirejs": {
@@ -40,7 +41,7 @@
     },
     "jquery-mobile": {
       "js": ["js/jquery.mobile-1.4.5.js", "js/jquery.mobile-1.4.5.min.js"],
-      "css": "css/jquery.mobile-1.4.5.css"
+      "css": "css/jquery.mobile-1.4.5.min.css"
     },
     "latlon": {
       "js": [
@@ -62,10 +63,14 @@
         "code.photoswipe.jquery-3.0.5.min.js",
         "lib/klass.min.js"
         ],
-      "css": [ "photoswipe.css","*.png", "*.gif"]
+      "css": [ "photoswipe.css", "*.png", "*.gif"]
     },
     "topojson": {
       "js": "topojson.js"
+    },
+    "tripjs": {
+      "js": "dist/trip.min.js",
+      "css": "dist/trip.min.css"
     }
   }
 }

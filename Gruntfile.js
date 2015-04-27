@@ -171,6 +171,18 @@ module.exports = function (grunt) {
       }
     },
 
+    cssmin: {
+      target: {
+        files: [{
+          src: [
+            'dist/css/jquery.mobile-1.4.5.min.css',
+            'dist/css/photoswipe.min.css',
+            'dist/css/app.css'
+          ],
+          dest: 'dist/css/main.min.css'
+        }]
+      }
+    },
 
     requirejs: {
       compile: {
@@ -194,12 +206,13 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-bower-task');
   grunt.loadNpmTasks('grunt-text-replace');
   grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-jst');
   grunt.loadNpmTasks('grunt-contrib-requirejs');
 
   // the default task can be run just by typing "grunt" on the command line
   grunt.registerTask('init', ['bower', 'replace:indexedDBShim', 'replace:latlon', 'uglify:libs']);
-  grunt.registerTask('build', ['copy', 'jst', 'uglify:data', 'replace:main', 'requirejs']);
+  grunt.registerTask('build', ['copy', 'cssmin', 'jst', 'uglify:data', 'replace:main', 'requirejs']);
   grunt.registerTask('default', ['init', 'build']);
 };
