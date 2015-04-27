@@ -96,11 +96,9 @@ define(['morel', 'helpers/log'], function () {
         },
         {
           "featureType": "poi",
+          "elementType": "labels",
           "stylers": [
-            {"hue": "#679714"},
-            {"saturation": 33.4},
-            {"lightness": -25.4},
-            {"gamma": 1}
+            { "visibility": "off" }
           ]
         }
       ]
