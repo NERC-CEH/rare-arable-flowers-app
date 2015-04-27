@@ -152,7 +152,19 @@ module.exports = function (grunt) {
 
 
     uglify: {
-      dist: {
+      libs: {
+        files: {
+          'src/scripts/libs/topojson/js/topojson.min.js': ['src/scripts/libs/topojson/js/topojson.js'],
+          'src/scripts/libs/backbone/js/backbone.min.js': ['src/scripts/libs/backbone/js/backbone.js'],
+          'src/scripts/libs/fastclick/js/fastclick.min.js': ['src/scripts/libs/fastclick/js/fastclick.js'],
+          'src/scripts/libs/latlon/js/dms.min.js': ['src/scripts/libs/latlon/js/dms.js'],
+          'src/scripts/libs/latlon/js/latlon-ellipsoidal.min.js': ['src/scripts/libs/latlon/js/latlon-ellipsoidal.js'],
+          'src/scripts/libs/latlon/js/osgridref.min.js': ['src/scripts/libs/latlon/js/osgridref.js'],
+          'src/scripts/libs/latlon/js/vector3d.min.js': ['src/scripts/libs/latlon/js/vector3d.js'],
+          'src/scripts/libs/requirejs/js/require.min.js': ['src/scripts/libs/requirejs/js/require.js']
+        }
+      },
+      data: {
         files: {
           'dist/scripts/data.js': ['src/data/*.js']
         }
@@ -187,7 +199,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-requirejs');
 
   // the default task can be run just by typing "grunt" on the command line
-  grunt.registerTask('init', ['bower', 'replace:indexedDBShim', 'replace:latlon']);
-  grunt.registerTask('build', ['copy', 'jst', 'uglify', 'replace:main', 'requirejs']);
+  grunt.registerTask('init', ['bower', 'replace:indexedDBShim', 'replace:latlon', 'uglify:libs']);
+  grunt.registerTask('build', ['copy', 'jst', 'uglify:data', 'replace:main', 'requirejs']);
   grunt.registerTask('default', ['init', 'build']);
 };

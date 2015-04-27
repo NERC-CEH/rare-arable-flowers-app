@@ -279,7 +279,7 @@ images/sponsor_logo.png
 images/sponsor_logo_2.png
 images/unknown.jpg
 
-scripts/libs/require.js
+scripts/libs/require.min.js
 scripts/data.js
 scripts/data_heatmap.json
 scripts/main-built.js

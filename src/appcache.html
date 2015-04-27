@@ -58,13 +58,14 @@
                   var message = '';
                   switch (e.type) {
                     case 'error':
+                      var reason = e.originalEvent.message;
                       if (e.originalEvent.message.search('exceed quota') >= 0) {
-                        e.originalEvent.message = 'Not enough space! </br>' +
-                        'Clearing your browser history might help.'
+                        reason = 'Not enough space! </br>' +
+                        'Try clearing your browser history.'
                       }
                       message = "<div class='error'>" +
                       "<center><h2>Error :(</h2></center>" +
-                      e.originalEvent.message + "</div>";
+                      reason + "</div>";
 
                       $('body').html(message);
                       error(e.originalEvent);

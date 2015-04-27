@@ -30,7 +30,7 @@
       "js": "lib/fastclick.js"
     },
     "d3": {
-      "js": "d3.js"
+      "js": ["d3.js", "d3.min.js"]
     },
     "IndexedDBShim": {
       "js": ["dist/IndexedDBShim.js", "dist/IndexedDBShim.min.js"]
@@ -54,7 +54,7 @@
       "js": ["lodash.js", "lodash.min.js"]
     },
     "morel": {
-      "js": ["morel.js", "model.min.js"]
+      "js": ["morel.js", "morel.min.js"]
     },
     "photoswipe": {
       "js": [

@@ -316,7 +316,7 @@ define([
       var button = this.$locationButton;
       var accuracy = this.model.get(morel.record.inputs.KEYS.SREF_ACCURACY);
       switch (true) {
-        case (accuracy == -1 || !accuracy):
+        case (accuracy == -1 || accuracy === 'undefined'):
           //none
           button.addClass('none');
           button.removeClass('done');

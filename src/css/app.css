@@ -362,6 +362,10 @@ h1.taxon {
     margin: 0 10% 0 5% !important;
 }
 
+#record_heading {
+ margin: 0 20%;
+}
+
 div.taxon {
     display: none !important;
 }
