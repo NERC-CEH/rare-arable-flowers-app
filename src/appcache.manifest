@@ -3,11 +3,9 @@ CACHE MANIFEST
 
 CACHE:
 css/images/ajax-loader.gif
-css/app.css
+css/main.min.css
 css/icons.png
 css/icons@2x.png
-css/jquery.mobile-1.4.5.css
-css/photoswipe.css
 css/error.gif
 css/loader.gif
 

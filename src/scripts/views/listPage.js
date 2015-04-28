@@ -105,7 +105,7 @@ define([
      */
     trip: function () {
       var options = {
-        delay : 1200
+        delay : 1500
       };
 
       var trip = new Trip([
