@@ -21,6 +21,7 @@
       'underscore': 'libs/lodash.min',
       'backbone': 'libs/backbone.min',
       'backbone.localStorage': 'libs/backbone.localStorage-min',
+      'tripjs': 'libs/trip.min',
       'ga': '//www.google-analytics.com/analytics'
     },
     shim: {

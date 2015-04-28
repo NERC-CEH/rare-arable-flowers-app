@@ -4,6 +4,7 @@
 define([
   'views/_page',
   'views/speciesList',
+  'tripjs',
   'templates'
 ], function (Page, SpeciesList) {
   'use strict';
@@ -39,6 +40,15 @@ define([
       this.listenTo(app.models.user, 'change:filters', this.listControlsView.updateListControlsButton);
       this.listControlsView.updateListControlsButton();
       this.updateUserPageButton();
+
+      //show around trip
+      var finishedTrips = app.models.user.get('trips') || [];
+      if (finishedTrips.indexOf('list') < 0) {
+        this.trip();
+        finishedTrips.push('list');
+        app.models.user.set('trips', finishedTrips);
+        app.models.user.save();
+      }
     },
 
     render: function () {
@@ -88,6 +98,46 @@ define([
 
       }
       morel.record.db.getAll(onSuccess);
+    },
+
+    /**
+     * Shows the user around the page.
+     */
+    trip: function () {
+      var options = {
+        delay : 1200
+      };
+
+      var trip = new Trip([
+        {
+          sel : $('#user-page-button'),
+          position : "s",
+          content : 'Your Account',
+          animation: 'fadeIn'
+        },
+        {
+          sel : $('#fav-button'),
+          position : "s",
+          content : 'List Controls',
+          animation: 'fadeIn'
+        },
+        {
+          sel : $('a[href="#species/10"]'),
+          position : "s",
+          content : 'Species Account',
+          animation: 'fadeIn'
+        },
+        {
+          sel : $('a[href="#record/88"]'),
+          position : "w",
+          content : 'Recording',
+          animation: 'fadeIn'
+        }
+      ], options);
+
+      setTimeout(function(){
+        trip.start();
+      }, 500);
     }
   });
 

@@ -585,7 +585,8 @@ ul.welcome-page{
     margin: 0 !important;
 }
 .heading {
-    width: 54%;
+    font-size: 0.9em!important;
+    width: 50%;
 }
 .descript {
     font-size: .75em !important;

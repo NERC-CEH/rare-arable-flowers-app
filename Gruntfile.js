@@ -177,6 +177,7 @@ module.exports = function (grunt) {
           src: [
             'dist/css/jquery.mobile-1.4.5.min.css',
             'dist/css/photoswipe.min.css',
+            'dist/css/trip.min.css',
             'dist/css/app.css'
           ],
           dest: 'dist/css/main.min.css'

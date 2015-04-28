@@ -44,6 +44,15 @@ define([
 
       this.render();
       this.appendBackButtonListeners();
+
+      //show around trip
+      var finishedTrips = app.models.user.get('trips') || [];
+      if (finishedTrips.indexOf('record') < 0) {
+        this.trip();
+        finishedTrips.push('record');
+        app.models.user.set('trips', finishedTrips);
+        app.models.user.save();
+      }
     },
 
     render: function () {
@@ -430,6 +439,46 @@ define([
       var value = this.model.get(morel.record.inputs.KEYS.COMMENT);
       value = value ? value.substring(0, 20) : ''; //cut it down a bit
       $commentButton.html(value);
+    },
+
+    /**
+     * Shows the user around the page.
+     */
+    trip: function () {
+      var options = {
+        delay : 1200
+      };
+
+      var trip = new Trip([
+        {
+          sel : $('#photo-picker'),
+          position : "s",
+          content : 'Snap a picture',
+          animation: 'fadeIn'
+        },
+        {
+          sel : $('#number-button'),
+          position : "s",
+          content : 'Fill in the details',
+          animation: 'fadeIn'
+        },
+        {
+          sel : $('#entry-form-send'),
+          position : "n",
+          content : 'Send a record',
+          animation: 'fadeIn'
+        },
+        {
+          sel : $('#entry-form-save'),
+          position : "n",
+          content : 'Or save it',
+          animation: 'fadeIn'
+        }
+      ], options);
+
+      setTimeout(function(){
+        trip.start();
+      }, 500);
     }
   });
 
