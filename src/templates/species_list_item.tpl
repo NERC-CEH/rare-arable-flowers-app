@@ -1,7 +1,12 @@
 <a href="#species/<%- id %>" class="<%- favourite ? 'favourite': '' %>">
     <img src="<%- profile_pic %>"/>
-    <p class="species-list-common-name"><%- common_name %></p>
-    <p class="species-list-taxon-name"><i><%- taxon %></i></p>
+    <% if (app.models.user.isSortScientific()) { %>
+      <p class="species-list-main-name"><i><%- taxon %></i></p>
+      <p class="species-list-secondary-name"><%- common_name %></p>
+    <% } else { %>
+      <p class="species-list-main-name"><%- common_name %></p>
+      <p class="species-list-secondary-name"><i><%- taxon %></i></p>
+    <% } %>
 </a>
 <a href="#record/<%- id %>" class="ios-enhanced"
    data-icon="plus">Record</a>

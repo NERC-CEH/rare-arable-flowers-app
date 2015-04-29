@@ -320,7 +320,7 @@ form, body {
     float: left
 }
 
-.species-list-common-name{
+.species-list-main-name{
     font-size: large !important;
     font-weight: bold;
 }
@@ -404,14 +404,14 @@ div.taxon {
         white-space: initial !important;
     }
 
-    .species-list-common-name{
+    .species-list-main-name{
         white-space: initial !important;
         font-size: smaller !important;
         font-weight: bold;
         margin-top: 0 !important;
     }
 
-    .species-list-taxon-name {
+    .species-list-secondary-name {
         white-space: initial !important;
         font-size: 0.75em !important;
         margin-bottom: 0 !important;

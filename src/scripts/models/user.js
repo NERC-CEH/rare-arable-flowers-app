@@ -177,6 +177,14 @@ define([
     groupHasListFilter: function (filterID, groupID, filters) {
       filters = filters || this.get('filters');
       return _.indexOf(filters[groupID], filterID) >= 0;
+    },
+
+    /**
+     * @returns {boolean} Scientific or different type of sorting is selected
+     */
+    isSortScientific: function () {
+      var sort = this.get('sort');
+      return sort === 'scientific' || sort === 'scientific_r';
     }
   });
 
