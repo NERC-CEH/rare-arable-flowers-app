@@ -71,6 +71,10 @@ define([
       return this;
     },
 
+    update: function (previousPageID) {
+      console.log(previousPageID);
+    },
+
     /**
      * Turns on/off favourite filtering.
      */

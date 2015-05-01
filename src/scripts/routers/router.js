@@ -2,6 +2,7 @@
  * Main app router.
  *****************************************************************************/
 define([
+  'routers/routerExtention',
   'views/_page',
   'views/listPage',
   'views/speciesPage',
@@ -17,7 +18,7 @@ define([
   'views/mgmtlocationPage',
   'views/locationdetailsPage',
   'helpers/download'
-], function(Page, ListPage, SpeciesPage, UserPage, LoginPage, RegisterPage,
+], function(ext, Page, ListPage, SpeciesPage, UserPage, LoginPage, RegisterPage,
             RecordPage, DatePage, LocationPage, NumberPage, StagePage,
             CommentPage, MgmtlocationPage, LocationdetailsPage, download) {
   'use strict';
@@ -31,8 +32,6 @@ define([
     initialize: function () {
       _log('app.Router: initialize.', log.DEBUG);
 
-     // $(document).on("show", _.bind(this.handleshow, this));
-
       //track every route change as a page view in google analytics
       this.bind('route', this.trackPageview);
 
@@ -40,6 +39,11 @@ define([
       if (app.CONF.OFFLINE.STATUS){
         setTimeout(download, 500);
       }
+
+      this.listenTo(this, 'route', function (name, args) {
+
+        console.log(name);
+      });
     },
 
     /**
@@ -54,11 +58,19 @@ define([
         this.navigateToStandardPage('welcome');
       },
 
-      "list": function () {
-        if (!app.views.listPage) {
-          app.views.listPage = new ListPage();
+      "list": {
+        before: function(){},
+        after: function(){},
+        leave: function(){},
+        route: function (id) {
+          if (!app.views.listPage) {
+            app.views.listPage = new ListPage();
+          }
+          var prevPageID = $.mobile.activePage ? $.mobile.activePage.attr('id') : '';
+          this.changePage(app.views.listPage);
+
+          app.views.listPage.update(prevPageID);
         }
-        this.changePage(app.views.listPage);
       },
 
       "species/:id": function (id) {
@@ -227,22 +239,6 @@ define([
       //update the URL hash
       $(":mobile-pagecontainer").pagecontainer("change", '#' + page.id,
         {changeHash: false});
-    },
-
-    /**
-     *
-     * @param event
-     * @param ui
-     */
-    handleshow: function (event, ui) {
-      // Figure out what page we are showing and call 'app.views.Page.show' on it
-      // TODO: JQM 1.4.3 has ui.toPage, which would be preferred to getActivePage
-      var activePage = $(":mobile-pagecontainer").pagecontainer("getActivePage");
-      _.each(this.pages, function (page) {
-        if (activePage.get(0) === page.el) {
-          page.show(event, ui);
-        }
-      });
     },
 
     /**
