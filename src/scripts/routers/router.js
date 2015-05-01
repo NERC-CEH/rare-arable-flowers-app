@@ -60,8 +60,14 @@ define([
 
       "list": {
         before: function(){},
-        after: function(){},
-        leave: function(){},
+        after: function(){
+          if (app.views.listPage.scroll) {
+            window.scrollTo(0, app.views.listPage.scroll);
+          }
+        },
+        leave: function(){
+          app.views.listPage.scroll = $(window).scrollTop();
+        },
         route: function (id) {
           if (!app.views.listPage) {
             app.views.listPage = new ListPage();

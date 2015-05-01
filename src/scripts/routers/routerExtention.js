@@ -7,7 +7,7 @@ define([
   _.extend(Backbone.Router.prototype, Backbone.Events, {
     route : function(route, name, callback) {
       if(!callback)
-        callback = this[name];
+        callback = name;
 
       var before
         , fn = callback
@@ -19,7 +19,7 @@ define([
         route = this._routeToRegExp(route);
 
       if(!fn)
-        fn = this[name];
+        fn = name;
 
       if(typeof callback == 'object'){
         before = callback.before;
