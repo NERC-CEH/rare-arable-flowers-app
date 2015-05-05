@@ -22,11 +22,13 @@ define([
 
     initialize: function () {
       _log('views.LocationdetailsPage: initialize', app.LOG_DEBUG);
-
-      this.listenTo(this.model,
-        'change:' + this.warehouse_id, this.update);
-
       this.render();
+      this.appendEventListeners();
+    },
+
+    appendEventListeners: function () {
+      this.listenTo(this.model, 'change:' + this.warehouse_id, this.update);
+
       this.appendBackButtonListeners();
     },
 

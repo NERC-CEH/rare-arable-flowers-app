@@ -1,0 +1,17 @@
+{
+  "short_name": "RAF",
+  "name": "Rare Arable Flowers App",
+  "icons": [
+    {
+      "src": "images/Icon-72.png",
+      "sizes": "72x72"
+    },
+    {
+      "src": "images/Icon-72@2x.png",
+      "sizes": "144x144"
+    }
+  ],
+  "start_url": "index.html",
+  "display": "standalone",
+  "orientation": "portrait"
+}

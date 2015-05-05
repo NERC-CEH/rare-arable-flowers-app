@@ -17,14 +17,14 @@ define([
     COLOR: 'red',
 
     initialize: function () {
-      _log('views.MgtmlocationPage: initialize', app.LOG_DEBUG);
+      _log('views.MgtmlocationPage: initialize', log.DEBUG);
 
       this.render();
-      this.appendBackButtonListeners();
+      this.appendEventListeners();
     },
 
     render: function () {
-      _log('views.MgtmlocationPage: render', app.LOG_DEBUG);
+      _log('views.MgtmlocationPage: render', log.DEBUG);
 
       this.$el.html(this.template());
 
@@ -44,6 +44,10 @@ define([
         this.initializeMap();
       }
       return this;
+    },
+
+    appendEventListeners: function () {
+      this.appendBackButtonListeners();
     },
 
     initializeMap: function () {

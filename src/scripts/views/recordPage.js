@@ -27,32 +27,9 @@ define([
     initialize: function () {
       _log('views.RecordPage: initialize', log.DEBUG);
 
-      this.listenTo(this.model,
-        'change:' + morel.record.inputs.KEYS.NUMBER, this.updateNumberButton);
-      this.listenTo(this.model,
-        'change:' + morel.record.inputs.KEYS.STAGE, this.updateStageButton);
-      this.listenTo(this.model,
-        'change:' + morel.record.inputs.KEYS.LOCATIONDETAILS, this.updateLocationdetailsButton);
-      this.listenTo(this.model,
-        'change:' + morel.record.inputs.KEYS.COMMENT, this.updateCommentButton);
-      this.listenTo(this.model,
-        'change:' + morel.record.inputs.KEYS.SREF_ACCURACY, this.updateGPSButton);
-      this.listenTo(this.model,
-        'change:' + morel.record.inputs.KEYS.SREF, this.updateGPSButton);
-      this.listenTo(this.model,
-        'change:' + morel.record.inputs.KEYS.DATE, this.updateDateButton);
-
       this.render();
-      this.appendBackButtonListeners();
-
-      //show around trip
-      var finishedTrips = app.models.user.get('trips') || [];
-      if (finishedTrips.indexOf('record') < 0) {
-        this.trip();
-        finishedTrips.push('record');
-        app.models.user.set('trips', finishedTrips);
-        app.models.user.save();
-      }
+      this.appendEventListeners();
+      this.trip();
     },
 
     render: function () {
@@ -79,6 +56,25 @@ define([
           this.initRecording(speciesID);
         default:
       }
+    },
+
+    appendEventListeners: function () {
+      this.listenTo(this.model,
+        'change:' + morel.record.inputs.KEYS.NUMBER, this.updateNumberButton);
+      this.listenTo(this.model,
+        'change:' + morel.record.inputs.KEYS.STAGE, this.updateStageButton);
+      this.listenTo(this.model,
+        'change:' + morel.record.inputs.KEYS.LOCATIONDETAILS, this.updateLocationdetailsButton);
+      this.listenTo(this.model,
+        'change:' + morel.record.inputs.KEYS.COMMENT, this.updateCommentButton);
+      this.listenTo(this.model,
+        'change:' + morel.record.inputs.KEYS.SREF_ACCURACY, this.updateGPSButton);
+      this.listenTo(this.model,
+        'change:' + morel.record.inputs.KEYS.SREF, this.updateGPSButton);
+      this.listenTo(this.model,
+        'change:' + morel.record.inputs.KEYS.DATE, this.updateDateButton);
+
+      this.appendBackButtonListeners();
     },
 
     /**
@@ -445,6 +441,17 @@ define([
      * Shows the user around the page.
      */
     trip: function () {
+      var finishedTrips = app.models.user.get('trips') || [];
+      if (finishedTrips.indexOf('record') < 0) {
+        finishedTrips.push('record');
+        app.models.user.set('trips', finishedTrips);
+        app.models.user.save();
+
+        setTimeout(function(){
+          trip.start();
+        }, 500);
+      }
+
       var options = {
         delay : 1500
       };
@@ -475,10 +482,6 @@ define([
           animation: 'fadeIn'
         }
       ], options);
-
-      setTimeout(function(){
-        trip.start();
-      }, 500);
     }
   });
 

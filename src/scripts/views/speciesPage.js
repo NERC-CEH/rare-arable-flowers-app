@@ -24,7 +24,7 @@ define([
       _log('views.SpeciesPage: initialize', log.DEBUG);
 
       this.render();
-      this.appendBackButtonListeners();
+      this.appendEventListeners();
     },
 
     render: function () {
@@ -65,6 +65,10 @@ define([
       $.get(this.model.attributes.map, function(data) {
         $mapsHolder.append(new XMLSerializer().serializeToString(data.documentElement));
       });
+    },
+
+    appendEventListeners: function () {
+      this.appendBackButtonListeners();
     },
 
     /**

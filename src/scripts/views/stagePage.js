@@ -24,16 +24,15 @@ define([
       _log('views.StagePage: initialize', log.DEBUG);
 
       this.render();
-      this.appendBackButtonListeners();
+      this.appendEventListeners();
     },
 
     render: function () {
+      _log('views.StagePage: render', log.DEBUG);
+
       this.$el.html(this.template());
-
-      this.listenTo(this.model,
-        'change:' + this.warehouse_id, this.update);
-
       $('body').append($(this.el));
+
       return this;
     },
 
@@ -43,6 +42,12 @@ define([
         //unset all radio buttons
         this.$el.find("input:radio").attr("checked", false).checkboxradio("refresh");
       }
+    },
+
+    appendEventListeners: function () {
+      this.listenTo(this.model, 'change:' + this.warehouse_id, this.update);
+
+      this.appendBackButtonListeners();
     },
 
     /**

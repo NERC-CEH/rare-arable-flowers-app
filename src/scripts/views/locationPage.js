@@ -25,7 +25,7 @@ define([
       _log('views.LocationPage: initialize', log.DEBUG);
 
       this.render();
-      this.appendBackButtonListeners();
+      this.appendEventListeners();
 
       if (typeof google === 'undefined') {
         /*
@@ -40,6 +40,10 @@ define([
       } else {
         this.initializeMap();
       }
+    },
+
+    appendEventListeners: function () {
+      this.appendBackButtonListeners();
     },
 
     render: function () {

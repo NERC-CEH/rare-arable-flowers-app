@@ -627,3 +627,12 @@ body.loading {
     float: left;
     min-width: 160px;
 }
+
+.trip-block {
+    text-shadow: none;
+    color: white;
+}
+
+#safari-add-homescreen {
+    margin: auto;
+}

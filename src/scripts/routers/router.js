@@ -4,6 +4,7 @@
 define([
   'routers/routerExtention',
   'views/_page',
+  'views/welcomePage',
   'views/listPage',
   'views/speciesPage',
   'views/userPage',
@@ -16,11 +17,10 @@ define([
   'views/stagePage',
   'views/commentPage',
   'views/mgmtlocationPage',
-  'views/locationdetailsPage',
-  'helpers/download'
-], function(ext, Page, ListPage, SpeciesPage, UserPage, LoginPage, RegisterPage,
+  'views/locationdetailsPage'
+], function(ext, Page, WelcomePage, ListPage, SpeciesPage, UserPage, LoginPage, RegisterPage,
             RecordPage, DatePage, LocationPage, NumberPage, StagePage,
-            CommentPage, MgmtlocationPage, LocationdetailsPage, download) {
+            CommentPage, MgmtlocationPage, LocationdetailsPage) {
   'use strict';
 
   app.views = {};
@@ -34,16 +34,6 @@ define([
 
       //track every route change as a page view in google analytics
       this.bind('route', this.trackPageview);
-
-      //download app for offline usage
-      if (app.CONF.OFFLINE.STATUS){
-        setTimeout(download, 500);
-      }
-
-      this.listenTo(this, 'route', function (name, args) {
-
-        console.log(name);
-      });
     },
 
     /**
@@ -51,15 +41,28 @@ define([
      */
     routes: {
       "": function () {
-        this.navigateToStandardPage('welcome');
+        if (!app.views.welcomePage){
+          app.views.welcomePage = new WelcomePage();
+        }
+        this.changePage(app.views.welcomePage);
       },
 
       "welcome": function () {
-        this.navigateToStandardPage('welcome');
+        if (!app.views.welcomePage){
+          app.views.welcomePage = new WelcomePage();
+        }
+        this.changePage(app.views.welcomePage);
       },
 
       "list": {
-        before: function(){},
+        route: function (id) {
+          if (!app.views.listPage) {
+            app.views.listPage = new ListPage();
+          }
+          this.changePage(app.views.listPage);
+
+          app.views.listPage.update();
+        },
         after: function(){
           if (app.views.listPage.scroll) {
             window.scrollTo(0, app.views.listPage.scroll);
@@ -67,15 +70,6 @@ define([
         },
         leave: function(){
           app.views.listPage.scroll = $(window).scrollTop();
-        },
-        route: function (id) {
-          if (!app.views.listPage) {
-            app.views.listPage = new ListPage();
-          }
-          var prevPageID = $.mobile.activePage ? $.mobile.activePage.attr('id') : '';
-          this.changePage(app.views.listPage);
-
-          app.views.listPage.update(prevPageID);
         }
       },
 

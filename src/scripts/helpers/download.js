@@ -12,7 +12,8 @@ define(['jquery'], function ($) {
       var downloadCheckbox = "download-checkbox";
 
       var message =
-        '<h3>Start downloading the app for offline use?</h3></br>' +
+        '<center><h2>Download</h2></center>' +
+        '<p>You should store the app for offline use.</p>' +
 
         '<label><input id="' + downloadCheckbox + '" type="checkbox" name="checkbox-0 ">Don\'t ask again' +
         '</label> </br>' +

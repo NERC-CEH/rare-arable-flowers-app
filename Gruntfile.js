@@ -28,6 +28,10 @@ module.exports = function (grunt) {
           {
             src: ['src/appcache.manifest'], dest: 'dist/appcache.manifest'
           },
+          {
+            src:  "src/*.json", dest: 'dist/',
+            expand: true, flatten: true
+          },
           //CSS
           {
             src:  "src/css/*", dest: 'dist/css/',

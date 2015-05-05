@@ -24,17 +24,14 @@ define([
     initialize: function () {
       _log('views.UserPage: initialize', log.DEBUG);
 
-      this.listenTo(app.models.user, 'change:email', this.update);
-
       this.render();
-      this.appendBackButtonListeners();
+      this.appendEventListeners();
     },
 
     render: function () {
       _log('views.UserPage: render', log.DEBUG);
 
       this.$el.html(this.template());
-
       $('body').append($(this.el));
 
       return this;
@@ -43,6 +40,12 @@ define([
     update: function () {
       this.printUserControls();
       this.printList();
+    },
+
+    appendEventListeners: function () {
+      this.listenTo(app.models.user, 'change:email', this.update);
+
+      this.appendBackButtonListeners();
     },
 
     /**

@@ -20,6 +20,10 @@ define([
       _log('views.LoginPage: initialize', log.DEBUG);
 
       this.render();
+      this.appendEventListeners();
+    },
+
+    appendEventListeners: function () {
       this.appendBackButtonListeners();
     },
 

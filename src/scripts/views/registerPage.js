@@ -21,17 +21,20 @@ define([
       _log('views.RegisterPage: initialize', log.DEBUG);
 
       this.render();
-      this.appendBackButtonListeners();
+      this.appendEventListeners();
     },
 
     render: function () {
       _log('views.RegisterPage: render', log.DEBUG);
 
       this.$el.html(this.template());
-
       $('body').append($(this.el));
 
       return this;
+    },
+
+    appendEventListeners: function () {
+      this.appendBackButtonListeners();
     },
 
     /**

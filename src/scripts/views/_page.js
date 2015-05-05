@@ -24,9 +24,6 @@ define([
       this.template = app.templates[id];
 
       this.render();
-
-      $('body').append($(this.el));
-
       this.appendBackButtonListeners();
     },
 
@@ -39,7 +36,13 @@ define([
       _log('views.Page(' + this.id + '): render', log.DEBUG);
 
       $(this.el).html(this.template());
+      $('body').append($(this.el));
+
       return this;
+    },
+
+    appendEventListeners: function () {
+      this.appendBackButtonListeners();
     },
 
     /**

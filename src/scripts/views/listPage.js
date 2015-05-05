@@ -32,23 +32,11 @@ define([
       this.listControlsView = new ListControlsView(sorts, filters, this.$listControlsButton);
 
       this.render();
-      this.appendBackButtonListeners();
+      this.appendEventListeners();
 
       this.$userPageButton = $('#user-page-button');
 
-
-      this.listenTo(app.models.user, 'change:filters', this.listControlsView.updateListControlsButton);
-      this.listControlsView.updateListControlsButton();
-      this.updateUserPageButton();
-
-      //show around trip
-      var finishedTrips = app.models.user.get('trips') || [];
-      if (finishedTrips.indexOf('list') < 0) {
-        this.trip();
-        finishedTrips.push('list');
-        app.models.user.set('trips', finishedTrips);
-        app.models.user.save();
-      }
+      this.trip();
     },
 
     render: function () {
@@ -71,8 +59,15 @@ define([
       return this;
     },
 
-    update: function (previousPageID) {
-      console.log(previousPageID);
+    update: function () {
+      this.listControlsView.updateListControlsButton();
+      this.updateUserPageButton();
+    },
+
+    appendEventListeners: function () {
+      this.listenTo(app.models.user, 'change:filters', this.listControlsView.updateListControlsButton);
+
+      this.appendBackButtonListeners();
     },
 
     /**
@@ -108,6 +103,17 @@ define([
      * Shows the user around the page.
      */
     trip: function () {
+      var finishedTrips = app.models.user.get('trips') || [];
+      if (finishedTrips.indexOf('list') < 0) {
+        finishedTrips.push('list');
+        app.models.user.set('trips', finishedTrips);
+        app.models.user.save();
+
+        setTimeout(function(){
+          trip.start();
+        }, 500);
+      }
+
       var options = {
         delay : 1500
       };
@@ -138,10 +144,6 @@ define([
           animation: 'fadeIn'
         }
       ], options);
-
-      setTimeout(function(){
-        trip.start();
-      }, 500);
     }
   });
 

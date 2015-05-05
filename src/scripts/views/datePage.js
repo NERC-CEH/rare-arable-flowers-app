@@ -24,6 +24,10 @@ define([
       _log('views.DatePage: initialize', log.DEBUG);
 
       this.render();
+      this.appendEventListeners();
+    },
+
+    appendEventListeners: function () {
       this.appendBackButtonListeners();
     },
 
