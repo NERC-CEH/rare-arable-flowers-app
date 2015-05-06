@@ -147,7 +147,7 @@ define(['morel', 'helpers/log'], function () {
     },
     STAGE: 'occAttr:384',
     STAGE_VAL: {
-      Vegatative: 4780,
+      Vegetative: 4780,
       Flowering: 4781,
       'In Seed': 4782
     },

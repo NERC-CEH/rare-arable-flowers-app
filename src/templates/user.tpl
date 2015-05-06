@@ -11,8 +11,9 @@
 </div>
 
 <div data-role="content">
-    <div id="login-warning" class="warning-message">Looks like you have not Signed in yet. Please
-        do so, as otherwise all the records will be submitted anonymously.
+    <div id="login-warning" class="warning-message">Looks like you have not Signed
+        in to your iRecord account yet. Please do so, if you wish to have a full access
+        to your submitted records on iRecord.
         <a href='#login' data-role="button" data-icon="arrow-r" data-iconpos="user">Sign
             in</a>
     </div>

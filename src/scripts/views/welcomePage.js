@@ -43,7 +43,7 @@ define([
           setTimeout(function(){
             var finishedBtnCloseId = 'finished-ok-button';
 
-            var addingToHomeScreen = '<p>Options -> Add to home screen</p>';
+            var addingToHomeScreen = '<p>1. Options<br/> 2. Add to home screen</p>';
 
             if(browser.detect('Safari')){
               addingToHomeScreen =
