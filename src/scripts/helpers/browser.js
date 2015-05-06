@@ -45,7 +45,7 @@ define([], function () {
     }
 
     return window.navigator.standalone ||
-      (window.external.msIsSiteMode && window.external.msIsSiteMode());
+      (window.external && window.external.msIsSiteMode && window.external.msIsSiteMode());
   };
 
   return {

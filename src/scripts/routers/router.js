@@ -17,10 +17,11 @@ define([
   'views/stagePage',
   'views/commentPage',
   'views/mgmtlocationPage',
-  'views/locationdetailsPage'
+  'views/locationdetailsPage',
+  'helpers/browser'
 ], function(ext, Page, WelcomePage, ListPage, SpeciesPage, UserPage, LoginPage, RegisterPage,
             RecordPage, DatePage, LocationPage, NumberPage, StagePage,
-            CommentPage, MgmtlocationPage, LocationdetailsPage) {
+            CommentPage, MgmtlocationPage, LocationdetailsPage, browser) {
   'use strict';
 
   app.views = {};
@@ -64,8 +65,10 @@ define([
           app.views.listPage.update();
         },
         after: function(){
-          if (app.views.listPage.scroll) {
-            window.scrollTo(0, app.views.listPage.scroll);
+          //leaving out safari home mode because it creates a nasty glitch on 8.3
+          if (app.views.listPage.scroll &&
+            !(browser.detect('Safari') && browser.isHomeMode())) {
+              window.scrollTo(0, app.views.listPage.scroll);
           }
         },
         leave: function(){

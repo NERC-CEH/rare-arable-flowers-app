@@ -34,7 +34,7 @@
       "js": ["d3.js", "d3.min.js"]
     },
     "IndexedDBShim": {
-      "js": ["dist/IndexedDBShim.js", "dist/IndexedDBShim.min.js"]
+      "js": ["dist/IndexedDBShim.js"]
     },
     "jquery": {
       "js": ["jquery.js", "jquery.min.js"]

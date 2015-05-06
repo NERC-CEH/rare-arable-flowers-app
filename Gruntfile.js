@@ -156,15 +156,122 @@ module.exports = function (grunt) {
 
 
     uglify: {
-      libs: {
+      indexedDB: {
+        options: {
+          banner:
+          '/**\n' +
+          '* IndexedDBShim\n ' +
+          '* https://github.com/axemclion/IndexedDBShim\n ' +
+          '*/\n'
+        },
         files: {
-          'src/scripts/libs/topojson/js/topojson.min.js': ['src/scripts/libs/topojson/js/topojson.js'],
-          'src/scripts/libs/backbone/js/backbone.min.js': ['src/scripts/libs/backbone/js/backbone.js'],
-          'src/scripts/libs/fastclick/js/fastclick.min.js': ['src/scripts/libs/fastclick/js/fastclick.js'],
-          'src/scripts/libs/latlon/js/dms.min.js': ['src/scripts/libs/latlon/js/dms.js'],
-          'src/scripts/libs/latlon/js/latlon-ellipsoidal.min.js': ['src/scripts/libs/latlon/js/latlon-ellipsoidal.js'],
-          'src/scripts/libs/latlon/js/osgridref.min.js': ['src/scripts/libs/latlon/js/osgridref.js'],
-          'src/scripts/libs/latlon/js/vector3d.min.js': ['src/scripts/libs/latlon/js/vector3d.js'],
+          'src/scripts/libs/IndexedDBShim/js/IndexedDBShim.min.js': ['src/scripts/libs/IndexedDBShim/js/IndexedDBShim.js']
+        }
+      },
+      topojson: {
+        options: {
+          banner:
+          '/**\n' +
+          '* Topojson\n ' +
+          '* https://github.com/mbostock/topojson\n ' +
+          '*/\n'
+        },
+        files: {
+          'src/scripts/libs/topojson/js/topojson.min.js': ['src/scripts/libs/topojson/js/topojson.js']
+        }
+      },
+      backbone: {
+        options: {
+          banner:
+          '//     Backbone.js 1.1.2\n' +
+          '//     (c) 2010-2014 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors\n' +
+          '//     Backbone may be freely distributed under the MIT license.\n' +
+          '//     For all details and documentation:\n' +
+          '//     http://backbonejs.org */\n'
+        },
+        files: {
+          'src/scripts/libs/backbone/js/backbone.min.js': ['src/scripts/libs/backbone/js/backbone.js']
+        }
+      },
+      fastclick: {
+        options: {
+          banner:
+          '/** \n' +
+          '* @preserve FastClick: polyfill to remove click delays on browsers with touch UIs. \n' +
+          '* \n' +
+          '* @version 1.0.3 \n' +
+          '* @codingstandard ftlabs-jsv2 \n' +
+          '* @copyright The Financial Times Limited [All Rights Reserved] \n' +
+          '* @license MIT License (see LICENSE.txt) \n' +
+          '*/\n'
+        },
+        files: {
+          'src/scripts/libs/fastclick/js/fastclick.min.js': ['src/scripts/libs/fastclick/js/fastclick.js']
+        }
+      },
+      dms: {
+        options: {
+          banner:
+            '/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */\n' +
+            '/*  Geodesy representation conversion functions                       (c) Chris Veness 2002-2015  */\n' +
+            '/*   - www.movable-type.co.uk/scripts/latlong.html                                   MIT Licence  */\n' +
+            '/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */\n'
+        },
+        files: {
+          'src/scripts/libs/latlon/js/dms.min.js': ['src/scripts/libs/latlon/js/dms.js']
+        }
+      },
+      latlon_ellipsoid: {
+        options: {
+          banner:
+            '/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */\n' +
+            '/* Geodesy tools for an ellipsoidal earth model         (c) Chris Veness 2005-2015 / MIT Licence  */\n' +
+            '/*                                                                                                */\n' +
+            '/* Includes methods for converting lat/lon coordinates between different coordinate systems.      */\n' +
+            '/*   - www.movable-type.co.uk/scripts/latlong-convert-coords.html                                 */\n' +
+            '/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */\n'
+        },
+        files: {
+          'src/scripts/libs/latlon/js/latlon-ellipsoidal.min.js': ['src/scripts/libs/latlon/js/latlon-ellipsoidal.js']
+        }
+      },
+      osgridref: {
+        options: {
+          // the banner is inserted at the top of the output
+          banner:
+            '/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */\n' +
+            '/*  Ordnance Survey Grid Reference functions            (c) Chris Veness 2005-2015 / MIT Licence  */\n' +
+            '/*  Formulation implemented here due to Thomas, Redfearn, etc is as published by OS, but is       */\n' +
+            '/*  inferior to Krüger as used by e.g. Karney 2011.                                               */\n' +
+            '/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */\n'
+        },
+        files: {
+          'src/scripts/libs/latlon/js/osgridref.min.js': ['src/scripts/libs/latlon/js/osgridref.js']
+        }
+      },
+      vector3d: {
+        options: {
+          // the banner is inserted at the top of the output
+          banner:
+            '/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */\n' +
+            '/*  Vector handling functions                           (c) Chris Veness 2011-2015 / MIT Licence  */\n' +
+            '/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */\n'
+        },
+        files: {
+          'src/scripts/libs/latlon/js/vector3d.min.js': ['src/scripts/libs/latlon/js/vector3d.js']
+        }
+      },
+      requirejs: {
+        options: {
+          // the banner is inserted at the top of the output
+          banner:
+            '/** vim: et:ts=4:sw=4:sts=4\n' +
+            '* @license RequireJS 2.1.16 Copyright (c) 2010-2015, The Dojo Foundation All Rights Reserved.\n' +
+            '* Available via the MIT or new BSD license.\n' +
+            '* see: http://github.com/jrburke/requirejs for details\n' +
+            '*/\n'
+        },
+        files: {
           'src/scripts/libs/requirejs/js/require.min.js': ['src/scripts/libs/requirejs/js/require.js']
         }
       },
@@ -217,7 +324,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-requirejs');
 
   // the default task can be run just by typing "grunt" on the command line
-  grunt.registerTask('init', ['bower', 'replace:indexedDBShim', 'replace:latlon', 'uglify:libs']);
-  grunt.registerTask('build', ['copy', 'cssmin', 'jst', 'uglify:data', 'replace:main', 'requirejs']);
+  grunt.registerTask('init', ['bower', 'replace:indexedDBShim', 'replace:latlon', 'uglify']);
+  grunt.registerTask('build', ['copy', 'cssmin', 'jst', 'replace:main', 'requirejs']);
   grunt.registerTask('default', ['init', 'build']);
 };

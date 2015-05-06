@@ -17,7 +17,7 @@
       'fastclick': 'libs/fastclick.min',
       'd3': 'libs/d3.min',
       'topojson': 'libs/topojson.min',
-      'morel': 'libs/morel.min',
+      'morel': 'libs/morel',
       'underscore': 'libs/lodash.min',
       'backbone': 'libs/backbone.min',
       'backbone.localStorage': 'libs/backbone.localStorage-min',
