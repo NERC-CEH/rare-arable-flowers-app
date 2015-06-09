@@ -18,6 +18,8 @@
                 <p>Sites with low levels of undesirable weeds such as couch, black-grass, brome, rye-grass and wild oats are easier to manage. However, in some instances, may be unavoidable if located at the same place as threatened arable plants.</p>
             </li>
             <li>
+                <h3 style="white-space:normal">Richness based on cumulative weighted scores for 120 rare
+                    and/or declining species</h3>
                 <div id="heat-map"></div>
             </li>
         </ul>
