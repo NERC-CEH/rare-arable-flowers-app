@@ -49,6 +49,7 @@ define([
       _log('views.RecordPage: update.', log.DEBUG);
       switch (prevPageId) {
         case 'list':
+        case 'species':
           this.initRecording(speciesID);
           break;
         case '':

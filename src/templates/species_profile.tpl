@@ -48,5 +48,9 @@
                    data-mini="true">More About Conservation</a>
             </p>
         </li>
+        <li>
+            <a href="#record/<%- id %>" data-role="button" data-icon="plus">
+                <center>Record Species</center></a>
+        </li>
     </ul>
 </center>
