@@ -434,7 +434,8 @@ define([
     updateCommentButton: function () {
       var $commentButton = jQuery('#comment-button .descript');
       var value = this.model.get(morel.record.inputs.KEYS.COMMENT);
-      value = value ? value.substring(0, 20) : ''; //cut it down a bit
+      var ellipsis = value && value.length > 20 ? '...' : '';
+      value = value ? value.substring(0, 20) + ellipsis : ''; //cut it down a bit
       $commentButton.html(value);
     },
 
