@@ -289,7 +289,7 @@ app.data.species = [
     "management": "Uncropped cultivated plots (annual)<br/> Greening fallow land", 
     "germination_period": "Autumn (limited germination in the spring)", 
     "profile_pic_author": "Chris Gibson", 
-    "taxon": " Apera interrupta", 
+    "taxon": " Apera spica-venti", 
     "confusion": "", 
     "type": "G"
   }, 
