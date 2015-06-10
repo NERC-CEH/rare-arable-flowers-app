@@ -383,7 +383,7 @@ define([
       gridref = normalizeGridRef(gridref);
 
       if (!isNaN(gridref.easting) && !isNaN(gridref.northing)) {
-        var latLon = OsGridRef.osGridToLatLon(gridref, LatLon.datum.OSGB36);
+        var latLon = OsGridRef.osGridToLatLon(gridref, LatLon.datum.WGS84);
         this.set(latLon.lat, latLon.lon, 1, name);
 
         $('#gref-message').hide();
@@ -426,7 +426,7 @@ define([
     updateLocationMessage: function () {
       //convert coords to Grid Ref
       var location = this.get();
-      var p = new LatLon(location.latitude, location.longitude, LatLon.datum.OSGB36);
+      var p = new LatLon(location.latitude, location.longitude, LatLon.datum.WGS84);
       var grid = OsGridRef.latLonToOsGrid(p);
       var gref = grid.toString();
 

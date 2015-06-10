@@ -341,7 +341,7 @@ define([
             latitude: value.split(',')[0],
             longitude: value.split(',')[1]
           };
-          var p = new LatLon(location.latitude, location.longitude, LatLon.datum.OSGB36);
+          var p = new LatLon(location.latitude, location.longitude, LatLon.datum.WGS84);
           var grid = OsGridRef.latLonToOsGrid(p);
           text =  grid.toString();
           break;

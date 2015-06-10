@@ -98,7 +98,7 @@ define([
         return null;
       }
       //get translated geoloc
-      var p = new LatLon(geoloc.split(',')[0], geoloc.split(',')[1], LatLon.datum.OSGB36);
+      var p = new LatLon(geoloc.split(',')[0], geoloc.split(',')[1], LatLon.datum.WGS84);
       var grid = OsGridRef.latLonToOsGrid(p);
       var gref = grid.toString(LOCATION_GRANULARITY);
       _log('models.User: converted geoloc to sref -  ' + gref + ".", log.DEBUG);
