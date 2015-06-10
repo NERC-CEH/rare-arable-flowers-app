@@ -178,8 +178,13 @@ define([
             if (a.attributes.general || b.attributes.general){
               return a.attributes.general ? 1 : -1;
             }
-            a = a.attributes.common_name.toLowerCase();
-            b = b.attributes.common_name.toLowerCase();
+            var significant = a.attributes.common_name_significant;
+            var common = a.attributes.common_name;
+            a = ( (significant ? significant : '') + common ).toLowerCase();
+
+            significant = b.attributes.common_name_significant;
+            common = b.attributes.common_name;
+            b = ( (significant ? significant : '') + common ).toLowerCase();
 
             if (a === b) {
               return 0;
@@ -196,8 +201,13 @@ define([
             if (a.attributes.general || b.attributes.general){
               return a.attributes.general ? 1 : -1;
             }
-            a = a.attributes.common_name.toLowerCase();
-            b = b.attributes.common_name.toLowerCase();
+            var significant = a.attributes.common_name_significant;
+            var common = a.attributes.common_name;
+            a = ( (significant ? significant : '') + common ).toLowerCase();
+
+            significant = b.attributes.common_name_significant;
+            common = b.attributes.common_name;
+            b = ( (significant ? significant : '') + common ).toLowerCase();
 
             if (a === b) {
               return 0;
