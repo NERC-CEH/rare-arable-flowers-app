@@ -86,7 +86,10 @@ define([
       this.model.reset(specie.attributes.warehouse_id);
 
       //add header to the page
-      this.$heading.text(specie.attributes.common_name);
+      var significant = specie.attributes.common_name_significant;
+      var common = specie.attributes.common_name;
+      var name = ( (significant ? significant + ', ' : '') + common );
+      this.$heading.text(name);
       this.resetButtons();
 
       //start geolocation

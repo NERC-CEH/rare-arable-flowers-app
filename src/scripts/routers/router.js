@@ -56,14 +56,14 @@ define([
       },
 
       "list": {
-        route: function (id) {
+        route: function () {
           if (!app.views.listPage) {
             app.views.listPage = new ListPage();
           }
           this.changePage(app.views.listPage);
 
           app.views.listPage.update();
-        },
+       },
         after: function(){
           //leaving out safari home mode because it creates a nasty glitch on 8.3
           if (app.views.listPage.scroll &&

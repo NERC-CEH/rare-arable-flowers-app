@@ -9,9 +9,9 @@
       <% } %>
     <% } else { %>
       <% if (common_name_significant) { %>
-        <p class="species-list-secondary-name"><%- common_name_significant %>, <%- common_name %></p>
+        <p class="species-list-main-name"><%- common_name_significant %>, <%- common_name %></p>
       <% } else { %>
-        <p class="species-list-secondary-name"><%- common_name %></p>
+        <p class="species-list-main-name"><%- common_name %></p>
       <% } %>
       <p class="species-list-secondary-name"><i><%- taxon %></i></p>
     <% } %>
