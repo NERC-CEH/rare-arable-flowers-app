@@ -151,7 +151,7 @@ define(['morel', 'helpers/log'], function () {
       Flowering: 4781,
       'In Seed': 4782
     },
-    SREF_NAME: 'smpAttr:566',
+    SREF_NAME: 'sample:location_name',
     COMMENT: 'sample:comment'
   });
 });
