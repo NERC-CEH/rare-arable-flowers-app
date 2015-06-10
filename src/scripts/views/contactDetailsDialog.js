@@ -28,6 +28,7 @@ define([
     }
 
     //button listeners
+    //send
     $('#' + personalDetailsButtonID).on('click', function () {
       var email = $('[name="user-email"]').val();
       var name = $('[name="user-name"]').val();
@@ -49,16 +50,27 @@ define([
         if (!name || !surname) {
           return false;
         }
-
         return validateEmail(email);
+      }
+    });
 
-        function validateEmail(email) {
-          var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-          return re.test(email);
-        }
+    //email check
+    var $inputEmail = $('[name="user-email"] ');
+    $inputEmail.focusout(function () {
+      var valid = validateEmail($(this).val());
+      var $inputBox = $('div.ui-input-text').has('[name="user-email"] ');
+      if (!valid) {
+        $inputBox.addClass('input-error');
+      } else {
+        $inputBox.removeClass('input-error');
       }
     });
   };
+
+  function validateEmail(email) {
+    var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+  }
 
   return ContactDetailsDialog;
 });

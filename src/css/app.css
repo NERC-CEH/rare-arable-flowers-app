@@ -122,7 +122,7 @@ label, form label {
 
 
 /*##################*/
-/* DRAGONFLY APP CSS */
+/* RAF APP CSS */
 /*##################*/
 
 textarea{
@@ -635,4 +635,9 @@ body.loading {
 
 #safari-add-homescreen {
     margin: auto;
+}
+
+/* User details dialog */
+.input-error {
+    border-color: red !important;
 }
