@@ -43,9 +43,10 @@ define([
           setTimeout(function(){
             var finishedBtnCloseId = 'finished-ok-button';
 
-            var addingToHomeScreen = '<p>1. Options<br/> 2. Add to home screen</p>';
+            var addingToHomeScreen = '<p>1. Open <strong>Browser Options</strong></p>' +
+              '<p>2. Tap <strong>Add to Home Screen</strong></p>';
 
-            if(browser.detect('Safari')){
+            if(browser.isIOS()){
               addingToHomeScreen =
               '<img id="safari-add-homescreen" src="images/add_homescreen.png">';
             }

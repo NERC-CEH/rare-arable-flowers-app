@@ -8,51 +8,75 @@
  * Safari has to have an ID of only Safari and not Chrome
  *****************************************************************************/
 define([], function () {
-  var detect = function (browser) {
     "use strict";
-    if (browser === 'Chrome' || browser === 'Safari') {
-      var isChrome = navigator.userAgent.indexOf('Chrome') > -1,
-        isSafari = navigator.userAgent.indexOf("Safari") > -1;
+    var ua = navigator.userAgent.toLowerCase();
 
-      if (isSafari) {
-        if (browser === 'Chrome') {
-          //Chrome
-          return isChrome;
+    var isIPhone = is('iphone');
+    var isIPad = is('ipad');
+    var isIPod = is('ipad');
+    var isChrome = is('chrome') || is('crmo');
+    var isFirefox = is('firefox');
+
+
+    function is (string) {
+      return ua.search(string) >= 0;
+    }
+
+    var detect = function (browser) {
+      browser = browser.toLowerCase();
+
+      "use strict";
+      if (browser === 'chrome' || browser === 'safari') {
+        var isChrome = is('chrome'),
+          isSafari = is("safari");
+
+        if (isSafari) {
+          if (browser === 'chrome') {
+            //Chrome
+            return isChrome;
+          }
+          //Safari
+          return !isChrome;
         }
-        //Safari
-        return !isChrome;
+        if (isMobile()) {
+          //Safari homescreen Agent has only 'Mobile'
+          return true;
+        }
+        return false;
       }
-      if (isMobile()) {
-        //Safari homescreen Agent has only 'Mobile'
-        return true;
-      }
-      return false;
-    }
-    return (navigator.userAgent.indexOf(browser) > -1);
-  };
+      return (is(browser));
+    };
 
-  var isMobile = function () {
-    var mobile = navigator.userAgent.indexOf("Mobile") > -1;
-    var android = navigator.userAgent.indexOf("Android") > -1;
-    return mobile || android;
-  };
+    var isMobile = function () {
+      return is('mobile') || is('android');
+    };
 
-  var isHomeMode = function () {
-    if (detect('Chrome')) {
-      //http://java.dzone.com/articles/home-screen-web-apps-android
-      navigator.standalone = navigator.standalone ||
-      (screen.height-document.documentElement.clientHeight < 40);
-    }
+    var isIOS = function () {
+      return isIPad || isIPod || isIPhone;
+    };
 
-    return window.navigator.standalone ||
-      (window.external && window.external.msIsSiteMode && window.external.msIsSiteMode());
-  };
+    var isAndroidChrome = function () {
+      return is('android') && isChrome;
+    };
 
-  return {
-    detect: detect,
-    isMobile: isMobile,
-    isHomeMode: isHomeMode
-  };
+    var getIOSVersion = function () {
+      var ver = /i.*OS (\d+)_(\d+)(?:_(\d+))?/i.exec(ua);
+      return ver[1];
+    };
+
+    var isHomeMode = function () {
+      return window.navigator.standalone ||
+        (window.external && window.external.msIsSiteMode && window.external.msIsSiteMode());
+    };
+
+    return {
+      detect: detect,
+      isMobile: isMobile,
+      isIOS: isIOS,
+      isAndroidChrome: isAndroidChrome,
+      getIOSVersion: getIOSVersion,
+      isHomeMode: isHomeMode
+    };
 });
 
 
