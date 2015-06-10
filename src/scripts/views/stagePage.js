@@ -36,6 +36,9 @@ define([
       return this;
     },
 
+    /**
+     * Reset the page.
+     */
     update: function () {
       var value = this.model.get(this.warehouse_id);
       if (!value) {
