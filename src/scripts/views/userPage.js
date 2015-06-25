@@ -188,6 +188,7 @@ define([
                   return model.get('warehouse_id') == value;
                 });
                 record.common_name = specie ? specie.attributes.common_name : '';
+                record.common_name_significant = specie ? specie.attributes.common_name_significant : '';
                 break;
               default:
             }
