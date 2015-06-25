@@ -447,8 +447,8 @@ a.ui-btn > img {
     margin-left: 3px;
     margin-top: 5px;
 
-    min-height: 85%;
-    min-width: 21%;
+    min-height: 80px;
+    min-width: 80px;
 }
 
 .ui-btn-icon-left:after,
