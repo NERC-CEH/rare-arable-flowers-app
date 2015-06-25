@@ -6,7 +6,7 @@
     <h1>Date</h1>
 
     <div class='ui-btn-right' data-role='controlgroup' data-type='horizontal'>
-        <button id="date-save" data-icon="star">Save</button>
+        <button id="date-save" data-icon="calendar" data-iconpos="right">Save</button>
     </div>
 </div>
 <div data-role="content">

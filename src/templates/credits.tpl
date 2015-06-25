@@ -18,6 +18,7 @@
                 <li><p>Cath Shellswell (Plantlife, species maps)</p></li>
                 <li><p>Mike Green (Natural England)</p></li>
                 <li><p>Markus Wagner (CEH, species maps)</p></li>
+                <li><p>Tom Humphrey (BSBI)</p></li>
                 <li><p>Dr Colin Harrower (CEH, species maps)</p></li>
                 <li><p>John Redhead (CEH, species heatmap)</p></li>
                 <li><p>Andrew Evans (evansbleep.co.uk, management illustrations)</p></li>

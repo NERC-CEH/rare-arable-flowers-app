@@ -6,7 +6,7 @@
     <h1>Location</h1>
 
     <div class='ui-btn-right' data-role='controlgroup' data-type='horizontal'>
-        <button id="location-save" data-icon="star">Save</button>
+        <button id="location-save" data-icon="location" data-iconpos="right">Save</button>
     </div>
 </div>
 <div data-role="content">
