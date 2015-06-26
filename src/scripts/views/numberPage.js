@@ -17,7 +17,7 @@ define([
     template: app.templates.number,
 
     events: {
-      'change input[type=radio]': 'save'
+      'click #number-save': 'save'
     },
 
     initialize: function () {
@@ -37,10 +37,24 @@ define([
     },
 
     update: function () {
+      this.$areaLength = this.$el.find('#area-length');
+      this.$areaWidth = this.$el.find('#area-width');
+
       var value = this.model.get(this.warehouse_id);
       if (!value) {
         //unset all radio buttons
         this.$el.find("input:radio").attr("checked", false).checkboxradio("refresh");
+      }
+
+      var length = this.model.get(morel.record.inputs.KEYS.NUMBER_AREA_LENGTH);
+      if (!length) {
+        this.$areaLength.val('');
+        this.$areaLength.slider('refresh');
+      }
+      var width = this.model.get(morel.record.inputs.KEYS.NUMBER_AREA_WIDTH);
+      if (!width) {
+        this.$areaWidth.val('');
+        this.$areaWidth.slider('refresh');
       }
     },
 
@@ -57,12 +71,30 @@ define([
      * @returns {boolean}
      */
     save: function (e) {
+      this.$areaLength = this.$el.find('#area-length');
+      this.$areaWidth = this.$el.find('#area-width');
+
+      //save number
       var name = this.warehouse_id;
-      var value = e.currentTarget.value;
+      var checkedNumberInput = this.$el.find('input[type="radio"]:checked');
+      var value = checkedNumberInput.val();
+
       value = morel.record.inputs.KEYS.NUMBER_VAL[value];
-      if (value !== "") {
+      if (value) {
         this.model.set(name, value);
       }
+
+      //save area
+      var length = this.$areaLength.val();
+      var width = this.$areaWidth.val();
+
+      if (length) {
+        this.model.set(morel.record.inputs.KEYS.NUMBER_AREA_LENGTH, parseInt(length));
+      }
+      if (width) {
+        this.model.set(morel.record.inputs.KEYS.NUMBER_AREA_WIDTH, parseInt(width));
+      }
+
       window.history.back();
       return false;
     }

@@ -4,6 +4,9 @@
                data-icon="delete">Cancel</a>
         </div>
         <h1>Number</h1>
+        <div class='ui-btn-right' data-role='controlgroup' data-type='horizontal'>
+            <button id="number-save" data-icon="star" data-iconpos="right">Save</button>
+        </div>
     </div>
     <div data-role="content">
         <div class="info-message">
@@ -23,4 +26,13 @@
             <input type="radio" name="number" id="radio-choice-6" value="Present" checked>
             <label for="radio-choice-6">Present</label>
         </fieldset>
+
+        <div class="ui-field-contain">
+            <label for="area-length">Surveyed area <b>length</b> (meters):</label>
+            <input name="area-length" id="area-length" type="range" value="0" min="0" max="1000"/>
+        </div>
+        <div class="ui-field-contain">
+            <label for="area-width">Surveyed area <b>width</b> (meters):</label>
+            <input name="area-width" id="area-width" type="range" value="0" min="0" max="1000"/>
+        </div>
     </div>

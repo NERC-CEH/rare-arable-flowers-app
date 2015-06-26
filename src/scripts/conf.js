@@ -145,6 +145,8 @@ define(['morel', 'helpers/log'], function () {
       '1000+': 4778,
       'Present': 4779 //default
     },
+    NUMBER_AREA_LENGTH: 111,
+    NUMBER_AREA_WIDTH: 112,
     STAGE: 'occAttr:384',
     STAGE_VAL: {
       Vegetative: 4780,
