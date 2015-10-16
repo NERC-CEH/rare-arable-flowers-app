@@ -2,38 +2,57 @@
  * Displays a self disappearing lightweight message.
  *****************************************************************************/
 define(['jquery', 'jquery.mobile'], function ($, jqm) {
-  /**
-   *
-   * @param text
-   * @param time 0 if no hiding, null gives default 3000ms delay
-   * @constructor
-   */
-  var Message = function (text, time) {
-    if (!text) {
-      _log('NAVIGATION: no text provided to message.', log.ERROR);
-      return;
-    }
 
-    var messageId = 'morelLoaderMessage';
+    $('body').append("<div class='ui-loader-background'> </div>");
 
-    text = '<div id="' + messageId + '">' + text + '</div>';
+    /**
+     *
+     * @param text
+     * @param time 0 if no hiding, null gives default 3000ms delay
+     * @constructor
+     */
+    var Message = function (text, time, callback) {
+        var CLOSE_ID = 'loader-close',
+            CLOSE_HTML = '<div id="' + CLOSE_ID + '" class="ui-btn ui-loader-close ui-icon-delete ui-btn-icon-notext ui-btn-right"></div>';
 
-    $.mobile.loading('show', {
-      theme: "b",
-      textVisible: true,
-      textonly: true,
-      html: text
-    });
+        if (!text) {
+            _log('NAVIGATION: no text provided to message.', log.ERROR);
+            return;
+        }
 
-    //trigger JQM beauty
-    $('#' + messageId).trigger('create');
+        if (typeof text !== 'string') {
+            text =
+                "<h2>Sorry :(</h2>" +
+                '<p>' +
+                    (text.message || 'Some problem occurred') +
+                    (text.number ? ' <small><i>(code: ' + text.number + ')</i></small>' : '') +
+                '</p>';
+        }
 
-    if (time !== 0) {
-      setTimeout(function () {
-        $.mobile.loading('hide');
-      }, time || 3000);
-    }
-  };
+        var messageId = 'loaderMessage';
+        var html = '<div id="' + messageId + '">' + (callback ? CLOSE_HTML : '') + text + '</div>';
 
-  app.message = Message;
+        $.mobile.loading('show', {
+            theme: "b",
+            textVisible: true,
+            textonly: true,
+            html: html
+        });
+
+        //trigger JQM beauty
+        $('#' + messageId).trigger('create');
+
+        $('#' + CLOSE_ID).on('click', function () {
+            $.mobile.loading('hide');
+            typeof callback === 'function' && callback();
+        });
+
+        if (time !== 0) {
+            setTimeout(function () {
+                $.mobile.loading('hide');
+            }, time || 3000);
+        }
+    };
+
+    return Message;
 });

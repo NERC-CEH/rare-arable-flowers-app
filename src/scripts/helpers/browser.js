@@ -4,7 +4,7 @@
  * Checks if the page is in the home screen (app) mode.
  * Generic function to detect the browser vendor.
  *
- * Chrome has to have and ID of both Chrome and Safari therefore
+ * Note: Chrome has to have and ID of both Chrome and Safari therefore
  * Safari has to have an ID of only Safari and not Chrome
  *****************************************************************************/
 define([], function () {
@@ -19,63 +19,65 @@ define([], function () {
 
 
     function is (string) {
-      return ua.search(string) >= 0;
+        return ua.search(string) >= 0;
     }
 
     var detect = function (browser) {
-      browser = browser.toLowerCase();
+        browser = browser.toLowerCase();
 
-      "use strict";
-      if (browser === 'chrome' || browser === 'safari') {
-        var isChrome = is('chrome'),
-          isSafari = is("safari");
+        "use strict";
+        if (browser === 'chrome' || browser === 'safari') {
+            var isChrome = is('chrome'),
+                isSafari = is("safari");
 
-        if (isSafari) {
-          if (browser === 'chrome') {
-            //Chrome
-            return isChrome;
-          }
-          //Safari
-          return !isChrome;
+            if (isSafari) {
+                if (browser === 'chrome') {
+                    //Chrome
+                    return isChrome;
+                }
+                //Safari
+                return !isChrome;
+            }
+            if (isMobile()) {
+                //Safari homescreen Agent has only 'Mobile'
+                return true;
+            }
+            return false;
         }
-        if (isMobile()) {
-          //Safari homescreen Agent has only 'Mobile'
-          return true;
-        }
-        return false;
-      }
-      return (is(browser));
+        return (is(browser));
     };
 
     var isMobile = function () {
-      return is('mobile') || is('android');
+        return is('mobile') || is('android');
     };
 
     var isIOS = function () {
-      return isIPad || isIPod || isIPhone;
+        return isIPad || isIPod || isIPhone;
     };
 
     var isAndroidChrome = function () {
-      return is('android') && isChrome;
+        return is('android') && isChrome;
     };
 
     var getIOSVersion = function () {
-      var ver = /i.*OS (\d+)_(\d+)(?:_(\d+))?/i.exec(ua);
-      return ver[1];
+        var ver = /i.*OS (\d+)_(\d+)(?:_(\d+))?/i.exec(ua);
+        return ver[1];
     };
 
     var isHomeMode = function () {
-      return window.navigator.standalone ||
-        (window.external && window.external.msIsSiteMode && window.external.msIsSiteMode());
+        return window.navigator.standalone ||
+            (window.external && window.external.msIsSiteMode && window.external.msIsSiteMode());
     };
 
     return {
-      detect: detect,
-      isMobile: isMobile,
-      isIOS: isIOS,
-      isAndroidChrome: isAndroidChrome,
-      getIOSVersion: getIOSVersion,
-      isHomeMode: isHomeMode
+        is: is,
+        detect: detect,
+        isMobile: isMobile,
+        isIOS: isIOS,
+        isIPhone: isIPhone,
+        isAndroidChrome: isAndroidChrome,
+        getIOSVersion: getIOSVersion,
+        isHomeMode: isHomeMode
     };
 });
 
