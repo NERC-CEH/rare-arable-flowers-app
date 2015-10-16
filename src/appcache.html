@@ -1,6 +1,8 @@
 <!DOCTYPE HTML>
 <html manifest="appcache.manifest">
 <head>
+  <meta charset="utf-8">
+
   <title>offline.html</title>
 
   <!-- CSS -->
@@ -31,8 +33,8 @@
   <script src="scripts/libs/jquery.js"></script>
   <script type="text/javascript">
     var lastUpdate = 0;
-    var TIME_DIFF = 20; //ms
-    var files_total = 278;
+    var TIME_DIFF = 50; //ms
+    var files_total = 340;
     var max = 1.0;
 
     $(document).ready(function($) {
@@ -58,17 +60,15 @@
                   var message = '';
                   switch (e.type) {
                     case 'error':
-                      var reason = e.originalEvent.message;
-                      if (e.originalEvent.message.search('exceed quota') >= 0) {
-                        reason = 'Not enough space! </br>' +
+                      var err = e.originalEvent;
+                      if (err.message && err.message.search('exceed quota') >= 0) {
+                        err.message = 'Not enough space! ' +
                         'Try clearing your browser history.'
+                      } else if (!err.message) {
+                        err.message = 'Appcache Download Error';
                       }
-                      message = "<div class='error'>" +
-                      "<center><h2>Error :(</h2></center>" +
-                      reason + "</div>";
 
-                      $('body').html(message);
-                      error(e.originalEvent);
+                      error(err);
                       return;
                     case 'cached':
                     case 'updateready':
