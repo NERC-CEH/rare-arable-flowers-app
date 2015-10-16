@@ -17,12 +17,12 @@ define(['morel', 'helpers/log'], function () {
         },
         GA: {
             //Google Analytics settings
-            STATUS: true,
+            STATUS: false,
             ID: 'UA-58378803-3'
         },
         LOGIN: {
             STATUS: true,
-            URL: "https://www.brc.ac.uk/irecord/user/mobile/register",
+            URL: "http://192.171.199.230/irecord7/user/mobile/register",
             TIMEOUT: 80000
         },
         REGISTER: {
@@ -110,17 +110,17 @@ define(['morel', 'helpers/log'], function () {
 
     //logging
     log.CONF = {
-        STATE: log.INFO,
+        STATE: log.DEBUG,
         GA_ERROR: true //log error using google analytics
     };
 
     //morel configuration
     app.CONF.morel = {
-        url: 'https://www.brc.ac.uk/irecord/mobile/submit',
-        appname: "ird",
-        appsecret: "irdpass",
+        url: 'http://192.171.199.230/irecord7/mobile/submit',
+        appname: "test",
+        appsecret: "mytest",
         website_id: 23,
-        survey_id: 350,
+        survey_id: 258,
         Storage: morel.DatabaseStorage
     };
 
@@ -150,50 +150,43 @@ define(['morel', 'helpers/log'], function () {
                 '100m': 3069,
                 '1km': 3070
             }
+        },
+        location_details: {
+            id: 567,
+            values: {
+                "Cultivated Strip / Block": 4783,
+                "Conservation headland": 4784,
+                "Wild bird seed / Game cover": 4785,
+                "Wildflower / Clover rich margin": 4786,
+                "Grass margin / corner": 4787,
+                "Crop": 4788,
+                "Stubble": 4789,
+                "Track / gateway": 4790,
+                "Other": 4791,
+                "Grassland": 4792
+            }
         }
     });
 
     var numberRanges = {
-        '1': 665,
-        '2-5': 666,
-        '6-20': 667,
-        '21-100': 668,
-        '101-500': 669,
-        '500+': 670,
-        'Present': 671 //default
+        '1': 4774,
+        '2-10': 4775,
+        '11-100': 4776,
+        '101-1000': 4777,
+        '1000+': 4778,
+        'Present': 4779 //default
     };
 
     $.extend(true, morel.Occurrence.keys, {
         number: {
             id: 505, values: numberRanges
         },
-        adult: {
-            id: 34, values: numberRanges
-        },
-        copulating: {
-            id: 35, values: numberRanges
-        },
-        ovipositing: {
-            id: 36, values: numberRanges
-        },
-        larvae: {
-            id: 37, values: numberRanges
-        },
-        exuviae: {
-            id: 38, values: numberRanges
-        },
-        emergent: {
-            id: 39, values: numberRanges
-        },
         stage: {
-            id: 506,
+            id: 384,
             values: {
-                Adult: 5703,
-                Copulating: 5704,
-                Ovipositing: 5705,
-                Larvae: 5706,
-                Exuviae: 5707,
-                Emergent: 5708
+                'Vegetative': 4780,
+                'Flowering': 4781,
+                'In Seed': 4782
             }
         },
         certain: {
