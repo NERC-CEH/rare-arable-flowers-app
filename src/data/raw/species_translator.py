@@ -2,9 +2,9 @@
 
 # Transforms a CSV file into a JSON file
 # eg.
-# A, B, C[], C[], C[], D[]
+# A, B, C[], C[], C[], D[], E{A}, E{B}
 #
-# {A, B, [C, C, C], [D]}
+# {A, B, [C, C, C], [D], E:{A, B}}
 
 import sys
 import csv
@@ -36,6 +36,14 @@ for row in reader:
         for col in row:
             key = header[colnum]
             array = key.find('[]')
+            object = key.find('{')
+
+            #translate digits
+            if col.replace('.','',1).isdigit():
+                try:
+                    col = int(col)
+                except ValueError:
+                    col = float(col)
 
             #check if the col name is array
             if array != -1:
@@ -46,6 +54,17 @@ for row in reader:
                     row_data[key] = []
                 if col:
                     row_data[key].append(col)
+
+            #check if the col name is object
+            elif object != -1:
+                object_key = key[:object] #crop the {xx}
+                inner_object_key = key[object + 1 : -1] #extract XX from {xx}
+                try:
+                    row_data[object_key]
+                except KeyError:
+                    row_data[object_key] = {}
+                row_data[object_key][inner_object_key] = col
+
             else:
                 row_data[key] = col
             colnum += 1
