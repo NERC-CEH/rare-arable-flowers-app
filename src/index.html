@@ -7,6 +7,11 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1,
         minimum-scale=1, maximum-scale=1, user-scalable=no"/>
+
+  <meta name="description" content="Rare Arable Flowers is a mobile web application for species recording and identification.">
+  <meta name="keywords" content="CEH,BRC,Record,Flowers,Rare,Reference,Guide,Map,Chart,Citizen,Science">
+  <meta name="author" content="Karolis Kazlauskis">
+
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -16,7 +21,7 @@
 
   <!-- ICONS -->
   <link rel="shortcut icon" type="image/vnd.microsoft.icon" href="images/favicon.ico">
-  <link rel="shortcut icon" sizes="192x192" href="images/192.png">
+  <link rel="shortcut icon" sizes="192x192" href="images/Icon-192.png">
   <link rel="apple-touch-icon-precomposed" href="images/AppIcon60x60.png">
   <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/Icon-72.png">
   <link rel="apple-touch-icon-precomposed" sizes="76x76" href="images/Icon-76.png">
@@ -26,19 +31,31 @@
   <link rel="apple-touch-icon-precomposed" sizes="180x180" href="images/Icon-60@3x.png">
   <link rel="apple-touch-startup-image" href="images/startup.png">
 
-  <!-- CSS -->
-  <link type="text/css" rel="stylesheet" href="css/main.min.css"/>
+  <!-- STYLES -->
+  <link type="text/css" rel="stylesheet" href="styles/main.min.css"/>
+
+  <!-- SCRIPTS -->
+  <script src="scripts/libs/require.min.js" data-main="scripts/main-built" async></script>
 </head>
 
 <body class="loading">
   <div class="loading">
     <img src="images/app_logo.png" />
-    <img src="images/sponsor_logo.png" style="width: 80%"/>
+    <img src="images/sponsor_logo.png" style="width: 70%"/>
     <br/>
-    <img src="css/images/ajax-loader.gif" />
+    <div class="loader">
+      <img src="images/ajax-loader.gif" />
+      <div class="error"><!-- Error while loading --></div>
+      <noscript>
+        <style type="text/css">
+          .loader img {display:none;}
+        </style>
+        <div class="error">
+          Oh no! Looks like you don't have javascript enabled.
+        </div>
+      </noscript>
+    </div>
   </div>
-
-  <script src="scripts/libs/require.min.js" data-main="scripts/main-built"></script>
 </body>
 
 </html>
