@@ -1,6 +1,9 @@
 module.exports = function (grunt) {
-  var DEST = 'dist/scripts/';
-  var CONF_NAME = 'conf.js';
+  var DEST = 'dist/',
+      SCRIPTS = 'dist/scripts/',
+      CONF_NAME = 'conf.js',
+      CONF_DEV_NAME = 'conf-dev.js',
+      MANIFEST_NAME = 'appcache.manifest';
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
@@ -11,7 +14,7 @@ module.exports = function (grunt) {
         options: {
           targetDir: 'src/scripts/libs',
           layout: 'byComponent',
-          cleanBowerDir: true
+          cleanBowerDir: false
         }
       }
     },
@@ -32,18 +35,13 @@ module.exports = function (grunt) {
             src:  "src/*.json", dest: 'dist/',
             expand: true, flatten: true
           },
-          //CSS
-          {
-            src:  "src/css/*", dest: 'dist/css/',
-            expand: true, flatten: true
-          },
           //JS
           {
             src:  "src/images/**", dest: 'dist/images/',
             expand: true, flatten: true, filter: 'isFile'
           },
           {
-            src:  "src/images/ajax-loader.gif", dest: 'dist/css/images/',
+            src:  "src/images/ajax-loader.gif", dest: 'dist/styles/images/',
             expand: true, flatten: true
           },
           {
@@ -79,8 +77,16 @@ module.exports = function (grunt) {
             expand: true, flatten: true
           },
           {
-            src:  "src/scripts/libs/**/css/*", dest: 'dist/css/',
+            src:  "src/scripts/libs/**/css/*", dest: 'dist/styles/',
             expand: true, flatten: true
+          }
+        ]
+      },
+
+      test: {
+        files: [
+          {
+            src: "test/*", dest: 'dist/scripts/'
           }
         ]
       }
@@ -140,17 +146,40 @@ module.exports = function (grunt) {
       },
       //App NAME and VERSION
       main: {
-        src: [DEST + CONF_NAME],
+        src: [
+          SCRIPTS + CONF_NAME,
+          SCRIPTS + CONF_DEV_NAME,
+          DEST + MANIFEST_NAME
+        ],
         overwrite: true, // overwrite matched source files
         replacements: [{
-          from: /(app.VERSION =).*version grunt replaced/g, // string replacement
-          to: '$1 \'<%= pkg.version %>\';'
+          from: /{APP_VER}/g, // string replacement
+          to: '<%= pkg.version %>'
         },
           {
-            from: /(app.NAME =).*name grunt replaced/g,  // string replacement
-            to: '$1 \'<%= pkg.name %>\';'
+            from: /{APP_NAME}/g,  // string replacement
+            to: '<%= pkg.name %>'
           }
         ]
+      },
+
+      //App configuration
+      config: {
+        src: [SCRIPTS + 'main.js'],
+        overwrite: true, // overwrite matched source files
+        replacements: [{
+          from: /\'conf\': \'.*\'/g, // string replacement
+          to: '\'conf\': \'conf\''
+        }]
+      },
+
+      dev_config: {
+        src: [SCRIPTS + 'main.js'],
+        overwrite: true, // overwrite matched source files
+        replacements: [{
+          from: /\'conf\': \'.*\'/g, // string replacement
+          to: '\'conf\': \'conf-dev\''
+        }]
       }
     },
 
@@ -166,18 +195,6 @@ module.exports = function (grunt) {
         },
         files: {
           'src/scripts/libs/IndexedDBShim/js/IndexedDBShim.min.js': ['src/scripts/libs/IndexedDBShim/js/IndexedDBShim.js']
-        }
-      },
-      topojson: {
-        options: {
-          banner:
-          '/**\n' +
-          '* Topojson\n ' +
-          '* https://github.com/mbostock/topojson\n ' +
-          '*/\n'
-        },
-        files: {
-          'src/scripts/libs/topojson/js/topojson.min.js': ['src/scripts/libs/topojson/js/topojson.js']
         }
       },
       backbone: {
@@ -212,10 +229,10 @@ module.exports = function (grunt) {
       dms: {
         options: {
           banner:
-            '/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */\n' +
-            '/*  Geodesy representation conversion functions                       (c) Chris Veness 2002-2015  */\n' +
-            '/*   - www.movable-type.co.uk/scripts/latlong.html                                   MIT Licence  */\n' +
-            '/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */\n'
+          '/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */\n' +
+          '/*  Geodesy representation conversion functions                       (c) Chris Veness 2002-2015  */\n' +
+          '/*   - www.movable-type.co.uk/scripts/latlong.html                                   MIT Licence  */\n' +
+          '/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */\n'
         },
         files: {
           'src/scripts/libs/latlon/js/dms.min.js': ['src/scripts/libs/latlon/js/dms.js']
@@ -224,12 +241,12 @@ module.exports = function (grunt) {
       latlon_ellipsoid: {
         options: {
           banner:
-            '/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */\n' +
-            '/* Geodesy tools for an ellipsoidal earth model         (c) Chris Veness 2005-2015 / MIT Licence  */\n' +
-            '/*                                                                                                */\n' +
-            '/* Includes methods for converting lat/lon coordinates between different coordinate systems.      */\n' +
-            '/*   - www.movable-type.co.uk/scripts/latlong-convert-coords.html                                 */\n' +
-            '/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */\n'
+          '/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */\n' +
+          '/* Geodesy tools for an ellipsoidal earth model         (c) Chris Veness 2005-2015 / MIT Licence  */\n' +
+          '/*                                                                                                */\n' +
+          '/* Includes methods for converting lat/lon coordinates between different coordinate systems.      */\n' +
+          '/*   - www.movable-type.co.uk/scripts/latlong-convert-coords.html                                 */\n' +
+          '/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */\n'
         },
         files: {
           'src/scripts/libs/latlon/js/latlon-ellipsoidal.min.js': ['src/scripts/libs/latlon/js/latlon-ellipsoidal.js']
@@ -239,11 +256,11 @@ module.exports = function (grunt) {
         options: {
           // the banner is inserted at the top of the output
           banner:
-            '/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */\n' +
-            '/*  Ordnance Survey Grid Reference functions            (c) Chris Veness 2005-2015 / MIT Licence  */\n' +
-            '/*  Formulation implemented here due to Thomas, Redfearn, etc is as published by OS, but is       */\n' +
-            '/*  inferior to Krüger as used by e.g. Karney 2011.                                               */\n' +
-            '/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */\n'
+          '/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */\n' +
+          '/*  Ordnance Survey Grid Reference functions            (c) Chris Veness 2005-2015 / MIT Licence  */\n' +
+          '/*  Formulation implemented here due to Thomas, Redfearn, etc is as published by OS, but is       */\n' +
+          '/*  inferior to Krüger as used by e.g. Karney 2011.                                               */\n' +
+          '/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */\n'
         },
         files: {
           'src/scripts/libs/latlon/js/osgridref.min.js': ['src/scripts/libs/latlon/js/osgridref.js']
@@ -253,9 +270,9 @@ module.exports = function (grunt) {
         options: {
           // the banner is inserted at the top of the output
           banner:
-            '/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */\n' +
-            '/*  Vector handling functions                           (c) Chris Veness 2011-2015 / MIT Licence  */\n' +
-            '/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */\n'
+          '/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */\n' +
+          '/*  Vector handling functions                           (c) Chris Veness 2011-2015 / MIT Licence  */\n' +
+          '/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */\n'
         },
         files: {
           'src/scripts/libs/latlon/js/vector3d.min.js': ['src/scripts/libs/latlon/js/vector3d.js']
@@ -265,11 +282,11 @@ module.exports = function (grunt) {
         options: {
           // the banner is inserted at the top of the output
           banner:
-            '/** vim: et:ts=4:sw=4:sts=4\n' +
-            '* @license RequireJS 2.1.16 Copyright (c) 2010-2015, The Dojo Foundation All Rights Reserved.\n' +
-            '* Available via the MIT or new BSD license.\n' +
-            '* see: http://github.com/jrburke/requirejs for details\n' +
-            '*/\n'
+          '/** vim: et:ts=4:sw=4:sts=4\n' +
+          '* @license RequireJS 2.1.16 Copyright (c) 2010-2015, The Dojo Foundation All Rights Reserved.\n' +
+          '* Available via the MIT or new BSD license.\n' +
+          '* see: http://github.com/jrburke/requirejs for details\n' +
+          '*/\n'
         },
         files: {
           'src/scripts/libs/requirejs/js/require.min.js': ['src/scripts/libs/requirejs/js/require.js']
@@ -282,16 +299,29 @@ module.exports = function (grunt) {
       }
     },
 
+    sass: {
+      dist: {
+        files: {
+          'dist/styles/main.css': 'src/styles/main.scss'
+        },
+        options: {
+          sourcemap: 'none',
+          style: 'expanded'
+        }
+      }
+    },
+
     cssmin: {
       target: {
         files: [{
           src: [
-            'dist/css/jquery.mobile-1.4.5.min.css',
-            'dist/css/photoswipe.min.css',
-            'dist/css/trip.min.css',
-            'dist/css/app.css'
+            'dist/styles/jquery.mobile-1.4.5.min.css',
+            'dist/styles/photoswipe.css',
+            'dist/styles/trip.min.css',
+            'dist/styles/jquery.datepick.css',
+            'dist/styles/main.css'
           ],
-          dest: 'dist/css/main.min.css'
+          dest: 'dist/styles/main.min.css'
         }]
       }
     },
@@ -301,7 +331,7 @@ module.exports = function (grunt) {
         options: {
           verbose: true,
           baseUrl: "dist/scripts/",
-          mainConfigFile: 'src/scripts/main.js',
+          mainConfigFile: 'dist/scripts/main.js',
           name: "main",
           out: "dist/scripts/main-built.js",
 
@@ -318,13 +348,37 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-bower-task');
   grunt.loadNpmTasks('grunt-text-replace');
   grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-contrib-sass');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-jst');
   grunt.loadNpmTasks('grunt-contrib-requirejs');
 
   // the default task can be run just by typing "grunt" on the command line
-  grunt.registerTask('init', ['bower', 'replace:indexedDBShim', 'replace:latlon', 'uglify']);
-  grunt.registerTask('build', ['copy', 'cssmin', 'jst', 'replace:main', 'requirejs']);
-  grunt.registerTask('default', ['init', 'build']);
+  grunt.registerTask('init', [
+    'replace:indexedDBShim',
+    'replace:latlon',
+    'uglify',
+    'copy:main',
+    'sass',
+    'cssmin',
+    'jst',
+    'replace:main'
+  ]);
+  grunt.registerTask('build', [
+    'init',
+    'replace:config',
+    'requirejs'
+  ]);
+  grunt.registerTask('default', [
+    'bower',
+    'build'
+  ]);
+
+  //Development run
+  grunt.registerTask('dev', [
+    'init',
+    'replace:dev_config',
+    'requirejs'
+  ]);
 };
