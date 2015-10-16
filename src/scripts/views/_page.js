@@ -21,7 +21,7 @@ define([
 
       this.el.id = id;
       this.id = id;
-      this.template = app.templates[id];
+      this.template = app.templates['p_' + id]; //p_ prefix for page
 
       this.render();
       this.appendBackButtonListeners();

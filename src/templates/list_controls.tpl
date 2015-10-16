@@ -1,7 +1,7 @@
 <div data-role="navbar">
     <ul>
         <li><a href="#filter" data-ajax="false"
-               class="ui-btn-active">Filter</a></li>
+               class="ui-btn-active">Filter <div id="list-controls-counter"></div></a></li>
         <li><a href="#sort" data-ajax="false">Sort</a></li>
     </ul>
 </div>
