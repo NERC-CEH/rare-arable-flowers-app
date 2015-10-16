@@ -1,8 +1,10 @@
-![RAF](https://github.com/NERC-CEH/rare-arable-flowers/blob/master/src/images/app_logo.png)
+![RAF](https://github.com/NERC-CEH/rare-arable-flowers/blob/master/src/images/app_logo_dark.png)
 
 This is Rare Arable Flowers identification and recording mobile web application. 
 HTML5 based offline mobile app linked to [iRecord](http://www.brc.ac.uk/irecord/) website.
 
+Live: [Rare Arable Flowers](http://flowers.irecord.org.uk)
+Project: [homepage](http://www.brc.ac.uk/app/flowers)
 
 ## Configuration
 
@@ -27,12 +29,20 @@ cd rare-arable-flowers && npm install
 ```
 
 - Build the library: 
+`Production`
 
 ```bash
 grunt
 ```
 
-This will create a `dist` folder with the app code.
+`Testing/development` 
+
+```bash
+grunt bower dev
+```
+
+
+This will create a `dist` folder with the app code and its dependencies.
 
 
 ## Running
@@ -42,6 +52,8 @@ This will create a `dist` folder with the app code.
 ```bash
 node app.js
 ```
+
+Note: Make sure the server MIME has **application/json** 
 
 
 ## Bugs and feature requests
