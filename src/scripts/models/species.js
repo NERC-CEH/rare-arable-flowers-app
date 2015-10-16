@@ -10,13 +10,14 @@ define([
     defaults: {
       general: false,
       id: "",
-      warehouse_id: 0,
       taxon: "",
       common_name_significant: "",
       common_name: "",
       profile_pic: "images/unknown.png",
       description: "",
       map: "",
+      gallery: [],
+      colour: {},
       favourite: false
     }
   });
