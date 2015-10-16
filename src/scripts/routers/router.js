@@ -190,15 +190,13 @@ define([
                 app.views.numberPage.update(model, multi);
             },
 
-            "locationdetails(/:multi/:id)": function (multi, id) {
-                var model = multi ?
-                    app.models.sampleMulti.occurrences.get(id) :
-                    app.models.sample.occurrences.getFirst();
-                if (!app.views.locationDetailsPage) {
-                    app.views.locationDetailsPage = new LocationdetailsPage();
+            "locationdetails(/:multi)": function (multi) {
+                var model = multi ? app.models.sampleMulti: app.models.sample;
+                if (!app.views.locationdetailsPage) {
+                    app.views.locationdetailsPage = new LocationdetailsPage();
                 }
-                this.changePage(app.views.locationDetailsPage);
-                app.views.locationDetailsPage.update(model, multi);
+                this.changePage(app.views.locationdetailsPage);
+                app.views.locationdetailsPage.update(model, multi);
             },
 
             "stage(/:multi/:id)": function (multi, id) {

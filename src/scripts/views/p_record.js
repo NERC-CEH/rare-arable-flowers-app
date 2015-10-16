@@ -15,8 +15,7 @@ define([
         template: app.templates.p_record,
 
         events: {
-            'click #entry-form-save': 'save',
-            'change input[type="checkbox"]': 'saveCertain'
+            'click #entry-form-save': 'save'
         },
 
         initialize: function () {
@@ -33,8 +32,6 @@ define([
             $('body').append($(this.el));
 
             this.$heading = this.$el.find('#record_species');
-            this.$certainInputLabel = this.$el.find('#certain-button-label');
-            this.$certainInput = this.$el.find('#certain-button');
             this.$photo = this.$el.find('#photo');
             this.$locationButton = this.$el.find('#location-button');
             this.$numberButton = this.$el.find('#number-button .descript');
@@ -74,12 +71,12 @@ define([
             this.model.on('change:location_accuracy', this.updateGPSButton, this);
             this.model.on('change:location', this.updateGPSButton, this);
             this.model.on('change:date', this.updateDateButton, this);
+            this.model.on('change:locationdetails', this.updateLocationdetailsButton, this);
         },
 
         appendOccurrenceListeners: function () {
             this.occurrence.on('change:number', this.updateNumberButton, this);
             this.occurrence.on('change:stage', this.updateStageButton, this);
-            this.occurrence.on('change:locationdetails', this.updateLocationDetailsButton, this);
         },
 
         /**
@@ -90,8 +87,7 @@ define([
             this.occurrence = new morel.Occurrence({
                 attributes: {
                     taxon: speciesID,
-                    number: 'Present',
-                    certain: true
+                    number: 'Present'
                 }
             });
 
@@ -117,14 +113,6 @@ define([
             this.$imgPickerFile.replaceWith(tmpPicker);
             this.$imgPickerFile = tmpPicker;
 
-            //turn off certainty option on general ones
-            if (specie.attributes.general) {
-                this.$certainInputLabel.hide();
-                this.$certainInput.hide();
-            } else {
-                this.$certainInputLabel.show();
-                this.$certainInput.show();
-            }
 
             //start geolocation
             this.runGeoloc();
@@ -191,11 +179,6 @@ define([
 
             this.model.offAll();
             app.recordManager.set(this.model, callback);
-        },
-
-        saveCertain: function (e) {
-            var checked = $(e.target).prop('checked');
-            this.occurrence.set('certain', checked);
         },
 
         /**
@@ -351,9 +334,8 @@ define([
         resetButtons: function () {
             this.updateNumberButton();
             this.updateStageButton();
+            this.updateLocationdetailsButton();
             this.updateCommentButton();
-
-            this.$certainInput.prop('checked', true).checkboxradio('refresh');
         },
 
         /**
@@ -372,8 +354,8 @@ define([
             this.$stageButton.html(value || '');
         },
 
-        updateLocationDetailsButton: function () {
-            var value = this.occurrence.get('locationdetails');
+        updateLocationdetailsButton: function () {
+            var value = this.model.get('locationdetails');
             this.$locationdetailsButton.html(value || '');
         },
 

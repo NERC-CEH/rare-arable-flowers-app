@@ -12,12 +12,6 @@
         </a>
     </li>
     <li>
-        <a href="#locationdetails/multi/<%- obj.id %>" id="locationdetails-button">
-            <h3 class="heading">Habitat Details</h3>
-            <p class="descript"></p>
-        </a>
-    </li>
-    <li>
         <a href="#comment/multi/<%- obj.id %>" id="comment-button"
            class="ui-icon-comment">
             <h3 class="heading">Comment</h3>

@@ -67,7 +67,7 @@ define([
                     var occurrence = new morel.Occurrence({
                             attributes: {
                                 'taxon': speciesID,
-                                'adult': 'Present'
+                                'number': 'Present'
                             }
                         });
 

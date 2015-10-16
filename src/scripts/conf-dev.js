@@ -151,7 +151,7 @@ define(['morel', 'helpers/log'], function () {
                 '1km': 3070
             }
         },
-        location_details: {
+        locationdetails: {
             id: 567,
             values: {
                 "Cultivated Strip / Block": 4783,
@@ -179,7 +179,7 @@ define(['morel', 'helpers/log'], function () {
 
     $.extend(true, morel.Occurrence.keys, {
         number: {
-            id: 505, values: numberRanges
+            id: 383, values: numberRanges
         },
         stage: {
             id: 384,
@@ -187,13 +187,6 @@ define(['morel', 'helpers/log'], function () {
                 'Vegetative': 4780,
                 'Flowering': 4781,
                 'In Seed': 4782
-            }
-        },
-        certain: {
-            id: 32,
-            values: {
-                'true': 663,
-                'false': 664
             }
         },
         taxon: {

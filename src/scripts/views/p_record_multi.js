@@ -26,6 +26,7 @@ define([
 
             this.$locationButton = this.$el.find('#record-multi-location');
             this.$commentButton = this.$el.find('#record-multi-comment .descript');
+            this.$locationdeailsButton = this.$el.find('#record-multi-locationdetails .descript');
             this.$dateButton = this.$el.find('#record-multi-date .descript');
         },
 
@@ -59,6 +60,7 @@ define([
             app.models.sampleMulti = this.model;
 
             this.model.on('change:comment', this.updateCommentButton, this);
+            this.model.on('change:locationdetails', this.updateLocationdetailsButton, this);
             this.model.on('change:location_accuracy', this.updateGPSButton, this);
             this.model.on('change:location', this.updateGPSButton, this);
             this.model.on('change:date', this.updateDateButton, this);
@@ -98,6 +100,7 @@ define([
         refreshButtons: function () {
             this.updateGPSButton();
             this.updateDateButton();
+            this.updateLocationdetailsButton();
             this.updateCommentButton();
         },
 
@@ -157,6 +160,12 @@ define([
             var value = this.model.get('date');
             var text = value || '';
             this.$dateButton.html(text);
+        },
+
+        updateLocationdetailsButton: function () {
+            var value = this.model.get('locationdetails');
+            var text = value || '';
+            this.$locationdeailsButton.html(text);
         },
 
         /**

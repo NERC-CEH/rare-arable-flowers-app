@@ -41,6 +41,13 @@
             </a>
         </li>
         <li>
+            <a href="#locationdetails/multi" id="record-multi-locationdetails"
+               class="record-button">
+                <h3 class="heading">Habitat Details</h3>
+                <p class="descript"></p>
+            </a>
+        </li>
+        <li>
             <a href="#comment/multi" id="record-multi-comment"
                class="record-button ui-icon-comment">
                 <h3 class="heading">Site Comment</h3>
