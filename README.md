@@ -1,4 +1,4 @@
-![RAF](https://github.com/NERC-CEH/rare-arable-flowers/blob/master/src/images/app_logo_dark.png)
+![RAF](https://github.com/NERC-CEH/rare-arable-flowers/raw/master/src/images/app_logo_dark.png)
 
 This is Rare Arable Flowers identification and recording mobile web application. 
 HTML5 based offline mobile app linked to [iRecord](http://www.brc.ac.uk/irecord/) website.
