@@ -1,0 +1,93 @@
+/******************************************************************************
+ * User pages styles.
+ *****************************************************************************/
+
+.saved-list-item {
+  min-height: 50px;
+  padding: 5px 15px;
+}
+
+.saved-list-item > p {
+  white-space: normal !important;
+  margin-left: 55px !important;
+  margin-bottom: 0 !important;
+  margin-top: 5px!important;
+}
+
+.saved-list-item .img-picker-display {
+  height: 46px;
+  width: 46px;
+  position: absolute;
+  background-size: 30px auto;
+  margin-top: -.05em;
+  margin-left: -0.5em;
+}
+
+.saved-list-item .img-picker-display.multi {
+  background-image: url($multi-record-icon-white);
+}
+
+.sync:after {
+  content: "";
+  position: absolute;
+  display: block;
+  width: 15px;
+  height: 15px;
+
+  top: 10px;
+  right: 30px;
+
+  opacity: 0.8 !important;
+
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.sync-icon-cloud:after {
+  background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTc5MiIgaGVpZ2h0PSIxNzkyIiB2aWV3Qm94PSIwIDAgMTc5MiAxNzkyIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxwYXRoIGQ9Ik0xODU2IDExNTJxMCAxNTktMTEyLjUgMjcxLjV0LTI3MS41IDExMi41aC0xMDg4cS0xODUgMC0zMTYuNS0xMzEuNXQtMTMxLjUtMzE2LjVxMC0xMzIgNzEtMjQxLjV0MTg3LTE2My41cS0yLTI4LTItNDMgMC0yMTIgMTUwLTM2MnQzNjItMTUwcTE1OCAwIDI4Ni41IDg4dDE4Ny41IDIzMHE3MC02MiAxNjYtNjIgMTA2IDAgMTgxIDc1dDc1IDE4MXEwIDc1LTQxIDEzOCAxMjkgMzAgMjEzIDEzNC41dDg0IDIzOS41eiIgZmlsbD0icmdiKDQ2LCAxMzksIDg3KSIvPjwvc3ZnPg==");
+}
+
+.sync-icon-local:after {
+  background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTc5MiIgaGVpZ2h0PSIxNzkyIiB2aWV3Qm94PSIwIDAgMTc5MiAxNzkyIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxwYXRoIGQ9Ik0xMjE2IDg2NHEwLTE0LTktMjNsLTM1Mi0zNTJxLTktOS0yMy05dC0yMyA5bC0zNTEgMzUxcS0xMCAxMi0xMCAyNCAwIDE0IDkgMjN0MjMgOWgyMjR2MzUycTAgMTMgOS41IDIyLjV0MjIuNSA5LjVoMTkycTEzIDAgMjIuNS05LjV0OS41LTIyLjV2LTM1MmgyMjRxMTMgMCAyMi41LTkuNXQ5LjUtMjIuNXptNjQwIDI4OHEwIDE1OS0xMTIuNSAyNzEuNXQtMjcxLjUgMTEyLjVoLTEwODhxLTE4NSAwLTMxNi41LTEzMS41dC0xMzEuNS0zMTYuNXEwLTEzMCA3MC0yNDB0MTg4LTE2NXEtMi0zMC0yLTQzIDAtMjEyIDE1MC0zNjJ0MzYyLTE1MHExNTYgMCAyODUuNSA4N3QxODguNSAyMzFxNzEtNjIgMTY2LTYyIDEwNiAwIDE4MSA3NXQ3NSAxODFxMCA3Ni00MSAxMzggMTMwIDMxIDIxMy41IDEzNS41dDgzLjUgMjM4LjV6IiBmaWxsPSJyZ2IoMTkyLCA2OCwgMzIpIi8+PC9zdmc+");
+}
+
+.sync-icon-reload:after {
+  background-size: initial;
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22iso-8859-1%22%3F%3E%3C!DOCTYPE%20svg%20PUBLIC%20%22-%2F%2FW3C%2F%2FDTD%20SVG%201.1%2F%2FEN%22%20%22http%3A%2F%2Fwww.w3.org%2FGraphics%2FSVG%2F1.1%2FDTD%2Fsvg11.dtd%22%3E%3Csvg%20version%3D%221.1%22%20id%3D%22Layer_1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20x%3D%220px%22%20y%3D%220px%22%20%20width%3D%2214px%22%20height%3D%2214px%22%20viewBox%3D%220%200%2014%2014%22%20style%3D%22enable-background%3Anew%200%200%2014%2014%3B%22%20xml%3Aspace%3D%22preserve%22%3E%3Cpath%20d%3D%22M3%2C7h1L2%2C4L0%2C7h1c0%2C3.313%2C2.687%2C6%2C6%2C6c0.702%2C0%2C1.374-0.127%2C2-0.35v-2.205C8.41%2C10.789%2C7.732%2C11%2C7%2C11C4.791%2C11%2C3%2C9.209%2C3%2C7z%20%20M13%2C7c0-3.313-2.688-6-6-6C6.298%2C1%2C5.626%2C1.127%2C5%2C1.349v2.206C5.59%2C3.211%2C6.268%2C3%2C7%2C3c2.209%2C0%2C4%2C1.791%2C4%2C4h-1l2%2C3l2-3H13z%22%2F%3E%3C%2Fsvg%3E") !important;
+}
+
+.sync-icon-reload:after {
+  -webkit-animation-name: rotate;
+  -webkit-animation-duration:2s;
+  -webkit-animation-iteration-count:infinite;
+  -webkit-animation-timing-function:linear;
+  -moz-animation-name: rotate;
+  -moz-animation-duration:2s;
+  -moz-animation-iteration-count:infinite;
+  -moz-animation-timing-function:linear;
+}
+
+@-webkit-keyframes rotate {
+  from {-webkit-transform:rotate(0deg);}
+  to {  -webkit-transform:rotate(360deg);}
+}
+
+@-moz-keyframes rotate {
+  from {-moz-transform:rotate(0deg);}
+  to {  -moz-transform:rotate(360deg);}
+}
+
+.record-info .info {
+  color: #444;
+  font-size: 90%;
+  font-weight: 400;
+  float: right;
+  margin-right: 10px;
+}
+
+#samples-list-placeholder .loading {
+  display: block;
+  width: 30px;
+  margin: 0 auto;
+}
