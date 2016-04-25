@@ -1,9 +1,11 @@
 {
-	"name": "rare-arable-plants",
-	"title": "Arable Plants",
-	"description": "Rare Arable Plants mobile web application.",
-	"version": "1.0.0-beta.3",
-	"homepage": "http://irecord.org.uk/raf",
+	"name": "rare-arable-flowers",
+  "id": "uk.ac.ceh.raf",
+	"title": "Arable Flowers",
+	"description": "Rare Arable Flowers mobile application.",
+  "version": "1.0.0",
+  "build": "1",
+  "homepage": "http://irecord.org.uk",
 	"author": {
 		"name": "Karolis Kazlauskis",
 		"email": "karkaz@ceh.ac.uk",
@@ -11,10 +13,10 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/NERC-CEH/rare-arable-plants-app"
+		"url": "https://github.com/NERC-CEH/rare-arable-flowers-app"
 	},
 	"bugs": {
-		"url": "https://github.com/NERC-CEH/rare-arable-plants-app/issues"
+		"url": "https://github.com/NERC-CEH/rare-arable-flowers-app/issues"
 	},
 	"licenses": [
 		{
@@ -29,7 +31,8 @@
 	"devDependencies": {
 		"bower": "1.3.12",
 		"grunt": "0.4.4",
-		"grunt-bower-task": "0.4.0",
+    "grunt-exec": "latest",
+    "grunt-bower-task": "0.4.0",
 		"grunt-contrib-copy": "0.7.0",
 		"grunt-contrib-compress": "0.7.0",
 		"grunt-contrib-uglify": "0.4.0",

@@ -180,6 +180,35 @@ module.exports = function (grunt) {
           from: /\'conf\': \'.*\'/g, // string replacement
           to: '\'conf\': \'conf-dev\''
         }]
+      },
+      // Cordova config changes
+      cordova_config: {
+        src: [
+          'src/config.xml'
+        ],
+        dest: 'src/config_build.xml',
+        replacements: [
+          {
+            from: /\{ID\}/g, // string replacement
+            to: '<%= pkg.id %>'
+          },
+          {
+            from: /\{APP_VER\}/g, // string replacement
+            to: '<%= pkg.version %>'
+          },
+          {
+            from: /\{APP_TITLE\}/g,
+            to: '<%= pkg.title %>'
+          },
+          {
+            from: /\{APP_DESCRIPTION\}/g,
+            to: '<%= pkg.description %>'
+          },
+          {
+            from: /\{BUNDLE_VER\}/g,
+            to: '<%= pkg.build %>'
+          }
+        ]
       }
     },
 
@@ -342,9 +371,29 @@ module.exports = function (grunt) {
 
         }
       }
+    },
+
+    exec: {
+      cordova_init: {
+        command: 'cordova create cordova',
+        stdout: true
+      },
+      cordova_clean_www: {
+        command: 'rm -R cordova/www/* && rm cordova/config.xml',
+        stdout: true
+      },
+      cordova_copy_dist: {
+        command: 'cp -R dist/* cordova/www/ && cp src/config_build.xml cordova/config.xml',
+        stdout: true
+      },
+      cordova_add_platforms: {
+        command: 'cd cordova && cordova platforms add ios android',
+        stdout: true
+      }
     }
   });
 
+  grunt.loadNpmTasks('grunt-exec');
   grunt.loadNpmTasks('grunt-bower-task');
   grunt.loadNpmTasks('grunt-text-replace');
   grunt.loadNpmTasks('grunt-contrib-uglify');
@@ -381,4 +430,31 @@ module.exports = function (grunt) {
     'replace:dev_config',
     'requirejs'
   ]);
+
+  grunt.registerTask('cordova', 'Cordova tasks', function(update) {
+    if (update) {
+      // update only
+
+      grunt.task.run('replace:cordova_config');
+
+      // update www
+      grunt.task.run('exec:cordova_clean_www');
+      grunt.task.run('exec:cordova_copy_dist');
+      return;
+    }
+
+    // prepare www source
+    grunt.task.run('default');
+
+    grunt.task.run('replace:cordova_config');
+
+    // init cordova source
+    grunt.task.run('exec:cordova_init');
+
+    // add www source to cordova
+    grunt.task.run('exec:cordova_clean_www');
+    grunt.task.run('exec:cordova_copy_dist');
+    grunt.task.run('exec:cordova_add_platforms');
+  });
+
 };

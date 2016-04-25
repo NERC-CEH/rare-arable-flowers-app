@@ -117,8 +117,8 @@ define(['morel', 'helpers/log'], function () {
     //morel configuration
     app.CONF.morel = {
         url: 'https://www.brc.ac.uk/irecord/mobile/submit',
-        appname: "ird",
-        appsecret: "irdpass",
+        appname: "raf",
+        appsecret: "rafPass1234",
         website_id: 23,
         survey_id: 350,
         Storage: morel.DatabaseStorage

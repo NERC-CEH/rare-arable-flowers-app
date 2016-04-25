@@ -8,3 +8,5 @@ bower_components
 src/scripts/libs/*
 !src/scripts/libs/datepick/
 
+/cordova
+/src/config_build.xml

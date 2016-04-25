@@ -178,7 +178,7 @@ label, form label {
 }
 
 .ui-body-b .ui-btn,
-.ui-btn.ui-btn-b,{
+.ui-btn.ui-btn-b {
   background-color: #333 !important;
 }
 
@@ -212,8 +212,7 @@ a.ui-btn > img {
   border-collapse: collapse;
 }
 
-.differences-table tr,
-{
+.differences-table tr {
   height: 50px;
   border-bottom: 1px solid #DEDEDE;
 }
@@ -377,4 +376,15 @@ ul.credits {
 
 .ui-field-contain {
   padding: 0.5em 1em;
+}
+
+//make space for statusbar
+body.ios {
+  header nav {
+    margin-top: 18px;
+  }
+
+  .bar-nav ~ .content {
+    padding-top: 60px;
+  }
 }
