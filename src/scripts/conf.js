@@ -2,331 +2,317 @@
  * Main app configuration file.
  *****************************************************************************/
 define(['morel', 'helpers/log'], function () {
-    app = window.app || {};
+  app = window.app || {};
 
-    app.VERSION = '{APP_VER}'; //replaced on build
-    app.NAME = '{APP_NAME}'; //replaced on build
+  app.VERSION = '{APP_VER}'; //replaced on build
+  app.NAME = '{APP_NAME}'; //replaced on build
 
-    app.CONF = {
-        GPS_ACCURACY_LIMIT: 100,
+  app.CONF = {
+    GPS_ACCURACY_LIMIT: 100,
 
-        //app feature settings
-        OFFLINE: {
-            STATUS: true,
-            APPCACHE_URL: "appcache.html"
+    //app feature settings
+    OFFLINE: {
+      STATUS: true,
+      APPCACHE_URL: "appcache.html"
+    },
+    GA: {
+      //Google Analytics settings
+      STATUS: true,
+      ID: 'UA-58378803-3'
+    },
+    LOGIN: {
+      STATUS: true,
+      URL: "https://www.brc.ac.uk/irecord/user/mobile/register",
+      TIMEOUT: 80000
+    },
+    REGISTER: {
+      STATUS: true
+    },
+    STATISTICS: {
+      URL: "http://www.brc.ac.uk/irecord/raf-app-summary"
+    },
+    LIST: {
+      DEFAULT_SORT: 'taxonomic'
+    },
+    MAP: {
+      zoom: 5,
+      zoomControl: true,
+      zoomControlOptions: {
+        style: 2,
+        position: 5
+      },
+      panControl: false,
+      linksControl: false,
+      streetViewControl: false,
+      overviewMapControl: false,
+      scaleControl: false,
+      rotateControl: false,
+      mapTypeControl: true,
+      mapTypeControlOptions: {
+        style: 1,
+        position: 7
+      },
+      styles: [
+        {
+          "featureType": "landscape",
+          "stylers": [
+            {"hue": "#FFA800"},
+            {"saturation": 0},
+            {"lightness": 0},
+            {"gamma": 1}
+          ]
         },
-        GA: {
-            //Google Analytics settings
-            STATUS: true,
-            ID: 'UA-58378803-3'
+        {
+          "featureType": "road.highway",
+          "stylers": [
+            {"hue": "#53FF00"},
+            {"saturation": -73},
+            {"lightness": 40},
+            {"gamma": 1}
+          ]
         },
-        LOGIN: {
-            STATUS: true,
-            URL: "https://www.brc.ac.uk/irecord/user/mobile/register",
-            TIMEOUT: 80000
+        {
+          "featureType": "road.arterial",
+          "stylers": [
+            {"hue": "#FBFF00"},
+            {"saturation": 0},
+            {"lightness": 0},
+            {"gamma": 1}
+          ]
         },
-        REGISTER: {
-            STATUS: true
+        {
+          "featureType": "road.local",
+          "stylers": [
+            {"hue": "#00FFFD"},
+            {"saturation": 0},
+            {"lightness": 30},
+            {"gamma": 1}
+          ]
         },
-        STATISTICS: {
-            URL: "http://www.brc.ac.uk/irecord/raf-app-summary"
+        {
+          "featureType": "water",
+          "stylers": [
+            {"saturation": 43},
+            {"lightness": -11},
+            {"hue": "#0088ff"}
+          ]
         },
-        LIST: {
-            DEFAULT_SORT: 'taxonomic'
-        },
-        MAP: {
-            zoom: 5,
-            zoomControl: true,
-            zoomControlOptions: {
-                style: 2,
-                position: 5
-            },
-            panControl: false,
-            linksControl: false,
-            streetViewControl: false,
-            overviewMapControl: false,
-            scaleControl: false,
-            rotateControl: false,
-            mapTypeControl: true,
-            mapTypeControlOptions: {
-                style: 1,
-                position: 7
-            },
-            styles: [
-                {
-                    "featureType": "landscape",
-                    "stylers": [
-                        {"hue": "#FFA800"},
-                        {"saturation": 0},
-                        {"lightness": 0},
-                        {"gamma": 1}
-                    ]
-                },
-                {
-                    "featureType": "road.highway",
-                    "stylers": [
-                        {"hue": "#53FF00"},
-                        {"saturation": -73},
-                        {"lightness": 40},
-                        {"gamma": 1}
-                    ]
-                },
-                {
-                    "featureType": "road.arterial",
-                    "stylers": [
-                        {"hue": "#FBFF00"},
-                        {"saturation": 0},
-                        {"lightness": 0},
-                        {"gamma": 1}
-                    ]
-                },
-                {
-                    "featureType": "road.local",
-                    "stylers": [
-                        {"hue": "#00FFFD"},
-                        {"saturation": 0},
-                        {"lightness": 30},
-                        {"gamma": 1}
-                    ]
-                },
-                {
-                    "featureType": "water",
-                    "stylers": [
-                        {"saturation": 43},
-                        {"lightness": -11},
-                        {"hue": "#0088ff"}
-                    ]
-                },
-                {
-                    "featureType": "poi",
-                    "elementType": "labels",
-                    "stylers": [
-                        { "visibility": "off" }
-                    ]
-                }
-            ]
+        {
+          "featureType": "poi",
+          "elementType": "labels",
+          "stylers": [
+            { "visibility": "off" }
+          ]
         }
-    };
+      ]
+    }
+  };
 
-    //logging
-    log.CONF = {
-        STATE: log.INFO,
-        GA_ERROR: true //log error using google analytics
-    };
+  //logging
+  log.CONF = {
+    STATE: log.INFO,
+    GA_ERROR: true //log error using google analytics
+  };
 
-    //morel configuration
-    app.CONF.morel = {
-        url: 'https://www.brc.ac.uk/irecord/mobile/submit',
-        appname: "raf",
-        appsecret: "rafPass1234",
-        website_id: 23,
-        survey_id: 350,
-        Storage: morel.DatabaseStorage
-    };
+  //morel configuration
+  app.CONF.morel = {
+    url: 'https://www.brc.ac.uk/irecord/mobile/submit',
+    appname: "raf",
+    appsecret: "rafPass1234",
+    website_id: 23,
+    survey_id: 396,
+    Storage: morel.DatabaseStorage
+  };
 
-    $.extend(true, morel.Sample.keys, {
-        name: {
-            id: 6
-        },
-        surname: {
-            id: 7
-        },
-        email: {
-            id: 8
-        },
-        location_accuracy: {
-            id: 282
-        },
-        location_name: {
-            id: 274
-        },
-        recorded_all: {
-            id: 62
-        },
-        survey_area: {
-            id: 323,
-            values: {
-                'point': 3068,
-                '100m': 3069,
-                '1km': 3070
-            }
-        }
-    });
+  $.extend(true, morel.Sample.keys, {
+    name: {
+      id: 6
+    },
+    surname: {
+      id: 7
+    },
+    email: {
+      id: 8
+    },
+    location_accuracy: {
+      id: 282
+    },
+    location_name: {
+      id: 274
+    },
+    recorded_all: {
+      id: 62
+    },
+    survey_area: {
+      id: 323,
+      values: {
+        'point': 3068,
+        '100m': 3069,
+        '1km': 3070
+      }
+    },
+    locationdetails: {
+      id: 877,
+      values: {
+        "Cultivated Strip / Block": 6167,
+        "Conservation headland": 6168,
+        "Wild bird seed / Game cover": 6169,
+        "Wildflower / Clover rich margin": 6170,
+        "Grass margin / corner": 6171,
+        "Crop": 6172,
+        "Stubble": 6173,
+        "Track / gateway": 6174,
+        "Other": 6175,
+        "Grassland": 6176
+      }
+    }
+  });
 
-    var numberRanges = {
-        '1': 665,
-        '2-5': 666,
-        '6-20': 667,
-        '21-100': 668,
-        '101-500': 669,
-        '500+': 670,
-        'Present': 671 //default
-    };
+  var numberRanges = {
+    '1': 6180,
+    '2-10': 6181,
+    '11-100': 6182,
+    '101-1000': 6183,
+    '1000+': 6184,
+    'Present': 6185 //default
+  };
 
-    $.extend(true, morel.Occurrence.keys, {
-        number: {
-            id: 505, values: numberRanges
-        },
-        adult: {
-            id: 34, values: numberRanges
-        },
-        copulating: {
-            id: 35, values: numberRanges
-        },
-        ovipositing: {
-            id: 36, values: numberRanges
-        },
-        larvae: {
-            id: 37, values: numberRanges
-        },
-        exuviae: {
-            id: 38, values: numberRanges
-        },
-        emergent: {
-            id: 39, values: numberRanges
-        },
-        stage: {
-            id: 506,
-            values: {
-                Adult: 5703,
-                Copulating: 5704,
-                Ovipositing: 5705,
-                Larvae: 5706,
-                Exuviae: 5707,
-                Emergent: 5708
-            }
-        },
-        certain: {
-            id: 32,
-            values: {
-                'true': 663,
-                'false': 664
-            }
-        },
-        taxon: {
-            values: {
-                1: 878679,
-                2: 878680,
-                3: 878681,
-                4: 878682,
-                5: 878683,
-                6: 878684,
-                7: 878685,
-                8: 878686,
-                9: 878687,
-                10: 878688,
-                11: 878689,
-                12: 878690,
-                13: 878691,
-                14: 878692,
-                15: 878693,
-                16: 878694,
-                17: 878695,
-                18: 878696,
-                19: 878697,
-                20: 878698,
-                21: 878699,
-                22: 878700,
-                23: 878701,
-                24: 878702,
-                25: 878703,
-                26: 878704,
-                27: 878705,
-                28: 878706,
-                29: 878707,
-                30: 878708,
-                31: 878709,
-                32: 878710,
-                33: 878711,
-                34: 878712,
-                35: 878713,
-                36: 878714,
-                37: 878715,
-                38: 878716,
-                39: 878717,
-                40: 878718,
-                41: 878719,
-                42: 878720,
-                43: 878721,
-                44: 878722,
-                45: 878723,
-                46: 878724,
-                47: 878725,
-                48: 878726,
-                49: 878727,
-                50: 878728,
-                51: 878729,
-                52: 878731,
-                53: 878730,
-                54: 878732,
-                55: 878733,
-                56: 878734,
-                57: 878735,
-                58: 878736,
-                59: 878737,
-                60: 878738,
-                61: 878739,
-                62: 878740,
-                63: 878741,
-                64: 878742,
-                65: 878743,
-                66: 878744,
-                67: 878745,
-                68: 878746,
-                69: 878747,
-                70: 878748,
-                71: 878749,
-                72: 878750,
-                73: 878751,
-                74: 878752,
-                75: 878753,
-                76: 878754,
-                77: 878755,
-                78: 878756,
-                79: 878758,
-                80: 878757,
-                81: 878759,
-                82: 878760,
-                83: 878761,
-                84: 878762,
-                85: 878763,
-                86: 878764,
-                87: 878765,
-                88: 878767,
-                89: 878766,
-                90: 878768,
-                91: 878769,
-                92: 878770,
-                93: 878771,
-                94: 878772,
-                95: 878773,
-                96: 878774,
-                97: 878775,
-                98: 878776,
-                99: 878777,
-                100: 878778,
-                101: 878779,
-                102: 878780,
-                103: 878781,
-                104: 878782,
-                105: 878783,
-                106: 878784,
-                107: 878785,
-                108: 878786,
-                109: 878787,
-                110: 878788,
-                111: 878789,
-                112: 878790,
-                113: 878791,
-                114: 878792,
-                115: 878793,
-                116: 878794,
-                117: 878795,
-                118: 878796,
-                119: 878797,
-                120: 878798,
-                121: 878799
-            }
-        }
-    });
+  $.extend(true, morel.Occurrence.keys, {
+    number: {
+      id: 551, values: numberRanges
+    },
+    stage: {
+      id: 549,
+      values: {
+        'Vegetative': 6177,
+        'Flowering': 6178,
+        'In Seed': 6179
+      }
+    },
+    taxon: {
+      values: {
+        1:	370993,
+        2:	370995,
+        3:	370997,
+        4:	370999,
+        5:	371001,
+        6:	371003,
+        7:	371005,
+        8:	371007,
+        9:	371009,
+        10:	371011,
+        11:	371013,
+        12:	371015,
+        13:	371017,
+        14:	371019,
+        15:	371021,
+        16:	371023,
+        17:	371025,
+        18:	371027,
+        19:	371029,
+        20:	371031,
+        21:	371033,
+        22:	371035,
+        23:	371037,
+        24:	371039,
+        25:	371041,
+        26:	371043,
+        27:	371045,
+        28:	371047,
+        29:	371049,
+        30:	371051,
+        31:	371053,
+        32:	371055,
+        33:	371057,
+        34:	371059,
+        35:	371061,
+        36:	371063,
+        37:	371065,
+        38:	371067,
+        39:	371069,
+        40:	371071,
+        41:	371073,
+        42:	371075,
+        43:	371077,
+        44:	371079,
+        45:	371081,
+        46:	371083,
+        47:	371085,
+        48:	371087,
+        49:	371089,
+        50:	371091,
+        51:	371093,
+        52:	371095,
+        53:	371097,
+        54:	371099,
+        55:	371101,
+        56:	371103,
+        57:	371105,
+        58:	371107,
+        59:	371109,
+        60:	371111,
+        61:	371113,
+        62:	371115,
+        63:	371117,
+        64:	371119,
+        65:	371121,
+        66:	371123,
+        67:	371125,
+        68:	371127,
+        69:	371129,
+        70:	371131,
+        71:	371133,
+        72:	371135,
+        73:	371137,
+        74:	371139,
+        75:	371141,
+        76:	371143,
+        77:	371145,
+        78:	371147,
+        79:	371149,
+        80:	371151,
+        81:	371153,
+        82:	371155,
+        83:	371157,
+        84:	371159,
+        85:	371161,
+        86:	371163,
+        87:	371165,
+        88:	371167,
+        89:	371169,
+        90:	371171,
+        91:	371173,
+        92:	371175,
+        93:	371177,
+        94:	371179,
+        95:	371181,
+        96:	371183,
+        97:	371185,
+        98:	371187,
+        99:	371189,
+        100:	371191,
+        101:	371193,
+        102:	371195,
+        103:	371197,
+        104:	371199,
+        105:	371201,
+        106:	371203,
+        107:	371205,
+        108:	371207,
+        109:	371209,
+        110:	371211,
+        111:	371213,
+        112:	371215,
+        113:	371217,
+        114:	371219,
+        115:	371221,
+        116:	371223,
+        117:	371225,
+        118:	371227,
+        119:	371229,
+        120:	371231,
+        121:	371233
+      }
+    }
+  });
 });
