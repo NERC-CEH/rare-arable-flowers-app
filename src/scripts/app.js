@@ -76,11 +76,12 @@ define([
           document.addEventListener('deviceready', function () {
             _log('Showing the app.', log.DEBUG);
 
-            window.StatusBar.hide();
-
             // iOS make space for statusbar
             if (Device.isIOS()) {
+              window.StatusBar.hide();
               $('body').addClass('ios');
+            } else {
+              $('body').addClass('android');
             }
 
             // hide loader

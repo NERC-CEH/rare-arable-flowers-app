@@ -4,6 +4,8 @@ div#main[data-role=page] {
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+  height: 100%;
+  margin-top: -40px;
 }
 
 /* Custom Number Input */

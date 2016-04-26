@@ -309,8 +309,8 @@ define([
                 this.changePage(app.views.mgmtlocationPage);
             },
 
-            "mgmtconservation": function () {
-                this.navigateToStandardPage('mgmtconservation');
+            "mgmtimportance": function () {
+                this.navigateToStandardPage('mgmtimportance');
             },
 
             "mgmtundesirable": function () {

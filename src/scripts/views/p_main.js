@@ -27,7 +27,7 @@ define([
 
             $('body').append($(this.el));
 
-            return this;
+          return this;
         },
 
         appendEventListeners: function () {
