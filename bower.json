@@ -2,21 +2,20 @@
   "name": "rare_arable_flowers",
   "version": "0.0.0",
   "dependencies": {
-    "requirejs": "2.1.16",
-    "backbone": "1.1.2",
-    "jquery": "1.10.2",
+    "requirejs": "2.2.0",
+    "backbone": "1.3.3",
+    "jquery": "2.2.1",
     "backbone.localStorage": "jeromegn/Backbone.localStorage#1.1.16",
-    "lodash": "3.6.0",
+    "lodash": "4.13.1",
     "jquery-mobile": "jobrapido/jquery-mobile-bower#1.4.5",
-    "morel": "Indicia-Team/morel#3.0",
+    "morel": "Indicia-Team/morel#3.1.0",
     "latlon": "chrisveness/geodesy#d50580b5054b562f0d1c94441f74a9d0bf8ba710",
     "IndexedDBShim": "axemclion/IndexedDBShim#3d1f549f106a9a078a6f7448796a241eee7f9a76",
     "photoswipe": "https://github.com/downloads/codecomputerlove/PhotoSwipe/code.photoswipe-3.0.5.zip",
     "fastclick": "1.0.3",
     "d3": "3.5.3",
     "topojson": "1.6.18",
-    "touchswipe": "mattbryson/TouchSwipe-Jquery-Plugin",
-    "tripjs": "EragonJ/Trip.js#3.0.0"
+    "touchswipe": "mattbryson/TouchSwipe-Jquery-Plugin"
   },
   "exportsOverride": {
     "requirejs": {
