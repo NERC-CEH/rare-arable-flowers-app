@@ -1,13 +1,30 @@
 #species-list .table-view-cell {
   padding: 8px 65px 8px 8px;
 
-  a.species img {
-    height: 4.5em;
-    width: 6em;
-    margin-right: 10px;
+  a.species {
+    img {
+      height: 4.5em;
+      width: 6em;
+      margin-right: 10px;
+    }
+
+    .species-list-main-name,
+    .species-list-secondary-name {
+      font-size: 90%;
+      white-space: normal;
+      font-weight: 400;
+      margin: 0 0 8px;
+    }
+
+    @media only screen and (max-width: 400px) {
+      .species-list-main-name,
+      .species-list-secondary-name {
+        font-size: smaller;
+      }
+    }
   }
 
-  button {
+  .record.btn {
     width: 20%;
     height: 100%;
     max-width: 50px;
@@ -15,7 +32,8 @@
     background-color: transparent;
     border: none;
 
-    &:before {
+    span:before {
+      margin-top: 50%;
       margin-left: 0;
     }
 

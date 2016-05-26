@@ -18,7 +18,6 @@ import recordManager from '../../record_manager';
 import appModel from '../../models/app_model';
 import TabsLayout from '../../views/tabs_layout';
 import HeaderView from '../../views/header_view';
-import LockView from '../../views/attr_lock_view';
 
 import GpsView from './gps_view';
 import MapView from './map_view';
@@ -106,14 +105,12 @@ const API = {
       }
 
       const currentVal = recordModel.get('location') || {};
-      const locationIsLocked = appModel.isAttrLocked('location', currentVal);
 
       function onPageExit() {
         recordModel.save(null, {
           success: () => {
             const attr = 'location';
             let location = recordModel.get('location') || {};
-            const lockedValue = appModel.getAttrLock('location');
 
             if ((location.latitude && location.longitude) || location.name) {
               // we can lock loaction and name on their own
@@ -124,24 +121,6 @@ const API = {
               location.id = locationID;
               recordModel.set('location', location);
 
-              // update locked value if attr is locked
-              if (lockedValue) {
-                // check if previously the value was locked and we are updating
-                if (locationIsLocked || lockedValue === true) {
-                  Log('Updating lock', 'd');
-
-                  if (location.source === 'gps') {
-                    // on GPS don't lock other than name
-                    location = {
-                      name: location.name,
-                    };
-                  }
-                  appModel.setAttrLock(attr, location);
-                }
-              }
-            } else if (lockedValue === true) {
-              // reset if no location or location name selected but locked is clicked
-              appModel.setAttrLock(attr, null);
             }
 
             window.history.back();
@@ -217,52 +196,7 @@ const API = {
       App.regions.main.show(mainView);
 
       // HEADER
-      const lockView = new LockView({
-        model: new Backbone.Model({ appModel, recordModel }),
-        attr: 'location',
-        onLockClick() {
-          // invert the lock of the attribute
-          // real value will be put on exit
-          appModel.setAttrLock('location', !appModel.getAttrLock('location'));
-        },
-      });
-
-      // header view
-      const LocationHeader = HeaderView.extend({
-        id: 'location-header',
-
-        /*
-         From Marionette docs:
-         it is suggested that you avoid re-rendering the entire layoutView unless
-         absolutely necessary. Instead, if you are binding the layoutView's template
-         to a model and need to update portions of the layoutView, you should listen
-         to the model's "change" events and only update the necessary DOM elements.
-         */
-        modelEvents: {
-          'change:location': 'updateTitle',
-        },
-
-        updateTitle() {
-          const title = this.model.printLocation();
-          const $title = this.$el.find('h1');
-
-          $title.html(title);
-        },
-
-        serializeData() {
-          return {
-            title: this.model.printLocation(),
-          };
-        },
-      });
-
-      const headerView = new LocationHeader({
-        onExit: onPageExit,
-        rightPanel: lockView,
-        model: recordModel,
-      });
-
-      App.regions.header.show(headerView);
+      App.regions.header.hide().empty();
 
       // if exit on selection click
       mainView.on('save', onPageExit);

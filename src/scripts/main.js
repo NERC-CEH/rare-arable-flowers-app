@@ -6,7 +6,7 @@ import Ratchet from '../vendor/ratchet/js/ratchet';
 import IndexedDBShim from '../vendor/IndexedDBShim/js/IndexedDBShim';
 
 import App from './app';
-//import RecordsRouter from './components/records/router';
+import RecordsRouter from './components/records/router';
 import InfoRouter from './components/info/router';
 import SpeciesRouter from './components/species/router';
 import SettingsRouter from './components/settings/router';

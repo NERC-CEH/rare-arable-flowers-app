@@ -152,24 +152,10 @@ const API = {
       const sample = new Sample();
       sample.addOccurrence(occurrence);
 
-      // append locked attributes
-      appModel.appendAttrLocks(sample);
-
       recordManager.set(sample, (saveErr) => {
         if (saveErr) {
           callback(saveErr);
           return;
-        }
-        // check if location attr is not locked
-        const locks = appModel.get('attrLocks');
-
-        if (!locks.location) {
-          // no previous location
-          sample.startGPS();
-        } else if (!locks.location.latitude || !locks.location.longitude) {
-          // previously locked location was through GPS
-          // so try again
-          sample.startGPS();
         }
         callback();
       });

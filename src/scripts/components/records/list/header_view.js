@@ -10,24 +10,11 @@ export default Marionette.ItemView.extend({
   template: JST['records/list/header'],
 
   events: {
-    'change input': 'photoUpload',
+    'click a[data-rel="back"]': 'navigateBack',
   },
 
-  photoUpload(e) {
-    this.trigger('photo:upload', e);
-  },
-
-  onShow() {
-    const that = this;
-
-    // create camera/gallery selection
-    if (window.cordova) {
-      this.$el.find('.img-picker input').remove();
-
-      this.$el.find('.img-picker').on('click', () => {
-        that.trigger('photo:selection');
-      });
-    }
+  navigateBack() {
+    window.history.back();
   },
 });
 

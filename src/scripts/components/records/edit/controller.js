@@ -9,31 +9,24 @@ import ImageHelp from '../../../helpers/image';
 import Analytics from '../../../helpers/analytics';
 import Log from '../../../helpers/log';
 import App from '../../../app';
+import Sample from '../../common/models/sample';
+import Occurrence from '../../common/models/occurrence';
 import appModel from '../../common/models/app_model';
 import userModel from '../../common/models/user_model';
 import recordManager from '../../common/record_manager';
 import MainView from './main_view';
 import HeaderView from './header_view';
 import FooterView from './footer_view';
+import speciesData from 'species.data';
 
 let id;
 let record;
+
 const API = {
-  show(recordID) {
+  show(recordID, newRecord) {
     Log('Records:Edit:Controller: showing');
-    id = recordID;
-    recordManager.get(recordID, (err, recordModel) => {
-      if (err) {
-        Log(err, 'e');
-      }
 
-      // Not found
-      if (!recordModel) {
-        Log('No record model found', 'e');
-        App.trigger('404:show', { replace: true });
-        return;
-      }
-
+    function show (recordModel) {
       // can't edit a saved one - to be removed when record update
       // is possible on the server
       if (recordModel.getSyncStatus() === Morel.SYNCED) {
@@ -44,7 +37,7 @@ const API = {
 
       // MAIN
       const mainView = new MainView({
-        model: new Backbone.Model({ recordModel, appModel }),
+        model: new Backbone.Model({ recordModel, appModel, newRecord }),
       });
       App.regions.main.show(mainView);
 
@@ -94,6 +87,36 @@ const API = {
       });
 
       App.regions.footer.show(footerView);
+    }
+
+    // new record
+    if (newRecord) {
+      const sample = new Sample();
+      const occurrence = new Occurrence();
+      const speciesCollection = new Backbone.Collection(speciesData);
+      const species = speciesCollection.get(recordID);
+      occurrence.set('taxon', species.attributes);
+      sample.addOccurrence(occurrence);
+      App.sample = sample;
+
+      show(sample);
+      return;
+    }
+
+    // edit existing
+    id = recordID;
+    recordManager.get(recordID, (err, recordModel) => {
+      if (err) {
+        Log(err, 'e');
+      }
+
+      // Not found
+      if (!recordModel) {
+        Log('No record model found', 'e');
+        App.trigger('404:show', { replace: true });
+        return;
+      }
+      show(recordModel);
     });
   },
 

@@ -10,10 +10,9 @@ import appModel from '../../common/models/app_model';
 import recordManager from '../../common/record_manager';
 import MainView from './main_view';
 import HeaderView from '../../common/views/header_view';
-import LockView from '../../common/views/attr_lock_view';
 
 const API = {
-  show(recordID, attr) {
+  show(recordID, attr, newRecord) {
     Log('Records:Attr:Controller: showing');
     recordManager.get(recordID, (err, recordModel) => {
       if (err) {
@@ -42,21 +41,7 @@ const API = {
       App.regions.main.show(mainView);
 
       // HEADER
-      const lockView = new LockView({
-        model: new Backbone.Model({ appModel, recordModel }),
-        attr,
-        onLockClick: API.onLockClick,
-      });
-
-      const headerView = new HeaderView({
-        onExit() {
-          API.onExit(mainView, recordModel, attr);
-        },
-        rightPanel: lockView,
-        model: new Backbone.Model({ title: attr }),
-      });
-
-      App.regions.header.show(headerView);
+      App.regions.header.hide().empty();
 
       // if exit on selection click
       mainView.on('save', () => {
@@ -66,23 +51,6 @@ const API = {
       // FOOTER
       App.regions.footer.hide().empty();
     });
-  },
-
-  onLockClick(options) {
-    Log('Records:Attr:Controller: lock clicked');
-    const attr = options.view.options.attr;
-    // invert the lock of the attribute
-    // real value will be put on exit
-    if (attr === 'number') {
-      if (appModel.getAttrLock(attr)) {
-        appModel.setAttrLock(attr, !appModel.getAttrLock(attr));
-      } else {
-        appModel.setAttrLock('number-ranges',
-          !appModel.getAttrLock('number-ranges'));
-      }
-    } else {
-      appModel.setAttrLock(attr, !appModel.getAttrLock(attr));
-    }
   },
 
   onExit(mainView, recordModel, attr) {
@@ -151,9 +119,6 @@ const API = {
     // save it
     recordModel.save(null, {
       success: () => {
-        // update locked value if attr is locked
-        API.updateLock(attr, newVal, currentVal);
-
         window.history.back();
       },
       error: (err) => {
@@ -161,41 +126,6 @@ const API = {
         App.regions.dialog.error('Problem saving the sample.');
       },
     });
-  },
-
-  updateLock(attr, newVal, currentVal) {
-    let lockedValue = appModel.getAttrLock(attr);
-
-    switch (attr) {
-      case 'date':
-        if (lockedValue && DateHelp.print(newVal) === DateHelp.print(new Date())) {
-          appModel.setAttrLock(attr, null);
-        }
-        break;
-      case 'number-ranges':
-        if (!lockedValue) {
-          lockedValue = appModel.getAttrLock('number');
-        }
-      case 'number':
-        if (!lockedValue) {
-          lockedValue = appModel.getAttrLock('number-ranges');
-        }
-
-        if (!lockedValue) return; // nothing was locked
-
-        if (attr === 'number-ranges') {
-          appModel.setAttrLock(attr, newVal);
-          appModel.setAttrLock('number', null);
-        } else {
-          appModel.setAttrLock(attr, newVal);
-          appModel.setAttrLock('number-ranges', null);
-        }
-        break;
-      default:
-        if (lockedValue && (lockedValue === true || lockedValue === currentVal)) {
-          appModel.setAttrLock(attr, newVal);
-        }
-    }
   },
 };
 

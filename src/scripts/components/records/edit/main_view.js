@@ -19,45 +19,19 @@ export default Marionette.ItemView.extend({
     const recordModel = this.model.get('recordModel');
     const occ = recordModel.occurrences.at(0);
     const specie = occ.get('taxon');
-    const appModel = this.model.get('appModel');
 
     // taxon
-    const scientificName = specie.scientific_name;
-    let commonName = specie[specie.found_in_name];
-    if (specie.found_in_name === 'scientific_name') {
-      // show recommended name
-      if (specie.common_name) {
-        commonName = specie.common_name;
-      } else {
-        commonName = '';
-      }
-    }
-
+    let commonName = specie.common_name;
     const locationPrint = recordModel.printLocation();
     const location = recordModel.get('location') || {};
 
-    let numberLock = appModel.isAttrLocked('number', occ.get('number'));
-    if (!numberLock) {
-      numberLock = appModel.isAttrLocked('number-ranges', occ.get('number-ranges'));
-    }
-
-    const attrLocks = {
-      date: appModel.isAttrLocked('date', recordModel.get('date')),
-      location: appModel.isAttrLocked('location', recordModel.get('location')),
-      number: numberLock,
-      stage: appModel.isAttrLocked('stage', occ.get('stage')),
-      comment: appModel.isAttrLocked('comment', occ.get('comment')),
-    };
-
     let number = occ.get('number') && StringHelp.limit(occ.get('number'));
-    if (!number) {
-      number = occ.get('number-ranges') && StringHelp.limit(occ.get('number-ranges'));
-    }
 
+    const newRecord = this.model.get('newRecord');
     return {
       id: recordModel.id || recordModel.cid,
-      scientificName,
-      commonName,
+      new: newRecord,
+      common_name: commonName,
       isLocating: recordModel.isGPSRunning(),
       isSynchronising: recordModel.getSyncStatus() === Morel.SYNCHRONISING,
       location: locationPrint,
@@ -66,7 +40,6 @@ export default Marionette.ItemView.extend({
       number,
       stage: occ.get('stage') && StringHelp.limit(occ.get('stage')),
       comment: occ.get('comment') && StringHelp.limit(occ.get('comment')),
-      locks: attrLocks,
     };
   },
 });

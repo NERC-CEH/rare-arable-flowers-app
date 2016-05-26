@@ -11,7 +11,6 @@ let AppModel = Backbone.Model.extend({
 
   defaults: {
     locations: [],
-    attrLocks: {},
     autosync: true,
     useGridRef: true,
   },
