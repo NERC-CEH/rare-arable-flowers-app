@@ -1,116 +1,103 @@
-/******************************************************************************
+/** ****************************************************************************
  * App object.
  *****************************************************************************/
-define([
-    'jquery',
-    'jquery.mobile',
-    'backbone',
-    'fastclick',
-    'klass',
-    'morel',
-    'routers/router',
-    'models/app',
-    'models/user',
-    'models/species',
-    'helpers/update',
-    'helpers/brcart',
-    'helpers/browser',
-    'helpers/message',
-    'helpers/log',
-    'data'
-  ],
-  function ($, jqm, Backbone, FastClick, klass, morel, Router, AppModel, UserModel,
-            SpeciesCollection, update, brcArt, Device, message) {
-    var App = {
-      init: function () {
-        var app = window.app;
-        app.browser = Device;
-        app.message = message;
+import $ from 'jquery';
+import Backbone from 'backbone';
+import Marionette from 'marionette';
+import FastClick from '../vendor/fastclick/js/fastclick';
+import Analytics from './helpers/analytics';
+import Update from './helpers/update';
+import Log from './helpers/log';
+import Device from './helpers/device';
+import CommonController from './components/common/controller';
+import DialogRegion from './components/common/views/dialog_region';
+import HideableRegion from './components/common/views/hideable_region';
 
-        //init Google Analytics
-        //http://veithen.github.io/2015/02/14/requirejs-google-analytics.html
-        if (app.CONF.GA.STATUS){
-          window.GoogleAnalyticsObject = "__ga__";
-          window.__ga__ = {
-            q: [["create", app.CONF.GA.ID, "auto"]],
-            l: Date.now()
-          };
-          require(['ga'], function(ga) {
-            ga('set', 'appName', app.NAME);
-            ga('set', 'appVersion', app.VERSION);
-            ga('set', 'dimension1', morel.VERSION);
-          });
-        }
+// init Analytics
+Analytics.init();
 
-        _log(brcArt, log.INFO);
+const App = new Marionette.Application();
 
-        //overwrite morel user append function to match backbone
-        morel.Auth.prototype.getUser = function () {
-          return app.models.user.attributes;
-        };
+App.navigate = (route, options = {}) => {
+  Log(`App: navigating to ${route}`);
+  const defaultOptions = { trigger: true };
+  Backbone.history.navigate(route, $.extend(defaultOptions, options));
+};
 
-        //init data
-        app.recordManager = new morel.Manager(app.CONF.morel);
+App.getCurrentRoute = () => Backbone.history.fragment;
 
-        app.models = {};
-        app.models.user = new UserModel();
-        app.models.app = new AppModel();
-        app.models.sample = null; //to be set up on record opening
-        app.models.sampleMulti = null; //to be set up on multi-record page init
-        app.collections = {};
-        app.collections.species = new SpeciesCollection(app.data.species);
+App.on('before:start', () => {
+  Log('App: initializing main regions');
+const RegionContainer = Marionette.LayoutView.extend({
+  el: '#app',
 
-        //update app
-        update();
+  regions: {
+    header: new HideableRegion({ el: '#header' }),
+    footer: new HideableRegion({ el: '#footer' }),
+    main: '#main',
+    dialog: DialogRegion,
+  },
+});
 
-        app.router = new Router();
-        Backbone.history.start();
+App.regions = new RegionContainer();
+});
 
-        FastClick.attach(document.body);
+App.on('start', () => {
+  Log('App: starting');
 
-        //turn off the loading splash screen
-        if (window.cordova) {
-          _log('App: cordova setup', log.DEBUG);
+Update();
 
-          // Although StatusB  ar in the global scope, it is not available until after the deviceready event.
-          document.addEventListener('deviceready', function () {
-            _log('Showing the app.', log.DEBUG);
+FastClick.attach(document.body);
 
-            // iOS make space for statusbar
-            if (Device.isIOS()) {
-              window.StatusBar.hide();
-              $('body').addClass('ios');
-            } else {
-              $('body').addClass('android');
-            }
+if (Backbone.history) {
+  Backbone.history.start();
 
-            // hide loader
-            if (navigator && navigator.splashscreen) {
-              navigator.splashscreen.hide();
-            }
-          }, false);
-        }
+  if (App.getCurrentRoute() === '') {
+    App.trigger('info:home');
+  }
 
-        //add more variables to Google Analytics
-        if (app.CONF.GA.STATUS) {
-          require(['ga'], function(ga) {
-            var userFilters = app.models.user.get('filters');
-            var favourites = userFilters.favouritesGroup && userFilters.favouritesGroup.length,
-                type = userFilters.typeGroup && userFilters.typeGroup.length,
-                color = userFilters.colorGroup && userFilters.colorGroup.length;
-
-            ga('set', {
-              'dimension2': (app.models.user.hasSignIn() ? 'signed': ''),
-              'dimension3': app.models.user.get('autosync') ? 'sync': '',
-              'dimension4': app.models.user.get('sort'),
-
-              'metric1': favourites,
-              'metric2': type,
-              'metric3': color
-            });
-          });
-        }
-      }
-    };
-    return App;
+  App.on('404:show', () => {
+    CommonController.show({
+    App,
+    route: 'common/404',
+    title: 404,
   });
+});
+
+  if (window.cordova) {
+    Log('App: cordova setup');
+
+    // Although StatusB  ar in the global scope,
+    // it is not available until after the deviceready event.
+    document.addEventListener('deviceready', () => {
+      Log('Showing the app.');
+
+    window.StatusBar.overlaysWebView(true);
+    window.StatusBar.backgroundColorByName('black');
+
+    // iOS make space for statusbar
+    if (Device.isIOS()) {
+      $('body').addClass('ios');
+    }
+
+    // development loader
+    $('#loader').remove();
+
+    // hide loader
+    if (navigator && navigator.splashscreen) {
+      navigator.splashscreen.hide();
+    }
+
+    Analytics.trackEvent('App', 'initialized');
+  }, false);
+  } else {
+    // development loader
+    $(document).ready(() => {
+      $('#loader').remove();
+  });
+  }
+}
+});
+
+export { App as default };
+

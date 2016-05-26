@@ -1,23 +1,25 @@
-/******************************************************************************
- * Updates the app's data if the source code version mismatches the stored
- * data's version.
+/** ****************************************************************************
+ * App update functionality.
  *****************************************************************************/
-define([], function () {
-    var CheckForUpdates = function () {
-        var appVer = app.models.app.get('appVer');
-        if (appVer !== app.VERSION) {
-            _log('helpers: app version differs. Updating.', log.INFO);
 
-            //set new version
-            app.models.app.save('appVer', app.VERSION);
+import appModel from '../components/common/models/app_model';
+import Log from './log';
+import Analytics from './analytics';
+import CONFIG from 'config'; // Replaced with alias
 
-            if (app.CONF.GA.STATUS) {
-                require(['ga'], function(ga) {
-                    ga('send', 'event', 'app', 'updateSuccess');
-                });
-            }
-        }
-    };
+export default function () {
+  const prevAppVersion = appModel.get('appVersion');
+  const appVersion = CONFIG.version;
 
-    return CheckForUpdates;
-});
+  if (prevAppVersion !== appVersion) {
+    appModel.set('appVersion', appVersion);
+    appModel.save();
+
+    // log only updates and not init as no prev value on init
+    if (prevAppVersion) {
+      Log('Update');
+      Analytics.trackEvent('App', 'updated');
+    }
+  }
+}
+

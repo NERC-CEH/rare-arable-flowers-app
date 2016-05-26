@@ -1,0 +1,27 @@
+{
+  "extends": "airbnb/base",
+  "rules": {
+     "no-unused-expressions": [2, {
+          "allowShortCircuit": true, // eg. a || a()
+          "allowTernary": true // eg. a ? b() : c()
+     }],
+    "new-cap": ["error", {
+      "capIsNewExceptions": ["Log", "UUID"]
+    }]
+  },
+  "globals": {
+    "before": true,
+    "beforeEach": true,
+    "after": true,
+    "afterEach": true,
+    "describe": true,
+    "it": true,
+    "expect": true,
+
+    "parseInt": true,
+
+    "cordova": true,
+    "StatusBar": true,
+    "splashscreen": true
+  }
+}

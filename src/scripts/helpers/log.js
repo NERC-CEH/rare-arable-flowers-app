@@ -1,4 +1,4 @@
-/******************************************************************************
+/** ****************************************************************************
  * Takes care of application execution logging.
  *
  * Depends on morel.
@@ -12,120 +12,89 @@
  *
  * Levels values defined in core app module.
  *****************************************************************************/
-define([], function () {
-    window.log = {
-        NONE: 0,
-        ERROR: 1,
-        WARNING: 2,
-        INFO: 3,
-        DEBUG: 4,
 
-        CONF: {
-            STATUS: 4,
-            GA_ERROR: false //google analytics error logging
-        },
+import $ from 'jquery';
+import Analytics from './analytics';
+import CONFIG from 'config'; // Replaced with alias
 
-        core: function (message, level) {
-            "use strict";
-            //do nothing if logging turned off
-            if (log.CONF.STATE === log.NONE) {
-                return;
-            }
-
-            if (log.CONF.STATE >= level || !level) {
-                switch (level) {
-                    case log.ERROR:
-                        log.error(message);
-                        break;
-                    case log.WARNING:
-                        console.warn(message);
-                        break;
-                    case log.INFO:
-                        console.log(message);
-                        break;
-                    case log.DEBUG:
-                    /* falls through */
-                    default:
-                        //IE does not support console.debug
-                        if (!console.debug) {
-                            console.log(message);
-                            break;
-                        }
-                        console.debug(message);
-                }
-            }
-        },
+const ERROR = 'e';
+const WARNING = 'w';
+const INFO = 'i';
+const DEBUG = 'd';
 
 
-        /**
-         * Prints and posts an error to the mobile authentication log.
-         *
-         * @param error Object holding a 'message', and optionally 'url' and 'line' fields.
-         *              String holding a 'message
-         * @private
-         */
-        error: function (error) {
-            "use strict";
-            if (typeof error === 'string' || error instanceof String) {
-                error = {
-                    message: error
-                }
-            }
-            console.error(error.message, error.url, error.line, error.column, error.obj);
-
-            //todo: clean this up
-            $('.loading .loader img').remove();
-            $('.loading .loader .error').html(
-                '<center><b>Oh no, Error! </b></center><br/>' + error.message +
-                ' [' +  error.line + ', '  + error.column + '] ' +
-                error.obj);
-
-            if (app.CONF.GA.STATUS && log.CONF.GA_ERROR){
-                require(['ga'], function (ga) {
-                    //check if the error did not occur before the analytics is loaded
-                    if (ga) {
-                        ga('send', 'exception', {
-                            'exDescription':
-                            error.message + ' ' +
-                            error.url + ' ' +
-                            error.line + ' ' +
-                            error.column + ' ' +
-                            error.obj
-                        });
-                    }
-                });
-            }
-        },
-
-        /**
-         * Hook into window.error function.
-         *
-         * @param message
-         * @param url
-         * @param line
-         * @returns {boolean}
-         * @private
-         */
-        onError: function (message, url, line, column, obj) {
-            "use strict";
-            window.onerror = null;
-
-            var error = {
-                'message': message,
-                'url': url || '',
-                'line': line || -1,
-                'column': column || -1,
-                'obj': obj || ''
-            };
-
-            _log(error, log.ERROR);
-
-            window.onerror = this; // turn on error handling again
-            return true; // suppress normal error reporting
-        }
-
+/**
+ * Prints and posts an error to the mobile authentication log.
+ *
+ * @param error Object holding a 'message', and optionally 'url' and 'line' fields.
+ *              String holding a 'message
+ * @private
+ */
+function error(errorMessage = {}) {
+  let err = errorMessage;
+  if (typeof err === 'string' || err instanceof String) {
+    err = {
+      message: err,
     };
+  }
+  console.error(err.message, err.url, err.line, err.column, err.obj);
 
-    window._log = log.core;
-    window.onerror = log.onError;
-});
+  // todo: clean this up
+  $('#loader #animation span.icon').remove();
+  $('#loader #animation .error').html(
+    `<center><b>Oh no, Error! </b></center><br/>${err.message}
+    [${err.line}, ${err.column}] ${err.obj}`);
+
+  Analytics.trackException(err);
+}
+
+function log(message, type = DEBUG) {
+  // do nothing if logging turned off
+  if (!(CONFIG.log && CONFIG.log.states)) {
+    return;
+  }
+
+  if (CONFIG.log.states.indexOf(type) >= 0) {
+    switch (type) {
+      case ERROR:
+        error(message);
+        break;
+      case WARNING:
+        console.warn(message);
+        break;
+      case INFO:
+        console.log(message);
+        break;
+      case DEBUG:
+      /* falls through */
+      default:
+        // IE does not support console.debug
+        if (!console.debug) {
+          console.log(message);
+          break;
+        }
+        console.debug(message);
+    }
+  }
+}
+
+// Hook into window.error function
+window.onerror = (message, url, line, column, obj) => {
+  const onerror = window.onerror;
+  window.onerror = null;
+
+  const err = {
+    message,
+    url: url || '',
+    line: line || -1,
+    column: column || -1,
+    obj: obj || '',
+  };
+
+  error(err);
+
+  window.onerror = onerror; // turn on error handling again
+  return true; // suppress normal error reporting
+};
+
+export { log as default };

@@ -6,22 +6,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1,
         minimum-scale=1, maximum-scale=1, user-scalable=no"/>
 
-  <meta name="description" content="Rare Arable Flowers is a mobile web application for species recording and identification.">
-  <meta name="keywords" content="CEH,BRC,Record,Flowers,Rare,Reference,Guide,Map,Chart,Citizen,Science">
-  <meta name="author" content="Karolis Kazlauskis">
-
-  <meta name="application-name" content="RAF">
-  <meta name="format-detection" content="telephone=no">
-
   <!-- STYLES -->
   <link type="text/css" rel="stylesheet" href="styles/main.min.css"/>
-
-  <!-- SCRIPTS -->
-  <script src="cordova.js"></script>
-  <script src="scripts/libs/require.min.js" data-main="scripts/main-built" async></script>
 </head>
 
 <body>
+
+<div id="app" data-role="page">
+  <header id="header" class="bar bar-nav"></header>
+  <footer id="footer" class="bar bar-footer"></footer>
+  <div id="main" class="content"></div>
+  <div id="dialog"></div>
+</div>
+
+<!-- SCRIPTS -->
+<script src="cordova.js"></script>
+<script src="app.js"></script>
 </body>
 
 </html>
