@@ -11,14 +11,14 @@
 .icon-left-nav:before { content: '\e809'; } /* '' */
 .icon-list:before { content: '\e80a'; } /* '' */
 .icon-comment:before { content: '\e80b'; } /* '' */
-.icon-lock-closed:before { content: '\e80c'; } /* '' */
+.icon-star-empty:before { content: '\e80c'; } /* '' */
 .icon-menu:before { content: '\e80d'; } /* '' */
 .icon-info:before { content: '\e80e'; } /* '' */
 .icon-check:before { content: '\e80f'; } /* '' */
 .icon-number:before { content: '\e810'; } /* '' */
 .icon-calendar:before { content: '\e811'; } /* '' */
 .icon-location:before { content: '\e812'; } /* '' */
-.icon-lock-open:before { content: '\e813'; } /* '' */
+.icon-star:before { content: '\e813'; } /* '' */
 .icon-stage:before { content: '\e814'; } /* '' */
 .icon-help:before { content: '\e815'; } /* '' */
 .icon-thumbs-up:before { content: '\e816'; } /* '' */
@@ -37,3 +37,7 @@
 .icon-undo:before { content: '\e823'; } /* '' */
 .icon-delete:before { content: '\e824'; } /* '' */
 .icon-arrows-cw:before { content: '\e825'; } /* '' */
+.icon-eye:before { content: '\e826'; } /* '' */
+.icon-question:before { content: '\e827'; } /* '' */
+.icon-grid:before { content: '\e828'; } /* '' */
+.icon-pound:before { content: '\e829'; } /* '' */

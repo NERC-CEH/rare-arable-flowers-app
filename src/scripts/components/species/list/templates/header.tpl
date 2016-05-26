@@ -3,5 +3,5 @@
   <a href="#records" id="user-btn" class="icon icon-user"></a>
 </div>
 <div class="pull-right">
-  <button id="filter-btn" class="icon icon-send"></button>
+  <button id="filter-btn" class="icon icon-filter"></button>
 </div>

@@ -97,18 +97,6 @@
       "src": "entypo"
     },
     {
-      "uid": "4x5p6fnblkhqsj4ibuc724faotghuiaq",
-      "css": "lock-closed",
-      "code": 59404,
-      "src": "typicons"
-    },
-    {
-      "uid": "75cff40f03567673e13b0e7d005b7741",
-      "css": "lock-open",
-      "code": 59411,
-      "src": "typicons"
-    },
-    {
       "uid": "2d220a22480861b15878d1632e31ab47",
       "css": "number",
       "code": 59408,
@@ -232,6 +220,42 @@
       "uid": "a73c5deb486c8d66249811642e5d719a",
       "css": "arrows-cw",
       "code": 59429,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "a58c05a8a3ba59ababd4860a30892560",
+      "css": "eye",
+      "code": 59430,
+      "src": "linecons"
+    },
+    {
+      "uid": "3a230e539a4f3b904debd04c6c155034",
+      "css": "question",
+      "code": 59431,
+      "src": "entypo"
+    },
+    {
+      "uid": "9x8p16w516pn1b19chr85japkedporm7",
+      "css": "grid",
+      "code": 59432,
+      "src": "typicons"
+    },
+    {
+      "uid": "9854f7f091bd4fdf9b8735ed66667b9d",
+      "css": "pound",
+      "code": 59433,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "d17030afaecc1e1c22349b99f3c4992a",
+      "css": "star-empty",
+      "code": 59404,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "474656633f79ea2f1dad59ff63f6bf07",
+      "css": "star",
+      "code": 59411,
       "src": "fontawesome"
     }
   ]

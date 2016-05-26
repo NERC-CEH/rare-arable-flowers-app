@@ -20,4 +20,4 @@
     <% } %>
   </div>
 </a>
-<button class="btn icon icon-edit icon-small"></button>
+<button class="btn icon icon-plus icon-small"></button>

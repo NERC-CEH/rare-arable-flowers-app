@@ -1,0 +1,35 @@
+#species-account-header {
+ .pull-right {
+   width: 40%;
+ }
+}
+
+#species-info {
+  .common-name {
+    width: 75%;
+    font-size: x-large;
+    margin-top: 1.5%;
+    float: left;
+  }
+
+  div.taxon {
+    display: none!important;
+  }
+
+  @media only screen and (max-width: 400px) {
+    .common-name, .species-list-main-name, .taxon {
+      white-space: initial!important;
+    }
+
+    div.taxon {
+      font-style: italic;
+      float: left;
+      display: block!important;
+    }
+
+    .taxon {
+      margin-top: 10px;
+    }
+  }
+}
+

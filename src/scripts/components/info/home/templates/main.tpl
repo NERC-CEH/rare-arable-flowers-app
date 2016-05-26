@@ -9,7 +9,7 @@
   </li>
   <li class="table-view-cell">
     <a href="#species" class="navigate-right">
-      <span class="media-object pull-left icon icon-info"></span>
+      <span class="media-object pull-left icon icon-eye"></span>
       Identify and Record
     </a>
   </li>

@@ -10,10 +10,14 @@
   button {
     width: 20%;
     height: 100%;
-    max-width: 80px;
+    max-width: 50px;
     right: 0;
     background-color: transparent;
     border: none;
+
+    &:before {
+      margin-left: 0;
+    }
 
     &:after {
       content: "";
@@ -25,4 +29,9 @@
       width: 1px;
     }
   }
+}
+
+#filter-btn {
+  width: 50%;
+  max-width: 55px;
 }
