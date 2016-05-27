@@ -4,5 +4,5 @@
 </div>
 <div class="pull-right">
   <button id="filter-btn" class="icon icon-filter"></button>
-  <button id="sort-btn" class="icon icon-sort"></button>
+  <button id="sort-btn" class="icon icon-list-nested"></button>
 </div>
