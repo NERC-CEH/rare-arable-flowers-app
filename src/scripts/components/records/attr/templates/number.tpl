@@ -1,10 +1,6 @@
 <div class="info-message">
   <p>How many individuals of this type?</p>
 </div>
-<div class="range">
-  <input type="range" id="range" name="number" min="1" max="100" value="<%- obj.numberPosition || 1 %>">
-  <input type="number" id="rangeVal" value="<%- obj.number %>">
-</div>
 <div class="list">
   <label class="item item-radio">
     <input type="radio" name="group" value="default"
@@ -69,6 +65,17 @@
 
 </div>
 
+Surveyed area length (meters):
+<div class="range">
+  <input type="range" id="number_length_range" name="number" min="1" max="100" value="<%- obj.number_width || 1 %>">
+  <input type="number" id="number_length" value="<%- obj.number_length %>">
+</div>
+
+Surveyed area width (meters):
+<div class="range">
+  <input type="range" id="number_width_range" name="number" min="1" max="100" value="<%- obj.number_width || 1 %>">
+  <input type="number" id="number_width" value="<%- obj.number_width %>">
+</div>
 <!--<ul class="list">-->
 
   <!--<li class="item item-checkbox">-->

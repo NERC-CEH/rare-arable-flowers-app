@@ -24,7 +24,7 @@ export default Marionette.ItemView.extend({
     const locationPrint = recordModel.printLocation();
     const location = recordModel.get('location') || {};
 
-    let number = occ.get('number') && StringHelp.limit(occ.get('number'));
+    const number = occ.get('number') && StringHelp.limit(occ.get('number'));
 
     return {
       id: recordModel.id || recordModel.cid,
@@ -37,6 +37,7 @@ export default Marionette.ItemView.extend({
       date: DateHelp.print(recordModel.get('date')),
       number,
       stage: occ.get('stage') && StringHelp.limit(occ.get('stage')),
+      habitat: occ.get('habitat') && StringHelp.limit(occ.get('habitat')),
       comment: occ.get('comment') && StringHelp.limit(occ.get('comment')),
     };
   },

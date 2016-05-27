@@ -71,7 +71,7 @@ export default Marionette.ItemView.extend({
           $inputs = this.$el.find('input[type="radio"]');
           $inputs.each((int, elem) => {
             if ($(elem).prop('checked')) {
-              values['number-ranges'] = $(elem).val();
+              values[attr] = $(elem).val();
             }
           });
         }
@@ -84,11 +84,20 @@ export default Marionette.ItemView.extend({
           }
         });
         break;
+      case 'habitat':
+        $inputs = this.$el.find('input');
+        $inputs.each((int, elem) => {
+          if ($(elem).prop('checked')) {
+            values[attr] = $(elem).val();
+          }
+        });
+        break;
       case 'comment':
         value = this.$el.find('textarea').val();
         values[attr] = StringHelp.escape(value);
         break;
       default:
+        Log('Records:Attribute:MainView: no such attribute', 'e');
     }
 
     return values;
@@ -105,22 +114,20 @@ export default Marionette.ItemView.extend({
         break;
       case 'number':
         let number = occ.get('number');
-        if (number) {
-          templateData.number = number;
-          templateData.numberPosition = logsl.position(number).toFixed(0);
-        } else {
-          number = occ.get('number-ranges') || 'default';
-          templateData[number] = true;
-        }
+        templateData.number = number;
+        templateData.numberPosition = logsl.position(number).toFixed(0);
         break;
       case 'stage':
         templateData[occ.get('stage')] = true;
+        break;
+      case 'habitat':
+        templateData[occ.get('habitat')] = true;
         break;
       case 'comment':
         templateData.comment = occ.get('comment');
         break;
       default:
-        Log('No such attribute', 'e');
+        Log('Records:Attribute:MainView: no such attribute', 'e');
         return null;
     }
 

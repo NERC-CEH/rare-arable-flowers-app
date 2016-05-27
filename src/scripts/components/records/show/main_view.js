@@ -55,10 +55,7 @@ export default Marionette.ItemView.extend({
     const locationPrint = recordModel.printLocation();
     const location = recordModel.get('location') || {};
 
-    let number = occ.get('number') && StringHelp.limit(occ.get('number'));
-    if (!number) {
-      number = occ.get('number-ranges') && StringHelp.limit(occ.get('number-ranges'));
-    }
+    const number = occ.get('number') && StringHelp.limit(occ.get('number'));
 
     return {
       id: occ.cid,

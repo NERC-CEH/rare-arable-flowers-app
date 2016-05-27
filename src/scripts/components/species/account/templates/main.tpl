@@ -15,17 +15,9 @@
   </div>
 </div>
 
-<div data-role="navbar" data-iconpos="left">
-  <ul>
-    <li style="border-right: 1px solid #dddddd;">
-      <button id="gallery-button"
-              class="ui-btn ui-alt-icon ui-nodisc-icon ui-icon-eye ui-btn-icon-right">Gallery</button>
-    </li>
-    <li>
-      <button id="species-map-button"
-              class="ui-btn ui-alt-icon ui-nodisc-icon ui-icon-location ui-btn-icon-right">Distribution</button>
-    </li>
-  </ul>
+<div class="segmented-control">
+  <a id="gallery-button" class="control-item icon icon-eye">Gallery</a>
+  <a id="species-map-button" class="control-item icon icon-map">Distribution</a>
 </div>
 
 <ul id="species-info" class="table-view">

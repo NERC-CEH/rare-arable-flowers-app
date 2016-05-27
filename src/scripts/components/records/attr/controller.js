@@ -42,9 +42,10 @@ const API = {
 
       // HEADER
       const headerView = new HeaderView({
-        model: new Backbone.Model({
-          title: attr,
-        }),
+        onExit() {
+          API.onExit(mainView, recordModel, attr);
+        },
+        model: new Backbone.Model({ title: attr }),
       });
       App.regions.header.show(headerView);
 
@@ -89,20 +90,8 @@ const API = {
         currentVal = occ.get('number');
 
         // todo: validate before setting up
-        if (values.number) {
-          // specific number
-          newVal = values.number;
-          occ.set('number', newVal);
-          occ.unset('number-ranges');
-        } else {
-          // number ranges
-          attr = 'number-ranges';
-          // don't save default values
-          newVal = values['number-ranges'] === 'default' ?
-            null : values['number-ranges'];
-          occ.set('number-ranges', newVal);
-          occ.unset('number');
-        }
+        newVal = values.number;
+        occ.set('number', newVal);
         break;
       case 'stage':
         currentVal = occ.get('stage');
@@ -111,6 +100,14 @@ const API = {
         // don't save default values
         newVal = values.stage === 'default' ? null : values.stage;
         occ.set('stage', newVal);
+        break;
+      case 'habitat':
+        currentVal = occ.get('habitat');
+
+        // todo:validate before setting up
+        // don't save default values
+        newVal = values.habitat === 'default' ? null : values.habitat;
+        occ.set('habitat', newVal);
         break;
       case 'comment':
         currentVal = occ.get('comment');
