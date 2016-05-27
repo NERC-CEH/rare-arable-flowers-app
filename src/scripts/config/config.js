@@ -20,7 +20,7 @@ export default {
   // google analytics
   ga: {
     status: true,
-    ID: 'UA-58378803-4'
+    ID: 'UA-58378803-5'
   },
 
   login: {
@@ -42,10 +42,10 @@ export default {
   morel:{
     manager: {
       url: 'https://www.brc.ac.uk/irecord/mobile/submit',
-      appname: 'ir',
-      appsecret: 'irecordApp123',
+      appname: 'raf',
+      appsecret: 'rafPass1234',
       website_id: 23,
-      survey_id: 374,
+      survey_id: 396,
       input_form: 'enter-app-record'
     },
     sample: {
@@ -97,12 +97,6 @@ export default {
           return DateHelp.print(date);
         }
       },
-
-      group: {
-        values: function(group) {
-          return group.id;
-        }
-      }
     },
     occurrence: {
       taxon: {
@@ -111,29 +105,41 @@ export default {
         }
       },
       number: {
-        id: 16,
-      },
-      'number-ranges': {
-        id: 523,
+        id: 551,
         values: {
-          'default': 671,
-          '1': 665,
-          '2-5': 666,
-          '6-20': 667,
-          '21-100': 668,
-          '101-500': 669,
-          '500+': 670
+          'default': true,
+          '1': 6180,
+          '2-10': 6181,
+          '11-100': 6182,
+          '101-1000': 6183,
+          '1000+': 6184,
         }
       },
       stage: {
-        id: 106,
+        id: 549,
         values: {
-          'default': 1949,
-          'Adult': 1950,
-          'Pre-adult': 1951,
-          'Other': 1952
+          'default': true,
+          'Vegetative': 6177,
+          'Flowering': 6178,
+          'In Seed': 6179,
         }
-      }
+      },
+      locationdetails: {
+        id: 877,
+        values: {
+          'default': true,
+          "Cultivated Strip / Block": 6167,
+          "Conservation headland": 6168,
+          "Wild bird seed / Game cover": 6169,
+          "Wildflower / Clover rich margin": 6170,
+          "Grass margin / corner": 6171,
+          "Crop": 6172,
+          "Stubble": 6173,
+          "Track / gateway": 6174,
+          "Other": 6175,
+          "Grassland": 6176
+        }
+      },
     }
   },
   statistics: {

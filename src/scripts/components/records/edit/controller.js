@@ -23,10 +23,21 @@ let id;
 let record;
 
 const API = {
-  show(recordID, newRecord) {
+  show(recordID) {
     Log('Records:Edit:Controller: showing');
 
-    function show (recordModel) {
+    id = recordID;
+    recordManager.get(recordID, (err, recordModel) => {
+      if (err) {
+        Log(err, 'e');
+      }
+
+      // Not found
+      if (!recordModel) {
+        Log('No record model found', 'e');
+        App.trigger('404:show', { replace: true });
+        return;
+      }
       // can't edit a saved one - to be removed when record update
       // is possible on the server
       if (recordModel.getSyncStatus() === Morel.SYNCED) {
@@ -37,7 +48,7 @@ const API = {
 
       // MAIN
       const mainView = new MainView({
-        model: new Backbone.Model({ recordModel, appModel, newRecord }),
+        model: new Backbone.Model({ recordModel, appModel }),
       });
       App.regions.main.show(mainView);
 
@@ -64,6 +75,10 @@ const API = {
         API.save(recordModel);
       });
 
+      headerView.on('navigateBack', () => {
+        API.navigateBack(recordModel);
+      });
+
       App.regions.header.show(headerView);
 
       // FOOTER
@@ -87,36 +102,6 @@ const API = {
       });
 
       App.regions.footer.show(footerView);
-    }
-
-    // new record
-    if (newRecord) {
-      const sample = new Sample();
-      const occurrence = new Occurrence();
-      const speciesCollection = new Backbone.Collection(speciesData);
-      const species = speciesCollection.get(recordID);
-      occurrence.set('taxon', species.attributes);
-      sample.addOccurrence(occurrence);
-      App.sample = sample;
-
-      show(sample);
-      return;
-    }
-
-    // edit existing
-    id = recordID;
-    recordManager.get(recordID, (err, recordModel) => {
-      if (err) {
-        Log(err, 'e');
-      }
-
-      // Not found
-      if (!recordModel) {
-        Log('No record model found', 'e');
-        App.trigger('404:show', { replace: true });
-        return;
-      }
-      show(recordModel);
     });
   },
 
@@ -150,10 +135,35 @@ const API = {
 
       // todo: call callback
       recordModel.save(null, { remote: true });
+      appModel.set('draftRecordID', '');
+      appModel.save();
       App.trigger('record:saved');
     });
 
     return valid;
+  },
+
+  navigateBack(recordModel) {
+    const draftRecordID = appModel.get('draftRecordID');
+
+    // just normal edit - leave the record in place
+    if (!draftRecordID) {
+      window.history.back();
+      return;
+    }
+
+    // draft edit destroy
+    if (recordModel.cid !== draftRecordID) {
+      Log('Records:Edit:Controller: draft mismatch', 'e');
+      window.history.back();
+      return;
+    }
+
+    Log('Records:Edit:Controller: removing the draft record');
+    recordModel.destroy();
+    appModel.set('draftRecordID', '');
+    appModel.save();
+    window.history.back();
   },
 
   showInvalidsMessage(invalids) {

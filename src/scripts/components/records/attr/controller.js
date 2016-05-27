@@ -41,7 +41,13 @@ const API = {
       App.regions.main.show(mainView);
 
       // HEADER
-      App.regions.header.hide().empty();
+      const headerView = new HeaderView({
+        model: new Backbone.Model({
+          title: attr,
+        }),
+      });
+      App.regions.header.show(headerView);
+
 
       // if exit on selection click
       mainView.on('save', () => {

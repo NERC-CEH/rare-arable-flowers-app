@@ -10,19 +10,15 @@ export default Marionette.ItemView.extend({
   template: JST['records/edit/header'],
 
   events: {
-    'click a[data-rel="back"]': 'navigateBack',
   },
 
   triggers: {
     'click #record-save-btn': 'save',
+    'click a[data-rel="back"]': 'navigateBack',
   },
 
   modelEvents: {
     'request sync error': 'render',
-  },
-
-  navigateBack() {
-    window.history.back();
   },
 
   serializeData() {

@@ -28,6 +28,9 @@ const API = {
         return;
       }
 
+      // clean from drafts
+      API.clearDrafts(recordsCollection);
+
       // MAIN
       const mainView = new MainView({
         collection: recordsCollection,
@@ -159,6 +162,14 @@ const API = {
         }
         callback();
       });
+    });
+  },
+
+  clearDrafts(recordsCollection) {
+    recordsCollection.each(record => {
+      if (!record.metadata.saved) {
+        record.destroy();
+      }
     });
   },
 };

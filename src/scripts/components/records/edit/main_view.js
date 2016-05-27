@@ -26,10 +26,8 @@ export default Marionette.ItemView.extend({
 
     let number = occ.get('number') && StringHelp.limit(occ.get('number'));
 
-    const newRecord = this.model.get('newRecord');
     return {
       id: recordModel.id || recordModel.cid,
-      new: newRecord,
       common_name: specie.common_name,
       common_name_significant: specie.common_name_significant,
       isLocating: recordModel.isGPSRunning(),

@@ -5,6 +5,13 @@
   overflow: visible;
 }
 
+.table-view.core {
+  .species-name {
+    font-size: large;
+    padding: 15px 10px 15px 10px;
+  }
+}
+
 #record-save-btn {
   width: 70% !important;
   max-width: 100px;

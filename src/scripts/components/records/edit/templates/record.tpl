@@ -3,7 +3,7 @@
       <%- obj.common_name + ' ' + obj.common_name_significant %>
   </li>
   <li class="table-view-cell">
-    <a href="#records/<%- obj.new ? 'new' : '/edit' + obj.id %>/location" id="location-button"
+    <a href="#records/<%- obj.id %>/edit/location" id="location-button"
        class="navigate-right">
       <span class="media-object pull-left icon icon-location"></span>
 
@@ -26,7 +26,7 @@
     </a>
   </li>
   <li class="table-view-cell">
-    <a href="#records/<%- obj.new ? 'new' : '/edit' + obj.id %>/date" id="date-button"
+    <a href="#records/<%- obj.id %>/edit/date" id="date-button"
        class="navigate-right">
       <span class="media-object pull-left icon icon-calendar"></span>
       <span class="media-object pull-right descript"><%- obj.date %></span>
@@ -34,7 +34,7 @@
     </a>
   </li>
   <li class="table-view-cell">
-    <a href="#records/<%- obj.new ? 'new' : '/edit' + obj.id %>/number" id="number-button"
+    <a href="#records/<%- obj.id %>/edit/number" id="number-button"
        class="navigate-right">
       <span class="media-object pull-left icon icon-number"></span>
       <span class="media-object pull-right descript"><%- obj.number %></span>
@@ -42,7 +42,7 @@
     </a>
   </li>
   <li class="table-view-cell">
-    <a href="#records/<%- obj.new ? 'new' : '/edit' + obj.id %>/stage" id="stage-button"
+    <a href="#records/<%- obj.id %>/edit/stage" id="stage-button"
        class="navigate-right">
       <span class="media-object pull-left icon icon-stage"></span>
       <span class="media-object pull-right descript"><%- obj.stage %></span>
@@ -50,11 +50,11 @@
     </a>
   </li>
   <li class="table-view-cell">
-    <a href="#records/<%- obj.new ? 'new' : '/edit' + obj.id %>/habitat" id="habitat-button"
+    <a href="#records/<%- obj.id %>/edit/habitat" id="habitat-button"
        class="navigate-right">
-      <span class="media-object pull-left icon icon-stage"></span>
+      <span class="media-object pull-left icon icon-landscape"></span>
       <span class="media-object pull-right descript"><%- obj.habitat %></span>
-      Habitat Details
+      Habitat
     </a>
   </li>
   <li class="table-view-cell">

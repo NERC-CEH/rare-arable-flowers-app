@@ -14,30 +14,30 @@
   </label>
 
   <label class="item item-radio">
-    <input type="radio" name="group" value="Pre-adult" <%- obj['Pre-adult'] ? 'checked' : ''%>>
+    <input type="radio" name="group" value="Vegetative" <%- obj['Vegetative'] ? 'checked' : ''%>>
     <div class="radio-content">
       <div class="item-content">
-        Pre-adult
+        Vegetative
       </div>
       <i class="radio-icon icon-check"></i>
     </div>
   </label>
 
   <label class="item item-radio">
-    <input type="radio" name="group" value="Adult" <%- obj['Adult'] ? 'checked' : ''%>>
+    <input type="radio" name="group" value="Flowering" <%- obj['Flowering'] ? 'checked' : ''%>>
     <div class="radio-content">
       <div class="item-content">
-        Adult
+        Flowering
       </div>
       <i class="radio-icon icon-check"></i>
     </div>
   </label>
 
   <label class="item item-radio">
-    <input type="radio" name="group" value="Other" <%- obj['Other'] ? 'checked' : ''%>>
+    <input type="radio" name="group" value="In Seed" <%- obj['In Seed'] ? 'checked' : ''%>>
     <div class="radio-content">
       <div class="item-content">
-        Other
+        In Seed
       </div>
       <i class="radio-icon icon-check"></i>
     </div>

@@ -4,3 +4,4 @@
 <div class="pull-right">
   <a href="#settings" class="icon icon-settings"></a>
 </div>
+<h1 class="title">Account</h1>

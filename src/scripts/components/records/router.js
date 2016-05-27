@@ -20,15 +20,10 @@ App.records = {};
 const Router = Marionette.AppRouter.extend({
   routes: {
     'records(/)': ListController.show,
-    'records/new/:speciesId': (speciesID) => {
-      EditController.show(speciesID, true);
-    },
     'records/:id': ShowController.show,
     'records/:id/edit(/)': EditController.show,
     'records/:id/edit/location(/)': LocationController.show,
-    'records/new/location(/)': LocationController.show,
     'records/:id/edit/:attr(/)': EditAttrController.show,
-    'records/new/:attr(/)': EditAttrController.show,
     'records/*path'() {App.trigger('404:show');},
   },
 });
@@ -36,11 +31,6 @@ const Router = Marionette.AppRouter.extend({
 App.on('records:list', (options) => {
   App.navigate('records', options);
   ListController.show();
-});
-
-App.on('records:new', (speciesID, options) => {
-  App.navigate(`records/new/${speciesID}`, options);
-  EditController.show(speciesID, true);
 });
 
 App.on('records:show', (recordID, options) => {
@@ -64,17 +54,6 @@ App.on('records:edit:attr', (recordID, attrID, options) => {
   }
 });
 
-
-App.on('records:new:attr', (attrID, options) => {
-  App.navigate(`records/new/${attrID}`, options);
-  switch (attrID) {
-    case 'location':
-      LocationController.show(null, attrID);
-      break;
-    default:
-      EditAttrController.show(null, attrID);
-  }
-});
 
 App.on('record:saved', () => {
   window.history.back();

@@ -11,6 +11,10 @@ const SpeciesView = Marionette.ItemView.extend({
 
   template: JST['species/list/species'],
 
+  triggers: {
+    'click #record': 'record',
+  },
+
   serializeData() {
     const species = this.model;
 

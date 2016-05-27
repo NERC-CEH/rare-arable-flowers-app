@@ -9,253 +9,253 @@
     {
       "uid": "de2fc7a5c986ab8c622f63455d7cf814",
       "css": "upload-cloud",
-      "code": 59395,
+      "code": 59392,
       "src": "fontawesome"
     },
     {
       "uid": "d61be837c725a299b432dcbee2ecdae6",
       "css": "stage",
-      "code": 59412,
+      "code": 59393,
       "src": "fontawesome"
     },
     {
       "uid": "4109c474ff99cad28fd5a2c38af2ec6f",
       "css": "filter",
-      "code": 59399,
+      "code": 59394,
       "src": "fontawesome"
     },
     {
       "uid": "ebffa4e734c8379ffee4fbfe49264d94",
       "css": "help",
-      "code": 59413,
+      "code": 59395,
       "src": "fontawesome"
     },
     {
       "uid": "bbd66ef66bb8fa9edde54d9a90b89150",
       "css": "user",
-      "code": 59426,
+      "code": 59396,
       "src": "entypo"
     },
     {
       "uid": "6274e0601f2feef7eced89146e708de0",
       "css": "user-plus",
-      "code": 59423,
+      "code": 59397,
       "src": "entypo"
     },
     {
       "uid": "2cfb3f2b46b34a1790aec0aa846297b6",
       "css": "menu",
-      "code": 59405,
+      "code": 59398,
       "src": "entypo"
     },
     {
       "uid": "14017aae737730faeda4a6fd8fb3a5f0",
       "css": "check",
-      "code": 59407,
+      "code": 59399,
       "src": "entypo"
     },
     {
       "uid": "c709da589c923ba3c2ad48d9fc563e93",
       "css": "cancel",
-      "code": 59421,
+      "code": 59400,
       "src": "entypo"
     },
     {
       "uid": "70370693ada58ef0a60fa0984fe8d52a",
       "css": "plus",
-      "code": 59396,
+      "code": 59401,
       "src": "entypo"
     },
     {
       "uid": "1256e3054823e304d7e452a589cf8bb8",
       "css": "minus",
-      "code": 59420,
+      "code": 59402,
       "src": "entypo"
     },
     {
       "uid": "390d6d13398cbf8c8c3c5493f7d34088",
       "css": "export",
-      "code": 59422,
+      "code": 59403,
       "src": "entypo"
     },
     {
       "uid": "540b6a4262be769515c79700618b4aea",
       "css": "address",
-      "code": 59425,
+      "code": 59404,
       "src": "entypo"
     },
     {
       "uid": "64f5a50cf7ac972a56a9a511acb5d28e",
       "css": "map",
-      "code": 59393,
+      "code": 59405,
       "src": "entypo"
     },
     {
       "uid": "2d76f2c8d13be40694ecadfea7fb83c3",
       "css": "logout",
-      "code": 59418,
+      "code": 59406,
       "src": "entypo"
     },
     {
       "uid": "2d220a22480861b15878d1632e31ab47",
       "css": "number",
-      "code": 59408,
+      "code": 59407,
       "src": "typicons"
     },
     {
       "uid": "ce5e29aa5208417700e7f7012a236c00",
       "css": "undo",
-      "code": 59427,
+      "code": 59408,
       "src": "iconic"
     },
     {
       "uid": "cy7vw87w1slwyalc4vd8cdhrb50asud3",
       "css": "list",
-      "code": 59402,
+      "code": 59409,
       "src": "modernpics"
     },
     {
       "uid": "587bjlxppui6u4japooa2foe58rsvicp",
       "css": "edit",
-      "code": 59424,
+      "code": 59410,
       "src": "modernpics"
     },
     {
       "uid": "15ba51cbb4d05e6fb88f03a31a7c711c",
       "css": "info",
-      "code": 59406,
+      "code": 59411,
       "src": "mfglabs"
     },
     {
       "uid": "b714be5a812a474811604f700dfc87ce",
       "css": "left-nav",
-      "code": 59401,
+      "code": 59412,
       "src": "mfglabs"
     },
     {
       "uid": "37910a1398001a5ccb541cb2a253a2c7",
       "css": "right-nav",
-      "code": 59400,
+      "code": 59413,
       "src": "mfglabs"
     },
     {
       "uid": "9725db89b610135dc76cd8a21afffa83",
       "css": "search",
-      "code": 59397,
+      "code": 59414,
       "src": "linecons"
     },
     {
       "uid": "91bac16b22827347e9ee20477f0b44d2",
       "css": "mail",
-      "code": 59394,
+      "code": 59415,
       "src": "linecons"
     },
     {
       "uid": "b19ac67070bc44e310990016288e449c",
       "css": "heart",
-      "code": 59417,
+      "code": 59416,
       "src": "linecons"
     },
     {
       "uid": "b59cc4d390a6df564a055f43c03a6af5",
       "css": "camera",
-      "code": 59392,
+      "code": 59417,
       "src": "linecons"
     },
     {
       "uid": "06a2fbb04dffecdb444936073cae9123",
       "css": "thumbs-up",
-      "code": 59414,
+      "code": 59418,
       "src": "linecons"
     },
     {
       "uid": "5b1a68729f60f8be3769238379d1b8e9",
       "css": "comment",
-      "code": 59403,
+      "code": 59419,
       "src": "linecons"
     },
     {
       "uid": "1ea8ad6dbe1ae9a73565ad16cf88de19",
       "css": "location",
-      "code": 59410,
+      "code": 59420,
       "src": "linecons"
     },
     {
       "uid": "2cc73cc335f054682c04fe63439c4dcb",
       "css": "delete",
-      "code": 59428,
+      "code": 59421,
       "src": "linecons"
     },
     {
       "uid": "3e2bd88137dd7ceec98b4bfd8640e5ec",
       "css": "settings",
-      "code": 59416,
+      "code": 59422,
       "src": "linecons"
     },
     {
       "uid": "43e4647c57186b5e06874621b5e665be",
       "css": "calendar",
-      "code": 59409,
+      "code": 59423,
       "src": "linecons"
     },
     {
       "uid": "6fbd93c0d220507921015a15575009e5",
       "css": "send",
-      "code": 59415,
+      "code": 59424,
       "src": "linecons"
     },
     {
       "uid": "75347b319511175da51af3955919dbac",
       "css": "key",
-      "code": 59398,
+      "code": 59425,
       "src": "linecons"
     },
     {
       "uid": "ecf8edb95c3f45eb433b4cce7ba9f740",
       "css": "users",
-      "code": 59419,
+      "code": 59426,
       "src": "entypo"
     },
     {
       "uid": "a73c5deb486c8d66249811642e5d719a",
       "css": "arrows-cw",
-      "code": 59429,
+      "code": 59427,
       "src": "fontawesome"
     },
     {
       "uid": "a58c05a8a3ba59ababd4860a30892560",
       "css": "eye",
-      "code": 59430,
+      "code": 59428,
       "src": "linecons"
     },
     {
       "uid": "3a230e539a4f3b904debd04c6c155034",
       "css": "question",
-      "code": 59431,
+      "code": 59429,
       "src": "entypo"
     },
     {
       "uid": "9x8p16w516pn1b19chr85japkedporm7",
       "css": "grid",
-      "code": 59432,
+      "code": 59430,
       "src": "typicons"
     },
     {
       "uid": "9854f7f091bd4fdf9b8735ed66667b9d",
       "css": "pound",
-      "code": 59433,
+      "code": 59431,
       "src": "fontawesome"
     },
     {
       "uid": "d17030afaecc1e1c22349b99f3c4992a",
       "css": "star-empty",
-      "code": 59404,
+      "code": 59432,
       "src": "fontawesome"
     },
     {
       "uid": "474656633f79ea2f1dad59ff63f6bf07",
       "css": "star",
-      "code": 59411,
+      "code": 59433,
       "src": "fontawesome"
     },
     {
@@ -263,6 +263,26 @@
       "css": "lock-closed",
       "code": 59434,
       "src": "typicons"
+    },
+    {
+      "uid": "69440efc3b1d543a5e93f4f765e7a685",
+      "css": "landscape",
+      "code": 59435,
+      "src": "custom_icons",
+      "selected": true,
+      "svg": {
+        "path": "M633.3 366.7C688.5 366.7 733.3 321.9 733.3 266.7 733.3 211.4 688.5 166.7 633.3 166.7 578.1 166.7 533.3 211.4 533.3 266.7 533.3 321.9 578.1 366.7 633.3 366.7ZM633.3 233.3C651.8 233.3 666.7 248.2 666.7 266.7 666.7 285.1 651.8 300 633.3 300 614.9 300 600 285.1 600 266.7 600 248.2 614.9 233.3 633.3 233.3ZM993.5 781.3H993.6L992.2 779.3C991.4 778.3 990.8 777.1 989.9 776.2L772.5 481.9C759.5 468.9 738.4 468.9 725.4 481.9L605.3 646 381.5 345.8C363.3 327.7 333.8 327.7 315.6 345.8L14.1 754.1C12.9 755.3 12.2 756.8 11.2 758.1L9 761.1H9.1C3.8 768.6 0 777.2 0 787.1 0 812.6 20.9 833.3 46.7 833.3H966.7C985.1 833.3 1000 818.4 1000 800 1000 792.9 997.3 786.7 993.5 781.3ZM89.7 766.7L349.9 412.7C349.9 412.7 511.3 630.2 578 720 578.8 721.2 579.7 721.4 580.5 722.2 586.5 731.4 596.3 737.9 608.1 737.9 622.1 737.9 634 729.2 638.9 717 639.5 716.3 640.1 716.2 640.7 715.3 682.8 658.7 749.3 565.5 749.3 565.5L900 766.7H89.7Z",
+        "width": 1000
+      },
+      "search": [
+        "landscape"
+      ]
+    },
+    {
+      "uid": "96418ab910c40c3bf61a9ba7b718c49d",
+      "css": "sort",
+      "code": 59436,
+      "src": "iconic"
     }
   ]
 }

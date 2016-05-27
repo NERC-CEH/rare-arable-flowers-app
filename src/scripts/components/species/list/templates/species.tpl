@@ -20,6 +20,4 @@
     <% } %>
   </div>
 </a>
-<a href="#records/new/<%- obj.id %>" class="record btn">
-  <span class="icon icon-plus"></span>
-</a>
+<button id="record" class="btn icon icon-plus "></button>

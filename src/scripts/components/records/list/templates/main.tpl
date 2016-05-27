@@ -8,7 +8,8 @@
 <div class="info-message">
   <p>
     Saved recordings. <br/>
-    <em style="font-weight: 100; display: inline;"> Full app statistics <a href="<%- obj.statistics_url %>" target="_blank" style="color: white;">here.</a></em>
+    <em style="font-weight: 300; display: inline;"> Full app statistics
+      <a href="<%- obj.statistics_url %>" target="_blank" style="font-weight:bold;color: white;">here.</a></em>
   </p>
 </div>
 <ul id="records-list"></ul>

@@ -37,7 +37,7 @@ const RecordView = Marionette.ItemView.extend({
   },
 
   initialize() {
-    this.template = JST[`records/list/record${(Device.isMobile() ? '_mobile' : '')}`];
+    this.template = JST[`records/list/record`];
   },
 
   photoView(e) {
@@ -111,12 +111,7 @@ const RecordView = Marionette.ItemView.extend({
     const images = occ.images;
     let img = images.length && images.at(0).get('thumbnail');
 
-    if (!img) {
-      //backwards compatibility
-      img = images.length && images.at(0).getURL();
-    }
-
-    const taxon = specie[specie.found_in_name];
+    const taxon = specie.common_name;
 
     const syncStatus = this.model.getSyncStatus();
 
@@ -124,9 +119,6 @@ const RecordView = Marionette.ItemView.extend({
     const location = recordModel.get('location') || {};
 
     let number = occ.get('number') && StringHelp.limit(occ.get('number'));
-    if (!number) {
-      number = occ.get('number-ranges') && StringHelp.limit(occ.get('number-ranges'));
-    }
 
     return {
       id: recordModel.id || recordModel.cid,

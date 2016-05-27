@@ -196,7 +196,40 @@ const API = {
       App.regions.main.show(mainView);
 
       // HEADER
-      App.regions.header.hide().empty();
+      const LocationHeader = HeaderView.extend({
+        id: 'location-header',
+
+        /*
+         From Marionette docs:
+         it is suggested that you avoid re-rendering the entire layoutView unless
+         absolutely necessary. Instead, if you are binding the layoutView's template
+         to a model and need to update portions of the layoutView, you should listen
+         to the model's "change" events and only update the necessary DOM elements.
+         */
+        modelEvents: {
+          'change:location': 'updateTitle',
+        },
+
+        updateTitle() {
+          const title = this.model.printLocation();
+          const $title = this.$el.find('h1');
+
+          $title.html(title);
+        },
+
+        serializeData() {
+          return {
+            title: this.model.printLocation(),
+          };
+        },
+      });
+
+      const headerView = new LocationHeader({
+        onExit: onPageExit,
+        model: recordModel,
+      });
+
+      App.regions.header.show(headerView);
 
       // if exit on selection click
       mainView.on('save', onPageExit);
