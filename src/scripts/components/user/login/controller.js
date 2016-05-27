@@ -26,7 +26,7 @@ const API = {
     // HEADER
     const headerView = new HeaderView({
       model: new Backbone.Model({
-        title: 'Login',
+        title: 'Sign in',
       }),
     });
     App.regions.header.show(headerView);

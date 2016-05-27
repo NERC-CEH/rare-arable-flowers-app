@@ -1,6 +1,6 @@
 <ul class="table-view core inputs no-top <%- obj.isSynchronising ? 'disabled' : '' %>">
-  <li class="table-view-cell">
-      <span class="media-object pull-right"><%- obj.common_name %></span>
+  <li class="table-view-divider species-name">
+      <%- obj.common_name + ' ' + obj.common_name_significant %>
   </li>
   <li class="table-view-cell">
     <a href="#records/<%- obj.new ? 'new' : '/edit' + obj.id %>/location" id="location-button"

@@ -18,6 +18,8 @@ const API = {
     const templateData = new Backbone.Model({
       useGridRef: appModel.get('useGridRef'),
       autosync: appModel.get('autosync'),
+      surname: userModel.get('surname'),
+      name: userModel.get('name'),
     });
 
     const mainView = new MainView({
@@ -29,6 +31,8 @@ const API = {
       appModel.set(setting, on);
       appModel.save();
     });
+
+    mainView.on('user:logout', API.logout);
 
     mainView.on('records:submit:all', API.sendAllRecords);
     mainView.on('records:delete:all', API.deleteAllRecords);
@@ -160,6 +164,11 @@ const API = {
       recordManager.clear(callback);
     });
     Analytics.trackEvent('Settings', 'reset app');
+  },
+
+  logout() {
+    Log('Settings:Menu:Controller: logging out');
+    userModel.logOut();
   },
 };
 

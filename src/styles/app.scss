@@ -291,8 +291,9 @@ li h3 {
 
 .btn {
   height: $button-height;
-  padding: 0 20px;
   font-size: $button-font-size;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 .info-message,
@@ -306,11 +307,6 @@ li h3 {
   line-height: 1.4em;
   text-shadow: none;
   text-align: center;
-
-  a {
-    color: $color-white;
-    font-style: italic;
-  }
 }
 
 

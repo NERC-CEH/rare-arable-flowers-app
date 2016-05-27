@@ -257,6 +257,12 @@
       "css": "star",
       "code": 59411,
       "src": "fontawesome"
+    },
+    {
+      "uid": "4x5p6fnblkhqsj4ibuc724faotghuiaq",
+      "css": "lock-closed",
+      "code": 59434,
+      "src": "typicons"
     }
   ]
 }

@@ -11,6 +11,7 @@ import DateHelp from '../../../helpers/date';
 import Gallery from '../../common/gallery';;
 import StringHelp from '../../../helpers/string';
 import JST from '../../../JST';
+import CONFIG from 'config'; // Replaced with alias
 
 
 const RecordView = Marionette.ItemView.extend({
@@ -193,21 +194,18 @@ const NoRecordsView = Marionette.ItemView.extend({
   template: JST['records/list/list-none'],
 });
 
-export default Marionette.CollectionView.extend({
-  id: 'records-list',
-  tagName: 'ul',
+export default Marionette.CompositeView.extend({
+  id: 'user-records-list',
   className: 'table-view no-top',
+  template: JST['records/list/main'],
+  childViewContainer: '#records-list',
   emptyView: NoRecordsView,
   childView: RecordView,
 
-  // inverse the collection
-  attachHtml(collectionView, childView) {
-    collectionView.$el.prepend(childView.el);
-  },
-
-  childViewOptions() {
+  serializeData() {
     return {
-      appModel: this.options.appModel,
+      loggedIn: this.options.userModel.hasLogIn(),
+      statistics_url: CONFIG.statistics.url,
     };
   },
 });

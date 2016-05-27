@@ -21,7 +21,6 @@ export default Marionette.ItemView.extend({
     const specie = occ.get('taxon');
 
     // taxon
-    let commonName = specie.common_name;
     const locationPrint = recordModel.printLocation();
     const location = recordModel.get('location') || {};
 
@@ -31,7 +30,8 @@ export default Marionette.ItemView.extend({
     return {
       id: recordModel.id || recordModel.cid,
       new: newRecord,
-      common_name: commonName,
+      common_name: specie.common_name,
+      common_name_significant: specie.common_name_significant,
       isLocating: recordModel.isGPSRunning(),
       isSynchronising: recordModel.getSyncStatus() === Morel.SYNCHRONISING,
       location: locationPrint,

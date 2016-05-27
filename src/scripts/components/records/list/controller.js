@@ -7,7 +7,7 @@ import Log from '../../../helpers/log';
 import Error from '../../../helpers/error';
 import ImageHelp from '../../../helpers/image';
 import Analytics from '../../../helpers/analytics';
-import appModel from '../../common/models/app_model';
+import userModel from '../../common/models/user_model';
 import recordManager from '../../common/record_manager';
 import Sample from '../../common/models/sample';
 import Occurrence from '../../common/models/occurrence';
@@ -31,7 +31,7 @@ const API = {
       // MAIN
       const mainView = new MainView({
         collection: recordsCollection,
-        appModel,
+        userModel,
       });
 
       mainView.on('childview:record:edit:attr', (childView, attr) => {

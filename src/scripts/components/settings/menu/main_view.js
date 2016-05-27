@@ -16,12 +16,18 @@ export default Marionette.ItemView.extend({
     'click #use-gridref-btn': 'onSettingToggled',
     'toggle #use-autosync-btn': 'onSettingToggled',
     'click #use-autosync-btn': 'onSettingToggled',
+
+    'click #logout-button': 'logout',
   },
 
   triggers: {
     'click #delete-all-btn': 'records:delete:all',
     'click #submit-all-btn': 'records:submit:all',
     'click #app-reset-btn': 'app:reset',
+  },
+
+  logout() {
+    this.trigger('user:logout');
   },
 
   onSettingToggled(e) {
