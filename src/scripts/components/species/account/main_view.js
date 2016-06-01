@@ -5,6 +5,7 @@ import $ from 'jquery';
 import Marionette from 'marionette';
 import JST from '../../../JST';
 import TouchSwipe from 'touchswipe/js/jquery.touchSwipe.min';
+import Gallery from '../../common/gallery';
 import Device from '../../../helpers/device';
 
 export default Marionette.ItemView.extend({
@@ -13,12 +14,13 @@ export default Marionette.ItemView.extend({
   events: {
     'click #species-map': 'toggleMap',
     'click #species-map-button': 'toggleMap',
-    'click #gallery-button': 'showGallery',
+    'click #gallery-button': 'photoView',
+    'click .images img': 'photoView',
     'click #record-btn': 'record',
   },
 
-  onShow: function () {
-    //photos
+  onShow() {
+    // photos
     this.startSwipe();
 
     //add Map
@@ -33,7 +35,7 @@ export default Marionette.ItemView.extend({
     });
   },
 
-  startSwipe: function () {
+  startSwipe() {
     var that = this,
         WIDTH = $('#species_gallery').width(),
         currentImg = 0,
@@ -139,38 +141,36 @@ export default Marionette.ItemView.extend({
   },
 
   /**
-   * Toggles the current species as favourite by saving it into the
-   * storage and changing the buttons appearance.
-   */
-  toggleSpeciesFavourite: function (e) {
-    var $favButton = $(e.target);
-    $favButton.toggleClass("on");
-    var speciesID = this.model.get('id');
-    app.models.user.toggleFavouriteSpecies(speciesID);
-  },
-
-  /**
    * Shows/hides the distribution map.
    */
-  toggleMap: function () {
-    $('#species-map').toggle('slow');
+  toggleMap() {
+    this.$el.find('#species-map').toggle('slow');
   },
 
   /**
    * Launches the species gallery viewing.
    */
-  showGallery: function (id) {
-    this.gallery || this._initGallery();
+  photoView(view, e) {
+    const items = [];
+    const options = {};
 
-    //prevents id being not number or out of range
-    if (id < this.gallery.originalImages.length) {
-      this.gallery.show(id);
-    } else {
-      this.gallery.show(0);
+    items.push({
+      src: this.model.get('profile_pic'),
+      w: 800,
+      h: 800,
+    });
+
+    if (this.model.get('illustration')) {
+      items.push({
+        src: this.model.get('illustration'),
+        w: 800,
+        h: 800,
+      });
     }
+
+// Initializes and opens PhotoSwipe
+    var gallery = new Gallery(items, options);
+    gallery.init();
   },
 
-  _initGallery: function () {
-    this.gallery = new Gallery(this.model);
-  },
 });

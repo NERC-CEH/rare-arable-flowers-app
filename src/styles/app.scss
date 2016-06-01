@@ -601,6 +601,10 @@ button, input, select, textarea {
   }
 }
 
+.segmented-control .control-item.active {
+  background-color: none;
+}
+
 .control-item.icon:before {
   font-size: $button-font-size;
   float: right;

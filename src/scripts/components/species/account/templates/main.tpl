@@ -1,9 +1,9 @@
 <div class="gallery" id="species_gallery">
   <div class="images">
     <img class="img" src="<%= obj.profile_pic %>" data-id="0" alt="&copy; <%= obj.profile_pic_author %>">
-    <% if (obj.gallery) { %>
+    <% if (obj.illustration) { %>
     <div class="img">
-      <img class="illustration" src="<%= obj.gallery %>" data-id="1">
+      <img class="illustration" src="<%= obj.illustration %>" data-id="1">
     </div>
     <% } %>
   </div>

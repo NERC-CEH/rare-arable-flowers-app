@@ -20,7 +20,7 @@ const SpeciesView = Marionette.ItemView.extend({
 
     return {
       id: species.get('id'),
-      img: species.get('profile_pic'),
+      img: species.get('thumbnail'),
       taxon: species.get('taxon'),
       common_name: species.get('common_name'),
       common_name_significant: species.get('common_name_significant'),
