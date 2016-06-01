@@ -1,7 +1,9 @@
 import Backbone from 'backbone';
 import App from '../../../app';
 import MainView from './main_view';
-import HeaderView from './header_view';
+import appModel from '../../common/models/app_model';
+import HeaderView from '../../common/views/header_view';
+import FavouriteButtonView from './favourite_button_view';
 import speciesData from 'species.data';
 
 const API = {
@@ -15,9 +17,17 @@ const API = {
     App.regions.main.show(mainView);
 
     // HEADER
-    const headerView = new HeaderView();
+    const favouriteButtonView = new FavouriteButtonView({
+      model: appModel,
+    });
+    favouriteButtonView.on('click', () => {
+      appModel.toggleFavourite(speciesModel);
+    });
 
-    headerView.on('favourite', (e) => {
+    const headerView = new HeaderView({
+      id: 'species-account-header',
+      rightPanel: favouriteButtonView,
+      model: new Backbone.Model({ title: speciesModel.get('taxon') }),
     });
 
     App.regions.header.show(headerView);
