@@ -23,6 +23,14 @@
         font-size: smaller;
       }
     }
+
+    span.favourite {
+      position: absolute;
+      right: 52px;
+      top: 8px;
+      z-index: 0;
+      color: $color-yellow;
+    }
   }
 
   button {

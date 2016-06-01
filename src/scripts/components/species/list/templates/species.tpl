@@ -18,6 +18,9 @@
     </p>
     <p class="species-list-secondary-name"><i><%- obj.taxon %></i></p>
     <% } %>
+    <% if (obj.favourite) { %>
+      <span class="favourite icon icon-star"></span>
+    <% } %>
   </div>
 </a>
 <button id="record" class="btn icon icon-plus "></button>

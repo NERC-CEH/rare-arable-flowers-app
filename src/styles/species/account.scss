@@ -1,21 +1,25 @@
 #species-account-header {
  .pull-right {
    width: 40%;
+
+   #favourite-btn.icon-star:before {
+     color: $color-yellow;
+   }
  }
 }
 
 #species-info {
   .common-name {
-    width: 75%;
-    font-size: x-large;
-    margin-top: 1.5%;
+    font-size: large;
+    font-weight: bold;
+    margin: 1.5% 0;
   }
 }
 
 #species-account-header h1.title {
-  text-shadow: none;
+  position: relative;
   font-style: italic;
-  margin: 0 10% 0 5% !important;
+  margin: 0 10% 0 5%;
 }
 
 #species-info .taxon {
@@ -35,13 +39,14 @@
 /* Gallery */
 .gallery {
   position: relative;
+  margin: 0 -2%;
+  overflow: hidden;
 }
 
 .gallery .images {
   height: 60vw;
   max-height: 400px;
   position: relative;
-  margin: 0 -2%;
   overflow: hidden;
   background-color: #3C3C3C;
 }
@@ -98,5 +103,5 @@
 
 /* Species Map */
 #species-map{
-  width: 95%;
+  width: 100%;
 }

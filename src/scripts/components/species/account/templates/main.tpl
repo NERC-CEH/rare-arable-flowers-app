@@ -15,7 +15,7 @@
   </div>
 </div>
 
-<div class="segmented-control">
+<div class="segmented-control no-border">
   <a id="gallery-button" class="control-item icon icon-eye">Gallery</a>
   <a id="species-map-button" class="control-item icon icon-map">Distribution</a>
 </div>
@@ -53,9 +53,15 @@
     <p><%= obj.management %></p>
   </li>
   <li class="table-view-cell">
-    <a href="#mgmtconservation" class="icon icon-grid">More About Conservation</a>
+    <a href="#info/management/management" class="navigate-right btn-small">
+      <span class="media-object pull-left icon icon-grid"></span>
+      More About Conservation
+    </a>
   </li>
   <li class="table-view-cell">
-    <a href="#species/<%= obj.id %>/record" class="icon icon-plus">Record Species</a>
+    <a id="record-btn" class="navigate-right btn-small">
+      <span class="media-object pull-left icon icon-plus"></span>
+      Record Species
+    </a>
   </li>
 </ul>

@@ -1,7 +1,6 @@
 /** ****************************************************************************
  * Home main view.
  *****************************************************************************/
-import $ from 'jquery';
 import Marionette from 'marionette';
 import JST from '../../../JST';
 
@@ -25,7 +24,7 @@ const SpeciesView = Marionette.ItemView.extend({
       taxon: species.get('taxon'),
       common_name: species.get('common_name'),
       common_name_significant: species.get('common_name_significant'),
-      favourite: false,
+      favourite: this.options.appModel.isFavouriteSpecies(species.get('id')),
     };
   },
 });
