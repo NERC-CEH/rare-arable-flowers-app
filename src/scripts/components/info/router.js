@@ -17,11 +17,27 @@ const Router = Marionette.AppRouter.extend({
     '': HomeController.show,
     'info/management(/)'() {
       CommonController.show({
+        title: 'Management', App, route: 'info/menu_management/main',
+      });},
+    'info/management/why(/)'() {
+      CommonController.show({
+        title: 'Importance', App, route: 'info/why/main',
+      });},
+    'info/management/location(/)'() {
+      CommonController.show({
+        title: 'Location', App, route: 'info/location/main',
+      });},
+    'info/management/management(/)'() {
+      CommonController.show({
         title: 'Management', App, route: 'info/management/main',
+      });},
+    'info/management/schemes(/)'() {
+      CommonController.show({
+        title: 'Opportunities', App, route: 'info/schemes/main',
       });},
     'info(/)'() {
       CommonController.show({
-        title: 'Info', App, route: 'info/help/main',
+        title: 'Info', App, route: 'info/menu_help/main',
       });},
     'info/about(/)'() {
       CommonController.show({

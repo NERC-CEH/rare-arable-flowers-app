@@ -13,14 +13,14 @@ ul.accordion {
         background-color: inherit;
         border-bottom: none;
 
-        span.icon-collapse {
+        .icon-collapse {
           &:before {
             content: '\e804';
           }
         }
       }
 
-      span.icon-collapse{
+      .icon-collapse{
         margin-left: -10px;
         margin-right: 10px;
 
