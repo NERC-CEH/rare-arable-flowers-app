@@ -4,29 +4,25 @@ a:focus, a:hover {
 
 ul.accordion {
   li {
-    a {
+    a[data-toggle="collapse"] {
       border-bottom: 1px solid $color-gray;
-
       background-color: $color-gray-light;
 
       &.collapsed {
         background-color: inherit;
         border-bottom: none;
 
-        .icon-collapse {
-          &:before {
-            content: '\e804';
-          }
+        &:before {
+          font-family: icons;
+          content: '\e804';
         }
       }
 
-      .icon-collapse{
-        margin-left: -10px;
+      &:before {
+        font-size: 20px;
         margin-right: 10px;
-
-        &:before {
-          content: '\e81c';
-        }
+        font-family: icons;
+        content: '\e81c';
       }
     }
   }

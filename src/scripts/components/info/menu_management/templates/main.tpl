@@ -2,7 +2,7 @@
   <li class="table-view-cell">
     <a href="#info/management/why" class="navigate-right">
       <span class="media-object pull-left icon icon-question"></span>
-      Why conserve arable flowers
+      Why conserve
     </a>
   </li>
   <li class="table-view-cell">
@@ -14,7 +14,7 @@
   <li class="table-view-cell">
     <a href="#info/management/management" class="navigate-right">
       <span class="media-object pull-left icon icon-grid"></span>
-      Managing for arable flowers
+      Management
     </a>
   </li>
   <li class="table-view-cell">
