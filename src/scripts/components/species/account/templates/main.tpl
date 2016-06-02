@@ -9,7 +9,7 @@
   </div>
   <div class="progress">
     <div class="circle circle-full" data-id="0"></div>
-    <% if (obj.gallery) { %>
+    <% if (obj.illustration) { %>
     <div class="circle" data-id="1"></div>
     <% }; %>
   </div>

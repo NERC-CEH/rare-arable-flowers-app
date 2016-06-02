@@ -39,7 +39,7 @@ export default Marionette.ItemView.extend({
     var that = this,
         WIDTH = $('#species_gallery').width(),
         currentImg = 0,
-        maxImages = this.model.get('gallery') ? 2 : 1,
+        maxImages = this.model.get('illustration') ? 2 : 1,
         speed = 500,
         imgs = null,
 
