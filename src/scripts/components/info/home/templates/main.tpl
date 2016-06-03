@@ -1,6 +1,8 @@
-<div class="app-logo"></div>
+<div class="app-logo">
+  <img src="../images/app_logo.png">
+</div>
 
-<ul class="table-view buttons">
+<ul id="buttons" class="table-view buttons">
   <li class="table-view-cell">
     <a href="#info/management" class="navigate-right">
       <span class="media-object pull-left icon icon-info"></span>

@@ -4,7 +4,6 @@
 import $ from 'jquery';
 import Marionette from 'marionette';
 import L from '../../../../vendor/leaflet/js/leaflet';
-import d3 from '../../../../vendor/d3/js/d3';
 import OSLeaflet from '../../../../vendor/os-leaflet/js/OSOpenSpace';
 import TopoJSON from '../../../../vendor/topojson/js/topojson';
 import JST from '../../../JST';
@@ -26,7 +25,7 @@ export default Marionette.ItemView.extend({
   },
 
   drawHeatMap() {
-    const mapZoomCoords = [53.7326306, -2.6546124];
+    const mapZoomCoords = [53.7326306, -3.6546124];
     const mapZoomLevel = 0;
 
     const h = 400;
