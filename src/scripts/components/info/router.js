@@ -8,6 +8,7 @@ import Log from '../../helpers/log';
 import CONFIG from 'config'; // Replaced with alias
 
 import CommonController from '../common/controller';
+import LocationController from './location/controller';
 import HomeController from './home/controller';
 
 App.info = {};
@@ -23,10 +24,7 @@ const Router = Marionette.AppRouter.extend({
       CommonController.show({
         title: 'Importance', App, route: 'info/why/main',
       });},
-    'info/management/location(/)'() {
-      CommonController.show({
-        title: 'Location', App, route: 'info/location/main',
-      });},
+    'info/management/location(/)'() {LocationController.show()},
     'info/management/management(/)'() {
       CommonController.show({
         title: 'Management', App, route: 'info/management/main',

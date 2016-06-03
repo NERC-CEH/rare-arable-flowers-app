@@ -18,7 +18,8 @@
     "proj4": "latest",
     "proj4Leaflet": "kartena/Proj4Leaflet#0.7.2",
     "leaflet": "latest",
-    "os-leaflet": "rob-murray/os-leaflet"
+    "os-leaflet": "rob-murray/os-leaflet",
+    "topojson": "1.6.18"
   },
   "exportsOverride": {
     "ratchet": {
@@ -44,9 +45,6 @@
     },
     "fastclick": {
       "js": "lib/fastclick.js"
-    },
-    "d3": {
-      "js": ["d3.js", "d3.min.js"]
     },
     "IndexedDBShim": {
       "js": ["dist/IndexedDBShim.js"]
@@ -102,6 +100,9 @@
     },
     "os-leaflet": {
       "js": ["OSOpenSpace.js"]
+    },
+    "topojson": {
+      "js": "topojson.js"
     }
   }
 }

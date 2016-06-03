@@ -1,97 +1,93 @@
 /** ****************************************************************************
  * Home main view.
  *****************************************************************************/
+import $ from 'jquery';
 import Marionette from 'marionette';
+import L from '../../../../vendor/leaflet/js/leaflet';
+import d3 from '../../../../vendor/d3/js/d3';
+import OSLeaflet from '../../../../vendor/os-leaflet/js/OSOpenSpace';
+import TopoJSON from '../../../../vendor/topojson/js/topojson';
 import JST from '../../../JST';
+import Device from '../../../helpers/device';
+import CONFIG from 'config';
+import heatmapData from 'data/data_heatmap.json';
 
-export default Marionette.ItemView.extend({
-  template: JST['info/home/main'],
-
-
+const options = {
   MAX: 60,
   COLOR: 'red',
+};
+
+export default Marionette.ItemView.extend({
+  id: 'heat-map-container',
+  template: JST['info/location/main'],
 
   onShow() {
-    if (!navigator.onLine) {
-      this.drawGoogleHeatMap();
-    } else {
-      this.drawHeatMap();
-    }
+    this.drawHeatMap();
   },
 
-  drawHeatMap: function () {
-    var width = 378,
-        height = 504;
-    $('#heat-map').html(app.templates.mgmtlocation_heatmap());
+  drawHeatMap() {
+    const mapZoomCoords = [53.7326306, -2.6546124];
+    const mapZoomLevel = 0;
 
-    var svg = d3.select('#heat-map svg').append('svg')
-      .attr('x', 2)
-      .attr('y', -15)
-      .attr('width', width)
-      .attr('height', height);
+    const h = 400;
+    const w = this.$el.find('#heat-map').width();
 
-    d3.json('scripts/data_heatmap.json', function (error, data) {
-      if (error) return console.error(error);
+    const container = this.$el.find('#heat-map')[0];
+    $(container).height(h);
 
-      var geoJSON = topojson.feature(data, data.objects.geo);
+    let openspaceLayer;
 
-      var projection = d3.geo.albers()
-        .center([0, 55.4])
-        .rotate([2.3, 0])
-        .parallels([50, 60])
-        .scale(2450)
-        .translate([width / 2, height / 2]);
-
-      var path = d3.geo.path()
-        .projection(projection);
-
-      svg.selectAll("square")
-        .data(geoJSON.features)
-        .enter().append("path")
-        .attr("fill", app.views.mgmtlocationPage.COLOR)
-        .style('opacity', function (d) {
-          var heat = d.properties.Cut_50;
-          var opacity = heat / app.views.mgmtlocationPage.MAX;
-          return opacity;
-        })
-        .attr("d", path);
+    /* L.Map with OS options */
+    const map = new L.Map(container, {
+      crs: L.OSOpenSpace.getCRS(),
+      continuousWorld: false,
+      worldCopyJump: false,
+      minZoom: 0,
+      maxZoom: L.OSOpenSpace.RESOLUTIONS.length - 1,
     });
-  },
 
-  drawGoogleHeatMap: function () {
-    var map = new google.maps.Map($('#heat-map')[0], app.CONF.MAP);
-    map.setCenter(new google.maps.LatLng(55.4, -4));
+    map.setView(mapZoomCoords, mapZoomLevel);
 
-    $.getJSON("scripts/data_heatmap.json", function (data) {
-      var geoJSON = topojson.feature(data, data.objects.geo);
-      map.data.addGeoJson(geoJSON);
-      map.data.setStyle(function (feature) {
-        var heat = feature.getProperty('Cut_50');
-        var opacity = heat / app.views.mgmtlocationPage.MAX;
+    /* add some ui elems to the map */
+    L.control.scale().addTo(map);
+
+    // add heatmap data
+    const geoJSON = TopoJSON.feature(heatmapData, heatmapData.objects.geo);
+    var dataLayer = L.geoJson(null, {
+      style(feature) {
+        const heat = feature.properties.Cut_50;
+        const opacity = heat / options.MAX;
         return {
-          fillColor: app.views.mgmtlocationPage.COLOR,
+          fillColor: options.COLOR,
           fillOpacity: opacity,
-          strokeWeight: 0.11,
-          strokeColor: 'grey'
+          weight: 0.11,
+          color: 'grey',
         };
-      });
-      map.setCenter(new google.maps.LatLng(55.4, -4));
-      //fix one tile problem
-      setTimeout(function () {
-        google.maps.event.trigger(map, 'resize');
-      }, 100);
-    });
-  },
+      },
+    }).addTo(map);
+    dataLayer.addData(geoJSON);
 
-  /**
-   * Loads the google maps script.
-   *
-   * @param src
-   */
-  loadScript: function (src) {
-    var script = document.createElement('script');
-    script.type = 'text/javascript';
-    script.src = src;
-    document.body.appendChild(script);
+    if (Device.isOnline()) {
+      /* New L.TileLayer.OSOpenSpace with API Key */
+      const API_KEY = CONFIG.map.API_KEY;
+      openspaceLayer = L.tileLayer.OSOpenSpace(API_KEY);
+
+      map.addLayer(openspaceLayer);
+    } else {
+      var imageUrl = 'images/country_coastline.svg';
+      const imageBounds = [[61.0, -11.715793], [49.022656, 2.391891]];
+      let imageOverlay = L.imageOverlay(imageUrl, imageBounds).addTo(map);
+
+      map.touchZoom.disable();
+      map.doubleClickZoom.disable();
+      map.scrollWheelZoom.disable();
+      map.keyboard.disable();
+
+      window.a = function (imageBounds) {
+        map.removeLayer(imageOverlay);
+        imageOverlay = L.imageOverlay(imageUrl, imageBounds).addTo(map);
+
+      }
+    }
   },
 });
