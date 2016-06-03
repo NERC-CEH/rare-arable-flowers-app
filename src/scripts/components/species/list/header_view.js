@@ -12,10 +12,15 @@ export default Marionette.ItemView.extend({
   events: {
     'click a[data-rel="back"]': 'navigateBack',
     'click #filter-btn': 'toggleFilters',
+    'click #sort-btn': 'toggleSorts',
   },
 
   toggleFilters(e) {
     this.trigger('filter', e);
+  },
+
+  toggleSorts(e) {
+    this.trigger('sort', e);
   },
 
   navigateBack() {

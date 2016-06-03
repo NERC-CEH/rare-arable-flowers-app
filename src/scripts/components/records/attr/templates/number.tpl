@@ -75,20 +75,4 @@ Surveyed area width (meters):
 <div class="range">
   <input type="range" id="number_width_range" name="number" min="1" max="100" value="<%- obj.number_width || 1 %>">
   <input type="number" id="number_width" value="<%- obj.number_width %>">
-</div>
-<!--<ul class="list">-->
-
-  <!--<li class="item item-checkbox">-->
-    <!--<label class="checkbox">-->
-      <!--<input type="checkbox">-->
-    <!--</label>-->
-    <!--Flux Capacitor-->
-  <!--</li>-->
-
-  <!--<li class="item item-checkbox">-->
-  <!--<label class="checkbox">-->
-    <!--<input type="checkbox">-->
-  <!--</label>-->
-  <!--Flux Capacitor-->
-<!--</li>-->
-<!--</ul>-->
+</div
