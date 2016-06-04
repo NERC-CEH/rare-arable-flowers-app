@@ -623,6 +623,25 @@ button, input, select, textarea {
 }
 
 .item-small {
-  padding-top: 5px;
-  height: 37px;
+  &.item-checkbox {
+    padding-top: 5px;
+    height: 37px;
+    font-style: $text-font-size;
+  }
+
+  &.item-radio {
+    .radio-content {
+      margin: 7px 0;
+    }
+
+    .item-content {
+      margin: 0;
+      padding: 5px;
+      font-size: $text-font-size;
+    }
+
+    .radio-icon.icon-check {
+      padding-top: 5px;
+    }
+  }
 }

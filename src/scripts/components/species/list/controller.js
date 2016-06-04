@@ -6,6 +6,7 @@ import Occurrence from '../../common/models/occurrence';
 import MainView from './main_view';
 import HeaderView from './header_view';
 import speciesData from 'species.data';
+import JST from '../../../JST';
 
 const API = {
   show() {
@@ -28,99 +29,15 @@ const API = {
     headerView.on('filter', (e) => {
       App.regions.dialog.show({
         title: 'Filter',
-        body: `
-        <ul class="table-view accordion">
-          <li class="table-view-cell">
-            <a class="collapsed" data-toggle="collapse" href="#Favourites" aria-controls="Favourites">
-              Favourites
-            </a>
-            <div id="Favourites" class="collapse">
-            <ul class="list">
-                <li class="item item-checkbox">
-                  <label class="checkbox">
-                    <input type="checkbox">
-                  </label>
-                  Flux Capacitor
-                </li>
-                </ul>
-            </div>
-          </li>
-          <li class="table-view-cell">
-            <a class="collapsed" data-toggle="collapse" href="#Type" aria-controls="Type">
-              Type
-            </a>
-            <div id="Type" class="collapse"></div>
-          </li>
-          <li class="table-view-cell">
-            <a class="collapsed" data-toggle="collapse" href="#Colour" aria-controls="Colour">
-              Colour
-            </a>
-            <div id="Colour" class="collapse">
-               <ul class="list">
-                <li class="item item-checkbox item-small">
-                  <label class="checkbox">
-                    <input type="checkbox">
-                  </label>
-                  Flux Capacitor
-                </li>
-
-                <li class="item item-checkbox item-small">
-                  <label class="checkbox">
-                    <input type="checkbox">
-                  </label>
-                  Flux Capacitor
-                </li>
-
-                <li class="item item-checkbox item-small">
-                  <label class="checkbox">
-                    <input type="checkbox">
-                  </label>
-                  Flux Capacitor
-                </li>
-
-                <li class="item item-checkbox item-small">
-                  <label class="checkbox">
-                    <input type="checkbox">
-                  </label>
-                  Flux Capacitor
-                </li>
-
-                <li class="item item-checkbox item-small">
-                  <label class="checkbox">
-                    <input type="checkbox">
-                  </label>
-                  Flux Capacitor
-                </li>
-
-                <li class="item item-checkbox item-small">
-                  <label class="checkbox">
-                    <input type="checkbox">
-                  </label>
-                  Flux Capacitor
-                </li>
-
-                <li class="item item-checkbox item-small">
-                  <label class="checkbox">
-                    <input type="checkbox">
-                  </label>
-                  Flux Capacitor
-                </li>
-
-                <li class="item item-checkbox item-small">
-                <label class="checkbox">
-                  <input type="checkbox">
-                </label>
-                Flux Capacitor
-              </li>
-              </ul>
-            </div>
-          </li>
-        </ul>
-        `,
+        body: JST['species/list/filters']({}),
       });
     });
 
     headerView.on('sort', (e) => {
+      App.regions.dialog.show({
+        title: 'Sort',
+        body: JST['species/list/sorts']({}),
+      });
     });
 
     App.regions.header.show(headerView);
