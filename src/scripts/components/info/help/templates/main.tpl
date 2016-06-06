@@ -28,7 +28,7 @@
     <p id="c3" class="collapse"
        aria-labelledby="headingTwo" aria-expanded="false">
       All your saved records will be shown on the user
-      account <span class="icon icon-user"></span> page.
+      account <span class="icon icon-user"></span> page (species list page header).
       <br>
       <br>
 
