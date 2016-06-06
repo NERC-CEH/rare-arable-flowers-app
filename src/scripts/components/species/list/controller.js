@@ -1,17 +1,16 @@
-import Backbone from 'backbone';
 import App from '../../../app';
+import Log from '../../../helpers/log';
 import appModel from '../../common/models/app_model';
 import Sample from '../../common/models/sample';
 import Occurrence from '../../common/models/occurrence';
+import speciesCollection from './species_collection';
 import MainView from './main_view';
 import HeaderView from './header_view';
-import speciesData from 'species.data';
-import JST from '../../../JST';
+import FiltersView from './filters_view';
+import SortsView from './sorts_view';
 
 const API = {
   show() {
-    const speciesCollection = new Backbone.Collection(speciesData);
-
     const mainView = new MainView({
       collection: speciesCollection,
       appModel,
@@ -27,16 +26,42 @@ const API = {
     const headerView = new HeaderView();
 
     headerView.on('filter', (e) => {
+      const filtersView = new FiltersView({ model: appModel });
+
+      filtersView.on('filter', (filterGroup, filter) => {
+        if (!filter || !filterGroup) {
+          Log('Species:List:Controller: No filter provided', 'e');
+          return;
+        }
+        Log('Species:List:Controller: Filter set');
+        App.regions.dialog.hide();
+
+        appModel.toggleFilter(filterGroup, filter);
+      });
+
       App.regions.dialog.show({
         title: 'Filter',
-        body: JST['species/list/filters']({}),
+        body: filtersView,
       });
     });
-
     headerView.on('sort', (e) => {
+      const sortsView = new SortsView({ model: appModel });
+
+      sortsView.on('sort', (sort) => {
+        if (!sort) {
+          Log('Species:List:Controller: No sort provided', 'e');
+          return;
+        }
+        Log('Species:List:Controller: Sort set');
+        App.regions.dialog.hide();
+
+        appModel.set('sort', sort);
+        appModel.save();
+      });
+
       App.regions.dialog.show({
         title: 'Sort',
-        body: JST['species/list/sorts']({}),
+        body: sortsView,
       });
     });
 

@@ -13,6 +13,8 @@ let AppModel = Backbone.Model.extend({
   defaults: {
     locations: [],
     favouriteSpecies: [],
+    sort: 'taxonomic',
+    filters: {},
     autosync: true,
     useGridRef: true,
   },
@@ -43,6 +45,23 @@ let AppModel = Backbone.Model.extend({
     const favSpecies = this.get('favouriteSpecies');
     const foundIndex = _.indexOf(favSpecies, speciesID);
     return foundIndex >= 0;
+  },
+
+  toggleFilter(filterGroup, filter) {
+    const filters = this.get('filters');
+    const foundIndex = _.indexOf(filters[filterGroup], filter);
+    if (foundIndex >= 0) {
+      // remove filter
+      filters[filterGroup].splice(foundIndex, 1);
+    } else {
+      // init group
+      filters[filterGroup] = filters[filterGroup] || [];
+      // add filter
+      filters[filterGroup].push(filter);
+    }
+    this.set('filters', filters);
+    this.save();
+    this.trigger('change:filter');
   },
 });
 

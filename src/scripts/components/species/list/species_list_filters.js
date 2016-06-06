@@ -1,160 +1,101 @@
-/******************************************************************************
+/** ****************************************************************************
  * Species list filters.
  *****************************************************************************/
-define([], function () {
-    /**
-     * A collection of filters used to manage lists.
-     * id - filter identifier
-     * group - some filters override/work-together. eg. colours, suborder
-     * label - label to represent the filter in the UI
-     */
-    var filters =  {
-        favouritesGroup: {
-            type: 'checkbox',
-            label: 'Favourites',
-            filters: {
-                favourites: {
-                    label: 'My favourites only',
-                    run: function (list, filteredList, onSuccess) {
-                        var keys = app.models.user.get('favourites');
-                        for (var i = 0; i < keys.length; i++) {
-                            for (var j = 0; j < list.length; j++) {
-                                if (list[j].attributes.id === keys[i]) {
-                                    filteredList.push(list[j]);
-                                }
-                            }
-                        }
-                        onSuccess(filteredList);
-                    }
-                }
-            }
-        },
-        typeGroup: {
-            type: 'checkbox',
-            label: 'Type',
+import appModel from '../../common/models/app_model';
 
-            filters: {
-                grass: {
-                    label: 'Grasses',
-                    run: function (list, filteredList, onSuccess) {
-                        for (var j = 0; j < list.length; j++) {
-                            if (list[j].attributes.type === 'G' || list[j].attributes.general) {
-                                filteredList.push(list[j]);
-                            }
-                        }
-                        onSuccess(filteredList);
-                    }
-                },
-                flower: {
-                    label: 'Flowers',
-                    run: function (list, filteredList, onSuccess) {
-                        for (var j = 0; j < list.length; j++) {
-                            if (list[j].attributes.type === 'F' || list[j].attributes.general) {
-                                filteredList.push(list[j]);
-                            }
-                        }
-                        onSuccess(filteredList);
-                    }
-                }
-            }
-        },
-        colorGroup: {
-            type: 'checkbox',
-            label: 'Colour',
-
-            filters: {
-                yellow: {
-                    label: 'Yellow',
-                    run: function (list, filteredList, onSuccess) {
-                        for (var j = 0; j < list.length; j++) {
-                            if (list[j].attributes.color.indexOf('y') >= 0) {
-                                filteredList.push(list[j]);
-                            }
-                        }
-                        onSuccess(filteredList);
-                    }
-                },
-                purple: {
-                    label: 'Purple',
-                    run: function (list, filteredList, onSuccess) {
-                        for (var j = 0; j < list.length; j++) {
-                            if (list[j].attributes.color.indexOf('pu') >= 0) {
-                                filteredList.push(list[j]);
-                            }
-                        }
-                        onSuccess(filteredList);
-                    }
-                },
-                white: {
-                    label: 'White',
-                    run: function (list, filteredList, onSuccess) {
-                        for (var j = 0; j < list.length; j++) {
-                            if (list[j].attributes.color.indexOf('w') >= 0) {
-                                filteredList.push(list[j]);
-                            }
-                        }
-                        onSuccess(filteredList);
-                    }
-                },
-                green: {
-                    label: 'Green',
-                    run: function (list, filteredList, onSuccess) {
-                        for (var j = 0; j < list.length; j++) {
-                            if (list[j].attributes.color.indexOf('gf') >= 0) {
-                                filteredList.push(list[j]);
-                            }
-                        }
-                        onSuccess(filteredList);
-                    }
-                },
-                blue: {
-                    label: 'Blue',
-                    run: function (list, filteredList, onSuccess) {
-                        for (var j = 0; j < list.length; j++) {
-                            if (list[j].attributes.color.indexOf('b') >= 0) {
-                                filteredList.push(list[j]);
-                            }
-                        }
-                        onSuccess(filteredList);
-                    }
-                },
-                orange: {
-                    label: 'Orange',
-                    run: function (list, filteredList, onSuccess) {
-                        for (var j = 0; j < list.length; j++) {
-                            if (list[j].attributes.color.indexOf('o') >= 0) {
-                                filteredList.push(list[j]);
-                            }
-                        }
-                        onSuccess(filteredList);
-                    }
-                },
-                red: {
-                    label: 'Red',
-                    run: function (list, filteredList, onSuccess) {
-                        for (var j = 0; j < list.length; j++) {
-                            if (list[j].attributes.color.indexOf('r') >= 0) {
-                                filteredList.push(list[j]);
-                            }
-                        }
-                        onSuccess(filteredList);
-                    }
-                },
-
-                pink: {
-                    label: 'Pink',
-                    run: function (list, filteredList, onSuccess) {
-                        for (var j = 0; j < list.length; j++) {
-                            if (list[j].attributes.color.indexOf('p') >= 0) {
-                                filteredList.push(list[j]);
-                            }
-                        }
-                        onSuccess(filteredList);
-                    }
-                }
-            }
+/**
+ * A collection of filters used to manage lists.
+ * id - filter identifier
+ * group - some filters override/work-together. eg. colours, suborder
+ * label - label to represent the filter in the UI
+ */
+const filters = {
+  favouritesGroup: {
+    favourite(list, filteredList) {
+      const favourites = appModel.get('favouriteSpecies');
+      for (let i = 0; i < favourites.length; i++) {
+        for (let j = 0; j < list.length; j++) {
+          if (list[j].id === favourites[i]) {
+            filteredList.push(list[j]);
+          }
         }
-    };
+      }
+    },
+  },
+  typeGroup: {
+    grass(list, filteredList) {
+      for (let j = 0; j < list.length; j++) {
+        if (list[j].type === 'G' || list[j].general) {
+          filteredList.push(list[j]);
+        }
+      }
+    },
+    flower(list, filteredList) {
+      for (let j = 0; j < list.length; j++) {
+        if (list[j].type === 'F' || list[j].general) {
+          filteredList.push(list[j]);
+        }
+      }
+    },
+  },
+  colourGroup: {
+    yellow(list, filteredList) {
+      for (let j = 0; j < list.length; j++) {
+        if (list[j].color.indexOf('y') >= 0) {
+          filteredList.push(list[j]);
+        }
+      }
+    },
+    purple(list, filteredList) {
+      for (let j = 0; j < list.length; j++) {
+        if (list[j].color.indexOf('pu') >= 0) {
+          filteredList.push(list[j]);
+        }
+      }
+    },
+    white(list, filteredList) {
+      for (let j = 0; j < list.length; j++) {
+        if (list[j].color.indexOf('w') >= 0) {
+          filteredList.push(list[j]);
+        }
+      }
+    },
+    green(list, filteredList) {
+      for (let j = 0; j < list.length; j++) {
+        if (list[j].color.indexOf('gf') >= 0) {
+          filteredList.push(list[j]);
+        }
+      }
+    },
+    blue(list, filteredList) {
+      for (let j = 0; j < list.length; j++) {
+        if (list[j].color.indexOf('b') >= 0) {
+          filteredList.push(list[j]);
+        }
+      }
+    },
+    orange(list, filteredList) {
+      for (let j = 0; j < list.length; j++) {
+        if (list[j].color.indexOf('o') >= 0) {
+          filteredList.push(list[j]);
+        }
+      }
+    },
+    red(list, filteredList) {
+      for (let j = 0; j < list.length; j++) {
+        if (list[j].color.indexOf('r') >= 0) {
+          filteredList.push(list[j]);
+        }
+      }
+    },
+    pink(list, filteredList) {
+      for (let j = 0; j < list.length; j++) {
+        if (list[j].color.indexOf('p') >= 0) {
+          filteredList.push(list[j]);
+        }
+      }
+    },
+  },
+};
 
-    return filters;
-});
+export default filters;

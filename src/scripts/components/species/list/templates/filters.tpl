@@ -1,102 +1,111 @@
-<ul class="table-view accordion">
-  <li class="table-view-cell">
-    <a class="collapsed" data-toggle="collapse" href="#Favourites" aria-controls="Favourites">
-      Favourites
-    </a>
-    <div id="Favourites" class="collapse">
-      <ul class="list">
-        <li class="item item-checkbox item-small">
-          <label class="checkbox">
-            <input type="checkbox">
-          </label>
-          My favourites only
-        </li>
-      </ul>
-    </div>
-  </li>
-  <li class="table-view-cell">
-    <a class="collapsed" data-toggle="collapse" href="#Type" aria-controls="Type">
-      Type
-    </a>
-    <div id="Type" class="collapse">
-      <ul class="list">
-        <li class="item item-checkbox item-small">
-          <label class="checkbox">
-            <input type="checkbox">
-          </label>
-          Grasses
-        </li>
-        <li class="item item-checkbox item-small">
-          <label class="checkbox">
-            <input type="checkbox">
-          </label>
-          Flowers
-        </li>
-      </ul>
-    </div>
-  </li>
-  <li class="table-view-cell">
-    <a class="collapsed" data-toggle="collapse" href="#Colour" aria-controls="Colour">
-      Colour
-    </a>
-    <div id="Colour" class="collapse">
-      <ul class="list">
-        <li class="item item-checkbox item-small">
-          <label class="checkbox">
-            <input type="checkbox">
-          </label>
-          Yellow
-        </li>
+<li class="table-view-cell">
+  <a class="collapsed" data-toggle="collapse" href="#favourites" aria-controls="favourites">
+    Favourites
+  </a>
+  <div id="favourites" class="collapse">
+    <ul class="list">
+      <li class="item item-checkbox item-small">
+        <label class="checkbox">
+          <input type="checkbox" value="favourite"
+          <%- obj['favourite'] ? 'checked' : ''%>>
+        </label>
+        My favourites only
+      </li>
+    </ul>
+  </div>
+</li>
+<li class="table-view-cell">
+  <a class="collapsed" data-toggle="collapse" href="#type" aria-controls="type">
+    Type
+  </a>
+  <div id="type" class="collapse">
+    <ul class="list">
+      <li class="item item-checkbox item-small">
+        <label class="checkbox">
+          <input type="checkbox" value="grass"
+          <%- obj['grass'] ? 'checked' : ''%>>
+        </label>
+        Grasses
+      </li>
+      <li class="item item-checkbox item-small">
+        <label class="checkbox">
+          <input type="checkbox" value="flower"
+          <%- obj['flower'] ? 'checked' : ''%>>
+        </label>
+        Flowers
+      </li>
+    </ul>
+  </div>
+</li>
+<li class="table-view-cell">
+  <a class="collapsed" data-toggle="collapse" href="#colour" aria-controls="colour">
+    Colour
+  </a>
+  <div id="colour" class="collapse">
+    <ul class="list">
+      <li class="item item-checkbox item-small">
+        <label class="checkbox">
+          <input type="checkbox" value="yellow"
+          <%- obj['yellow'] ? 'checked' : ''%>>
+        </label>
+        Yellow
+      </li>
 
-        <li class="item item-checkbox item-small">
-          <label class="checkbox">
-            <input type="checkbox">
-          </label>
-          Purple
-        </li>
+      <li class="item item-checkbox item-small">
+        <label class="checkbox">
+          <input type="checkbox" value="purple"
+          <%- obj['purple'] ? 'checked' : ''%>>
+        </label>
+        Purple
+      </li>
 
-        <li class="item item-checkbox item-small">
-          <label class="checkbox">
-            <input type="checkbox">
-          </label>
-          White
-        </li>
+      <li class="item item-checkbox item-small">
+        <label class="checkbox">
+          <input type="checkbox" value="white"
+          <%- obj['white'] ? 'checked' : ''%>>
+        </label>
+        White
+      </li>
 
-        <li class="item item-checkbox item-small">
-          <label class="checkbox">
-            <input type="checkbox">
-          </label>
-          Green
-        </li>
+      <li class="item item-checkbox item-small">
+        <label class="checkbox">
+          <input type="checkbox" value="green"
+          <%- obj['green'] ? 'checked' : ''%>>
+        </label>
+        Green
+      </li>
 
-        <li class="item item-checkbox item-small">
-          <label class="checkbox">
-            <input type="checkbox">
-          </label>
-          Blue
-        </li>
+      <li class="item item-checkbox item-small">
+        <label class="checkbox">
+          <input type="checkbox" value="blue"
+          <%- obj['blue'] ? 'checked' : ''%>>
+        </label>
+        Blue
+      </li>
 
-        <li class="item item-checkbox item-small">
-          <label class="checkbox">
-            <input type="checkbox">
-          </label>
-          Orange
-        </li>
+      <li class="item item-checkbox item-small">
+        <label class="checkbox">
+          <input type="checkbox" value="orange"
+          <%- obj['orange'] ? 'checked' : ''%>>
+        </label>
+        Orange
+      </li>
 
-        <li class="item item-checkbox item-small">
-          <label class="checkbox">
-            <input type="checkbox">
-          </label>
-          Red
-        </li>
+      <li class="item item-checkbox item-small">
+        <label class="checkbox">
+          <input type="checkbox" value="red"
+          <%- obj['red'] ? 'checked' : ''%>>
+        </label>
+        Red
+      </li>
 
-        <li class="item item-checkbox item-small">
-          <label class="checkbox">
-            <input type="checkbox">
-          </label>
-          Pink
-        </li>
-      </ul>
-    </div>
-  </li>
-</ul>
+      <li class="item item-checkbox item-small">
+        <label class="checkbox">
+          <input type="checkbox" value="pink"
+          <%- obj['pink'] ? 'checked' : ''%>>
+        </label>
+        Pink
+      </li>
+    </ul>
+  </div>
+</li>

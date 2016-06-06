@@ -46,7 +46,7 @@ export default Marionette.ItemView.extend({
 
   saveNumber() {
     // unset slider val
-    const $rangeOutput = this.$el.find('#rangeVal')
+    const $rangeOutput = this.$el.find('#rangeVal');
     $rangeOutput.val('');
     this.trigger('save');
   },

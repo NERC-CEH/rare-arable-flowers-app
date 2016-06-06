@@ -18,6 +18,9 @@ const SpeciesView = Marionette.ItemView.extend({
   serializeData() {
     const species = this.model;
 
+    const sort = this.options.appModel.get('sort');
+    const sortScientific = sort === 'scientific' || sort === 'scientific-reverse';
+
     return {
       id: species.get('id'),
       img: species.get('thumbnail'),
@@ -25,10 +28,10 @@ const SpeciesView = Marionette.ItemView.extend({
       common_name: species.get('common_name'),
       common_name_significant: species.get('common_name_significant'),
       favourite: this.options.appModel.isFavouriteSpecies(species.get('id')),
+      sortScientific,
     };
   },
 });
-
 
 
 export default Marionette.CollectionView.extend({
@@ -36,6 +39,11 @@ export default Marionette.CollectionView.extend({
   tagName: 'ul',
   className: 'table-view no-top',
   childView: SpeciesView,
+
+  initialize() {
+    this.listenTo(this.options.appModel, 'change:filter', this.render);
+  },
+
 
   childViewOptions() {
     return {

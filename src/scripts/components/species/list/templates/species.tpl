@@ -4,17 +4,17 @@
     <% if (obj.sortScientific) { %>
     <p class="species-list-main-name"><i><%- obj.taxon %></i></p>
     <p class="species-list-secondary-name">
-      <% if (obj.common_name_significant) { %>
-      <%- obj.common_name_significant %>,
-      <% } %>
       <%- obj.common_name %>
+      <% if (obj.common_name_significant) { %>
+      <%- obj.common_name_significant %>
+      <% } %>
     </p>
     <% } else { %>
     <p class="species-list-main-name">
-      <% if (obj.common_name_significant) { %>
-      <%- obj.common_name_significant %>,
-      <% } %>
       <%- obj.common_name %>
+      <% if (obj.common_name_significant) { %>
+      <%- obj.common_name_significant %>
+      <% } %>
     </p>
     <p class="species-list-secondary-name"><i><%- obj.taxon %></i></p>
     <% } %>

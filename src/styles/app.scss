@@ -624,9 +624,9 @@ button, input, select, textarea {
 
 .item-small {
   &.item-checkbox {
-    padding-top: 5px;
+    padding-top: 7px;
     height: 37px;
-    font-style: $text-font-size;
+    font-style: $text-font-size!important;
   }
 
   &.item-radio {
