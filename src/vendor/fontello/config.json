@@ -205,12 +205,6 @@
       "src": "entypo"
     },
     {
-      "uid": "9x8p16w516pn1b19chr85japkedporm7",
-      "css": "grid",
-      "code": 59432,
-      "src": "typicons"
-    },
-    {
       "uid": "9854f7f091bd4fdf9b8735ed66667b9d",
       "css": "pound",
       "code": 59433,
@@ -253,6 +247,18 @@
       "css": "list-nested",
       "code": 59402,
       "src": "iconic"
+    },
+    {
+      "uid": "a2a74f5e7b7d9ba054897d8c795a326a",
+      "css": "list-bullet",
+      "code": 59395,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "51727ca007aa35ceabcaffc28934faee",
+      "css": "book-open",
+      "code": 59397,
+      "src": "entypo"
     }
   ]
 }

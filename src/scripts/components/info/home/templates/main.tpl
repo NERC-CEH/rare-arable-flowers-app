@@ -5,7 +5,7 @@
 <ul id="buttons" class="table-view buttons">
   <li class="table-view-cell">
     <a href="#info/management" class="navigate-right">
-      <span class="media-object pull-left icon icon-info"></span>
+      <span class="media-object pull-left icon icon-book-open"></span>
       Management
     </a>
   </li>

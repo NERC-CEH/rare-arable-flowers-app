@@ -13,13 +13,13 @@
   </li>
   <li class="table-view-cell">
     <a href="#info/management/management" class="navigate-right">
-      <span class="media-object pull-left icon icon-grid"></span>
+      <span class="media-object pull-left icon icon-list-bullet"></span>
       Management
     </a>
   </li>
   <li class="table-view-cell">
     <a href="#info/management/schemes" class="navigate-right">
-      <span class="media-object pull-left icon icon-pound"></span>
+      <span class="media-object pull-left icon icon-book-open"></span>
       Schemes and advice
     </a>
   </li>

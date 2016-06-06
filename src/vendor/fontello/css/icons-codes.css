@@ -2,7 +2,9 @@
 .icon-camera:before { content: '\e800'; } /* '' */
 .icon-map:before { content: '\e801'; } /* '' */
 .icon-mail:before { content: '\e802'; } /* '' */
+.icon-list-bullet:before { content: '\e803'; } /* '' */
 .icon-plus:before { content: '\e804'; } /* '' */
+.icon-book-open:before { content: '\e805'; } /* '' */
 .icon-key:before { content: '\e806'; } /* '' */
 .icon-filter:before { content: '\e807'; } /* '' */
 .icon-right-nav:before { content: '\e808'; } /* '' */
@@ -35,7 +37,6 @@
 .icon-arrows-cw:before { content: '\e825'; } /* '' */
 .icon-eye:before { content: '\e826'; } /* '' */
 .icon-question:before { content: '\e827'; } /* '' */
-.icon-grid:before { content: '\e828'; } /* '' */
 .icon-pound:before { content: '\e829'; } /* '' */
 .icon-lock-closed:before { content: '\e82a'; } /* '' */
 .icon-landscape:before { content: '\e82b'; } /* '' */
