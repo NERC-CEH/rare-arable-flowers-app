@@ -6,6 +6,7 @@ import Occurrence from '../../common/models/occurrence';
 import speciesCollection from './species_collection';
 import MainView from './main_view';
 import HeaderView from './header_view';
+import FiltersHeaderView from './filters_header_view';
 import FiltersView from './filters_view';
 import SortsView from './sorts_view';
 
@@ -23,7 +24,7 @@ const API = {
 
 
     // HEADER
-    const headerView = new HeaderView();
+    const headerView = new HeaderView({ model: appModel });
 
     headerView.on('filter', (e) => {
       const filtersView = new FiltersView({ model: appModel });
@@ -34,13 +35,12 @@ const API = {
           return;
         }
         Log('Species:List:Controller: Filter set');
-        App.regions.dialog.hide();
-
         appModel.toggleFilter(filterGroup, filter);
       });
 
+
       App.regions.dialog.show({
-        title: 'Filter',
+        title: new FiltersHeaderView({ model: appModel, speciesCollection }),
         body: filtersView,
       });
     });

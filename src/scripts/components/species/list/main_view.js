@@ -44,7 +44,6 @@ export default Marionette.CollectionView.extend({
     this.listenTo(this.options.appModel, 'change:filter', this.render);
   },
 
-
   childViewOptions() {
     return {
       appModel: this.options.appModel,

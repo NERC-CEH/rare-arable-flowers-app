@@ -1,6 +1,7 @@
 /** ****************************************************************************
  * Record List header view.
  *****************************************************************************/
+import _ from 'lodash';
 import Marionette from 'marionette';
 import JST from '../../../JST';
 
@@ -15,6 +16,10 @@ export default Marionette.ItemView.extend({
     'click #sort-btn': 'toggleSorts',
   },
 
+  modelEvents: {
+    'change:filter': 'render',
+  },
+
   toggleFilters(e) {
     this.trigger('filter', e);
   },
@@ -25,6 +30,18 @@ export default Marionette.ItemView.extend({
 
   navigateBack() {
     window.history.back();
+  },
+
+  serializeData() {
+    let filterOn = false;
+
+    const filters = this.model.get('filters');
+    _.forOwn(filters, (filterGroup) => {
+      if (filterGroup.length) {
+        filterOn = true;
+      }
+    });
+    return { filterOn };
   },
 });
 

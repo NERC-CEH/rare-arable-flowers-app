@@ -16,6 +16,9 @@ const SpeciesCollection = Backbone.Collection.extend({
 
     appModel.on('change:sort', this.sortList, this);
     appModel.on('change:filter', this.filterList, this);
+    appModel.on('change:favourite', this.filterList, this);
+
+    this.totalSpecies = speciesData.length;
   },
 
   /**
@@ -26,6 +29,7 @@ const SpeciesCollection = Backbone.Collection.extend({
 
     this.comparator = sortsFunctions[sort];
     this.sort();
+    Log(`Species:List:collection: sorted (${sort})`);
   },
 
   /**
@@ -46,6 +50,7 @@ const SpeciesCollection = Backbone.Collection.extend({
     });
 
     this.reset(list, _.extend({ silent: true }));
+    Log(`Species:List:collection: Applied filters (${list.length}/${speciesData.length})`);
   },
 
   /**
