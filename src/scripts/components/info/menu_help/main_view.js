@@ -5,9 +5,6 @@ import Marionette from 'marionette';
 import JST from '../../../JST';
 
 export default Marionette.ItemView.extend({
-  tagName: 'ul',
-  className: 'table-view buttons',
-
   template: JST['info/menu_help/main'],
 
   events: {
