@@ -1,5 +1,5 @@
 <a href="#species/<%- obj.id %>" class="species <%- obj.favourite ? 'favourite': '' %>">
-  <div class="media-object pull-left"><img src="<%= obj.img %>" alt=""></div>
+  <div class="media-object pull-left" style="background-image: url('<%= obj.img %>')"></div>
   <div class="media-body">
     <% if (obj.sortScientific) { %>
     <p class="species-list-main-name"><i><%- obj.taxon %></i></p>

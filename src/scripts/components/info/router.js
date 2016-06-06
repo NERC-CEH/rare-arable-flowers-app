@@ -10,6 +10,7 @@ import CONFIG from 'config'; // Replaced with alias
 import CommonController from '../common/controller';
 import LocationController from './location/controller';
 import HomeController from './home/controller';
+import MenuHelpController from './menu_help/controller';
 
 App.info = {};
 
@@ -33,10 +34,7 @@ const Router = Marionette.AppRouter.extend({
       CommonController.show({
         title: 'Opportunities', App, route: 'info/schemes/main',
       });},
-    'info(/)'() {
-      CommonController.show({
-        title: 'Info', App, route: 'info/menu_help/main',
-      });},
+    'info(/)': MenuHelpController.show,
     'info/about(/)'() {
       CommonController.show({
         title: 'About', App, route: 'info/about/main',
@@ -44,6 +42,10 @@ const Router = Marionette.AppRouter.extend({
           version: CONFIG.version,
           build: CONFIG.build,
         }),
+      });},
+    'info/help(/)'() {
+      CommonController.show({
+        title: 'Help', App, route: 'info/help/main',
       });},
     'info/privacy(/)'() {
       CommonController.show({
@@ -91,6 +93,14 @@ App.on('info:privacy', () => {
     title: 'Privacy Policy', App, route: 'info/privacy/main',
   });
 });
+
+App.on('info:help', () => {
+  App.navigate('info/help');
+  CommonController.show({
+    title: 'Help', App, route: 'info/help/main',
+  });
+});
+
 
 App.on('info:brc-approved', () => {
   App.navigate('info/brc-approved');

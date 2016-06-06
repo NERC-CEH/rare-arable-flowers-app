@@ -1,5 +1,5 @@
 <div class="app-logo">
-  <img src="../images/app_logo.png">
+  <img src="images/app_logo.png">
 </div>
 
 <ul id="buttons" class="table-view buttons">

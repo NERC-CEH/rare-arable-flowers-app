@@ -112,6 +112,7 @@ button {
 
 header {
   .pull-left {
+    margin-right: 2px;
     text-align: left;
   }
   .pull-right {
@@ -410,10 +411,6 @@ input {
   transform:translateX(-140px);
 }
 
-.pull-right {
-  margin-right: -5px;
-}
-
 .btn span {
   &.pull-left {
     margin-left: -13px;
@@ -642,6 +639,17 @@ button, input, select, textarea {
 
     .radio-icon.icon-check {
       padding-top: 5px;
+    }
+  }
+}
+
+header .pull-right {
+  a {
+    padding-right: 5px;
+    padding-left: 5px;
+
+    &:before {
+      margin-right: 0.4em;
     }
   }
 }

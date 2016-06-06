@@ -7,10 +7,11 @@
   padding: 8px 65px 8px 8px;
 
   a.species {
-    img {
-      height: 4.5em;
-      width: 6em;
-      margin-right: 10px;
+    .pull-left {
+      height: 70px;
+      width: 96px;
+      background: center no-repeat;
+      background-size: cover;
     }
 
     .species-list-main-name,
