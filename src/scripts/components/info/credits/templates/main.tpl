@@ -37,6 +37,7 @@
       K.J. Walker,
       Lliam Rooney,
       Malcolm Storey, bioimages.org.uk,
+      Saxifraga-Willem van Kruijsbergen,
       Markus Wagner,
       Matt Lavin,
       Pete Stroh,
