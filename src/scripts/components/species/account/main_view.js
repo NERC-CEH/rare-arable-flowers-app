@@ -23,15 +23,17 @@ export default Marionette.ItemView.extend({
     // photos
     this.startSwipe();
 
-    //add Map
+    // add Map
     var $mapsHolder = $('#maps-holder');
-    $mapsHolder.empty();
-
     $.get("images/country_coastline.svg", function(data) {
-      $mapsHolder.append(new XMLSerializer().serializeToString(data.documentElement));
+      const svg = data.documentElement ?
+        new XMLSerializer().serializeToString(data.documentElement) : data;
+      $mapsHolder.append(svg);
     });
     $.get(this.model.attributes.map, function(data) {
-      $mapsHolder.append(new XMLSerializer().serializeToString(data.documentElement));
+      const svg = data.documentElement ?
+        new XMLSerializer().serializeToString(data.documentElement) : data;
+      $mapsHolder.append(svg);
     });
   },
 

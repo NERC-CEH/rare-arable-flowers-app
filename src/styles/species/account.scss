@@ -63,6 +63,7 @@
 }
 
 .gallery .progress {
+  height: 24px;
   width: 100%;
   position: absolute;
   bottom: 0;
@@ -109,4 +110,5 @@
 // photoswipe caption to right
 .pswp__caption__center {
   text-align: right;
+  max-width: none;
 }
