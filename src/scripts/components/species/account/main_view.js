@@ -154,17 +154,25 @@ export default Marionette.ItemView.extend({
     const items = [];
     const options = {};
 
+    let title;
+
+    const author = this.model.get('profile_pic_author');
+    if (author) {
+      title = `Ⓒ ${author}`;
+    }
+
     items.push({
       src: this.model.get('profile_pic'),
-      w: 800,
-      h: 800,
+      w: this.model.get('profile_pic_width') || 800,
+      h: this.model.get('profile_pic_height') || 800,
+      title,
     });
 
     if (this.model.get('illustration')) {
       items.push({
         src: this.model.get('illustration'),
-        w: 800,
-        h: 800,
+        w: this.model.get('illustration_width') || 800,
+        h: this.model.get('illustration_height') || 800,
       });
     }
 
