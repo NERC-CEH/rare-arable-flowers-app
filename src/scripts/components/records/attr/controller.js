@@ -91,7 +91,11 @@ const API = {
 
         // todo: validate before setting up
         newVal = values.number === 'default' ? null : values.number;
+        const newWidthVal = values.number_width <= 0 ? null : values.number_width;
+        const newLengthVal = values.number_length <= 0 ? null : values.number_length;
         occ.set('number', newVal);
+        occ.set('number_width', newWidthVal);
+        occ.set('number_length', newLengthVal);
         break;
       case 'stage':
         currentVal = occ.get('stage');

@@ -107,7 +107,7 @@
     <input type="radio" name="group" value="Other" <%- obj['Other'] ? 'checked' : ''%>>
     <div class="radio-content">
       <div class="item-content">
-        Other
+        Other (comment)
       </div>
       <i class="radio-icon icon-check"></i>
     </div>

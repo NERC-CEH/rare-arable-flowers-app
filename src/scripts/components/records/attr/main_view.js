@@ -23,11 +23,16 @@ function LogSlider(options) {
 LogSlider.prototype = {
   // Calculate value from a slider position
   value: function(position) {
-    return Math.exp((position - this.minpos) * this.scale + this.minlval);
+    if (!position) return;
+    const result = Math.exp((position - this.minpos) * this.scale + this.minlval);
+    return result.toFixed(0);
+
   },
   // Calculate slider position from a value
   position: function(value) {
-    return this.minpos + (Math.log(value) - this.minlval) / this.scale;
+    if (!value) return;
+    const result = this.minpos + (Math.log(value) - this.minlval) / this.scale;
+    return result.toFixed(0);
   }
 };
 
@@ -39,15 +44,13 @@ export default Marionette.ItemView.extend({
   },
 
   events: {
-    'click input[type="radio"]': 'saveNumber',
+    'click input[type="radio"]': 'save',
     'input input[type="range"]': 'updateRangeInputValue',
     'change input[type="number"]': 'updateRangeSliderValue',
   },
 
-  saveNumber() {
-    // unset slider val
-    const $rangeOutput = this.$el.find('#rangeVal');
-    $rangeOutput.val('');
+  save() {
+    if (this.options.attr === 'number') return;
     this.trigger('save');
   },
 
@@ -69,6 +72,13 @@ export default Marionette.ItemView.extend({
             values[attr] = $(elem).val();
           }
         });
+        const $inputWidth = this.$el.find('#number_width');
+        values.number_width = $inputWidth.val();
+        values.number_width && (values.number_width = parseInt(values.number_width));
+
+        const $inputLength = this.$el.find('#number_length');
+        values.number_length = $inputLength.val();
+        values.number_length && (values.number_length = parseInt(values.number_length));
         break;
       case 'stage':
         $inputs = this.$el.find('input');
@@ -110,6 +120,11 @@ export default Marionette.ItemView.extend({
       case 'number':
         key = occ.get('number');
         if (key) templateData[key] = true;
+        templateData.number_width = occ.get('number_width');
+        templateData.number_width_slider = logsl.position(occ.get('number_width'));
+        templateData.number_length = occ.get('number_length');
+        templateData.number_length_slider = logsl.position(occ.get('number_length'));
+
         break;
       case 'stage':
         key = occ.get('stage');
@@ -133,7 +148,7 @@ export default Marionette.ItemView.extend({
   updateRangeSliderValue(e) {
     const $input = $(e.target);
     const $slider = this.$el.find(`input[name="${$input.prop('id')}"]`);
-    const value = logsl.position($input.val()).toFixed(0);
+    const value = logsl.position($input.val());
     $slider.val(value);
   },
 
@@ -144,7 +159,7 @@ export default Marionette.ItemView.extend({
       return;
     }
     const $input = this.$el.find(`#${$slider.prop('name')}`);
-    const value = logsl.value($slider.val()).toFixed(0);
+    const value = logsl.value($slider.val());
     $input.val(value);
   },
 

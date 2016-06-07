@@ -115,6 +115,12 @@ export default {
           '1000+': 6184,
         }
       },
+      number_length: {
+        id: 563,
+      },
+      number_width: {
+        id: 562,
+      },
       stage: {
         id: 549,
         values: {
