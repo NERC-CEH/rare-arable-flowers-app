@@ -21,17 +21,21 @@ export default Marionette.ItemView.extend({
   template: JST['info/location/main'],
 
   onShow() {
-    this.drawHeatMap();
+    const that = this;
+    const $heatMap = this.$el.find('#heat-map');
+    setTimeout(() => {
+      that.drawHeatMap($heatMap);
+    }, 1); // new non blocking thread
   },
 
-  drawHeatMap() {
+  drawHeatMap($heatMap) {
     const mapZoomCoords = [53.7326306, -3.6546124];
     const mapZoomLevel = 0;
 
     const h = 400;
-    const w = this.$el.find('#heat-map').width();
+    const w = $heatMap.width();
 
-    const container = this.$el.find('#heat-map')[0];
+    const container = $heatMap[0];
     $(container).height(h);
 
     let openspaceLayer;
