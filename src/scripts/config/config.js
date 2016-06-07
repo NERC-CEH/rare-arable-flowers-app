@@ -28,11 +28,6 @@ export default {
     timeout: 30000
   },
 
-  report: {
-    url: 'http://www.brc.ac.uk/irecord/mobile/report',
-    timeout: 80000
-  },
-
   // mapping
   map: {
     API_KEY: '28994B5673A86451E0530C6CA40A91A5'
@@ -46,7 +41,6 @@ export default {
       appsecret: 'rafPass1234',
       website_id: 23,
       survey_id: 396,
-      input_form: 'enter-app-record'
     },
     sample: {
       location: {
@@ -112,7 +106,7 @@ export default {
           '2-10': 6181,
           '11-100': 6182,
           '101-1000': 6183,
-          '1000+': 6184,
+          '1000+': 6184,Up
         }
       },
       number_length: {

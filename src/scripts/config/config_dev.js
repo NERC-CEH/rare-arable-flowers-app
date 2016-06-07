@@ -1,5 +1,5 @@
 /** ****************************************************************************
- * Main app development configuration file.
+ * Main app configuration file.
  *****************************************************************************/
 import LocHelp from './helpers/location';
 import DateHelp from './helpers/date';
@@ -14,23 +14,18 @@ export default {
   // logging
   log: {
     states: ['e', 'w', 'i', 'd'], // see log helper
-    ga_error: false,
+    ga_error: false
   },
 
   // google analytics
   ga: {
     status: false,
-    ID: 'UA-58378803-4'
+    ID: 'UA-58378803-5'
   },
 
   login: {
     url: 'http://192.171.199.230/irecord7/user/mobile/register',
-    timeout: 80000
-  },
-
-  report: {
-    url: 'http://192.171.199.230/irecord7/mobile/report',
-    timeout: 80000
+    timeout: 30000
   },
 
   // mapping
@@ -45,8 +40,7 @@ export default {
       appname: 'test',
       appsecret: 'mytest',
       website_id: 23,
-      survey_id: 269,
-      input_form: 'enter-app-record'
+      survey_id: 258,
     },
     sample: {
       location: {
@@ -97,12 +91,6 @@ export default {
           return DateHelp.print(date);
         }
       },
-
-      group: {
-        values: function(group) {
-          return group.id;
-        }
-      }
     },
     occurrence: {
       taxon: {
@@ -111,29 +99,50 @@ export default {
         }
       },
       number: {
-        id: 16,
-      },
-      'number-ranges': {
-        id: 379,
+        id: 383,
         values: {
-          'default': 671,
-          '1': 665,
-          '2-5': 666,
-          '6-20': 667,
-          '21-100': 668,
-          '101-500': 669,
-          '500+': 670
+          'default': true,
+          '1': 4774,
+          '2-10': 4775,
+          '11-100': 4776,
+          '101-1000': 4777,
+          '1000+': 4778,
         }
+      },
+      number_length: {
+        id: 563,
+      },
+      number_width: {
+        id: 562,
       },
       stage: {
-        id: 106,
+        id: 384,
         values: {
-          'default': 1949,
-          'Adult': 1950,
-          'Pre-adult': 1951,
-          'Other': 1952
+          'default': true,
+          'Vegetative': 4780,
+          'Flowering': 4781,
+          'In Seed': 4782
         }
-      }
+      },
+      locationdetails: {
+        id: 567,
+        values: {
+          'default': true,
+          "Cultivated Strip / Block": 4783,
+          "Conservation headland": 4784,
+          "Wild bird seed / Game cover": 4785,
+          "Wildflower / Clover rich margin": 4786,
+          "Grass margin / corner": 4787,
+          "Crop": 4788,
+          "Stubble": 4789,
+          "Track / gateway": 4790,
+          "Other": 4791,
+          "Grassland": 4792
+        }
+      },
     }
-  }
+  },
+  statistics: {
+    url: 'http://www.brc.ac.uk/irecord/raf-app-summary',
+  },
 };

@@ -7,12 +7,12 @@
     </div>
     <% } %>
   </div>
+  <% if (obj.illustration) { %>
   <div class="progress">
     <div class="circle circle-full" data-id="0"></div>
-    <% if (obj.illustration) { %>
     <div class="circle" data-id="1"></div>
-    <% }; %>
   </div>
+  <% }; %>
 </div>
 
 <div class="segmented-control no-border">
