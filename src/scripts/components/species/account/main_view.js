@@ -160,7 +160,7 @@ export default Marionette.ItemView.extend({
 
     const author = this.model.get('profile_pic_author');
     if (author) {
-      title = `Ⓒ ${author}`;
+      title = `&copy; ${author}`;
     }
 
     items.push({

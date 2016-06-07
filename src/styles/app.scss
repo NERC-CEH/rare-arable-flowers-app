@@ -658,3 +658,8 @@ header .pull-right {
     }
   }
 }
+
+// increase margin on pull left list items
+.table-view .media-object.pull-left {
+  margin-right: 15px;
+}
