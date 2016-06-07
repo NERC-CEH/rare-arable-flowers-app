@@ -9,6 +9,11 @@
     <p>Thank you for taking part!</p>
   </li>
   <li>
+    This app is worth <b>2 BASIS CPD points</b>. To claim these, please
+    <a href='mailto:admin%40basis-reg.co.uk?subject=E/51674/1617/g'>email</a>.
+    quoting the reference code E/51674/1617/g.
+  </li>
+  <li>
     <strong>Further information</strong>
     <p>For further information about the <i>Rare Arable Flowers</i> app and
       the survey, please visit
