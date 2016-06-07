@@ -31,7 +31,7 @@ LogSlider.prototype = {
   }
 };
 
-var logsl = new LogSlider({maxpos: 100, minval: 1, maxval: 500});
+var logsl = new LogSlider({maxpos: 100, minval: 1, maxval: 1000});
 
 export default Marionette.ItemView.extend({
   initialize(options) {
@@ -132,34 +132,20 @@ export default Marionette.ItemView.extend({
 
   updateRangeSliderValue(e) {
     const $input = $(e.target);
-    const $rangeOutput = this.$el.find('#range')
-
-    let value = logsl.position($input.val()).toFixed(0);
-    $rangeOutput.val(value);
-
-    // unset ranges selection
-    const $inputs = this.$el.find('input[type="radio"]');
-    $inputs.each((int, elem) => {
-      $(elem).prop('checked', false);
-    });
+    const $slider = this.$el.find(`input[name="${$input.prop('id')}"]`);
+    const value = logsl.position($input.val()).toFixed(0);
+    $slider.val(value);
   },
 
   updateRangeInputValue(e) {
-    const $input = $(e.target);
-    if (!$input.val()) {
+    const $slider = $(e.target);
+    if (!$slider.val()) {
       // no need to do anything on input clear
       return;
     }
-    const $rangeOutput = this.$el.find('#rangeVal')
-
-    let value = logsl.value($input.val()).toFixed(0);
-    $rangeOutput.val(value);
-
-    // unset ranges selection
-    const $inputs = this.$el.find('input[type="radio"]');
-    $inputs.each((int, elem) => {
-      $(elem).prop('checked', false);
-    });
+    const $input = this.$el.find(`#${$slider.prop('name')}`);
+    const value = logsl.position($slider.val()).toFixed(0);
+    $input.val(value);
   },
 
   onShow() {
