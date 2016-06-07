@@ -11,7 +11,7 @@
   <li>
     This app is worth <b>2 BASIS CPD points</b>. To claim these, please
     <a href='mailto:admin%40basis-reg.co.uk?subject=E/51674/1617/g'>email</a>.
-    quoting the reference code E/51674/1617/g.
+    quoting the reference code <i>E/51674/1617/g</i>.
   </li>
   <li>
     <strong>Further information</strong>
