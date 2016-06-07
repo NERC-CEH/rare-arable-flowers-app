@@ -39,6 +39,7 @@
       Malcolm Storey, bioimages.org.uk,
       Willem van Kruijsbergen,
       Rutger Barendse,
+      Jan van der Straaten,
       Markus Wagner,
       Matt Lavin,
       Pete Stroh,
