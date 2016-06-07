@@ -4,9 +4,20 @@
 dist
 node_modules
 bower_components
-!src/scripts/libs
-src/scripts/libs/*
-!src/scripts/libs/datepick/
+!src/vendor
+src/vendor/*
+!src/vendor/datepick/
+!src/vendor/bootstrap/
+!src/vendor/ionic/
+!src/vendor/fontello/
 
 /cordova
 /src/config_build.xml
+
+
+/src/scripts/config_dev.js
+/src/scripts/config.js
+/src/scripts/JST.js
+.npm-debug.log
+
+
