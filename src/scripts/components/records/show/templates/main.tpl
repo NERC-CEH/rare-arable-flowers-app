@@ -24,7 +24,12 @@
   <% if (obj.number) { %>
     <li class="table-view-cell">
       <span class="media-object pull-left icon icon-number"></span>
+      <% if (obj.number) { %>
       <span class="media-object pull-right descript"><%- obj.number %></span>
+      <% } %>
+      <% if (obj.number_width) { %>
+      <span class="media-object pull-right descript">(<%- obj.number_length %>m x <%- obj.number_width %>m)</span>
+      <% } %>
       Number
     </li>
   <% } %>

@@ -37,7 +37,12 @@
     <a href="#records/<%- obj.id %>/edit/number" id="number-button"
        class="navigate-right">
       <span class="media-object pull-left icon icon-number"></span>
-      <span class="media-object pull-right descript"><%- obj.number %></span>
+      <% if (obj.number) { %>
+        <span class="media-object pull-right descript"><%- obj.number %></span>
+      <% } %>
+      <% if (obj.number_width) { %>
+        <span class="media-object pull-right descript">(<%- obj.number_length %>m x <%- obj.number_width %>m)</span>
+      <% } %>
       Number
     </a>
   </li>

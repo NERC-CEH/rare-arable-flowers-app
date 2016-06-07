@@ -91,8 +91,18 @@ const API = {
 
         // todo: validate before setting up
         newVal = values.number === 'default' ? null : values.number;
-        const newWidthVal = values.number_width <= 0 ? null : values.number_width;
-        const newLengthVal = values.number_length <= 0 ? null : values.number_length;
+        let newWidthVal = values.number_width <= 0 ? null : values.number_width;
+        let newLengthVal = values.number_length <= 0 ? null : values.number_length;
+
+        // XOR
+        if (newWidthVal ? !newLengthVal : newLengthVal) {
+          if (newWidthVal) {
+            newLengthVal = 1;
+          } else {
+            newWidthVal = 1;
+          }
+        }
+
         occ.set('number', newVal);
         occ.set('number_width', newWidthVal);
         occ.set('number_length', newLengthVal);

@@ -36,6 +36,8 @@ export default Marionette.ItemView.extend({
       location_name: location.name,
       date: DateHelp.print(recordModel.get('date')),
       number,
+      number_width: occ.get('number_width'),
+      number_length: occ.get('number_length'),
       stage: occ.get('stage') && StringHelp.limit(occ.get('stage')),
       habitat: occ.get('habitat') && StringHelp.limit(occ.get('habitat')),
       comment: occ.get('comment') && StringHelp.limit(occ.get('comment')),
