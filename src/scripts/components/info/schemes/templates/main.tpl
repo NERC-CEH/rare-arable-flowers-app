@@ -2,11 +2,11 @@
   <li>
     <p>There are many opportunities to manage for arable plants that are
       supported by payments or advice. These include the Basic Payment Scheme,
-      agri-nvironment schemes and the Campaign for the Farmed Environment.
+      agri-environment schemes and the Campaign for the Farmed Environment.
       Each of these have their own rules and eligibility criteria so please
       ensure you are fully compliant with them.
     </p>
-    <ol>
+    <ul>
       <li>
         <p>Basic Payment Scheme habitats eligible as Ecological Focus Areas (EFA)
           such as catch and cover crops, and fallow land can be managed
@@ -17,7 +17,7 @@
           to effectively conserve arable plants. Key management activities are
           summarized below and may be available as agri-environment scheme options.</p>
       </li>
-    </ol>
+    </ul>
   </li>
 
 
@@ -42,7 +42,7 @@
         other insects. Do not apply fertilisers and only use herbicides where
         absolutely necessary. Below is a summary of some of the options under
         agri-environment schemes to provide this habitat:</p>
-      <br>
+
       <ul class="table-view accordion">
         <li class="table-view-cell">
           <a class="collapsed btn-small" data-toggle="collapse" href="#Uncropped-England" aria-controls="Uncropped-England">
@@ -90,11 +90,11 @@
     <div id="headlands" class="collapse">
       <img src="images/option_34B.png">
       <p>
-        More robust arable flowers, such as 
+        More robust arable flowers, such as
         <a href="#species/26">cornflower</a>,
         <a href="#species/100">shepherds-needle</a>
         and <a href="#species/94">corn buttercup</a>
-        , thrive within modern cereal crop headlands PROVIDED there is no
+        , thrive within modern cereal crop headlands <b>provided</b> there is no
         fertiliser applied and there is restricted use of herbicides (scheme
         rules will apply). These areas also provide good nesting and foraging
         habitat for farmland birds and pollinators.  When left unharvested, the
@@ -102,7 +102,7 @@
         reduced rate of cereal on the headland produces a more open crop for
         the arable flowers. Below is a summary of some of the options under
         agri-environment schemes to provide this habitat:</p>
-      <br>
+
       <ul class="table-view accordion">
         <li class="table-view-cell">
           <a class="collapsed btn-small" data-toggle="collapse" href="#headlands-England" aria-controls="headlands-England">
@@ -160,7 +160,7 @@
         specific arable flower habitat and extend the bird and insect resources.
         Below is a summary of some of the options under agri-environment schemes
         that provide this habitat:</p>
-      <br>
+
       <ul class="table-view accordion">
         <li class="table-view-cell">
           <a class="collapsed btn-small" data-toggle="collapse" href="#mixtures-England" aria-controls="mixtures-England">
@@ -227,7 +227,7 @@
         Below is a summary of some of the
         options under agri-environment schemes to provide this habitat:
       </p>
-      <br>
+
       <ul class="table-view accordion">
         <li class="table-view-cell">
           <a class="collapsed btn-small" data-toggle="collapse" href="#Whole-England" aria-controls="Whole-England">

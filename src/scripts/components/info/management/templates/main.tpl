@@ -24,7 +24,7 @@
       way of bringing this seed to the surface and rejuvenating the population.
       Once the plants have set seed, ploughing then helps to replenish the seed
       bank through the soil profile and bury problem weeds. However, some
-      species have short-lived seeds, such as 
+      species have short-lived seeds, such as
       <a href="#species/109">spreading hedge-parsley</a>,
        and prefer reduced tillage. From a practical conservation
       perspective it is therefore best to vary the depth and timing of tillage

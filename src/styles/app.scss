@@ -467,8 +467,13 @@ li.table-view-cell {
     }
   }
 
+  & > p {
+    margin-bottom: 0; // overwrite the 'table-view-cell p {}'
+  }
+
   p {
     color: $color-black;
+    margin-bottom: 0.65em;
   }
 }
 
