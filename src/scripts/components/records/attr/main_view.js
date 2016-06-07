@@ -31,7 +31,7 @@ LogSlider.prototype = {
   }
 };
 
-var logsl = new LogSlider({maxpos: 100, minval: 1, maxval: 1000});
+const logsl = new LogSlider({ maxpos: 100, minval: 1, maxval: 1000 });
 
 export default Marionette.ItemView.extend({
   initialize(options) {
@@ -144,7 +144,7 @@ export default Marionette.ItemView.extend({
       return;
     }
     const $input = this.$el.find(`#${$slider.prop('name')}`);
-    const value = logsl.position($slider.val()).toFixed(0);
+    const value = logsl.value($slider.val()).toFixed(0);
     $input.val(value);
   },
 

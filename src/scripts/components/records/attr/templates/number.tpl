@@ -67,12 +67,12 @@
 
 Surveyed area length (meters):
 <div class="range">
-  <input type="range" id="number_length_range" name="number_length" min="1" max="1000" value="<%- obj.number_width || 1 %>">
+  <input type="range" id="number_length_range" name="number_length" min="1" max="100" value="<%- obj.number_width || 1 %>">
   <input type="number" id="number_length" value="<%- obj.number_length %>">
 </div>
 
 Surveyed area width (meters):
 <div class="range">
-  <input type="range" id="number_width_range" name="number_width" min="1" max="1000" value="<%- obj.number_width || 1 %>">
+  <input type="range" id="number_width_range" name="number_width" min="1" max="100" value="<%- obj.number_width || 1 %>">
   <input type="number" id="number_width" value="<%- obj.number_width %>">
 </div>
