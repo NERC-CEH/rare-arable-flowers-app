@@ -54,7 +54,7 @@
   </li>
   <li class="table-view-cell">
     <a href="#info/management/management" class="navigate-right btn-small">
-      <span class="media-object pull-left icon icon-grid"></span>
+      <span class="media-object pull-left icon icon-list-bullet"></span>
       More About Conservation
     </a>
   </li>

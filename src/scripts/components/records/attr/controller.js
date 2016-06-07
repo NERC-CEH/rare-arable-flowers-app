@@ -90,7 +90,7 @@ const API = {
         currentVal = occ.get('number');
 
         // todo: validate before setting up
-        newVal = values.number;
+        newVal = values.number === 'default' ? null : values.number;
         occ.set('number', newVal);
         break;
       case 'stage':

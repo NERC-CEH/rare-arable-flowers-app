@@ -62,19 +62,13 @@ export default Marionette.ItemView.extend({
         values[attr] = new Date(value);
         break;
       case 'number':
-        value = this.$el.find('#rangeVal').val();
-        if (value) {
-          // slider
-          values[attr] = value;
-        } else {
-          // ranges selection
-          $inputs = this.$el.find('input[type="radio"]');
-          $inputs.each((int, elem) => {
-            if ($(elem).prop('checked')) {
-              values[attr] = $(elem).val();
-            }
-          });
-        }
+        // ranges selection
+        $inputs = this.$el.find('input[type="radio"]');
+        $inputs.each((int, elem) => {
+          if ($(elem).prop('checked')) {
+            values[attr] = $(elem).val();
+          }
+        });
         break;
       case 'stage':
         $inputs = this.$el.find('input');
@@ -106,6 +100,7 @@ export default Marionette.ItemView.extend({
   serializeData() {
     const templateData = {};
     const occ = this.model.occurrences.at(0);
+    let key;
 
     switch (this.options.attr) {
       case 'date':
@@ -113,15 +108,16 @@ export default Marionette.ItemView.extend({
         templateData.maxDate = DateHelp.toDateInputValue(new Date());
         break;
       case 'number':
-        let number = occ.get('number');
-        templateData.number = number;
-        templateData.numberPosition = logsl.position(number).toFixed(0);
+        key = occ.get('number');
+        if (key) templateData[key] = true;
         break;
       case 'stage':
-        templateData[occ.get('stage')] = true;
+        key = occ.get('stage');
+        if (key) templateData[key] = true;
         break;
       case 'habitat':
-        templateData[occ.get('habitat')] = true;
+        key = occ.get('habitat');
+        if (key) templateData[key] = true;
         break;
       case 'comment':
         templateData.comment = occ.get('comment');
