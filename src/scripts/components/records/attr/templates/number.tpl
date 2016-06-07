@@ -65,13 +65,13 @@
 
 </div>
 
-Surveyed area length (meters):
+Surveyed area <b>length</b> (meters):
 <div class="range">
   <input type="range" id="number_length_range" name="number_length" min="1" max="100" value="<%- obj.number_length_slider || 1 %>">
   <input type="number" id="number_length" value="<%- obj.number_length %>">
 </div>
 
-Surveyed area width (meters):
+Surveyed area <b>width</b> (meters):
 <div class="range">
   <input type="range" id="number_width_range" name="number_width" min="1" max="100" value="<%- obj.number_width_slider || 1 %>">
   <input type="number" id="number_width" value="<%- obj.number_width %>">
