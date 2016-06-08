@@ -169,6 +169,7 @@ const API = {
     recordsCollection.each(record => {
       if (!record.metadata.saved) {
         record.destroy();
+        console.log(record);
       }
     });
   },
