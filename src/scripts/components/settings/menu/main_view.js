@@ -26,6 +26,10 @@ export default Marionette.ItemView.extend({
     'click #app-reset-btn': 'app:reset',
   },
 
+  modelEvents: {
+    change: 'render',
+  },
+
   logout() {
     this.trigger('user:logout');
   },
@@ -42,5 +46,16 @@ export default Marionette.ItemView.extend({
     }
 
     this.trigger('setting:toggled', setting, active);
+  },
+
+  serializeData() {
+    const appModel = this.options.appModel;
+    const userModel = this.model;
+    return {
+      useGridRef: appModel.get('useGridRef'),
+      autosync: appModel.get('autosync'),
+      surname: userModel.get('surname'),
+      name: userModel.get('name'),
+    };
   },
 });

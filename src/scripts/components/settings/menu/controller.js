@@ -15,15 +15,9 @@ const API = {
   show() {
     Log('Settings:Menu:Controller: showing');
 
-    const templateData = new Backbone.Model({
-      useGridRef: appModel.get('useGridRef'),
-      autosync: appModel.get('autosync'),
-      surname: userModel.get('surname'),
-      name: userModel.get('name'),
-    });
-
     const mainView = new MainView({
-      model: templateData,
+      model: userModel,
+      appModel,
     });
     mainView.on('setting:toggled', (setting, on) => {
       Log('Settings:Menu:Controller: setting toggled');

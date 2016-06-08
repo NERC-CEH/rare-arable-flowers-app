@@ -89,7 +89,6 @@ export default Marionette.ItemView.extend({
       window.a = function (imageBounds) {
         map.removeLayer(imageOverlay);
         imageOverlay = L.imageOverlay(imageUrl, imageBounds).addTo(map);
-
       }
     }
   },
