@@ -235,9 +235,9 @@
           </a>
           <div id="Whole-England" class="collapse">
             <strong>Countryside Stewardship</strong>
-            <p><b><a href="https://www.gov.uk/countryside-stewardship-grants/whole-crop-cereals-ab7"></a>AB7</b> - Whole crop cereals</p>
-            <p><b><a href="https://www.gov.uk/countryside-stewardship-grants/brassica-fodder-crop-ab13"></a>AB13</b> - Brassica fodder crop</p>
-            <p><b><a href="https://www.gov.uk/countryside-stewardship-grants/harvested-low-input-cereal-ab14"></a>AB14</b> - Low input cereal</p>
+            <p><b><a href="https://www.gov.uk/countryside-stewardship-grants/whole-crop-cereals-ab7" target="_blank"></a>AB7</b> - Whole crop cereals</p>
+            <p><b><a href="https://www.gov.uk/countryside-stewardship-grants/brassica-fodder-crop-ab13" target="_blank"></a>AB13</b> - Brassica fodder crop</p>
+            <p><b><a href="https://www.gov.uk/countryside-stewardship-grants/harvested-low-input-cereal-ab14" target="_blank"></a>AB14</b> - Low input cereal</p>
 
             <strong>Entry Level Stewardship</strong>
             <p><b>EF15</b> - Reduced herbicide cereal crops followed by overwintered stubble</p>
@@ -294,8 +294,8 @@
     </a>
     <p id="England" class="collapse"
        aria-labelledby="headingOne" aria-expanded="false">
-      <a href="https://www.gov.uk/government/collections/countryside-stewardship-get-paid-for-environmental-land-management">Countryside Stewardship</a></br>
-      <a href="https://www.gov.uk/guidance/environmental-stewardship">Environmental Stewardship</a> (closed to new applicants)
+      <a href="https://www.gov.uk/government/collections/countryside-stewardship-get-paid-for-environmental-land-management" target="_blank">Countryside Stewardship</a></br>
+      <a href="https://www.gov.uk/guidance/environmental-stewardship" target="_blank">Environmental Stewardship</a> (closed to new applicants)
     </p>
   </li>
   <li class="table-view-cell">
@@ -303,7 +303,7 @@
       Wales
     </a>
     <p id="Wales" class="collapse">
-      <a href="http://gov.wales/topics/environmentcountryside/farmingandcountryside/farming/schemes/glastir/?lang=en">Glastir</a>
+      <a href="http://gov.wales/topics/environmentcountryside/farmingandcountryside/farming/schemes/glastir/?lang=en" target="_blank">Glastir</a>
     </p>
   </li>
   <li class="table-view-cell">
@@ -312,8 +312,8 @@
       Wales
     </a>
     <p id="Scotland" class="collapse">
-      <a href="https://www.ruralpayments.org/publicsite/futures/topics/all-schemes/agri-environment-climate-scheme/">Agri-environment Climatic Scheme</a></br>
-      <a href="http://www.gov.scot/Topics/farmingrural/Agriculture/Environment/Agrienvironment/RuralSteward/RSSintro">Rural Stewardship Scheme</a> (closed to new applicants)
+      <a href="https://www.ruralpayments.org/publicsite/futures/topics/all-schemes/agri-environment-climate-scheme/" target="_blank">Agri-environment Climatic Scheme</a></br>
+      <a href="http://www.gov.scot/Topics/farmingrural/Agriculture/Environment/Agrienvironment/RuralSteward/RSSintro" target="_blank">Rural Stewardship Scheme</a> (closed to new applicants)
     </p>
   </li>
   <li class="table-view-cell">
@@ -321,7 +321,7 @@
       Northern Ireland
     </a>
     <p id="Ireland" class="collapse">
-      <a href="https://www.dardni.gov.uk/articles/northern-ireland-countryside-management-scheme-nicms">Countryside Management Scheme</a> (closed to new applicants)
+      <a href="https://www.dardni.gov.uk/articles/northern-ireland-countryside-management-scheme-nicms" target="_blank">Countryside Management Scheme</a> (closed to new applicants)
     </p>
   </li>
 </ul>
