@@ -113,28 +113,33 @@ button {
 header {
   .pull-left {
     margin-right: 2px;
+    margin-left: -5px;
     text-align: left;
   }
   .pull-right {
+    margin-left: 2px;
+    margin-right: -5px;
     text-align: right;
   }
 
   .pull-left, .pull-right {
     height: 44px ;
-    width: 35%;
+    width: 40%;
+
+    button, a {
+      margin-left: 2px;
+      margin-right: 2px;
+    }
 
     //if has any text then leave it auto width
+    button:empty,
     a:empty {
-      width: 45%;
+      width: 50%;
       max-width: 55px;
       margin-left: 0;
 
       text-align: center;
     }
-  }
-
-  .pull-left {
-    margin-left: -5px;
   }
 }
 

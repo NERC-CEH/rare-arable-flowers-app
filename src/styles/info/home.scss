@@ -24,3 +24,10 @@
   }
 }
 
+// ios status bar fix
+.ios #app {
+  #home {
+    margin: -60px -2% 0;
+    overflow-x: hidden;
+  }
+}
