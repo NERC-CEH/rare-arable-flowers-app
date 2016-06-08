@@ -4,6 +4,7 @@
 import $ from 'jquery';
 import Backbone from 'backbone';
 import Marionette from 'marionette';
+import RouterExt from './components/common/router_extension';
 import FastClick from '../vendor/fastclick/js/fastclick';
 import Analytics from './helpers/analytics';
 import Update from './helpers/update';
@@ -15,7 +16,6 @@ import HideableRegion from './components/common/views/hideable_region';
 
 // init Analytics
 Analytics.init();
-
 const App = new Marionette.Application();
 
 App.navigate = (route, options = {}) => {
@@ -28,75 +28,75 @@ App.getCurrentRoute = () => Backbone.history.fragment;
 
 App.on('before:start', () => {
   Log('App: initializing main regions');
-const RegionContainer = Marionette.LayoutView.extend({
-  el: '#app',
+  const RegionContainer = Marionette.LayoutView.extend({
+    el: '#app',
 
-  regions: {
-    header: new HideableRegion({ el: '#header' }),
-    footer: new HideableRegion({ el: '#footer' }),
-    main: '#main',
-    dialog: DialogRegion,
-  },
-});
+    regions: {
+      header: new HideableRegion({ el: '#header' }),
+      footer: new HideableRegion({ el: '#footer' }),
+      main: '#main',
+      dialog: DialogRegion,
+    },
+  });
 
-App.regions = new RegionContainer();
+  App.regions = new RegionContainer();
 });
 
 App.on('start', () => {
   Log('App: starting');
 
-Update();
+  Update();
 
-FastClick.attach(document.body);
+  FastClick.attach(document.body);
 
-if (Backbone.history) {
-  Backbone.history.start();
+  if (Backbone.history) {
+    Backbone.history.start();
 
-  if (App.getCurrentRoute() === '') {
-    App.trigger('info:home');
-  }
-
-  App.on('404:show', () => {
-    CommonController.show({
-    App,
-    route: 'common/404',
-    title: 404,
-  });
-});
-
-  if (window.cordova) {
-    Log('App: cordova setup');
-
-    // Although StatusB  ar in the global scope,
-    // it is not available until after the deviceready event.
-    document.addEventListener('deviceready', () => {
-      Log('Showing the app.');
-
-    window.StatusBar.overlaysWebView(true);
-    window.StatusBar.backgroundColorByName('black');
-
-    // iOS make space for statusbar
-    if (Device.isIOS()) {
-      $('body').addClass('ios');
+    if (App.getCurrentRoute() === '') {
+      App.trigger('info:home');
     }
 
-    // development loader
-    $('#loader').remove();
+    App.on('404:show', () => {
+      CommonController.show({
+        App,
+        route: 'common/404',
+        title: 404,
+      });
+    });
 
-    // hide loader
-    if (navigator && navigator.splashscreen) {
-      navigator.splashscreen.hide();
+    if (window.cordova) {
+      Log('App: cordova setup');
+
+      // Although StatusB  ar in the global scope,
+      // it is not available until after the deviceready event.
+      document.addEventListener('deviceready', () => {
+        Log('Showing the app.');
+
+        window.StatusBar.overlaysWebView(true);
+        window.StatusBar.backgroundColorByName('black');
+
+        // iOS make space for statusbar
+        if (Device.isIOS()) {
+          $('body').addClass('ios');
+        }
+
+        // development loader
+        $('#loader').remove();
+
+        // hide loader
+        if (navigator && navigator.splashscreen) {
+          navigator.splashscreen.hide();
+        }
+
+        Analytics.trackEvent('App', 'initialized');
+      }, false);
+    } else {
+      // development loader
+      $(document).ready(() => {
+        $('#loader').remove();
+      });
     }
-
-    Analytics.trackEvent('App', 'initialized');
-  }, false);
-  } else {
-    // development loader
-    $(document).ready(() => {
-      $('#loader').remove();
-  });
   }
-}
 });
 
 export { App as default };

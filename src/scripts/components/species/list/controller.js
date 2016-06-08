@@ -71,6 +71,7 @@ const API = {
     App.regions.footer.hide().empty();
   },
 
+
   // record species
   record(speciesModel) {
     // create new record

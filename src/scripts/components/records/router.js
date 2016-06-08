@@ -17,9 +17,26 @@ import LocationController from '../common/pages/location/controller';
 
 App.records = {};
 
+let scroll = 0; // last scroll position
+
 const Router = Marionette.AppRouter.extend({
   routes: {
-    'records(/)': ListController.show,
+    'records(/)': {
+      route: ListController.show,
+      after() {
+        if (Device.isIOS()) {
+          // iOS scroll glitch fixs
+          setTimeout(() => {
+            scrollTo(0, scroll);
+          }, 1);
+        } else {
+          scrollTo(0, scroll);
+        }
+      },
+      leave() {
+        scroll = scrollY;
+      },
+    },
     'records/:id': ShowController.show,
     'records/:id/edit(/)': EditController.show,
     'records/:id/edit/location(/)': LocationController.show,
