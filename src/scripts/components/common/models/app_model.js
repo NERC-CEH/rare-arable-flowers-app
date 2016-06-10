@@ -13,7 +13,7 @@ let AppModel = Backbone.Model.extend({
   defaults: {
     locations: [],
     favouriteSpecies: [],
-    sort: 'taxonomic',
+    sort: 'common',
     filters: {},
     autosync: true,
     useGridRef: true,
