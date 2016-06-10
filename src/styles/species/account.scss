@@ -17,7 +17,7 @@
 }
 
 #species-account-header h1.title {
-  position: relative;
+  width: 90%;
   font-style: italic;
   margin: 0 10% 0 5%;
 }
@@ -26,7 +26,7 @@
   display: none !important;
 }
 
-@media only screen and (max-width: 400px) {
+@media only screen and (max-width: 450px) {
   #species-account-header h1.title {
     display: none !important;
   }
