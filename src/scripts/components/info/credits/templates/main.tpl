@@ -35,7 +35,7 @@
       Fornax,
       Julia Kruse,
       K.J. Walker,
-      Ian Denholm,
+      Ian Denholm/BSBI,
       Lliam Rooney,
       Malcolm Storey, bioimages.org.uk,
       Willem van Kruijsbergen,
