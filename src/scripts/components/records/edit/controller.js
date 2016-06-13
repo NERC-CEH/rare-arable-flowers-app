@@ -128,15 +128,19 @@ const API = {
         return;
       }
 
+      // remove from drafts
+      appModel.set('draftRecordID', '');
+      appModel.save();
+
+      // user login
       if (Device.isOnline() && !userModel.hasLogIn()) {
         App.trigger('user:login', { replace: true });
         return;
       }
 
+      // sync
       // todo: call callback
       recordModel.save(null, { remote: true });
-      appModel.set('draftRecordID', '');
-      appModel.save();
       App.trigger('record:saved');
     });
 

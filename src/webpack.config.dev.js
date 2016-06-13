@@ -4,7 +4,6 @@ module.exports = {
   context: './src/scripts',
   entry: {
     app: './main.js',
-    testing: '../../test/manual-testing.js',
   },
   output: {
     path: 'dist',
@@ -26,12 +25,10 @@ module.exports = {
       leaflet: 'leaflet/js/leaflet',
       proj4leaflet: 'proj4Leaflet/js/proj4leaflet',
       proj4: 'proj4/js/proj4',
-      'photoswipe-lib': 'photoswipe/js/photoswipe',
-      'photoswipe-ui-default': 'photoswipe/js/photoswipe-ui-default',
       config: 'config_dev',
-      'master_list.data': 'data/master_list_dev.data.json',
-      'common_names.data': 'data/common_names_dev.data.json',
-      'informal_groups.data': 'data/informal_groups.data.js',
+      'photoswipe-lib': 'photoswipe/js/photoswipe.min',
+      'photoswipe-ui-default': 'photoswipe/js/photoswipe-ui-default.min',
+      'species.data': 'data/species.json',
     },
   },
   module: {

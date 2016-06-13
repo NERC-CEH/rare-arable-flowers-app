@@ -110,10 +110,10 @@ export default {
         }
       },
       number_length: {
-        id: 563,
+        id: 404,
       },
       number_width: {
-        id: 562,
+        id: 405,
       },
       stage: {
         id: 384,
