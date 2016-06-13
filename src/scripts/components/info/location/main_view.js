@@ -5,7 +5,7 @@ import $ from 'jquery';
 import Marionette from 'marionette';
 import L from '../../../../vendor/leaflet/js/leaflet';
 import OSLeaflet from '../../../../vendor/os-leaflet/js/OSOpenSpace';
-import TopoJSON from '../../../../vendor/topojson/js/topojson';
+import d3 from '../../../../vendor/d3/js/d3';
 import JST from '../../../JST';
 import Device from '../../../helpers/device';
 import CONFIG from 'config';
@@ -54,22 +54,6 @@ export default Marionette.ItemView.extend({
     /* add some ui elems to the map */
     L.control.scale().addTo(map);
 
-    // add heatmap data
-    const geoJSON = TopoJSON.feature(heatmapData, heatmapData.objects.geo);
-    var dataLayer = L.geoJson(null, {
-      style(feature) {
-        const heat = feature.properties.Cut_50;
-        const opacity = heat / options.MAX;
-        return {
-          fillColor: options.COLOR,
-          fillOpacity: opacity,
-          weight: 0.11,
-          color: 'grey',
-        };
-      },
-    }).addTo(map);
-    dataLayer.addData(geoJSON);
-
     if (Device.isOnline()) {
       /* New L.TileLayer.OSOpenSpace with API Key */
       const API_KEY = CONFIG.map.API_KEY;
@@ -77,7 +61,7 @@ export default Marionette.ItemView.extend({
 
       map.addLayer(openspaceLayer);
     } else {
-      var imageUrl = 'images/country_coastline.svg';
+      let imageUrl = 'images/country_coastline.svg';
       const imageBounds = [[61.0, -11.715793], [49.022656, 2.391891]];
       let imageOverlay = L.imageOverlay(imageUrl, imageBounds).addTo(map);
 
@@ -85,11 +69,46 @@ export default Marionette.ItemView.extend({
       map.doubleClickZoom.disable();
       map.scrollWheelZoom.disable();
       map.keyboard.disable();
+    }
 
-      window.a = function (imageBounds) {
-        map.removeLayer(imageOverlay);
-        imageOverlay = L.imageOverlay(imageUrl, imageBounds).addTo(map);
-      }
+    let svg = d3.select(map.getPanes().overlayPane).append("svg"),
+        g = svg.append("g").attr("class", "leaflet-zoom-hide");
+
+    function projectPoint(x, y) {
+      let point = map.latLngToLayerPoint(new L.LatLng(y, x));
+      this.stream.point(point.x, point.y);
+    }
+
+    let transform = d3.geo.transform({point: projectPoint}),
+        path = d3.geo.path().projection(transform);
+
+    let feature = g.selectAll("path")
+      .data(heatmapData.features)
+      .enter().append("path")
+      .style("fill", 'red')
+      .style("fill-opacity", (feature) => {
+        const heat = feature.properties.h;
+        const opacity = (heat / options.MAX).toFixed(3);
+        return opacity;
+      });
+
+    map.on("viewreset", reset);
+    reset();
+
+    // Reposition the SVG to cover the features.
+    function reset() {
+      let bounds = path.bounds(heatmapData),
+          topLeft = bounds[0],
+          bottomRight = bounds[1];
+
+      svg.attr("width", bottomRight[0] - topLeft[0])
+        .attr("height", bottomRight[1] - topLeft[1])
+        .style("left", topLeft[0] + "px")
+        .style("top", topLeft[1] + "px");
+
+      g.attr("transform", "translate(" + -topLeft[0] + "," + -topLeft[1] + ")");
+
+      feature.attr("d", path);
     }
   },
 });
