@@ -111,7 +111,7 @@ const RecordView = Marionette.ItemView.extend({
     const images = occ.images;
     let img = images.length && images.at(0).get('thumbnail');
 
-    const taxon = specie.common_name;
+    const taxon = `${specie.common_name} ${specie.common_name_significant}`;
 
     const syncStatus = this.model.getSyncStatus();
 
