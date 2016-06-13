@@ -143,6 +143,6 @@ export default {
     }
   },
   statistics: {
-    url: 'http://www.brc.ac.uk/irecord/raf-app-summary',
+    url: 'http://www.brc.ac.uk/irecord/rare-arable-flowers-app-summary',
   },
 };
