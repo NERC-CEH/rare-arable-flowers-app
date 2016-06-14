@@ -3,6 +3,7 @@
  *****************************************************************************/
 import Marionette from 'marionette';
 import JST from '../../../JST';
+import Clusterize from '../../../../vendor/clusterize/js/clusterize';
 
 
 const SpeciesView = Marionette.ItemView.extend({
@@ -34,8 +35,8 @@ const SpeciesView = Marionette.ItemView.extend({
 });
 
 
-export default Marionette.CollectionView.extend({
-  id: 'species-list',
+const List = Marionette.CollectionView.extend({
+  id: 'species-list-t',
   tagName: 'ul',
   className: 'table-view no-top',
   childView: SpeciesView,
@@ -48,5 +49,33 @@ export default Marionette.CollectionView.extend({
     return {
       appModel: this.options.appModel,
     };
+  },
+});
+
+
+export default Marionette.ItemView.extend({
+  template: _.template(`<div id="scrollArea" class="clusterize-scroll">
+    <ul id="species-list" class="table-view no-top clusterize-content"></ul>
+</div>`),
+  onShow() {
+    var data = [];
+
+    //for (var i= 0; i< 1000; i++) {
+    //  data.push('<div>' + i +'</div>');
+    //}
+    const that = this;
+    this.collection.each((model) => {
+      const view = new SpeciesView({ model, appModel: that.options.appModel });
+      view.render();
+      data.push(`<li class="table-view-cell">${view.el.innerHTML}</li>`);
+    })
+
+    var clusterize = new Clusterize({
+      rows: data,
+      scrollId: 'scrollArea',
+      contentId: 'species-list',
+      blocks_in_cluster: 4,
+      rows_in_block: 6,
+    });
   },
 });

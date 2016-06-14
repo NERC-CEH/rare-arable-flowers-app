@@ -8,6 +8,7 @@ bower_components
 src/vendor/*
 !src/vendor/datepick/
 !src/vendor/bootstrap/
+!src/vendor/clusterize/
 !src/vendor/ionic/
 !src/vendor/fontello/
 
