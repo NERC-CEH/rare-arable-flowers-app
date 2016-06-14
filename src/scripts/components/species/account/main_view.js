@@ -15,7 +15,7 @@ export default Marionette.ItemView.extend({
     'click #species-map': 'toggleMap',
     'click #species-map-button': 'toggleMap',
     'click #gallery-button': 'photoView',
-    'click .images img': 'photoView',
+    'click .images .img': 'photoView',
     'click #record-btn': 'record',
   },
 
@@ -53,7 +53,7 @@ export default Marionette.ItemView.extend({
         };
 
     var $img = $('#species_gallery .images .img');
-    $img.attr('style','width:' + WIDTH);
+    $img.css('width', WIDTH);
 
     var $progressCircles = this.$el.find('.gallery .progress div');
 

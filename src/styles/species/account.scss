@@ -41,41 +41,47 @@
   position: relative;
   margin: 0 -2%;
   overflow: hidden;
-}
 
-.gallery .images {
-  height: 60vw;
-  max-height: 400px;
-  position: relative;
-  overflow: hidden;
-  background-color: #3C3C3C;
-}
+  .images {
+    height: 60vw;
+    max-height: 400px;
+    position: relative;
+    overflow: hidden;
+    background-color: #3C3C3C;
 
-.gallery .images .img {
-  float: left;
-  background-color: white;
-}
+    .img {
+      float: left;
+      background-color: white;
 
-.gallery .images .img .illustration {
-  display: block;
-  margin: 0 auto;
-  height: 60vw;
-}
+      &.photo{
+        height: 100%;
+        background: center no-repeat;
+        background-size: cover;
+      }
 
-.gallery .progress {
-  height: 24px;
-  width: 100%;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  margin: 0;
-  padding-left: 45%;
+      .illustration {
+        display: block;
+        margin: 0 auto;
+        height: 60vw;
+      }
+    }
+  }
 
-  background-color: rgba(10,10,10,0.3);
-}
+  .progress {
+    height: 24px;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    margin: 0;
+    padding-left: 45%;
 
-.gallery .progress .circle {
-  background: rgba(255,255,255,.25);
+    background-color: rgba(10,10,10,0.3);
+
+    .circle {
+      background: rgba(255,255,255,.25);
+    }
+  }
 }
 
 

@@ -1,6 +1,6 @@
 <div class="gallery" id="species_gallery">
   <div class="images">
-    <img class="img" src="<%= obj.profile_pic %>" data-id="0" alt="&copy; <%= obj.profile_pic_author %>">
+    <div class="img photo" style="background-image: url('<%= obj.profile_pic %>')" alt="&copy; <%= obj.profile_pic_author %>"></div>
     <% if (obj.illustration) { %>
     <div class="img">
       <img class="illustration" src="<%= obj.illustration %>" data-id="1">
