@@ -74,8 +74,9 @@ export default Marionette.ItemView.extend({
       rows: data,
       scrollId: 'scrollArea',
       contentId: 'species-list',
+      item_height: 80,
       blocks_in_cluster: 4,
-      rows_in_block: 6,
+      rows_in_block: 10,
     });
   },
 });
