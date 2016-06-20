@@ -37,7 +37,7 @@
       K.J. Walker,
       Ian Denholm/BSBI,
       Lliam Rooney,
-      Malcolm Storey, bioimages.org.uk,
+      Malcolm Storey, <a href="http://bioimages.org.uk" target="_blank">bioimages.org.uk</a>,
       Willem van Kruijsbergen,
       Rutger Barendse,
       Jan van der Straaten,
@@ -49,6 +49,7 @@
       Matt Lavin,
       Pete Stroh,
       Rob Hille,
+      Fornax <a href="http://creativecommons.org/licenses/by-sa/3.0" target="_blank">CC BY-SA 3.0</a> via Wikimedia Commons,
       Stefan Lefnaer</p>
   </li>
   <li>
