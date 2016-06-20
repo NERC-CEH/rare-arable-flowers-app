@@ -33,7 +33,6 @@ export default Marionette.ItemView.extend({
     const mapZoomLevel = 0;
 
     const h = 400;
-    const w = $heatMap.width();
 
     const container = $heatMap[0];
     $(container).height(h);
@@ -61,54 +60,104 @@ export default Marionette.ItemView.extend({
 
       map.addLayer(openspaceLayer);
     } else {
-      let imageUrl = 'images/country_coastline.svg';
-      const imageBounds = [[61.0, -11.715793], [49.022656, 2.391891]];
-      let imageOverlay = L.imageOverlay(imageUrl, imageBounds).addTo(map);
+      let imageOverlay;
+      let imageBounds = [[62.85, -12.6657929], [48.1726559, 3.94189]];
+
+      const coastlineURL = 'images/country_coastline.svg';
+      const postcodesURL = 'images/country_postcodes.svg';
+      imageBounds = imageBounds;
+      imageOverlay = L.imageOverlay(coastlineURL, imageBounds).addTo(map);
+      L.imageOverlay(postcodesURL, imageBounds).addTo(map);
 
       map.touchZoom.disable();
       map.doubleClickZoom.disable();
       map.scrollWheelZoom.disable();
       map.keyboard.disable();
+      //
+      //map.on('click', (e) => {
+      //  if (e.latlng.lat > 53) {
+      //    imageBounds[0][0] += 0.05;
+      //    if (!window.scale) imageBounds[1][0] += 0.05;
+      //  } else {
+      //    imageBounds[0][0] -= 0.05;
+      //    if (!window.scale) imageBounds[1][0] -= 0.05;
+      //  }
+      //
+      //  if (e.latlng.lng > 0) {
+      //    imageBounds[0][1] += 0.05;
+      //    if (!window.scale) imageBounds[1][1] += 0.05;
+      //  } else {
+      //    imageBounds[0][1] -= 0.05;
+      //    if (!window.scale) imageBounds[1][1] -= 0.05;
+      //  }
+      //  console.log(e.latlng);
+      //  console.log(JSON.stringify(imageBounds));
+      //  window.a(imageBounds);
+      //})
     }
 
-    let svg = d3.select(map.getPanes().overlayPane).append("svg"),
-        g = svg.append("g").attr("class", "leaflet-zoom-hide");
+    const svg = d3.select(map.getPanes().overlayPane).append('svg');
+    const g = svg.append('g').attr('class', 'leaflet-zoom-hide');
 
     function projectPoint(x, y) {
       let point = map.latLngToLayerPoint(new L.LatLng(y, x));
       this.stream.point(point.x, point.y);
     }
 
-    let transform = d3.geo.transform({point: projectPoint}),
-        path = d3.geo.path().projection(transform);
+    const transform = d3.geo.transform({ point: projectPoint });
+    const path = d3.geo.path().projection(transform);
 
-    let feature = g.selectAll("path")
+    function getOpacity(heat, full) {
+      const opacity = (heat / (full ? 50 : options.MAX)).toFixed(3);
+      return opacity;
+    }
+
+    const feature = g.selectAll('path')
       .data(heatmapData.features)
-      .enter().append("path")
-      .style("fill", 'red')
-      .style("fill-opacity", (feature) => {
+      .enter().append('path')
+      .style('fill', 'red')
+      .style('fill-opacity', (feature) => {
         const heat = feature.properties.h;
-        const opacity = (heat / options.MAX).toFixed(3);
-        return opacity;
+        return getOpacity(heat);
       });
 
-    map.on("viewreset", reset);
-    reset();
 
     // Reposition the SVG to cover the features.
     function reset() {
-      let bounds = path.bounds(heatmapData),
-          topLeft = bounds[0],
-          bottomRight = bounds[1];
+      const bounds = path.bounds(heatmapData);
+      const topLeft = bounds[0];
+      const bottomRight = bounds[1];
 
-      svg.attr("width", bottomRight[0] - topLeft[0])
-        .attr("height", bottomRight[1] - topLeft[1])
-        .style("left", topLeft[0] + "px")
-        .style("top", topLeft[1] + "px");
+      svg.attr('width', bottomRight[0] - topLeft[0])
+        .attr('height', bottomRight[1] - topLeft[1])
+        .style('left', `${topLeft[0]}px`)
+        .style('top', `${topLeft[1]}px`);
 
-      g.attr("transform", "translate(" + -topLeft[0] + "," + -topLeft[1] + ")");
+      g.attr('transform', `translate(${-topLeft[0]},${-topLeft[1]})`);
 
-      feature.attr("d", path);
+      feature.attr('d', path);
     }
+
+    map.on('viewreset', reset);
+    reset();
+
+
+    // Add legend
+    var legend = L.control({position: 'bottomright'});
+
+    legend.onAdd = function (map) {
+      var div = L.DomUtil.create('div', 'info legend'),
+          grades = [1, 10, 20, 30, 40, 50],
+          labels = [];
+
+      // loop through our density intervals and generate a label with a colored square for each interval
+      for (var i = 0; i < grades.length; i++) {
+        div.innerHTML += `<i style="background: rgba(255, 0, 0, ${getOpacity(grades[i] + 1, true)}"></i>` +
+          grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
+      }
+      return div;
+    };
+
+    legend.addTo(map);
   },
 });
