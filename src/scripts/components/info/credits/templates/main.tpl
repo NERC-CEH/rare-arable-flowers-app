@@ -32,7 +32,6 @@
       Christian Fischer,
       Emily Swan,
       Forest & Kim Starr,
-      Fornax,
       Julia Kruse,
       K.J. Walker,
       Ian Denholm/BSBI,
@@ -55,7 +54,7 @@
   <li>
     <p>The guide has been produced in collaboration with:</p>
     <p>
-      <a href="http://www.ceh.ac.uk" target="_blank">Centre for Ecology and Hydrology</a><br/>
+      <a href="http://www.ceh.ac.uk" target="_blank">Centre for Ecology & Hydrology</a><br/>
       <a href="http://www.bsbi.org.uk/" target="_blank">Botanical Society of Britain and Ireland</a><br/>
       <a href="http://www.plantlife.org.uk/" target="_blank">Plantlife</a><br/>
       <a href="http://www.brc.ac.uk" target="_blank">Biological Records Centre</a><br/>
