@@ -2,6 +2,7 @@
  * Home main view.
  *****************************************************************************/
 import Marionette from 'marionette';
+import _ from 'lodash';
 import JST from '../../../JST';
 
 
@@ -34,11 +35,18 @@ const SpeciesView = Marionette.ItemView.extend({
 });
 
 
+const NoSpeciesView = Marionette.ItemView.extend({
+  tagName: 'li',
+  className: 'table-view-cell empty',
+  template: _.template('<p>No species with selected filters.</p>'),
+});
+
 export default Marionette.CollectionView.extend({
   id: 'species-list',
   tagName: 'ul',
   className: 'table-view no-top',
   childView: SpeciesView,
+  emptyView: NoSpeciesView,
 
   initialize() {
     this.listenTo(this.options.appModel, 'change:filter', this.render);
