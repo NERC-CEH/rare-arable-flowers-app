@@ -19,7 +19,7 @@
       still have a seed bank of rare plants.</p>
   </li>
   <li>
-    <h3 style="white-space:normal">Arable plant richness based on 120 rare
+    <h3 style="white-space:normal; text-align: center; padding-bottom: 10px">Arable plant richness based on 120 rare
       and/or declining species</h3>
     <div id="heat-map"></div>
   </li>

@@ -69,10 +69,6 @@ export default Marionette.ItemView.extend({
       imageOverlay = L.imageOverlay(coastlineURL, imageBounds).addTo(map);
       L.imageOverlay(postcodesURL, imageBounds).addTo(map);
 
-      map.touchZoom.disable();
-      map.doubleClickZoom.disable();
-      map.scrollWheelZoom.disable();
-      map.keyboard.disable();
       //
       //map.on('click', (e) => {
       //  if (e.latlng.lat > 53) {
@@ -152,7 +148,7 @@ export default Marionette.ItemView.extend({
 
       // loop through our density intervals and generate a label with a colored square for each interval
       for (var i = 0; i < grades.length; i++) {
-        div.innerHTML += `<i style="background: rgba(255, 0, 0, ${getOpacity(grades[i] + 1, true)}"></i>` +
+        div.innerHTML += `<i style="background: rgba(255, 0, 0, ${getOpacity(grades[i] + 1, true)})"></i>` +
           grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
       }
       return div;
