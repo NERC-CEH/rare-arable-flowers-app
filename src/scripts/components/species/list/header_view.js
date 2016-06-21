@@ -2,6 +2,7 @@
  * Record List header view.
  *****************************************************************************/
 import _ from 'lodash';
+import Morel from 'morel';
 import Marionette from 'marionette';
 import JST from '../../../JST';
 
@@ -33,7 +34,10 @@ export default Marionette.ItemView.extend({
   },
 
   serializeData() {
+    const that = this;
+    const recordsCollection = this.options.recordsCollection;
     let filterOn = false;
+    let userOn = false;
 
     const filters = this.model.get('filters');
     _.forOwn(filters, (filterGroup) => {
@@ -41,7 +45,14 @@ export default Marionette.ItemView.extend({
         filterOn = true;
       }
     });
-    return { filterOn };
+
+    recordsCollection.each((record) => {
+      if (record.getSyncStatus() !== Morel.SERVER && record.metadata.saved) {
+        userOn = true;
+      }
+    });
+
+    return { filterOn, userOn };
   },
 });
 

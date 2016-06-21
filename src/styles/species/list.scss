@@ -96,6 +96,12 @@
   }
 }
 
+#user-btn {
+  &.on {
+    color: $color-yellow;
+  }
+}
+
 #filters-dialog-header .stats {
   position: absolute;
   top: 16px;
