@@ -1,5 +1,22 @@
+#species-list-header {
+  @media only screen and (max-width: 375px) {
+   h1.title {
+     display: none;
+   }
+  }
+}
 #species-list {
   margin: 0 -4px;
+
+  li.empty {
+    height: initial!important;
+    min-height: initial!important;
+    padding: 13px 0;
+    border: none;
+    margin: 0;
+    list-style: none;
+    text-align: center;
+  }
 }
 
 #species-list .table-view-cell {
@@ -84,4 +101,8 @@
   top: 16px;
   right: 13px;
   color: gray;
+}
+
+#species-list-filters {
+  margin-bottom: 0;
 }
