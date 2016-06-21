@@ -64,4 +64,10 @@
       Record Species
     </a>
   </li>
+  <li class="table-view-cell">
+    <a href="https://en.wikipedia.org/wiki/Glossary_of_botanical_terms" target="_blank" class="navigate-right btn-small">
+      <span class="media-object pull-left icon icon-info"></span>
+      Terms Glossary
+    </a>
+  </li>
 </ul>
