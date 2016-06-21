@@ -4,7 +4,7 @@
   "dependencies": {
     "jquery": "latest",
     "ratchet": "twbs/ratchet#2.0.2",
-    "backbone": "1.2",
+    "backbone": "1.1.2",
     "lodash": "3.6.0",
     "marionette": "2.4.3",
     "backbone.localStorage": "jeromegn/Backbone.localStorage#1.1.16",
