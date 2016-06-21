@@ -5,7 +5,6 @@ import Marionette from 'marionette';
 import App from '../../app';
 import Log from '../../helpers/log';
 import Device from '../../helpers/device';
-
 import ListController from './list/controller';
 import AccountController from './account/controller';
 
@@ -18,20 +17,21 @@ const Router = Marionette.AppRouter.extend({
     'species(/)': {
       route: ListController.show,
       after() {
-        if (Device.isIOS()) {
-          // iOS scroll glitch fixs
-          setTimeout(() => {
-            scrollTo(0, scroll);
-          }, 1);
-        } else {
-          scrollTo(0, scroll);
-        }
+        App.regions.main.el.scrollTop = scroll;
       },
       leave() {
-        scroll = scrollY;
+        scroll = App.regions.main.el.scrollTop;
       },
     },
-    'species/:id': AccountController.show,
+    'species/:id': {
+      route: AccountController.show,
+      after() {
+        // iOS webkit touch scroll stop fix
+        setTimeout(() => {
+          App.regions.main.el.scrollTop = 0;
+        }, 1);
+      },
+    },
     'species/*path'() {App.trigger('404:show');},
   },
 
