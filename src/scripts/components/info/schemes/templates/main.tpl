@@ -93,8 +93,8 @@
         More robust arable flowers, such as
         <a href="#species/26">cornflower</a>,
         <a href="#species/100">shepherds-needle</a>
-        and <a href="#species/94">corn buttercup</a>
-        , thrive within modern cereal crop headlands <b>provided</b> there is no
+        and <a href="#species/94">corn buttercup</a>,
+        thrive within modern cereal crop headlands <b>provided</b> there is no
         fertiliser applied and there is restricted use of herbicides (scheme
         rules will apply). These areas also provide good nesting and foraging
         habitat for farmland birds and pollinators.  When left unharvested, the
@@ -125,7 +125,7 @@
             Scotland
           </a>
           <div id="headlands-Scotland" class="collapse">
-            <strong>Agri-environment Climatic Scheme</strong>
+            <strong>Agri-environment Climate Scheme</strong>
             <p>Unharvested conservation headlands for wildlife</p>
             <strong>Rural Stewardship Scheme</strong>
             <p><b>Option 22</b> - Management Conservation Headlands</p>
@@ -188,7 +188,7 @@
             Scotland
           </a>
           <div id="mixtures-Scotland" class="collapse">
-            <strong>Agri-environment Climatic Scheme</strong>
+            <strong>Agri-environment Climate Scheme</strong>
             <p>Wild Bird Seed for Farmland Birds</p>
             <strong>Rural Stewardship Scheme</strong>
             <p><b>Option 9</b> - Wild Bird Seed Mix/Unharvested Crop</p>
@@ -223,7 +223,7 @@
         species like 
         <a href="#species/26">cornflower</a>,
         <a href="#species/61">corn marigold</a>,
-        <a href="#species/83">weasel’s-snout</a> and <a href="#species/71"> venus’s-looking-glass.</a>.
+        <a href="#species/83">weasel’s-snout</a> and <a href="#species/71"> venus’s-looking-glass</a>.
         Below is a summary of some of the
         options under agri-environment schemes to provide this habitat:
       </p>
@@ -260,7 +260,7 @@
             Scotland
           </a>
           <div id="Whole-Scotland" class="collapse">
-            <strong>Agri-environment Climatic Scheme</strong>
+            <strong>Agri-environment Climate Scheme</strong>
             <p>Forage brassica crops for farmland birds </p>
             <p>Cropped machair</p>
             <strong>Rural Stewardship Scheme</strong>
@@ -312,7 +312,7 @@
       Wales
     </a>
     <p id="Scotland" class="collapse">
-      <a href="https://www.ruralpayments.org/publicsite/futures/topics/all-schemes/agri-environment-climate-scheme/" target="_blank">Agri-environment Climatic Scheme</a></br>
+      <a href="https://www.ruralpayments.org/publicsite/futures/topics/all-schemes/agri-environment-climate-scheme/" target="_blank">Agri-environment Climate Scheme</a></br>
       <a href="http://www.gov.scot/Topics/farmingrural/Agriculture/Environment/Agrienvironment/RuralSteward/RSSintro" target="_blank">Rural Stewardship Scheme</a> (closed to new applicants)
     </p>
   </li>

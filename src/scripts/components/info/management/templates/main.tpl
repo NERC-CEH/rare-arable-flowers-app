@@ -12,25 +12,25 @@
     </ul>
   </li>
   <li>
+    <p><strong>Cultivation</strong> – many rare arable plants have long-lived
+      seed banks buried in the soil. Inversion tillage (ploughing) is a good
+      way of bringing this seed to the surface and rejuvenating the population.
+      Once the plants have set seed, ploughing then helps to replenish the seed
+      bank through the soil profile and bury problem weeds. However, some species,
+      such as
+      <a href="#species/109">spreading hedge-parsley</a>,
+      have short-lived seeds, and, thus prefer reduced tillage. From a practical conservation
+      perspective it is therefore best to vary the depth and timing of tillage
+      to provide benefits to the maximum number of species. However, it is
+      always good to include ploughing into the
+      cultivation plan, at least every third or fourth year.</p>
+  </li>
+  <li>
     <p><strong>Seed beds</strong> – good quality seed beds are important for
       establishing rare arable plants. They have small seeds and therefore
       require a weed-free seed bed with a firm, fine tilth to maximise their
       chances of survival. As for a crop, rolling the seed bed is important to
       ensure adequate contact with moisture and improved germination.</p>
-  </li>
-  <li>
-    <p><strong>Cultivation</strong> – many rare arable plants have long-lived
-      seed banks buried in the soil. Inversion tillage (ploughing) is a good
-      way of bringing this seed to the surface and rejuvenating the population.
-      Once the plants have set seed, ploughing then helps to replenish the seed
-      bank through the soil profile and bury problem weeds. However, some
-      species have short-lived seeds, such as
-      <a href="#species/109">spreading hedge-parsley</a>,
-       and prefer reduced tillage. From a practical conservation
-      perspective it is therefore best to vary the depth and timing of tillage
-      to provide benefits to the maximum number of species. However, it is
-      always good to include ploughing into the
-      cultivation plan, at least every third or fourth year.</p>
   </li>
   <li>
     <p><strong>Season</strong> – like crops, rare arable plants establish
