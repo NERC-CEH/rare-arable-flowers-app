@@ -39,16 +39,8 @@ export default Marionette.ItemView.extend({
     const specie = occ.get('taxon');
 
     // taxon
-    const scientificName = specie.scientific_name;
-    let commonName = specie[specie.found_in_name];
-    if (specie.found_in_name === 'scientific_name') {
-      // show recommended name
-      if (specie.commonName) {
-        commonName = specie.commonName;
-      } else {
-        commonName = '';
-      }
-    }
+    const scientificName = specie.taxon;
+    const commonName = `${specie.common_name} ${specie.common_name_significant}`;
 
     const syncStatus = recordModel.getSyncStatus();
 
@@ -61,7 +53,7 @@ export default Marionette.ItemView.extend({
       id: occ.cid,
       isSynchronising: syncStatus === Morel.SYNCHRONISING,
       onDatabase: syncStatus === Morel.SYNCED,
-      scientific_name: scientificName,
+      scientificName,
       commonName,
       location: locationPrint,
       location_name: location.name,
