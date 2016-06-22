@@ -21,6 +21,14 @@ export default Marionette.ItemView.extend({
     'change:filter': 'render',
   },
 
+  initialize() {
+    const that = this;
+    this.listenTo(this.options.recordsCollection, 'sync', () => {
+      console.log('SYNCED');
+      that.render();
+    });
+  },
+
   toggleFilters(e) {
     this.trigger('filter', e);
   },
@@ -47,7 +55,7 @@ export default Marionette.ItemView.extend({
     });
 
     recordsCollection.each((record) => {
-      if (record.getSyncStatus() !== Morel.SERVER && record.metadata.saved) {
+      if (record.getSyncStatus() !== Morel.SYNCED && record.metadata.saved) {
         userOn = true;
       }
     });

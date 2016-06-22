@@ -321,6 +321,11 @@ li h3 {
 .warning-message p {
   margin: 13px 22px 13px 0;
   color: $color-white;
+
+  a {
+    color: $color-white;
+    font-weight: bold;
+  }
 }
 
 .info-message {

@@ -17,7 +17,8 @@ const Router = Marionette.AppRouter.extend({
     'species(/)': {
       route: ListController.show,
       after() {
-        App.regions.main.el.scrollTop = scroll;
+        const el = App.regions.main.el;
+        if (typeof el !== 'string') el.scrollTop = scroll;
       },
       leave() {
         scroll = App.regions.main.el.scrollTop;
@@ -28,7 +29,8 @@ const Router = Marionette.AppRouter.extend({
       after() {
         // iOS webkit touch scroll stop fix
         setTimeout(() => {
-          App.regions.main.el.scrollTop = 0;
+          const el = App.regions.main.el;
+          if (typeof el !== 'string') el.scrollTop = 0;
         }, 1);
       },
     },
