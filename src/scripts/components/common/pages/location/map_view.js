@@ -7,6 +7,7 @@ import L from '../../../../../vendor/leaflet/js/leaflet';
 import OSLeaflet from '../../../../../vendor/os-leaflet/js/OSOpenSpace';
 import JST from '../../../../JST';
 import LocHelp from '../../../../helpers/location';
+import Device from '../../../../helpers/device';
 import CONFIG from 'config'; // Replaced with alias
 
 export default Marionette.ItemView.extend({
@@ -25,14 +26,14 @@ export default Marionette.ItemView.extend({
 
     const currentLocation = this.model.get('recordModel').get('location') || {};
     let mapZoomCoords = [53.7326306, -2.6546124];
-
-    /**
-     * 1 gridref digits. (10000m)  -> < 3 map zoom lvl
-     * 2 gridref digits. (1000m)   -> 5
-     * 3 gridref digits. (100m)    -> 7
-     * 4 gridref digits. (10m)     -> 9
-     * 5 gridref digits. (1m)      ->
-     */
+    //
+    ///**
+    // * 1 gridref digits. (10000m)  -> < 3 map zoom lvl
+    // * 2 gridref digits. (1000m)   -> 5
+    // * 3 gridref digits. (100m)    -> 7
+    // * 4 gridref digits. (10m)     -> 9
+    // * 5 gridref digits. (1m)      ->
+    // */
     let mapZoomLevel = 1;
 
     let markerCoords = [];
@@ -76,27 +77,32 @@ export default Marionette.ItemView.extend({
       markerCoords = mapZoomCoords;
     }
 
-    const mapHeight = $(document).height() - 47 - (44 + 38.5);
 
+    const mapHeight = $(document).height() - 47 - (44 + 38.5);
     const container = this.$el.find('#map')[0];
     $(container).height(mapHeight);
 
-    let openspaceLayer;
+    const OS_CRS = L.OSOpenSpace.getCRS(); // OS maps use diff projection
+    const map = L.map(container, {
+      crs: OS_CRS,
+    }).setView(mapZoomCoords, mapZoomLevel);
 
-    /* L.Map with OS options */
-    const map = new L.Map(container, {
-      crs: L.OSOpenSpace.getCRS(),
-      continuousWorld: false,
-      worldCopyJump: false,
-      minZoom: 0,
-      maxZoom: L.OSOpenSpace.RESOLUTIONS.length - 1,
+    // Layers
+    const satelliteLayer = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+      attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+      id: 'cehapps.0femh3mh',
+      accessToken: 'pk.eyJ1IjoiY2VoYXBwcyIsImEiOiJjaXBxdTZyOWYwMDZoaWVuYjI3Y3Z0a2x5In0.YXrZA_DgWCdjyE0vnTCrmw'
     });
 
-    /* New L.TileLayer.OSOpenSpace with API Key */
-    const API_KEY = CONFIG.map.API_KEY;
-    openspaceLayer = L.tileLayer.OSOpenSpace(API_KEY);
+    const osmLayer = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+      attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+      id: 'cehapps.0fenl1fe',
+      accessToken: 'pk.eyJ1IjoiY2VoYXBwcyIsImEiOiJjaXBxdTZyOWYwMDZoaWVuYjI3Y3Z0a2x5In0.YXrZA_DgWCdjyE0vnTCrmw'
+    });
 
+    const openspaceLayer = L.tileLayer.OSOpenSpace(CONFIG.map.API_KEY);
     openspaceLayer.on('tileerror', (tile) => {
+
       let index = 0;
       const result = tile.tile.src.match(/missingTileString=(\d+)/i);
       if (result) {
@@ -114,21 +120,50 @@ export default Marionette.ItemView.extend({
       }
     });
 
-    map.addLayer(openspaceLayer);
-    map.setView(mapZoomCoords, mapZoomLevel);
+    // default layer
+    openspaceLayer.addTo(map);
 
-    /* add some ui elems to the map */
-    L.control.scale().addTo(map);
+    // update coordinate system on layer change
+    let currentLayer = 'OS';
+    function updateCoordSystem(e) {
+      console.log('updating crs');
+      var center = map.getCenter();
+      let zoom = map.getZoom();
+      map.options.crs = e.name === 'OS' ? OS_CRS : L.CRS.EPSG3857;
+      if (e.name === 'OS') {
+        zoom -= 6;
+        if (zoom > L.OSOpenSpace.RESOLUTIONS.length - 1) {
+          zoom = L.OSOpenSpace.RESOLUTIONS.length - 1;
+        }
+      } else  if (currentLayer === 'OS') {
+        zoom += 6;
+      }
+      map.setView(center, zoom, { reset: true });
+      currentLayer = e.name;
+    }
+    map.on('baselayerchange', updateCoordSystem);
 
+    map.on('zoomstart', (e) => {
+      const zoom = map.getZoom();
+      if (zoom > 4 && currentLayer === 'OS') {
+        map.removeLayer(openspaceLayer);
+        map.addLayer(satelliteLayer);
+      }
+    });
+
+    // Controls
+    let controls = new L.Control.Layers( {
+      OS: openspaceLayer,
+      OSM: osmLayer,
+      Satellite: satelliteLayer
+    }, {});
+
+    map.addControl(controls);
+
+    // Marker
     /* add some event callbacks */
     const myIcon = L.divIcon({ className: 'icon icon-plus map-marker' });
     const marker = L.marker(markerCoords, { icon: myIcon });
-
-    // let area = L.circle(markerCoords, areaRadius, {
-    //  color: 'red',
-    //  fillColor: '#f03',
-    //  fillOpacity: 0.5
-    // });
 
     let markerAdded = false;
     if (markerCoords.length) {
@@ -144,11 +179,19 @@ export default Marionette.ItemView.extend({
         markerAdded = true;
       }
 
+      let zoom = map.getZoom();
+      if (currentLayer !== 'OS') {
+        zoom -= 6;
+
+        if (zoom > L.OSOpenSpace.RESOLUTIONS.length - 1) {
+          zoom = L.OSOpenSpace.RESOLUTIONS.length - 1;
+        }
+      }
       const location = {
         latitude: parseFloat(e.latlng.lat.toFixed(7)),
         longitude: parseFloat(e.latlng.lng.toFixed(7)),
         source: 'map',
-        accuracy: map.getZoom(),
+        accuracy: zoom,
       };
 
       location.gridref = LocHelp.coord2grid(location, location.accuracy);

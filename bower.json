@@ -93,7 +93,8 @@
     },
     "leaflet": {
       "js": ["dist/leaflet.js"],
-      "css": ["dist/leaflet.css"]
+      "css": ["dist/leaflet.css"],
+      "images": ["dist/images/layers-2x.png", "dist/images/layers.png"]
     },
     "proj4Leaflet": {
       "js": ["src/proj4leaflet.js"]
