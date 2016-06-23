@@ -30,23 +30,15 @@ export default Marionette.ItemView.extend({
 
   drawHeatMap($heatMap) {
     const mapZoomCoords = [53.7326306, -3.6546124];
-    const mapZoomLevel = 0;
+    const mapZoomLevel = 6;
 
     const h = 400;
 
     const container = $heatMap[0];
     $(container).height(h);
 
-    let openspaceLayer;
-
     /* L.Map with OS options */
-    const map = new L.Map(container, {
-      crs: L.OSOpenSpace.getCRS(),
-      continuousWorld: false,
-      worldCopyJump: false,
-      minZoom: 0,
-      maxZoom: L.OSOpenSpace.RESOLUTIONS.length - 1,
-    });
+    const map = new L.Map(container);
 
     map.setView(mapZoomCoords, mapZoomLevel);
 
@@ -54,18 +46,20 @@ export default Marionette.ItemView.extend({
     L.control.scale().addTo(map);
 
     if (Device.isOnline()) {
-      /* New L.TileLayer.OSOpenSpace with API Key */
-      const API_KEY = CONFIG.map.API_KEY;
-      openspaceLayer = L.tileLayer.OSOpenSpace(API_KEY);
+      const layer = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+        attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+        id: CONFIG.map.mapbox_satellite_id,
+        accessToken: CONFIG.map.mapbox_api_key,
+        tileSize: 256, // specify as, OS layer overwites this with 200 otherwise
+      });
 
-      map.addLayer(openspaceLayer);
+      map.addLayer(layer);
     } else {
       let imageOverlay;
       let imageBounds = [[62.85, -12.6657929], [48.1726559, 3.94189]];
 
       const coastlineURL = 'images/country_coastline.svg';
       const postcodesURL = 'images/country_postcodes.svg';
-      imageBounds = imageBounds;
       imageOverlay = L.imageOverlay(coastlineURL, imageBounds).addTo(map);
       L.imageOverlay(postcodesURL, imageBounds).addTo(map);
 
