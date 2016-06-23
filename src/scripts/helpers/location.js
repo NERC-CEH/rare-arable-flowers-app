@@ -81,7 +81,7 @@ export default {
       accuracy = 2;
     }
     accuracy = 5000 / Math.pow(10, accuracy / 2); // meters
-    return accuracy;
+    return accuracy < 1 ? 1 : accuracy;
   },
 };
 

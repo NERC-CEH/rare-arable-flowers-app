@@ -37,12 +37,11 @@ export default Marionette.ItemView.extend({
 
   onShow() {
     // set full remaining height
-    const mapHeight = $(document).height() - 47 - (44 + 38.5);
+    const mapHeight = $(document).height() - 47 - 38.5;
     const $container = this.$el.find('#map')[0];
     $($container).height(mapHeight);
 
     this.initMap($container);
-    // todo: append name input
   },
 
   initMap($container) {
@@ -249,7 +248,7 @@ export default Marionette.ItemView.extend({
   },
 
   onMapClick(e) {
-    this.marker.setLatLng(e.latlng);
+    this.marker.setLatLng(e.latlng).update();
     if (!this.markerAdded) {
       this.marker.addTo(this.map);
       this.markerAdded = true;

@@ -1,3 +1,16 @@
+#map-location-name {
+  position: absolute;
+  z-index: 1;
+  width: 100%;
+  padding: 0 2%;
+  margin-left: -2%;
+  background-color: rgba(255, 255, 255, 0.9);
+
+  input {
+    background: transparent;
+  }
+}
+
 #map-container {
   //container is onlyneeded to
   //make it full width
@@ -7,6 +20,14 @@
   #map {
     height: 76vh;
     width: 100%;
+
+    .leaflet-control-container .leaflet-top {
+      top: 50px;
+    }
+
+    .leaflet-control-layers label {
+      margin: 10px 5px;
+    }
   }
 }
 
@@ -83,7 +104,6 @@ input#grid-ref:-ms-input-placeholder { /* Internet Explorer 10+ */
   #location-header {
     h1 {
       font-size: 13.5px;
-      margin-left: -30px;
     }
     h3 {
       margin-left: -30px;
