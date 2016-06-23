@@ -204,7 +204,7 @@ export default Marionette.ItemView.extend({
     if (currentLocation.latitude && currentLocation.longitude) {
       return [currentLocation.latitude, currentLocation.longitude];
     }
-    return null;
+    return [];
   },
 
   onMapZoom() {
