@@ -3,12 +3,16 @@
  *****************************************************************************/
 import $ from 'jquery';
 import Marionette from 'marionette';
-import L from '../../../../../vendor/leaflet/js/leaflet';
+import L from 'leaflet';
 import OSLeaflet from '../../../../../vendor/os-leaflet/js/OSOpenSpace';
 import JST from '../../../../JST';
 import LocHelp from '../../../../helpers/location';
-import Device from '../../../../helpers/device';
 import CONFIG from 'config'; // Replaced with alias
+
+const DEFAULT_LAYER = 'OS';
+const DEFAULT_ZOOM = [53.7326306, -2.6546124];
+const MAX_OS_ZOOM = L.OSOpenSpace.RESOLUTIONS.length - 1;
+const OS_CRS = L.OSOpenSpace.getCRS(); // OS maps use different projection
 
 export default Marionette.ItemView.extend({
   template: JST['common/location/map'],
@@ -21,88 +25,61 @@ export default Marionette.ItemView.extend({
     this.triggerMethod('location:name:change', $(e.target).val());
   },
 
+  initialize() {
+    this.map = null;
+    this.layers = this._getLayers();
+
+    this.currentLayerControlSelected = false;
+    this.currentLayer = DEFAULT_LAYER;
+    this.markerAdded = false;
+  },
+
   onShow() {
-    const that = this;
-
-    const currentLocation = this.model.get('recordModel').get('location') || {};
-    let mapZoomCoords = [53.7326306, -2.6546124];
-    //
-    ///**
-    // * 1 gridref digits. (10000m)  -> < 3 map zoom lvl
-    // * 2 gridref digits. (1000m)   -> 5
-    // * 3 gridref digits. (100m)    -> 7
-    // * 4 gridref digits. (10m)     -> 9
-    // * 5 gridref digits. (1m)      ->
-    // */
-    let mapZoomLevel = 1;
-
-    let markerCoords = [];
-
-    // check if record has location
-    if (currentLocation.latitude && currentLocation.longitude) {
-      mapZoomCoords = [currentLocation.latitude, currentLocation.longitude];
-
-      // transform location accuracy to map zoom level
-      switch (currentLocation.source) {
-        case 'map':
-          mapZoomLevel = currentLocation.accuracy + 1 || 1;
-          // no need to show area as it would be smaller than the marker
-          break;
-        case 'gps':
-          if (currentLocation.accuracy) {
-            const digits = Math.log(currentLocation.accuracy) / Math.LN10;
-            mapZoomLevel = digits ? 11 - digits * 2 : 10; // max zoom 10 (digits == 0)
-            mapZoomLevel = Number((mapZoomLevel).toFixed(0)); // round the float
-          } else {
-            mapZoomLevel = 1;
-          }
-          break;
-        case 'gridref':
-          // todo area
-          mapZoomLevel = currentLocation.accuracy + 1;
-          //
-          // // define rectangle geographical bounds
-          // var bounds = [[54.559322, -5.767822], [56.1210604, -3.021240]];
-          //
-          // // create an orange rectangle
-          // L.rectangle(bounds, {color: "#ff7800", weight: 1})
-          break;
-        default:
-          mapZoomLevel = L.OSOpenSpace.RESOLUTIONS.length - 3;
-      }
-
-      if (mapZoomLevel > 10) {
-        mapZoomLevel = 10;
-      }
-      markerCoords = mapZoomCoords;
-    }
-
-
+    // set full remaining height
     const mapHeight = $(document).height() - 47 - (44 + 38.5);
     const container = this.$el.find('#map')[0];
     $(container).height(mapHeight);
 
-    const OS_CRS = L.OSOpenSpace.getCRS(); // OS maps use diff projection
-    const map = L.map(container, {
-      crs: OS_CRS,
-    }).setView(mapZoomCoords, mapZoomLevel);
+    this.initMap(container);
+    // todo: append name input
+  },
 
-    // Layers
-    const satelliteLayer = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+  initMap(container) {
+    // Map
+    this.map = L.map(container).setView(DEFAULT_ZOOM, this._getZoomLevel());
+
+    // default layer
+    if (this.currentLayer === 'OS') this.map.options.crs = OS_CRS;
+    this.layers[this.currentLayer].addTo(this.map);
+
+    this.map.on('baselayerchange', this._updateCoordSystem, this);
+    this.map.on('zoomend', this.onMapZoom, this);
+
+    // Controls
+    this.addControls();
+
+    // Marker
+    this.addMapMarker();
+  },
+
+  _getLayers() {
+    const layers = {};
+    layers.Satellite = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
       attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
-      id: 'cehapps.0femh3mh',
-      accessToken: 'pk.eyJ1IjoiY2VoYXBwcyIsImEiOiJjaXBxdTZyOWYwMDZoaWVuYjI3Y3Z0a2x5In0.YXrZA_DgWCdjyE0vnTCrmw'
+      id: CONFIG.map.mapbox_satellite_id,
+      accessToken: CONFIG.map.mapbox_api_key,
+      tileSize: 256, // specify as, OS layer overwites this with 200 otherwise
     });
 
-    const osmLayer = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+    layers.OSM = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
       attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
-      id: 'cehapps.0fenl1fe',
-      accessToken: 'pk.eyJ1IjoiY2VoYXBwcyIsImEiOiJjaXBxdTZyOWYwMDZoaWVuYjI3Y3Z0a2x5In0.YXrZA_DgWCdjyE0vnTCrmw'
+      id: CONFIG.map.mapbox_osm_id,
+      accessToken: CONFIG.map.mapbox_api_key,
+      tileSize: 256, // specify as, OS layer overwites this with 200 otherwise
     });
 
-    const openspaceLayer = L.tileLayer.OSOpenSpace(CONFIG.map.API_KEY);
-    openspaceLayer.on('tileerror', (tile) => {
-
+    layers.OS = L.tileLayer.OSOpenSpace(CONFIG.map.os_api_key);
+    layers.OS.on('tileerror', tile => {
       let index = 0;
       const result = tile.tile.src.match(/missingTileString=(\d+)/i);
       if (result) {
@@ -119,88 +96,152 @@ export default Marionette.ItemView.extend({
         }
       }
     });
+    return layers;
+  },
 
-    // default layer
-    openspaceLayer.addTo(map);
-
-    // update coordinate system on layer change
-    let currentLayer = 'OS';
-    function updateCoordSystem(e) {
-      console.log('updating crs');
-      var center = map.getCenter();
-      let zoom = map.getZoom();
-      map.options.crs = e.name === 'OS' ? OS_CRS : L.CRS.EPSG3857;
-      if (e.name === 'OS') {
-        zoom -= 6;
-        if (zoom > L.OSOpenSpace.RESOLUTIONS.length - 1) {
-          zoom = L.OSOpenSpace.RESOLUTIONS.length - 1;
-        }
-      } else  if (currentLayer === 'OS') {
-        zoom += 6;
-      }
-      map.setView(center, zoom, { reset: true });
-      currentLayer = e.name;
-    }
-    map.on('baselayerchange', updateCoordSystem);
-
-    map.on('zoomstart', (e) => {
-      const zoom = map.getZoom();
-      if (zoom > 4 && currentLayer === 'OS') {
-        map.removeLayer(openspaceLayer);
-        map.addLayer(satelliteLayer);
-      }
-    });
-
-    // Controls
-    let controls = new L.Control.Layers( {
-      OS: openspaceLayer,
-      OSM: osmLayer,
-      Satellite: satelliteLayer
+  addControls() {
+    const controls = L.control.layers({
+      OS: this.layers.OS,
+      OSM: this.layers.OSM,
+      Satellite: this.layers.Satellite,
     }, {});
+    this.map.addControl(controls);
+  },
 
-    map.addControl(controls);
+  /**
+   * 1 gridref digits. (10000m)  -> < 3 map zoom lvl
+   * 2 gridref digits. (1000m)   -> 5
+   * 3 gridref digits. (100m)    -> 7
+   * 4 gridref digits. (10m)     -> 9
+   * 5 gridref digits. (1m)      ->
+   */
+  _getZoomLevel() {
+    const currentLocation = this.model.get('recordModel').get('location') || {};
+    let mapZoomLevel = 1;
+    // check if record has location
+    if (currentLocation.latitude && currentLocation.longitude) {
+      // transform location accuracy to map zoom level
+      switch (currentLocation.source) {
+        case 'map':
+          mapZoomLevel = currentLocation.accuracy + 1 || 1;
+          // no need to show area as it would be smaller than the marker
+          break;
+        case 'gps':
+          if (currentLocation.accuracy) {
+            const digits = Math.log(currentLocation.accuracy) / Math.LN10;
+            mapZoomLevel = digits ? 11 - digits * 2 : 10; // max zoom 10 (digits == 0)
+            mapZoomLevel = Number((mapZoomLevel).toFixed(0)); // round the float
+          } else {
+            mapZoomLevel = 1;
+          }
+          break;
+        case 'gridref':
+          mapZoomLevel = currentLocation.accuracy + 1;
+          break;
+        default:
+          mapZoomLevel = MAX_OS_ZOOM - 2;
+      }
 
-    // Marker
+      if (mapZoomLevel > 7) {
+        mapZoomLevel = 7;
+      }
+    }
+    return mapZoomLevel;
+  },
+
+  _updateCoordSystem(e) {
+    const center = this.map.getCenter();
+    let zoom = this.map.getZoom();
+    this.map.options.crs = e.name === 'OS' ? OS_CRS : L.CRS.EPSG3857;
+    if (e.name === 'OS') {
+      zoom -= 6;
+      if (zoom > MAX_OS_ZOOM - 1) {
+        zoom = MAX_OS_ZOOM - 1;
+      }
+    } else if (this.currentLayer === 'OS') {
+      zoom += 6;
+    }
+    this.currentLayer = e.name;
+    this.map.setView(center, zoom, { reset: true });
+  },
+
+  _getMarkerCoords() {
+    const currentLocation = this.model.get('recordModel').get('location') || {};
+
+    if (currentLocation.latitude && currentLocation.longitude) {
+      return [currentLocation.latitude, currentLocation.longitude];
+    }
+    return null;
+  },
+
+  onMapZoom() {
+    const zoom = this.map.getZoom();
+
+    // -2 and not -1 because we ignore the last OS zoom level
+    if (zoom > MAX_OS_ZOOM - 1 && this.currentLayer === 'OS') {
+      this.map.removeLayer(this.layers.OS);
+      this.map.addLayer(this.layers.Satellite);
+    } else if ((zoom - 6) <= MAX_OS_ZOOM - 1 && this.currentLayer === 'Satellite') {
+      // only change base layer if user is on OS and did not specificly
+      // select OSM/Satellite
+      if (!this.currentLayerControlSelected) {
+        this.map.removeLayer(this.layers.Satellite);
+        this.map.addLayer(this.layers.OS);
+        this.currentLayerControlSelected = false;
+      }
+    }
+  },
+
+  addMapMarker() {
+    const markerCoords = this._getMarkerCoords();
+
     /* add some event callbacks */
     const myIcon = L.divIcon({ className: 'icon icon-plus map-marker' });
-    const marker = L.marker(markerCoords, { icon: myIcon });
+    this.marker = L.marker(markerCoords, { icon: myIcon });
 
-    let markerAdded = false;
     if (markerCoords.length) {
-      marker.addTo(map);
+      this.marker.addTo(this.map);
       // area.addTo(map);
-      markerAdded = true;
+      this.markerAdded = true;
     }
 
-    function onMapClick(e) {
-      marker.setLatLng(e.latlng);
-      if (!markerAdded) {
-        marker.addTo(map);
-        markerAdded = true;
-      }
+    this.map.on('click', this.onMapClick, this);
 
-      let zoom = map.getZoom();
-      if (currentLayer !== 'OS') {
-        zoom -= 6;
+    // todo area
+    //
+    // // define rectangle geographical bounds
+    // var bounds = [[54.559322, -5.767822], [56.1210604, -3.021240]];
+    //
+    // // create an orange rectangle
+    // L.rectangle(bounds, {color: "#ff7800", weight: 1})
+  },
 
-        if (zoom > L.OSOpenSpace.RESOLUTIONS.length - 1) {
-          zoom = L.OSOpenSpace.RESOLUTIONS.length - 1;
-        }
-      }
-      const location = {
-        latitude: parseFloat(e.latlng.lat.toFixed(7)),
-        longitude: parseFloat(e.latlng.lng.toFixed(7)),
-        source: 'map',
-        accuracy: zoom,
-      };
-
-      location.gridref = LocHelp.coord2grid(location, location.accuracy);
-
-      // trigger won't work to bubble up
-      that.triggerMethod('location:select:map', location);
+  onMapClick(e) {
+    this.marker.setLatLng(e.latlng);
+    if (!this.markerAdded) {
+      this.marker.addTo(this.map);
+      this.markerAdded = true;
     }
 
-    map.on('click', onMapClick);
+    let zoom = this.map.getZoom();
+    if (this.currentLayer !== 'OS') {
+      zoom -= 6;
+
+      if (zoom > MAX_OS_ZOOM) {
+        zoom = MAX_OS_ZOOM;
+      }
+    }
+    const location = {
+      latitude: parseFloat(e.latlng.lat.toFixed(7)),
+      longitude: parseFloat(e.latlng.lng.toFixed(7)),
+      source: 'map',
+      accuracy: zoom,
+    };
+
+    location.gridref = LocHelp.coord2grid(location, location.accuracy);
+
+    // trigger won't work to bubble up
+    this.triggerMethod('location:select:map', location);
   },
 
   serializeData() {

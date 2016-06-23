@@ -92,7 +92,7 @@
       "js": "jquery.touchSwipe.min.js"
     },
     "leaflet": {
-      "js": ["dist/leaflet.js"],
+      "js": ["dist/leaflet-src.js", "dist/leaflet.js"],
       "css": ["dist/leaflet.css"],
       "images": ["dist/images/layers-2x.png", "dist/images/layers.png"]
     },
