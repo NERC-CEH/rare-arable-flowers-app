@@ -10,8 +10,9 @@ import LocHelp from '../../../../helpers/location';
 import CONFIG from 'config'; // Replaced with alias
 
 const DEFAULT_LAYER = 'OS';
-const DEFAULT_ZOOM = [53.7326306, -2.6546124];
+const DEFAULT_CENTER = [53.7326306, -2.6546124];
 const MAX_OS_ZOOM = L.OSOpenSpace.RESOLUTIONS.length - 1;
+const OS_ZOOM_DIFF = 6;
 const OS_CRS = L.OSOpenSpace.getCRS(); // OS maps use different projection
 
 export default Marionette.ItemView.extend({
@@ -30,26 +31,31 @@ export default Marionette.ItemView.extend({
     this.layers = this._getLayers();
 
     this.currentLayerControlSelected = false;
-    this.currentLayer = DEFAULT_LAYER;
+    this.currentLayer = null;
     this.markerAdded = false;
   },
 
   onShow() {
     // set full remaining height
     const mapHeight = $(document).height() - 47 - (44 + 38.5);
-    const container = this.$el.find('#map')[0];
-    $(container).height(mapHeight);
+    const $container = this.$el.find('#map')[0];
+    $($container).height(mapHeight);
 
-    this.initMap(container);
+    this.initMap($container);
     // todo: append name input
   },
 
-  initMap(container) {
-    // Map
-    this.map = L.map(container).setView(DEFAULT_ZOOM, this._getZoomLevel());
+  initMap($container) {
+    this.map = L.map($container);
 
     // default layer
+    this.currentLayer = this._getCurrentLayer();
     if (this.currentLayer === 'OS') this.map.options.crs = OS_CRS;
+
+    // position view
+    this.map.setView(this._getCenter(), this._getZoomLevel());
+
+    // show default layer
     this.layers[this.currentLayer].addTo(this.map);
 
     this.map.on('baselayerchange', this._updateCoordSystem, this);
@@ -99,13 +105,33 @@ export default Marionette.ItemView.extend({
     return layers;
   },
 
+  _getCurrentLayer() {
+    let layer = DEFAULT_LAYER;
+    const zoom = this._getZoomLevel();
+
+    if (zoom > MAX_OS_ZOOM - 1) {
+      layer = 'Satellite';
+    }
+
+    return layer;
+  },
+
+  _getCenter() {
+    const currentLocation = this.model.get('recordModel').get('location') || {};
+    let center = DEFAULT_CENTER;
+    if (currentLocation.latitude && currentLocation.longitude) {
+     center = [currentLocation.latitude, currentLocation.longitude];
+    }
+    return center;
+  },
+
   addControls() {
-    const controls = L.control.layers({
+    this.controls = L.control.layers({
       OS: this.layers.OS,
       OSM: this.layers.OSM,
       Satellite: this.layers.Satellite,
     }, {});
-    this.map.addControl(controls);
+    this.map.addControl(this.controls);
   },
 
   /**
@@ -124,6 +150,15 @@ export default Marionette.ItemView.extend({
       switch (currentLocation.source) {
         case 'map':
           mapZoomLevel = currentLocation.accuracy + 1 || 1;
+
+          // transition to OSM/Satellite levels if needed
+          if (mapZoomLevel === MAX_OS_ZOOM) {
+            mapZoomLevel += OS_ZOOM_DIFF;
+          }
+
+          // max safety
+          mapZoomLevel = mapZoomLevel > 18 ? 18 : mapZoomLevel;
+
           // no need to show area as it would be smaller than the marker
           break;
         case 'gps':
@@ -141,25 +176,23 @@ export default Marionette.ItemView.extend({
         default:
           mapZoomLevel = MAX_OS_ZOOM - 2;
       }
-
-      if (mapZoomLevel > 7) {
-        mapZoomLevel = 7;
-      }
     }
     return mapZoomLevel;
   },
 
   _updateCoordSystem(e) {
+    this.currentLayerControlSelected = this.controls._handlingClick;
+
     const center = this.map.getCenter();
     let zoom = this.map.getZoom();
     this.map.options.crs = e.name === 'OS' ? OS_CRS : L.CRS.EPSG3857;
     if (e.name === 'OS') {
-      zoom -= 6;
+      zoom -= OS_ZOOM_DIFF;
       if (zoom > MAX_OS_ZOOM - 1) {
         zoom = MAX_OS_ZOOM - 1;
       }
     } else if (this.currentLayer === 'OS') {
-      zoom += 6;
+      zoom += OS_ZOOM_DIFF;
     }
     this.currentLayer = e.name;
     this.map.setView(center, zoom, { reset: true });
@@ -181,13 +214,12 @@ export default Marionette.ItemView.extend({
     if (zoom > MAX_OS_ZOOM - 1 && this.currentLayer === 'OS') {
       this.map.removeLayer(this.layers.OS);
       this.map.addLayer(this.layers.Satellite);
-    } else if ((zoom - 6) <= MAX_OS_ZOOM - 1 && this.currentLayer === 'Satellite') {
+    } else if ((zoom - OS_ZOOM_DIFF) <= MAX_OS_ZOOM - 1 && this.currentLayer === 'Satellite') {
       // only change base layer if user is on OS and did not specificly
       // select OSM/Satellite
       if (!this.currentLayerControlSelected) {
         this.map.removeLayer(this.layers.Satellite);
         this.map.addLayer(this.layers.OS);
-        this.currentLayerControlSelected = false;
       }
     }
   },
@@ -224,13 +256,7 @@ export default Marionette.ItemView.extend({
     }
 
     let zoom = this.map.getZoom();
-    if (this.currentLayer !== 'OS') {
-      zoom -= 6;
 
-      if (zoom > MAX_OS_ZOOM) {
-        zoom = MAX_OS_ZOOM;
-      }
-    }
     const location = {
       latitude: parseFloat(e.latlng.lat.toFixed(7)),
       longitude: parseFloat(e.latlng.lng.toFixed(7)),
