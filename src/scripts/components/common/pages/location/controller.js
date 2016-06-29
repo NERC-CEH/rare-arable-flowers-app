@@ -41,20 +41,29 @@ const API = {
       }
 
       // MAIN
+      const recordLocation = recordModel.get('location') || {};
+      const active = {};
+      if (!recordLocation.source) {
+        active.gps = true;
+      } else {
+        active[recordLocation.source] = true;
+      }
       const mainView = new TabsLayout({
         tabs: [
           {
-            active: true,
+            active: active.gps,
             id: 'gps',
             title: '<span class="icon icon-location"></span>',
             ContentView: GpsView,
           },
           {
+            active: active.map,
             id: 'map',
             title: '<span class="icon icon-map"></span>',
             ContentView: MapView,
           },
           {
+            active: active.gridref,
             id: 'grid-ref',
             title: 'GR',
             ContentView: GridRefView,
