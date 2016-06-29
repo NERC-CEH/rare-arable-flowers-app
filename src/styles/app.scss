@@ -30,29 +30,40 @@ img {
   max-width: 100%;
 }
 
+.input-row {
+  position: relative;
+
+  input {
+    width: 88%;
+  }
+}
+
 .input-group input,
 .input-row,
 .input-row input {
   min-height: $button-height;
 }
-.input-row input {
-  width: 88%;
-}
 
 .input-row.error {
   height: auto;
+  border-bottom: 1px solid $color-orange;
+  transition: border 0.2s ease-in-out;
+
   label {
     color: $color-orange;
   }
-}
 
-.input-row .error {
-  display: block;
-  color: $color-orange;
-}
-
-span.error {
-  color: $color-orange;
+  &::after {
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    right: 0;
+    font-size: 0.75em;
+    color: $color-orange;
+    content: attr(error-message);
+    white-space: nowrap;
+    transition: content 0.2s ease-in-out;
+  }
 }
 
 label, form label {
