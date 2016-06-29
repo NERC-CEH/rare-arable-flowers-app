@@ -46,22 +46,22 @@ const API = {
           {
             active: true,
             id: 'gps',
-            title: 'GPS',
+            title: '<span class="icon icon-location"></span>',
             ContentView: GpsView,
           },
           {
             id: 'map',
-            title: 'Map',
+            title: '<span class="icon icon-map"></span>',
             ContentView: MapView,
           },
           {
             id: 'grid-ref',
-            title: 'Grid Ref',
+            title: 'GR',
             ContentView: GridRefView,
           },
           {
             id: 'past',
-            title: 'Past',
+            title: '<span class="icon icon-clock"></span>',
             ContentView: PastView,
           },
         ],

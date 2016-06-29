@@ -11,6 +11,11 @@
   }
 }
 
+#tabs li[data-id='grid-ref'] {
+  font-size: 1.3em;
+  font-weight: normal;
+}
+
 #map-container {
   //container is onlyneeded to
   //make it full width

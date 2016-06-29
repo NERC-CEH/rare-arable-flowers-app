@@ -1,10 +1,11 @@
 import Backbone from 'backbone';
+import _ from 'lodash';
 import Marionette from 'marionette';
 import JST from '../../../JST';
 
 const Tab = Marionette.ItemView.extend({
   tagName: 'li',
-  template: JST['common/tab'],
+  template: _.template('<%= obj.title %>'),
 
   className() {
     return this.model.get('active') ? 'active' : '';
