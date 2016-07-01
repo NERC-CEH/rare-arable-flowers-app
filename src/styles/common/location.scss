@@ -36,6 +36,10 @@
   }
 }
 
+.leaflet-container {
+  background-color: white;
+}
+
 .leaflet-control-scale {
   display: none;
 }
@@ -113,5 +117,28 @@ input#grid-ref:-ms-input-placeholder { /* Internet Explorer 10+ */
     h3 {
       margin-left: -30px;
     }
+  }
+}
+
+// OS Map empty tiles fix
+.leaflet-tile-container {
+  img[src="#{$OS_MAP_URL}&BBOX=0,-500000,0,0&WIDTH=200&HEIGHT=200&LAYERS=2500"],
+  img[src="#{$OS_MAP_URL}&BBOX=500000,-500000,0,0&WIDTH=200&HEIGHT=200&LAYERS=2500"],
+  img[src="#{$OS_MAP_URL}&BBOX=200000,-200000,0,0&WIDTH=200&HEIGHT=200&LAYERS=1000"],
+  img[src="#{$OS_MAP_URL}&BBOX=400000,-200000,0,0&WIDTH=200&HEIGHT=200&LAYERS=1000"],
+  img[src="#{$OS_MAP_URL}&BBOX=0,-200000,0,0&WIDTH=200&HEIGHT=200&LAYERS=1000"],
+  img[src="#{$OS_MAP_URL}&BBOX=600000,-200000,0,0&WIDTH=200&HEIGHT=200&LAYERS=1000"],
+  img[src="#{$OS_MAP_URL}&BBOX=800000,-200000,0,0&WIDTH=200&HEIGHT=200&LAYERS=1000"],
+  img[src="#{$OS_MAP_URL}&BBOX=600000,-100000,0,0&WIDTH=200&HEIGHT=200&LAYERS=500"],
+  img[src="#{$OS_MAP_URL}&BBOX=500000,-100000,0,0&WIDTH=200&HEIGHT=200&LAYERS=500"],
+  img[src="#{$OS_MAP_URL}&BBOX=400000,-100000,0,0&WIDTH=200&HEIGHT=200&LAYERS=500"],
+  img[src="#{$OS_MAP_URL}&BBOX=700000,-100000,0,0&WIDTH=200&HEIGHT=200&LAYERS=500"],
+  img[src="#{$OS_MAP_URL}&BBOX=800000,-100000,0,0&WIDTH=200&HEIGHT=200&LAYERS=500"],
+  img[src="#{$OS_MAP_URL}&BBOX=300000,-100000,0,0&WIDTH=200&HEIGHT=200&LAYERS=500"],
+  img[src="#{$OS_MAP_URL}&BBOX=200000,-100000,0,0&WIDTH=200&HEIGHT=200&LAYERS=500"],
+  img[src="#{$OS_MAP_URL}&BBOX=100000,-100000,0,0&WIDTH=200&HEIGHT=200&LAYERS=500"],
+  img[src="#{$OS_MAP_URL}&BBOX=0,-100000,0,0&WIDTH=200&HEIGHT=200&LAYERS=500"] {
+    display: none;
+
   }
 }

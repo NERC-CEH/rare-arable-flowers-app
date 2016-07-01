@@ -16,6 +16,8 @@ const MAX_OS_ZOOM = L.OSOpenSpace.RESOLUTIONS.length - 1;
 const OS_ZOOM_DIFF = 6;
 const OS_CRS = L.OSOpenSpace.getCRS(); // OS maps use different projection
 
+const GRID_STEP = 100000; // meters
+
 export default Marionette.ItemView.extend({
   template: JST['common/location/map'],
 
@@ -43,62 +45,6 @@ export default Marionette.ItemView.extend({
     $($container).height(mapHeight);
 
     this.initMap($container);
-
-
-    var polylinePoints = [];
-
-    const STEP = 100000;
-    let lengthDirection = 1;
-    for (let sideWays = 0; sideWays < 8; sideWays++) {
-      let lenghtWays = 0
-      if (lengthDirection < 0) lenghtWays = 13;
-
-      let move = true;
-      while (move) {
-        const eastNorth = OsGridRef(sideWays * STEP, lenghtWays * STEP);
-        let point = OsGridRef.osGridToLatLon(eastNorth);
-        polylinePoints.push(new L.LatLng(point.lat, point.lon));
-
-        if (lengthDirection < 0) {
-          move = lenghtWays > 0
-        } else {
-          move = lenghtWays < 13;
-        }
-        lenghtWays += lengthDirection;
-      }
-      lengthDirection = -1 * lengthDirection;
-    }
-
-    lengthDirection = -1;
-    for (let lengthWays = 0; lengthWays < 14; lengthWays++) {
-      let sideWays = 7;
-      if (lengthDirection > 0) sideWays = 0;
-
-      let move = true;
-      while (move) {
-        const eastNorth = OsGridRef(sideWays * STEP, lengthWays * STEP);
-        let point = OsGridRef.osGridToLatLon(eastNorth);
-        polylinePoints.push(new L.LatLng(point.lat, point.lon));
-
-        if (lengthDirection < 0) {
-          move = sideWays > 0
-        } else {
-          move = sideWays < 7;
-        }
-        sideWays += lengthDirection;
-      }
-      lengthDirection = -1 * lengthDirection;
-    }
-
-    var polylineOptions = {
-      color: '#08b7e8',
-      weight: 0.5,
-      opacity: 1
-    };
-
-    var polyline = new L.Polyline(polylinePoints, polylineOptions);
-
-    this.map.addLayer(polyline);
   },
 
   initMap($container) {
@@ -122,6 +68,9 @@ export default Marionette.ItemView.extend({
 
     // Marker
     this.addMapMarker();
+
+    // Graticule
+    this.addGraticule();
   },
 
   _getLayers() {
@@ -140,7 +89,14 @@ export default Marionette.ItemView.extend({
       tileSize: 256, // specify as, OS layer overwites this with 200 otherwise
     });
 
+    let start = OsGridRef.osGridToLatLon(OsGridRef(0, 0));
+    let end = OsGridRef.osGridToLatLon(OsGridRef(7 * GRID_STEP, 13 * GRID_STEP));
+    let bounds = L.latLngBounds([start.lat, start.lon], [end.lat, end.lon]);
+
     layers.OS = L.tileLayer.OSOpenSpace(CONFIG.map.os_api_key);
+
+    layers.OS.options.bounds = bounds;
+
     layers.OS.on('tileerror', tile => {
       let index = 0;
       const result = tile.tile.src.match(/missingTileString=(\d+)/i);
@@ -188,6 +144,62 @@ export default Marionette.ItemView.extend({
       Satellite: this.layers.Satellite,
     }, {});
     this.map.addControl(this.controls);
+  },
+
+  addGraticule() {
+    var polylinePoints = [];
+
+    let lengthDirection = 1;
+    for (let sideWays = 0; sideWays < 8; sideWays++) {
+      let lenghtWays = 0
+      if (lengthDirection < 0) lenghtWays = 13;
+
+      let move = true;
+      while (move) {
+        const eastNorth = OsGridRef(sideWays * GRID_STEP, lenghtWays * GRID_STEP);
+        let point = OsGridRef.osGridToLatLon(eastNorth);
+        polylinePoints.push(new L.LatLng(point.lat, point.lon));
+
+        if (lengthDirection < 0) {
+          move = lenghtWays > 0
+        } else {
+          move = lenghtWays < 13;
+        }
+        lenghtWays += lengthDirection;
+      }
+      lengthDirection = -1 * lengthDirection;
+    }
+
+    lengthDirection = -1;
+    for (let lengthWays = 0; lengthWays < 14; lengthWays++) {
+      let sideWays = 7;
+      if (lengthDirection > 0) sideWays = 0;
+
+      let move = true;
+      while (move) {
+        const eastNorth = OsGridRef(sideWays * GRID_STEP, lengthWays * GRID_STEP);
+        let point = OsGridRef.osGridToLatLon(eastNorth);
+        polylinePoints.push(new L.LatLng(point.lat, point.lon));
+
+        if (lengthDirection < 0) {
+          move = sideWays > 0
+        } else {
+          move = sideWays < 7;
+        }
+        sideWays += lengthDirection;
+      }
+      lengthDirection = -1 * lengthDirection;
+    }
+
+    var polylineOptions = {
+      color: '#08b7e8',
+      weight: 0.5,
+      opacity: 1
+    };
+
+    var polyline = new L.Polyline(polylinePoints, polylineOptions);
+
+    this.map.addLayer(polyline);
   },
 
   /**
