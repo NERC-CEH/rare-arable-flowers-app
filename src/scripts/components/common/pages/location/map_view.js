@@ -4,6 +4,7 @@
 import $ from 'jquery';
 import Marionette from 'marionette';
 import L from 'leaflet';
+import LatLon from '../../../../../vendor/latlon/js/latlon-ellipsoidal';
 import OSLeaflet from '../../../../../vendor/os-leaflet/js/OSOpenSpace';
 import OsGridRef from '../../../../../vendor/latlon/js/osgridref';
 import JST from '../../../../JST';
@@ -70,7 +71,7 @@ export default Marionette.ItemView.extend({
     this.addMapMarker();
 
     // Graticule
-    this.addGraticule();
+    this._initGraticule();
   },
 
   _getLayers() {
@@ -79,7 +80,8 @@ export default Marionette.ItemView.extend({
       attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
       id: CONFIG.map.mapbox_satellite_id,
       accessToken: CONFIG.map.mapbox_api_key,
-      tileSize: 256, // specify as, OS layer overwites this with 200 otherwise
+      tileSize: 256, // specify as, OS layer overwites this with 200 otherwise,
+      minZoom: 5,
     });
 
     layers.OSM = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
@@ -87,6 +89,7 @@ export default Marionette.ItemView.extend({
       id: CONFIG.map.mapbox_osm_id,
       accessToken: CONFIG.map.mapbox_api_key,
       tileSize: 256, // specify as, OS layer overwites this with 200 otherwise
+      minZoom: 5,
     });
 
     let start = OsGridRef.osGridToLatLon(OsGridRef(0, 0));
@@ -120,8 +123,11 @@ export default Marionette.ItemView.extend({
   _getCurrentLayer() {
     let layer = DEFAULT_LAYER;
     const zoom = this._getZoomLevel();
-
+    const inUK = LocHelp.isInUK(this._getCurrentLocation());
     if (zoom > MAX_OS_ZOOM - 1) {
+      layer = 'Satellite';
+    } else if (!inUK) {
+      this.currentLayerControlSelected = true;
       layer = 'Satellite';
     }
 
@@ -129,7 +135,7 @@ export default Marionette.ItemView.extend({
   },
 
   _getCenter() {
-    const currentLocation = this.model.get('recordModel').get('location') || {};
+    const currentLocation = this._getCurrentLocation();
     let center = DEFAULT_CENTER;
     if (currentLocation.latitude && currentLocation.longitude) {
       center = [currentLocation.latitude, currentLocation.longitude];
@@ -146,60 +152,121 @@ export default Marionette.ItemView.extend({
     this.map.addControl(this.controls);
   },
 
-  addGraticule() {
-    var polylinePoints = [];
-
-    let lengthDirection = 1;
-    for (let sideWays = 0; sideWays < 8; sideWays++) {
-      let lenghtWays = 0
-      if (lengthDirection < 0) lenghtWays = 13;
-
-      let move = true;
-      while (move) {
-        const eastNorth = OsGridRef(sideWays * GRID_STEP, lenghtWays * GRID_STEP);
-        let point = OsGridRef.osGridToLatLon(eastNorth);
-        polylinePoints.push(new L.LatLng(point.lat, point.lon));
-
-        if (lengthDirection < 0) {
-          move = lenghtWays > 0
-        } else {
-          move = lenghtWays < 13;
-        }
-        lenghtWays += lengthDirection;
-      }
-      lengthDirection = -1 * lengthDirection;
-    }
-
-    lengthDirection = -1;
-    for (let lengthWays = 0; lengthWays < 14; lengthWays++) {
-      let sideWays = 7;
-      if (lengthDirection > 0) sideWays = 0;
-
-      let move = true;
-      while (move) {
-        const eastNorth = OsGridRef(sideWays * GRID_STEP, lengthWays * GRID_STEP);
-        let point = OsGridRef.osGridToLatLon(eastNorth);
-        polylinePoints.push(new L.LatLng(point.lat, point.lon));
-
-        if (lengthDirection < 0) {
-          move = sideWays > 0
-        } else {
-          move = sideWays < 7;
-        }
-        sideWays += lengthDirection;
-      }
-      lengthDirection = -1 * lengthDirection;
-    }
-
-    var polylineOptions = {
+  _initGraticule() {
+    const that = this;
+    const polylineOptions = {
       color: '#08b7e8',
       weight: 0.5,
       opacity: 1
     };
 
-    var polyline = new L.Polyline(polylinePoints, polylineOptions);
+    const zoom = this.map.getZoom();
+    const bounds = this.map.getBounds();
+    const polylinePoints = this._calcGraticule(zoom, bounds);
+    this.graticule =  new L.Polyline(polylinePoints, polylineOptions);
 
-    this.map.addLayer(polyline);
+    this.map.on('move zoom', () => this._reCalcGraticule());
+
+    this.map.addLayer(this.graticule);
+  },
+
+  _reCalcGraticule() {
+    console.log('recalc')
+    const zoom = this.map.getZoom();
+    const bounds = this.map.getBounds();
+    const polylinePoints = this._calcGraticule(zoom, bounds);
+    this.graticule.setLatLngs(polylinePoints);
+  },
+
+  _calcGraticule(zoom, bounds) {
+    // calculate granularity
+    let granularity = 1;
+    if (zoom < 8) {
+      granularity = 1;
+    } else if (zoom < 11) {
+      granularity = 10;
+    } else if (zoom < 13) {
+      granularity = 100;
+    }
+
+    const step = GRID_STEP / granularity;
+
+    // calculate grid start
+    let p = new LatLon(bounds.getSouth(), bounds.getWest(), LatLon.datum.WGS84);
+    let grid = OsGridRef.latLonToOsGrid(p);
+    let west = grid.easting;
+    west -= west % step; // drop modulus
+    west -= step; // add boundry
+    let south = grid.northing;
+    south -= south % step; // drop modulus
+    south -= step; // add boundry
+
+    p = new LatLon(bounds.getNorth(), bounds.getEast(), LatLon.datum.WGS84);
+    grid = OsGridRef.latLonToOsGrid(p);
+    let east = grid.easting;
+    east -= east % step; // drop modulus
+    east -= step; // add boundry
+    let north = grid.northing;
+    north -= north % step; // drop modulus
+    north -= step; // add boundry
+
+    // drop excess
+
+    // calculate grid steps
+    let sideSteps = (east - west) / step;
+    let lengthSteps = (north - south) / step;
+
+    sideSteps *= granularity;
+    lengthSteps *= granularity;
+
+    var polylinePoints = [];
+
+
+    let lengthDirection = 1;
+    for (let side = 0;
+         side < (sideSteps + (granularity > 1 && lengthDirection > 0 ? -1 : 1));
+         side++) {
+      let length = 0
+      if (lengthDirection < 0) length = lengthSteps;
+
+      let move = true;
+      while (move) {
+        const eastNorth = OsGridRef(side * step, length * step);
+        let point = OsGridRef.osGridToLatLon(eastNorth);
+        polylinePoints.push(new L.LatLng(point.lat, point.lon));
+
+        if (lengthDirection < 0) {
+          move = length > 0;
+        } else {
+          move = length < lengthSteps;
+        }
+        length += lengthDirection;
+      }
+      lengthDirection = -1 * lengthDirection;
+    }
+
+    //lengthDirection = -1;
+    //for (let length = 0; length < (13 * granularity  + 1); length++) {
+    //  let side = 7* granularity;
+    //  if (lengthDirection > 0) side = 0;
+    //
+    //  let move = true;
+    //  while (move) {
+    //    const eastNorth = OsGridRef(side * step, length * step);
+    //    let point = OsGridRef.osGridToLatLon(eastNorth);
+    //    polylinePoints.push(new L.LatLng(point.lat, point.lon));
+    //
+    //    if (lengthDirection < 0) {
+    //      move = side > 0;
+    //    } else {
+    //      move = side < 7 * granularity;
+    //    }
+    //    side += lengthDirection;
+    //  }
+    //  lengthDirection = -1 * lengthDirection;
+    //}
+
+    return polylinePoints;
   },
 
   /**
@@ -210,7 +277,7 @@ export default Marionette.ItemView.extend({
    * 5 gridref digits. (1m)      ->
    */
   _getZoomLevel() {
-    const currentLocation = this.model.get('recordModel').get('location') || {};
+    const currentLocation = this._getCurrentLocation();
     let mapZoomLevel = 1;
     // check if record has location
     if (currentLocation.latitude && currentLocation.longitude) {
@@ -266,17 +333,9 @@ export default Marionette.ItemView.extend({
     this.map.setView(center, zoom, { reset: true });
   },
 
-  _getMarkerCoords() {
-    const currentLocation = this.model.get('recordModel').get('location') || {};
-
-    if (currentLocation.latitude && currentLocation.longitude) {
-      return [currentLocation.latitude, currentLocation.longitude];
-    }
-    return [];
-  },
-
   onMapZoom() {
     const zoom = this.map.getZoom();
+    const inUK = LocHelp.isInUK(this._getCurrentLocation());
 
     // -2 and not -1 because we ignore the last OS zoom level
     if (zoom > MAX_OS_ZOOM - 1 && this.currentLayer === 'OS') {
@@ -285,44 +344,101 @@ export default Marionette.ItemView.extend({
     } else if ((zoom - OS_ZOOM_DIFF) <= MAX_OS_ZOOM - 1 && this.currentLayer === 'Satellite') {
       // only change base layer if user is on OS and did not specificly
       // select OSM/Satellite
-      if (!this.currentLayerControlSelected) {
+      if (!this.currentLayerControlSelected && inUK) {
         this.map.removeLayer(this.layers.Satellite);
         this.map.addLayer(this.layers.OS);
       }
     }
+
+    this.currentGraticule;
+
+  },
+
+  updateMarker(location) {
+    if (!this.markerAdded) {
+      this.marker.addTo(this.map);
+      this.markerAdded = true;
+    } else {
+      // check if not clicked out of UK
+      const inUK = LocHelp.isInUK(location);
+      if (!inUK && this.marker instanceof L.Rectangle) {
+        this.addMapMarker();
+      } else if (this.marker instanceof L.Circle) {
+        this.addMapMarker();
+      }
+    }
+    this.marker.setLocation(location);
   },
 
   addMapMarker() {
-    const markerCoords = this._getMarkerCoords();
+    const that = this;
+    const location = this._getCurrentLocation();
+    const inUK = LocHelp.isInUK(location);
 
-    /* add some event callbacks */
-    const myIcon = L.divIcon({ className: 'icon icon-plus map-marker' });
-    this.marker = L.marker(markerCoords, { icon: myIcon });
+    let markerCoords = [];
+    if (location.latitude && location.longitude) {
+      markerCoords = [location.latitude, location.longitude];
+    }
+
+    // remove previous marker
+    if (this.marker) {
+      this.map.removeLayer(this.marker);
+    }
+    var latLng = L.latLng(markerCoords);
+    if (!inUK) {
+      // point circle
+      this.marker = L.circleMarker(latLng, {
+        color: "red",
+        weight: 1,
+        opacity: 1,
+        fillOpacity: 0.7,
+      });
+      this.marker.setLocation = function (location) {
+        let markerCoords = [];
+        if (location.latitude && location.longitude) {
+          markerCoords = [location.latitude, location.longitude];
+        }
+        var latLng = L.latLng(markerCoords);
+      }
+    } else {
+      // GR square
+      const bounds = this._getSquareBounds(latLng, location);
+
+      // create an orange rectangle
+      this.marker = L.rectangle(bounds, {
+        color: "red",
+        weight: 1,
+        opacity: 1,
+        fillOpacity: 0.7,
+      });
+
+      this.marker.setLocation = function (location) {
+        // normalize GR square center
+        const grid = LocHelp.coord2grid(location);
+        const normalizedLocation = LocHelp.grid2coord(grid);
+
+        // get bounds
+        let markerCoords = [];
+        if (normalizedLocation.lat && normalizedLocation.lon) {
+          markerCoords = [normalizedLocation.lat, normalizedLocation.lon];
+        }
+        const latLng = L.latLng(markerCoords);
+        const bounds = that._getSquareBounds(latLng, location);
+
+        // update location
+        that.marker.setBounds(bounds);
+      };
+    }
 
     if (markerCoords.length) {
       this.marker.addTo(this.map);
-      // area.addTo(map);
       this.markerAdded = true;
     }
 
     this.map.on('click', this.onMapClick, this);
-
-    // todo area
-    //
-    // // define rectangle geographical bounds
-    // var bounds = [[54.559322, -5.767822], [56.1210604, -3.021240]];
-    //
-    // // create an orange rectangle
-    // L.rectangle(bounds, {color: "#ff7800", weight: 1})
   },
 
   onMapClick(e) {
-    this.marker.setLatLng(e.latlng).update();
-    if (!this.markerAdded) {
-      this.marker.addTo(this.map);
-      this.markerAdded = true;
-    }
-
     let zoom = this.map.getZoom();
 
     const location = {
@@ -332,14 +448,47 @@ export default Marionette.ItemView.extend({
       accuracy: zoom,
     };
 
-    location.gridref = LocHelp.coord2grid(location, location.accuracy);
+    // out of UK adjust the zoom because the next displayed map should be not OS
+    if (this.currentLayer === 'OS' && !LocHelp.isInUK(location)) {
+      location.accuracy += 6;
+    }
+
+    location.gridref = LocHelp.coord2grid(location);
 
     // trigger won't work to bubble up
     this.triggerMethod('location:select:map', location);
+    this.updateMarker(location);
+  },
+
+  _getSquareBounds(latLng, location) {
+    const metresPerPixel = 40075016.686 *
+      Math.abs(Math.cos(this.map.getCenter().lat * 180/Math.PI)) /
+      Math.pow(2, this.map.getZoom()+8);
+
+    let locationGranularity = LocHelp._getGRgranularity(location) / 2;
+
+    var currentPoint = this.map.latLngToContainerPoint(latLng);
+    const widthInMeters = (locationGranularity / 2) * 10;
+    //var width = metresPerPixel / widthInMeters;
+    var width = window.w || 500 / Math.pow(10, locationGranularity);
+    var height = window.w || width;
+    var xDifference = width / 2;
+    var yDifference = height / 2;
+    var southWest = L.point((currentPoint.x - xDifference), (currentPoint.y - yDifference));
+    var northEast = L.point((currentPoint.x + xDifference), (currentPoint.y + yDifference));
+    var bounds = L.latLngBounds(
+      this.map.containerPointToLatLng(southWest),
+      this.map.containerPointToLatLng(northEast)
+    );
+    return bounds;
+  },
+
+  _getCurrentLocation() {
+    return this.model.get('recordModel').get('location') || {};
   },
 
   serializeData() {
-    const location = this.model.get('recordModel').get('location') || {};
+    const location = this._getCurrentLocation();
 
     return {
       name: location.name,

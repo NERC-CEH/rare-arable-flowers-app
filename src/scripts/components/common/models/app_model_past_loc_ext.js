@@ -65,44 +65,13 @@ export default {
     return exists;
   },
 
-  /**
-   * Returns device location as Grid Reference.
-   *
-   * @param geoloc
-   * @returns {*}
-   */
-  getLocationSref(location) {
-    const LOCATION_GRANULARITY = 2; // Precision of returned grid reference (6 digits = metres).
-
-    const loc = location || this.get('locations')[0];
-    if (!location) {
-      return null;
-    }
-
-    // get translated location
-    const gref = LocHelp.coord2grid(loc, LOCATION_GRANULARITY);
-
-    // remove the spaces
-    return gref.replace(/ /g, '');
-  },
-
   printLocation(location) {
     const useGridRef = this.get('useGridRef');
 
     if (location.latitude && location.longitude) {
       if (useGridRef || location.source === 'gridref') {
-        let accuracy = location.accuracy;
-
-        // cannot be odd
-        if (accuracy % 2 !== 0) {
-          // should not be less than 2
-          accuracy = accuracy === 1 ? accuracy + 1 : accuracy - 1;
-        } else if (accuracy === 0) {
-          accuracy = 2;
-        }
-
         // check if location is within UK
-        let prettyLocation = LocHelp.coord2grid(location, accuracy);
+        let prettyLocation = LocHelp.coord2grid(location);
         if (!prettyLocation) {
           prettyLocation = `${parseFloat(location.latitude).toFixed(4)}, ${
             parseFloat(location.longitude).toFixed(4)}`;

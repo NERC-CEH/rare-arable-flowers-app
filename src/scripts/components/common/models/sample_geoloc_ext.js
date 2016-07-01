@@ -30,7 +30,7 @@ const extension = {
 
         location.source = 'gps';
         location.updateTime = new Date(); // track when gps was acquired
-        location.gridref = LocHelp.coord2grid(location, location.accuracy);
+        location.gridref = LocHelp.coord2grid(location);
 
         // extend old location to preserve its previous attributes like name or id
         const oldLocation = that.get('location');

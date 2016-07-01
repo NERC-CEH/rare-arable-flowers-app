@@ -40,7 +40,7 @@ export default Marionette.ItemView.extend({
     let gridref;
 
     if (location.latitude && location.longitude) {
-      gridref = LocHelp.coord2grid(location, location.accuracy);
+      gridref = LocHelp.coord2grid(location);
     }
 
     return {
