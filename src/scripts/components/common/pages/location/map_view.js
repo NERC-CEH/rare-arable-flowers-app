@@ -5,6 +5,7 @@ import $ from 'jquery';
 import Marionette from 'marionette';
 import L from 'leaflet';
 import OSLeaflet from '../../../../../vendor/os-leaflet/js/OSOpenSpace';
+import OsGridRef from '../../../../../vendor/latlon/js/osgridref';
 import JST from '../../../../JST';
 import LocHelp from '../../../../helpers/location';
 import CONFIG from 'config'; // Replaced with alias
@@ -42,6 +43,62 @@ export default Marionette.ItemView.extend({
     $($container).height(mapHeight);
 
     this.initMap($container);
+
+
+    var polylinePoints = [];
+
+    const STEP = 100000;
+    let lengthDirection = 1;
+    for (let sideWays = 0; sideWays < 8; sideWays++) {
+      let lenghtWays = 0
+      if (lengthDirection < 0) lenghtWays = 13;
+
+      let move = true;
+      while (move) {
+        const eastNorth = OsGridRef(sideWays * STEP, lenghtWays * STEP);
+        let point = OsGridRef.osGridToLatLon(eastNorth);
+        polylinePoints.push(new L.LatLng(point.lat, point.lon));
+
+        if (lengthDirection < 0) {
+          move = lenghtWays > 0
+        } else {
+          move = lenghtWays < 13;
+        }
+        lenghtWays += lengthDirection;
+      }
+      lengthDirection = -1 * lengthDirection;
+    }
+
+    lengthDirection = -1;
+    for (let lengthWays = 0; lengthWays < 14; lengthWays++) {
+      let sideWays = 7;
+      if (lengthDirection > 0) sideWays = 0;
+
+      let move = true;
+      while (move) {
+        const eastNorth = OsGridRef(sideWays * STEP, lengthWays * STEP);
+        let point = OsGridRef.osGridToLatLon(eastNorth);
+        polylinePoints.push(new L.LatLng(point.lat, point.lon));
+
+        if (lengthDirection < 0) {
+          move = sideWays > 0
+        } else {
+          move = sideWays < 7;
+        }
+        sideWays += lengthDirection;
+      }
+      lengthDirection = -1 * lengthDirection;
+    }
+
+    var polylineOptions = {
+      color: '#08b7e8',
+      weight: 0.5,
+      opacity: 1
+    };
+
+    var polyline = new L.Polyline(polylinePoints, polylineOptions);
+
+    this.map.addLayer(polyline);
   },
 
   initMap($container) {
@@ -119,7 +176,7 @@ export default Marionette.ItemView.extend({
     const currentLocation = this.model.get('recordModel').get('location') || {};
     let center = DEFAULT_CENTER;
     if (currentLocation.latitude && currentLocation.longitude) {
-     center = [currentLocation.latitude, currentLocation.longitude];
+      center = [currentLocation.latitude, currentLocation.longitude];
     }
     return center;
   },
