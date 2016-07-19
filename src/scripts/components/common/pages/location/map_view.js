@@ -71,7 +71,7 @@ export default Marionette.ItemView.extend({
     this.addMapMarker();
 
     // Graticule
-    this._initGraticule();
+    //this._initGraticule();
   },
 
   _getLayers() {
@@ -123,10 +123,11 @@ export default Marionette.ItemView.extend({
   _getCurrentLayer() {
     let layer = DEFAULT_LAYER;
     const zoom = this._getZoomLevel();
-    const inUK = LocHelp.isInUK(this._getCurrentLocation());
+    const currentLocation = this._getCurrentLocation();
+    const inUK = LocHelp.isInUK(currentLocation);
     if (zoom > MAX_OS_ZOOM - 1) {
       layer = 'Satellite';
-    } else if (!inUK) {
+    } else if (inUK === false) {
       this.currentLayerControlSelected = true;
       layer = 'Satellite';
     }
@@ -344,7 +345,7 @@ export default Marionette.ItemView.extend({
     } else if ((zoom - OS_ZOOM_DIFF) <= MAX_OS_ZOOM - 1 && this.currentLayer === 'Satellite') {
       // only change base layer if user is on OS and did not specificly
       // select OSM/Satellite
-      if (!this.currentLayerControlSelected && inUK) {
+      if (!this.currentLayerControlSelected && inUK !== false) {
         this.map.removeLayer(this.layers.Satellite);
         this.map.addLayer(this.layers.OS);
       }
@@ -356,18 +357,21 @@ export default Marionette.ItemView.extend({
 
   updateMarker(location) {
     if (!this.markerAdded) {
+      this.marker.setLocation(location);
+
       this.marker.addTo(this.map);
       this.markerAdded = true;
     } else {
-      // check if not clicked out of UK
-      const inUK = LocHelp.isInUK(location);
-      if (!inUK && this.marker instanceof L.Rectangle) {
-        this.addMapMarker();
-      } else if (this.marker instanceof L.Circle) {
-        this.addMapMarker();
-      }
+      this.marker.setLocation(location);
+      //
+      //// check if not clicked out of UK
+      //const inUK = LocHelp.isInUK(location);
+      //if (inUK === false && this.marker instanceof L.Rectangle) {
+      //  this.addMapMarker();
+      //} else if (this.marker instanceof L.Circle) {
+      //  this.addMapMarker();
+      //}
     }
-    this.marker.setLocation(location);
   },
 
   addMapMarker() {
@@ -385,9 +389,9 @@ export default Marionette.ItemView.extend({
       this.map.removeLayer(this.marker);
     }
     var latLng = L.latLng(markerCoords);
-    if (!inUK) {
+    //if (inUK === false) {
       // point circle
-      this.marker = L.circleMarker(latLng, {
+      this.marker = L.circleMarker(latLng || [], {
         color: "red",
         weight: 1,
         opacity: 1,
@@ -399,36 +403,37 @@ export default Marionette.ItemView.extend({
           markerCoords = [location.latitude, location.longitude];
         }
         var latLng = L.latLng(markerCoords);
+        return this.setLatLng(latLng);
       }
-    } else {
-      // GR square
-      const bounds = this._getSquareBounds(latLng, location);
-
-      // create an orange rectangle
-      this.marker = L.rectangle(bounds, {
-        color: "red",
-        weight: 1,
-        opacity: 1,
-        fillOpacity: 0.7,
-      });
-
-      this.marker.setLocation = function (location) {
-        // normalize GR square center
-        const grid = LocHelp.coord2grid(location);
-        const normalizedLocation = LocHelp.grid2coord(grid);
-
-        // get bounds
-        let markerCoords = [];
-        if (normalizedLocation.lat && normalizedLocation.lon) {
-          markerCoords = [normalizedLocation.lat, normalizedLocation.lon];
-        }
-        const latLng = L.latLng(markerCoords);
-        const bounds = that._getSquareBounds(latLng, location);
-
-        // update location
-        that.marker.setBounds(bounds);
-      };
-    }
+    //} else {
+    //  // GR square
+    //  const bounds = this._getSquareBounds(latLng, location) || [[0,0],[0,0]];
+    //
+    //  // create an orange rectangle
+    //  this.marker = L.rectangle(bounds, {
+    //    color: "red",
+    //    weight: 1,
+    //    opacity: 1,
+    //    fillOpacity: 0.7,
+    //  });
+    //
+    //  this.marker.setLocation = function (location) {
+    //    // normalize GR square center
+    //    const grid = LocHelp.coord2grid(location);
+    //    const normalizedLocation = LocHelp.grid2coord(grid);
+    //
+    //    // get bounds
+    //    let markerCoords = [];
+    //    if (normalizedLocation.lat && normalizedLocation.lon) {
+    //      markerCoords = [normalizedLocation.lat, normalizedLocation.lon];
+    //    }
+    //    const latLng = L.latLng(markerCoords);
+    //    const bounds = that._getSquareBounds(latLng, location);
+    //
+    //    // update location
+    //    that.marker.setBounds(bounds);
+    //  };
+    //}
 
     if (markerCoords.length) {
       this.marker.addTo(this.map);
@@ -461,6 +466,8 @@ export default Marionette.ItemView.extend({
   },
 
   _getSquareBounds(latLng, location) {
+    if (!latLng) return null;
+
     const metresPerPixel = 40075016.686 *
       Math.abs(Math.cos(this.map.getCenter().lat * 180/Math.PI)) /
       Math.pow(2, this.map.getZoom()+8);
