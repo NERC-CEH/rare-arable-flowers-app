@@ -3,8 +3,7 @@
 This is Rare Arable Flowers identification and recording mobile web application. 
 HTML5 based offline mobile app linked to [iRecord](http://www.brc.ac.uk/irecord/) website.
 
-Live: [Rare Arable Flowers](http://flowers.irecord.org.uk)
-Project: [homepage](http://www.brc.ac.uk/app/flowers)
+Project: [homepage](http://www.brc.ac.uk/app/rare-arable-flowers-app)
 
 ## Configuration
 
