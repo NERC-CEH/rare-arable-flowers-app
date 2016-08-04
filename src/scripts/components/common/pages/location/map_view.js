@@ -71,7 +71,7 @@ export default Marionette.ItemView.extend({
     this.addMapMarker();
 
     // Graticule
-    //this._initGraticule();
+    this._initGraticule();
   },
 
   _getLayers() {
@@ -92,9 +92,9 @@ export default Marionette.ItemView.extend({
       minZoom: 5,
     });
 
-    let start = OsGridRef.osGridToLatLon(OsGridRef(0, 0));
-    let end = OsGridRef.osGridToLatLon(OsGridRef(7 * GRID_STEP, 13 * GRID_STEP));
-    let bounds = L.latLngBounds([start.lat, start.lon], [end.lat, end.lon]);
+    const start = OsGridRef.osGridToLatLon(OsGridRef(0, 0));
+    const end = OsGridRef.osGridToLatLon(OsGridRef(7 * GRID_STEP, 13 * GRID_STEP));
+    const bounds = L.latLngBounds([start.lat, start.lon], [end.lat, end.lon]);
 
     layers.OS = L.tileLayer.OSOpenSpace(CONFIG.map.os_api_key);
 
@@ -154,17 +154,16 @@ export default Marionette.ItemView.extend({
   },
 
   _initGraticule() {
-    const that = this;
     const polylineOptions = {
       color: '#08b7e8',
       weight: 0.5,
-      opacity: 1
+      opacity: 1,
     };
 
     const zoom = this.map.getZoom();
     const bounds = this.map.getBounds();
     const polylinePoints = this._calcGraticule(zoom, bounds);
-    this.graticule =  new L.Polyline(polylinePoints, polylineOptions);
+    this.graticule = new L.Polyline(polylinePoints, polylineOptions);
 
     this.map.on('move zoom', () => this._reCalcGraticule());
 
@@ -172,7 +171,6 @@ export default Marionette.ItemView.extend({
   },
 
   _reCalcGraticule() {
-    console.log('recalc')
     const zoom = this.map.getZoom();
     const bounds = this.map.getBounds();
     const polylinePoints = this._calcGraticule(zoom, bounds);
@@ -181,18 +179,92 @@ export default Marionette.ItemView.extend({
 
   _calcGraticule(zoom, bounds) {
     // calculate granularity
+    if (this.currentLayer === 'OS') zoom += OS_ZOOM_DIFF;
+
     let granularity = 1;
-    if (zoom < 8) {
+    if (zoom < 9) {
       granularity = 1;
-    } else if (zoom < 11) {
+    } else if (zoom < 12) {
       granularity = 10;
-    } else if (zoom < 13) {
+    } else if (zoom < 15) {
       granularity = 100;
+    } else {
+      granularity = 1000;
     }
 
     const step = GRID_STEP / granularity;
 
     // calculate grid start
+    const { south, north, east, west } = this._getGraticuleBounds(bounds, step);
+
+    // calculate grid steps
+    const sideSteps = (east - west) / step;
+    const lengthSteps = (north - south) / step;
+
+    const polylinePoints = [];
+
+    let direction = 1; // up
+    let side = 0;
+
+    while (side <= sideSteps) {
+      let length = 0;
+      if (direction < 0) length = lengthSteps;
+
+      let move = true;
+      while (move) {
+        // add point
+        const eastNorth = OsGridRef(west + side * step, south + length * step);
+        // console.log('x ' + (west + side * step)  + ' y: ' + (south + length * step))
+
+        const point = OsGridRef.osGridToLatLon(eastNorth);
+        polylinePoints.push(new L.LatLng(point.lat, point.lon));
+
+        // update direction
+        if (direction < 0) {
+          move = length > 0;
+        } else {
+          move = length < lengthSteps;
+        }
+        length += direction;
+      }
+      direction = -1 * direction;
+      side++;
+    }
+
+    let length = direction < 0 ? lengthSteps : 0;
+
+    let lengthwaysDirection = direction;
+    // sideways direction - returning
+    direction = -1;
+
+    while(length <= lengthSteps && length >= 0) {
+      let side = sideSteps;
+      if (direction > 0) side = 0;
+
+      let move = true;
+      while (move) {
+        // add point
+        const eastNorth = OsGridRef(west + side * step, south + length * step);
+        // console.log('x ' + (west + side * step)  + ' y: ' + (south + length * step))
+        const point = OsGridRef.osGridToLatLon(eastNorth);
+        polylinePoints.push(new L.LatLng(point.lat, point.lon));
+
+        // update direction
+        if (direction < 0) {
+          move = side > 0;
+        } else {
+          move = side < sideSteps;
+        }
+        side += direction;
+      }
+      direction = -1 * direction;
+      length += lengthwaysDirection;
+    }
+
+    return polylinePoints;
+  },
+
+  _getGraticuleBounds(bounds, step) {
     let p = new LatLon(bounds.getSouth(), bounds.getWest(), LatLon.datum.WGS84);
     let grid = OsGridRef.latLonToOsGrid(p);
     let west = grid.easting;
@@ -206,68 +278,18 @@ export default Marionette.ItemView.extend({
     grid = OsGridRef.latLonToOsGrid(p);
     let east = grid.easting;
     east -= east % step; // drop modulus
-    east -= step; // add boundry
+    east += step; // add boundry
     let north = grid.northing;
     north -= north % step; // drop modulus
-    north -= step; // add boundry
+    north += step; // add boundry
 
     // drop excess
+    west = west < 0 ? 0 : west; // do not exceed
+    south = south < 0 ? 0 : south; // do not exceed
+    north = north > 1300000 ? 1300000 : north; // do not exceed
+    east = east > 700000 ? 700000 : east; // do not exceed
 
-    // calculate grid steps
-    let sideSteps = (east - west) / step;
-    let lengthSteps = (north - south) / step;
-
-    sideSteps *= granularity;
-    lengthSteps *= granularity;
-
-    var polylinePoints = [];
-
-
-    let lengthDirection = 1;
-    for (let side = 0;
-         side < (sideSteps + (granularity > 1 && lengthDirection > 0 ? -1 : 1));
-         side++) {
-      let length = 0
-      if (lengthDirection < 0) length = lengthSteps;
-
-      let move = true;
-      while (move) {
-        const eastNorth = OsGridRef(side * step, length * step);
-        let point = OsGridRef.osGridToLatLon(eastNorth);
-        polylinePoints.push(new L.LatLng(point.lat, point.lon));
-
-        if (lengthDirection < 0) {
-          move = length > 0;
-        } else {
-          move = length < lengthSteps;
-        }
-        length += lengthDirection;
-      }
-      lengthDirection = -1 * lengthDirection;
-    }
-
-    //lengthDirection = -1;
-    //for (let length = 0; length < (13 * granularity  + 1); length++) {
-    //  let side = 7* granularity;
-    //  if (lengthDirection > 0) side = 0;
-    //
-    //  let move = true;
-    //  while (move) {
-    //    const eastNorth = OsGridRef(side * step, length * step);
-    //    let point = OsGridRef.osGridToLatLon(eastNorth);
-    //    polylinePoints.push(new L.LatLng(point.lat, point.lon));
-    //
-    //    if (lengthDirection < 0) {
-    //      move = side > 0;
-    //    } else {
-    //      move = side < 7 * granularity;
-    //    }
-    //    side += lengthDirection;
-    //  }
-    //  lengthDirection = -1 * lengthDirection;
-    //}
-
-    return polylinePoints;
+    return { west, south, north, east };
   },
 
   /**
@@ -364,13 +386,13 @@ export default Marionette.ItemView.extend({
     } else {
       this.marker.setLocation(location);
       //
-      //// check if not clicked out of UK
-      //const inUK = LocHelp.isInUK(location);
-      //if (inUK === false && this.marker instanceof L.Rectangle) {
+      // // check if not clicked out of UK
+      // const inUK = LocHelp.isInUK(location);
+      // if (inUK === false && this.marker instanceof L.Rectangle) {
       //  this.addMapMarker();
-      //} else if (this.marker instanceof L.Circle) {
+      // } else if (this.marker instanceof L.Circle) {
       //  this.addMapMarker();
-      //}
+      // }
     }
   },
 
@@ -388,24 +410,24 @@ export default Marionette.ItemView.extend({
     if (this.marker) {
       this.map.removeLayer(this.marker);
     }
-    var latLng = L.latLng(markerCoords);
-    //if (inUK === false) {
-      // point circle
-      this.marker = L.circleMarker(latLng || [], {
-        color: "red",
-        weight: 1,
-        opacity: 1,
-        fillOpacity: 0.7,
-      });
-      this.marker.setLocation = function (location) {
-        let markerCoords = [];
-        if (location.latitude && location.longitude) {
-          markerCoords = [location.latitude, location.longitude];
-        }
-        var latLng = L.latLng(markerCoords);
-        return this.setLatLng(latLng);
+    const latLng = L.latLng(markerCoords);
+    // if (inUK === false) {
+    // point circle
+    this.marker = L.circleMarker(latLng || [], {
+      color: 'red',
+      weight: 1,
+      opacity: 1,
+      fillOpacity: 0.7,
+    });
+    this.marker.setLocation = function (location) {
+      let markerCoords = [];
+      if (location.latitude && location.longitude) {
+        markerCoords = [location.latitude, location.longitude];
       }
-    //} else {
+      const latLng = L.latLng(markerCoords);
+      return this.setLatLng(latLng);
+    };
+    // } else {
     //  // GR square
     //  const bounds = this._getSquareBounds(latLng, location) || [[0,0],[0,0]];
     //
@@ -433,7 +455,7 @@ export default Marionette.ItemView.extend({
     //    // update location
     //    that.marker.setBounds(bounds);
     //  };
-    //}
+    // }
 
     if (markerCoords.length) {
       this.marker.addTo(this.map);
@@ -469,21 +491,21 @@ export default Marionette.ItemView.extend({
     if (!latLng) return null;
 
     const metresPerPixel = 40075016.686 *
-      Math.abs(Math.cos(this.map.getCenter().lat * 180/Math.PI)) /
-      Math.pow(2, this.map.getZoom()+8);
+      Math.abs(Math.cos(this.map.getCenter().lat * 180 / Math.PI)) /
+      Math.pow(2, this.map.getZoom() + 8);
 
-    let locationGranularity = LocHelp._getGRgranularity(location) / 2;
+    const locationGranularity = LocHelp._getGRgranularity(location) / 2;
 
-    var currentPoint = this.map.latLngToContainerPoint(latLng);
-    const widthInMeters = (locationGranularity / 2) * 10;
-    //var width = metresPerPixel / widthInMeters;
-    var width = window.w || 500 / Math.pow(10, locationGranularity);
-    var height = window.w || width;
-    var xDifference = width / 2;
-    var yDifference = height / 2;
-    var southWest = L.point((currentPoint.x - xDifference), (currentPoint.y - yDifference));
-    var northEast = L.point((currentPoint.x + xDifference), (currentPoint.y + yDifference));
-    var bounds = L.latLngBounds(
+    const currentPoint = this.map.latLngToContainerPoint(latLng);
+    // const widthInMeters = (locationGranularity / 2) * 10;
+    // const width = metresPerPixel / widthInMeters;
+    const width = window.w || 500 / Math.pow(10, locationGranularity);
+    const height = window.w || width;
+    const xDifference = width / 2;
+    const yDifference = height / 2;
+    const southWest = L.point((currentPoint.x - xDifference), (currentPoint.y - yDifference));
+    const northEast = L.point((currentPoint.x + xDifference), (currentPoint.y + yDifference));
+    const bounds = L.latLngBounds(
       this.map.containerPointToLatLng(southWest),
       this.map.containerPointToLatLng(northEast)
     );
