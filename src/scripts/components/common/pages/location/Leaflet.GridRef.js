@@ -4,44 +4,34 @@ import OsGridRef from '../../../../../vendor/latlon/js/osgridref';
 
 const GRID_STEP = 100000; // meters
 
-L.Grid = L.LayerGroup.extend({
+L.Grid = L.Polyline.extend({
   options: {
-    // Path style for the grid lines
-    lineStyle: {
-      color: '#08b7e8',
-      weight: 0.5,
-      opacity: 1,
-    },
-  },
-
-  initialize: function (options) {
-    L.LayerGroup.prototype.initialize.call(this);
-    L.Util.setOptions(this, options);
+    color: 'gray',
+    weight: 0.5,
+    opacity: 1,
   },
 
   onAdd: function (map) {
-    this.map = map;
-    const zoom = this.map.getZoom();
-    const bounds = this.map.getBounds();
-    const polylinePoints = this._calcGraticule(zoom, bounds);
-    this.graticule = new L.Polyline(polylinePoints, this.options.lineStyle);
+    this._map = map;
+    L.Path.prototype.onAdd.apply(this, arguments);
 
-    this.map.on('move zoom', () => this.redraw());
+    this._draw();
 
-    this.map.addLayer(this.graticule);
+    this._map.on('move zoom', this._draw);
+    this._map.addLayer(this);
   },
 
   onRemove: function (map) {
-    // remove layer listeners and elements
-    map.off('viewreset move', this.map);
+    // clean up
+    map.off('viewreset move zoom', this._map);
     this.eachLayer(this.removeLayer, this);
   },
 
-  redraw: function () {
-    const zoom = this.map.getZoom();
-    const bounds = this.map.getBounds();
+  _draw() {
+    const zoom = this._map.getZoom();
+    const bounds = this._map.getBounds();
     const polylinePoints = this._calcGraticule(zoom, bounds);
-    this.graticule.setLatLngs(polylinePoints);
+    this.setLatLngs(polylinePoints);
   },
 
   _calcGraticule(zoom, bounds) {

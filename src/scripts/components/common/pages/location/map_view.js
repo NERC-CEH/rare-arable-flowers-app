@@ -155,16 +155,40 @@ export default Marionette.ItemView.extend({
 
   addGraticule() {
     const that = this;
-    const gridRef = new GridRef();
-    gridRef.redraw = function () {
-      let zoom = this.map.getZoom();
+
+    function getColor() {
+      "use strict";
+      let color;
+      switch (that.currentLayer){
+        case 'OS':
+          color = '#08b7e8';
+          break;
+        case 'OSM':
+          color = 'gray';
+          break;
+        default:
+          color = 'white';
+      }
+      return color;
+    }
+
+    const gridRef = new GridRef([], {
+      color: getColor(),
+    });
+
+    gridRef._draw = () => {
+      console.log('redraw');
+
+      let zoom = that.map.getZoom();
       // calculate granularity
+      const color = getColor();
       if (that.currentLayer === 'OS') zoom += OS_ZOOM_DIFF;
 
-      const bounds = this.map.getBounds();
-      const polylinePoints = this._calcGraticule(zoom, bounds);
-      this.graticule.setLatLngs(polylinePoints);
-    }.bind(gridRef);
+      const bounds = that.map.getBounds();
+      const polylinePoints = gridRef._calcGraticule(zoom, bounds);
+      gridRef.setStyle({ color });
+      gridRef.setLatLngs(polylinePoints);
+    };
     gridRef.addTo(this.map);
   },
 
