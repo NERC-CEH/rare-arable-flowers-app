@@ -14,6 +14,8 @@ export default Marionette.ItemView.extend({
   events: {
     'toggle #use-gridref-btn': 'onSettingToggled',
     'click #use-gridref-btn': 'onSettingToggled',
+    'toggle #use-gridmap-btn': 'onSettingToggled',
+    'click #use-gridmap-btn': 'onSettingToggled',
     'toggle #use-autosync-btn': 'onSettingToggled',
     'click #use-autosync-btn': 'onSettingToggled',
 
@@ -53,6 +55,7 @@ export default Marionette.ItemView.extend({
     const userModel = this.model;
     return {
       useGridRef: appModel.get('useGridRef'),
+      useGridMap: appModel.get('useGridMap'),
       autosync: appModel.get('autosync'),
       surname: userModel.get('surname'),
       name: userModel.get('name'),

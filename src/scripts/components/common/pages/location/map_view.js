@@ -5,8 +5,8 @@ import $ from 'jquery';
 import Marionette from 'marionette';
 import L from 'leaflet';
 import OSLeaflet from '../../../../../vendor/os-leaflet/js/OSOpenSpace';
-import GridRef from './Leaflet.GridRef';
-import OsGridRef from '../../../../../vendor/latlon/js/osgridref';
+import GridRef from 'Leaflet.GridRef';
+import OsGridRef from 'OsGridRef';
 import JST from '../../../../JST';
 import LocHelp from '../../../../helpers/location';
 import CONFIG from 'config'; // Replaced with alias
@@ -154,6 +154,10 @@ export default Marionette.ItemView.extend({
   },
 
   addGraticule() {
+    const appModel = this.model.get('appModel');
+    const useGridMap = appModel.get('useGridMap');
+    if (!useGridMap) return;
+
     const that = this;
 
     function getColor() {
@@ -172,20 +176,19 @@ export default Marionette.ItemView.extend({
       return color;
     }
 
-    const gridRef = new GridRef([], {
-      color: getColor(),
-    });
+    const gridRef = new L.GridRef({ color: getColor() });
 
-    gridRef._draw = () => {
-      console.log('redraw');
-
+    gridRef.update = () => {
       let zoom = that.map.getZoom();
       // calculate granularity
       const color = getColor();
       if (that.currentLayer === 'OS') zoom += OS_ZOOM_DIFF;
 
       const bounds = that.map.getBounds();
-      const polylinePoints = gridRef._calcGraticule(zoom, bounds);
+      let granularity = gridRef._getGranularity(zoom);
+      const step = GRID_STEP / granularity;
+
+      const polylinePoints = gridRef._calcGraticule(step, bounds);
       gridRef.setStyle({ color });
       gridRef.setLatLngs(polylinePoints);
     };

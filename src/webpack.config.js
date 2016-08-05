@@ -24,6 +24,8 @@ module.exports = {
         morel: 'morel/js/morel',
         leaflet: 'leaflet/js/leaflet',
         proj4leaflet: 'proj4Leaflet/js/proj4leaflet',
+        LatLon: 'latlon/js/latlon-ellipsoidal',
+        OsGridRef: 'latlon/js/osgridref',
         proj4: 'proj4/js/proj4',
         config: 'config',
         'photoswipe-lib': 'photoswipe/js/photoswipe.min',

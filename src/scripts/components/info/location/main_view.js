@@ -3,7 +3,7 @@
  *****************************************************************************/
 import $ from 'jquery';
 import Marionette from 'marionette';
-import L from '../../../../vendor/leaflet/js/leaflet';
+import L from 'leaflet';
 import OSLeaflet from '../../../../vendor/os-leaflet/js/OSOpenSpace';
 import d3 from '../../../../vendor/d3/js/d3';
 import JST from '../../../JST';

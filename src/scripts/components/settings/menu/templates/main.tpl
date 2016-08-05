@@ -36,6 +36,17 @@
 </li>
 <% } %>
 
+
+<li class="table-view-divider">Locations</li>
+
+<li class="table-view-cell">
+  Show Map Grid
+  <div id="use-gridmap-btn" data-setting="useGridMap"
+       class="toggle no-yes <%- obj.useGridMap ? 'active' : '' %>">
+    <div class="toggle-handle"></div>
+  </div>
+</li>
+
 <li class="table-view-divider">Application</li>
 <li class="table-view-cell">
   <a id="app-reset-btn">
@@ -43,3 +54,4 @@
     Reset
   </a>
 </li>
+<li class="table-view-divider">Locations
