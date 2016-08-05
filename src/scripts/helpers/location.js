@@ -14,7 +14,7 @@ const helpers = {
     return grid.toString(locationGranularity).replace(/\s/g, '');
   },
 
-  grid2coord(gridrefString) {
+  parseGrid(gridrefString) {
     function normalizeGridRef(incorrectGridref) {
       // normalise to 1m grid, rounding up to centre of grid square:
       let e = incorrectGridref.easting;
@@ -35,6 +35,11 @@ const helpers = {
     let gridref = OsGridRef.parse(gridrefString);
     gridref = normalizeGridRef(gridref);
 
+    return gridref;
+  },
+
+  grid2coord(gridrefString) {
+    const gridref = helpers.parseGrid(gridrefString);
     if (!isNaN(gridref.easting) && !isNaN(gridref.northing)) {
       return OsGridRef.osGridToLatLon(gridref, LatLon.datum.WGS84);
     }

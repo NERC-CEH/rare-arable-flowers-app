@@ -2,11 +2,13 @@
  * Location main view.
  *****************************************************************************/
 import $ from 'jquery';
+import _ from 'lodash';
 import Marionette from 'marionette';
 import L from 'leaflet';
 import OSLeaflet from '../../../../../vendor/os-leaflet/js/OSOpenSpace';
 import GridRef from 'Leaflet.GridRef';
 import OsGridRef from 'OsGridRef';
+import LatLon from 'LatLon';
 import JST from '../../../../JST';
 import LocHelp from '../../../../helpers/location';
 import CONFIG from 'config'; // Replaced with alias
@@ -275,9 +277,6 @@ export default Marionette.ItemView.extend({
         this.map.addLayer(this.layers.OS);
       }
     }
-
-    this.currentGraticule;
-
   },
 
   updateMarker(location) {
@@ -288,14 +287,14 @@ export default Marionette.ItemView.extend({
       this.markerAdded = true;
     } else {
       this.marker.setLocation(location);
-      //
-      // // check if not clicked out of UK
-      // const inUK = LocHelp.isInUK(location);
-      // if (inUK === false && this.marker instanceof L.Rectangle) {
-      //  this.addMapMarker();
-      // } else if (this.marker instanceof L.Circle) {
-      //  this.addMapMarker();
-      // }
+
+      // check if not clicked out of UK
+      const inUK = LocHelp.isInUK(location);
+      if (inUK === false && this.marker instanceof L.Rectangle) {
+        this.addMapMarker();
+      } else if (this.marker instanceof L.Circle) {
+        this.addMapMarker();
+      }
     }
   },
 
@@ -313,52 +312,53 @@ export default Marionette.ItemView.extend({
     if (this.marker) {
       this.map.removeLayer(this.marker);
     }
+
     const latLng = L.latLng(markerCoords);
-    // if (inUK === false) {
-    // point circle
-    this.marker = L.circleMarker(latLng || [], {
-      color: 'red',
-      weight: 1,
-      opacity: 1,
-      fillOpacity: 0.7,
-    });
-    this.marker.setLocation = function (location) {
-      let markerCoords = [];
-      if (location.latitude && location.longitude) {
-        markerCoords = [location.latitude, location.longitude];
-      }
-      const latLng = L.latLng(markerCoords);
-      return this.setLatLng(latLng);
-    };
-    // } else {
-    //  // GR square
-    //  const bounds = this._getSquareBounds(latLng, location) || [[0,0],[0,0]];
-    //
-    //  // create an orange rectangle
-    //  this.marker = L.rectangle(bounds, {
-    //    color: "red",
-    //    weight: 1,
-    //    opacity: 1,
-    //    fillOpacity: 0.7,
-    //  });
-    //
-    //  this.marker.setLocation = function (location) {
-    //    // normalize GR square center
-    //    const grid = LocHelp.coord2grid(location);
-    //    const normalizedLocation = LocHelp.grid2coord(grid);
-    //
-    //    // get bounds
-    //    let markerCoords = [];
-    //    if (normalizedLocation.lat && normalizedLocation.lon) {
-    //      markerCoords = [normalizedLocation.lat, normalizedLocation.lon];
-    //    }
-    //    const latLng = L.latLng(markerCoords);
-    //    const bounds = that._getSquareBounds(latLng, location);
-    //
-    //    // update location
-    //    that.marker.setBounds(bounds);
-    //  };
-    // }
+    if (inUK === false) {
+      // point circle
+      this.marker = L.circleMarker(latLng || [], {
+        color: 'red',
+        weight: 1,
+        opacity: 1,
+        fillOpacity: 0.7,
+      });
+      this.marker.setLocation = function (location) {
+        let markerCoords = [];
+        if (location.latitude && location.longitude) {
+          markerCoords = [location.latitude, location.longitude];
+        }
+        const latLng = L.latLng(markerCoords);
+        return this.setLatLng(latLng);
+      };
+    } else {
+      // GR square
+      const bounds = this._getSquareBounds(latLng, location) || [[0,0],[0,0]];
+
+      // create an orange rectangle
+      this.marker = L.rectangle(bounds, {
+        color: "red",
+        weight: 1,
+        opacity: 1,
+        fillOpacity: 0.7,
+      });
+
+      this.marker.setLocation = function (location) {
+        // normalize GR square center
+        const grid = LocHelp.coord2grid(location);
+        const normalizedLocation = LocHelp.grid2coord(grid);
+
+        // get bounds
+        let markerCoords = [];
+        if (normalizedLocation.lat && normalizedLocation.lon) {
+          markerCoords = [normalizedLocation.lat, normalizedLocation.lon];
+        }
+        const latLng = L.latLng(markerCoords);
+        const bounds = that._getSquareBounds(latLng, location);
+
+        // update location
+        that.marker.setBounds(bounds);
+      };
+    }
 
     if (markerCoords.length) {
       this.marker.addTo(this.map);
@@ -393,24 +393,22 @@ export default Marionette.ItemView.extend({
   _getSquareBounds(latLng, location) {
     if (!latLng) return null;
 
-    const metresPerPixel = 40075016.686 *
-      Math.abs(Math.cos(this.map.getCenter().lat * 180 / Math.PI)) /
-      Math.pow(2, this.map.getZoom() + 8);
-
+    // get granularity
     const locationGranularity = LocHelp._getGRgranularity(location) / 2;
 
-    const currentPoint = this.map.latLngToContainerPoint(latLng);
-    // const widthInMeters = (locationGranularity / 2) * 10;
-    // const width = metresPerPixel / widthInMeters;
-    const width = window.w || 500 / Math.pow(10, locationGranularity);
-    const height = window.w || width;
-    const xDifference = width / 2;
-    const yDifference = height / 2;
-    const southWest = L.point((currentPoint.x - xDifference), (currentPoint.y - yDifference));
-    const northEast = L.point((currentPoint.x + xDifference), (currentPoint.y + yDifference));
+    // calc radius
+    const radius = 100000 / Math.pow(10, locationGranularity) / 2;
+
+    // get center in eastings and northings
+    const grid = LocHelp.parseGrid(location.gridref);
+
+    // calculate corners
+    const southWest = new OsGridRef(grid.easting - radius, grid.northing - radius);
+    const northEast = new OsGridRef(grid.easting + radius, grid.northing + radius);
+
     const bounds = L.latLngBounds(
-      this.map.containerPointToLatLng(southWest),
-      this.map.containerPointToLatLng(northEast)
+      OsGridRef.osGridToLatLon(southWest),
+      OsGridRef.osGridToLatLon(northEast)
     );
     return bounds;
   },
