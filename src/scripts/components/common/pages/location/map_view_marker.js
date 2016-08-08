@@ -1,5 +1,6 @@
 import LocHelp from '../../../../helpers/location';
 import OsGridRef from 'OsGridRef';
+import LeafletSingleClick from './map_view_singleclick';
 
 const OS_ZOOM_DIFF = 6;
 
@@ -90,7 +91,7 @@ const marker = {
       this.markerAdded = true;
     }
 
-    this.map.on('click', this.onMapClick, this);
+    this.map.on('singleclick', this.onMapClick, this);
   },
 
   onMapClick(e) {
@@ -117,6 +118,11 @@ const marker = {
     // trigger won't work to bubble up
     this.triggerMethod('location:select:map', location);
     this.updateMarker(location);
+
+    // // zoom to marker
+    // const newZoom = this.map.getZoom() + 3;
+    // this.map.setView([location.latitude, location.longitude], newZoom, { reset: true });
+    // this.onMapZoom();
   },
 
   _getSquareDimensions(latLng, location) {
