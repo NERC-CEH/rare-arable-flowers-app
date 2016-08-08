@@ -211,7 +211,7 @@ const MapView = Marionette.ItemView.extend({
       // transform location accuracy to map zoom level
       switch (currentLocation.source) {
         case 'map':
-          mapZoomLevel = currentLocation.accuracy + 1 || 1;
+          mapZoomLevel = currentLocation.mapZoom || 1;
 
           // transition to OSM/Satellite levels if needed
           if (mapZoomLevel === MAX_OS_ZOOM) {

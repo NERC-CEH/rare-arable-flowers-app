@@ -55,25 +55,21 @@ const helpers = {
    * 5 gridref digits. (1m)      ->
    */
   mapZoom2meters(accuracy) {
-    // cannot be odd
-    if (accuracy % 2 !== 0) {
-      // accuracy = accuracy === 1 ? accuracy + 1 : accuracy - 1;
+    let updated = accuracy;
+    if (updated <= 4) {
+      updated = 0;
+    } else if (updated <= 7) {
+      updated = 1;
+    } else if (updated <= 10) {
+      updated = 2;
+    } else if (updated <= 12) {
+      updated = 3;
+    } else {
+      updated = 4;
     }
 
-    if (accuracy <= 4) {
-      accuracy = 0;
-    } else if (accuracy <= 7) {
-      accuracy = 1;
-    } else if (accuracy <= 10) {
-      accuracy = 2;
-    } else if (accuracy <= 12) {
-      accuracy = 3;
-    } else{
-      accuracy = 4;
-    }
-
-    accuracy = 5000 / Math.pow(10, accuracy); // meters
-    return accuracy < 1 ? 1 : accuracy;
+    updated = 5000 / Math.pow(10, updated); // meters
+    return updated < 1 ? 1 : updated;
   },
 
   /**

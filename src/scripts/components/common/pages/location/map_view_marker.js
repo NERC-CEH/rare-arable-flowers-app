@@ -1,4 +1,5 @@
 import LocHelp from '../../../../helpers/location';
+import L from 'leaflet';
 import OsGridRef from 'OsGridRef';
 import LeafletSingleClick from './map_view_singleclick';
 
@@ -48,21 +49,22 @@ const marker = {
         opacity: 1,
         fillOpacity: 0.7,
       });
-      this.marker.setLocation = function (location) {
-        let markerCoords = [];
-        if (location.latitude && location.longitude) {
-          markerCoords = [location.latitude, location.longitude];
+      this.marker.setLocation = function (loc) {
+        let newMarkerCoords = [];
+        if (loc.latitude && loc.longitude) {
+          newMarkerCoords = [loc.latitude, loc.longitude];
         }
-        const latLng = L.latLng(markerCoords);
-        return this.setLatLng(latLng);
+        const newLatLng = L.latLng(newMarkerCoords);
+        return this.setLatLng(newLatLng);
       };
     } else {
       // GR square
-      const dimensions = this._getSquareDimensions(latLng, location) || [[0,0],[0,0]];
+      const dimensions = this._getSquareDimensions(latLng, location) ||
+        [[0, 0], [0, 0]];
 
       // create an orange rectangle
       this.marker = L.polygon(dimensions, {
-        color: "red",
+        color: 'red',
         weight: 2,
         opacity: 1,
         fillOpacity: 0.2,
@@ -74,15 +76,15 @@ const marker = {
         const normalizedLocation = LocHelp.grid2coord(grid);
 
         // get bounds
-        let markerCoords = [];
+        let newMarkerCoords = [];
         if (normalizedLocation.lat && normalizedLocation.lon) {
-          markerCoords = [normalizedLocation.lat, normalizedLocation.lon];
+          newMarkerCoords = [normalizedLocation.lat, normalizedLocation.lon];
         }
-        const latLng = L.latLng(markerCoords);
-        const dimensions = that._getSquareDimensions(latLng, location);
+        const newLatLng = L.latLng(newMarkerCoords);
+        const newDimensions = that._getSquareDimensions(newLatLng, location);
 
         // update location
-        that.marker.setLatLngs(dimensions);
+        that.marker.setLatLngs(newDimensions);
       };
     }
 
@@ -97,15 +99,17 @@ const marker = {
   onMapClick(e) {
     let zoom = this.map.getZoom();
 
-    if (this.currentLayer !== 'OS') zoom -= (OS_ZOOM_DIFF );
-
-    console.log(zoom)
+    if (this.currentLayer !== 'OS') {
+      zoom -= OS_ZOOM_DIFF; // adjust the diff
+      zoom = zoom < 0 ? 0 : zoom; // normalize
+    }
 
     const location = {
       latitude: parseFloat(e.latlng.lat.toFixed(7)),
       longitude: parseFloat(e.latlng.lng.toFixed(7)),
       source: 'map',
       accuracy: zoom,
+      mapZoom: this.map.getZoom(),
     };
 
     // out of UK adjust the zoom because the next displayed map should be not OS
