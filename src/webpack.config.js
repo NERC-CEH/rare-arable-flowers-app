@@ -24,6 +24,7 @@ module.exports = {
         morel: 'morel/js/morel',
         leaflet: 'leaflet/js/leaflet',
         proj4leaflet: 'proj4Leaflet/js/proj4leaflet',
+        'Leaflet.GridRef': 'leaflet.gridref/js/L.GridRef',
         LatLon: 'latlon/js/latlon-ellipsoidal',
         OsGridRef: 'latlon/js/osgridref',
         proj4: 'proj4/js/proj4',
