@@ -2,13 +2,11 @@
  * Location main view.
  *****************************************************************************/
 import $ from 'jquery';
-import _ from 'lodash';
 import Marionette from 'marionette';
 import L from 'leaflet';
 import OSLeaflet from '../../../../../vendor/os-leaflet/js/OSOpenSpace';
 import GridRef from 'Leaflet.GridRef';
 import OsGridRef from 'OsGridRef';
-import LatLon from 'LatLon';
 import JST from '../../../../JST';
 import LocHelp from '../../../../helpers/location';
 import mapMarker from './map_view_marker';

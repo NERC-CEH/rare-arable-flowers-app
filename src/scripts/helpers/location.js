@@ -57,16 +57,16 @@ const helpers = {
   mapZoom2meters(accuracy) {
     // cannot be odd
     if (accuracy % 2 !== 0) {
-      accuracy = accuracy === 1 ? accuracy + 1 : accuracy - 1;
+      // accuracy = accuracy === 1 ? accuracy + 1 : accuracy - 1;
     }
 
-    if (accuracy <= 3) {
+    if (accuracy <= 4) {
       accuracy = 0;
-    } else if (accuracy <= 5) {
-      accuracy = 1;
     } else if (accuracy <= 7) {
+      accuracy = 1;
+    } else if (accuracy <= 10) {
       accuracy = 2;
-    } else if (accuracy <= 9) {
+    } else if (accuracy <= 12) {
       accuracy = 3;
     } else{
       accuracy = 4;

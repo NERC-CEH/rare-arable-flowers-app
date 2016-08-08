@@ -62,9 +62,9 @@ const marker = {
       // create an orange rectangle
       this.marker = L.polygon(dimensions, {
         color: "red",
-        weight: 1,
+        weight: 2,
         opacity: 1,
-        fillOpacity: 0.7,
+        fillOpacity: 0.2,
       });
 
       this.marker.setLocation = function (location) {
@@ -96,7 +96,9 @@ const marker = {
   onMapClick(e) {
     let zoom = this.map.getZoom();
 
-    if (this.currentLayer !== 'OS') zoom -= OS_ZOOM_DIFF;
+    if (this.currentLayer !== 'OS') zoom -= (OS_ZOOM_DIFF );
+
+    console.log(zoom)
 
     const location = {
       latitude: parseFloat(e.latlng.lat.toFixed(7)),
