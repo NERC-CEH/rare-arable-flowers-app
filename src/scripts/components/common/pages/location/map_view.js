@@ -156,8 +156,9 @@ const MapView = Marionette.ItemView.extend({
 
   addGraticule() {
     const appModel = this.model.get('appModel');
+    const useGridRef = appModel.get('useGridRef');
     const useGridMap = appModel.get('useGridMap');
-    if (!useGridMap) return;
+    if (!useGridRef || !useGridMap) return;
 
     const that = this;
 
@@ -212,15 +213,6 @@ const MapView = Marionette.ItemView.extend({
       switch (currentLocation.source) {
         case 'map':
           mapZoomLevel = currentLocation.mapZoom || 1;
-
-          // transition to OSM/Satellite levels if needed
-          if (mapZoomLevel === MAX_OS_ZOOM) {
-            mapZoomLevel += OS_ZOOM_DIFF;
-          }
-
-          // max safety
-          mapZoomLevel = mapZoomLevel > 18 ? 18 : mapZoomLevel;
-
           // no need to show area as it would be smaller than the marker
           break;
         case 'gps':

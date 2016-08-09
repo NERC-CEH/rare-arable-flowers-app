@@ -1,127 +1,129 @@
 import LocHelp from '../../../../helpers/location';
+import Log from '../../../../helpers/log';
 import L from 'leaflet';
 import OsGridRef from 'OsGridRef';
 import LeafletSingleClick from './map_view_singleclick';
 
 const OS_ZOOM_DIFF = 6;
+const MAX_OS_ZOOM = L.OSOpenSpace.RESOLUTIONS.length - 1;
 
 const marker = {
-  updateMarker(location) {
-    if (!this.markerAdded) {
-      this.marker.setLocation(location);
-
-      this.marker.addTo(this.map);
-      this.markerAdded = true;
-    } else {
-      this.marker.setLocation(location);
-
-      // check if not clicked out of UK
-      const inUK = LocHelp.isInUK(location);
-      if (inUK === false && this.marker instanceof L.Rectangle) {
-        this.addMapMarker();
-      } else if (this.marker instanceof L.Circle) {
-        this.addMapMarker();
-      }
-    }
+  addMapMarker() {
+    this.map.on('singleclick', this._onMapClick, this);
+    this.updateMapMarker(this._getCurrentLocation());
   },
 
-  addMapMarker() {
-    const that = this;
-    const location = this._getCurrentLocation();
+  /**
+   * Adds or updates existing map marker.
+   * @param currentLocation
+   */
+  updateMapMarker(location) {
+    if (!location.latitude || !location.longitude) return;
+    Log('Common:Location:Map view: updating map marker');
+
     const inUK = LocHelp.isInUK(location);
 
-    let markerCoords = [];
-    if (location.latitude && location.longitude) {
-      markerCoords = [location.latitude, location.longitude];
-    }
+    // prepare marker coordinates
+    const markerCoords = [location.latitude, location.longitude];
 
-    // remove previous marker
-    if (this.marker) {
-      this.map.removeLayer(this.marker);
-    }
-
+    // add the marker
     const latLng = L.latLng(markerCoords);
     if (inUK === false) {
-      // point circle
-      this.marker = L.circleMarker(latLng || [], {
-        color: 'red',
-        weight: 1,
-        opacity: 1,
-        fillOpacity: 0.7,
-      });
-      this.marker.setLocation = function (loc) {
-        let newMarkerCoords = [];
-        if (loc.latitude && loc.longitude) {
-          newMarkerCoords = [loc.latitude, loc.longitude];
-        }
-        const newLatLng = L.latLng(newMarkerCoords);
-        return this.setLatLng(newLatLng);
-      };
+      if (this.marker instanceof L.CircleMarker) {
+        this.marker.setLocation(location);
+      } else {
+        // remove previous marker
+        this._removeMapMarker();
+
+        // point circle
+        this.marker = L.circleMarker(latLng, {
+          color: 'red',
+          weight: 1,
+          opacity: 1,
+          fillOpacity: 0.7,
+        });
+        this.marker.setLocation = this._setCircleLocation;
+      }
     } else {
-      // GR square
-      const dimensions = this._getSquareDimensions(latLng, location) ||
-        [[0, 0], [0, 0]];
+      const appModel = this.model.get('appModel');
+      if (!appModel.get('useGridRef')) {
+        if (this.marker instanceof L.CircleMarker) {
+          this.marker.setLocation(location);
+        } else {
+          // remove previous marker
+          this._removeMapMarker();
 
-      // create an orange rectangle
-      this.marker = L.polygon(dimensions, {
-        color: 'red',
-        weight: 2,
-        opacity: 1,
-        fillOpacity: 0.2,
-      });
-
-      this.marker.setLocation = function (location) {
-        // normalize GR square center
-        const grid = LocHelp.coord2grid(location);
-        const normalizedLocation = LocHelp.grid2coord(grid);
-
-        // get bounds
-        let newMarkerCoords = [];
-        if (normalizedLocation.lat && normalizedLocation.lon) {
-          newMarkerCoords = [normalizedLocation.lat, normalizedLocation.lon];
+          // Point -  user prefers lat long
+          this.marker = L.circleMarker(latLng, {
+            color: 'red',
+            weight: 1,
+            opacity: 1,
+            fillOpacity: 0.7,
+          });
+          this.marker.setLocation = this._setCircleLocation;
         }
-        const newLatLng = L.latLng(newMarkerCoords);
-        const newDimensions = that._getSquareDimensions(newLatLng, location);
+      } else {
+        // GR square
+        if (this.marker instanceof L.Polygon) {
+          this.marker.setLocation(location);
+        } else {
+          // remove previous marker
+          this._removeMapMarker();
 
-        // update location
-        that.marker.setLatLngs(newDimensions);
-      };
+          const dimensions = this._getSquareDimensions(latLng, location) ||
+            [[0, 0], [0, 0]];
+
+          // create an orange rectangle
+          this.marker = L.polygon(dimensions, {
+            color: 'red',
+            weight: 2,
+            opacity: 1,
+            fillOpacity: 0.2,
+          });
+          this.marker.setLocation = this._setSquareLocation.bind(this);
+        }
+      }
     }
 
     if (markerCoords.length) {
       this.marker.addTo(this.map);
       this.markerAdded = true;
     }
-
-    this.map.on('singleclick', this.onMapClick, this);
   },
 
-  onMapClick(e) {
-    let zoom = this.map.getZoom();
-
-    if (this.currentLayer !== 'OS') {
-      zoom -= OS_ZOOM_DIFF; // adjust the diff
-      zoom = zoom < 0 ? 0 : zoom; // normalize
-    }
-
+  _onMapClick(e) {
     const location = {
       latitude: parseFloat(e.latlng.lat.toFixed(7)),
       longitude: parseFloat(e.latlng.lng.toFixed(7)),
       source: 'map',
-      accuracy: zoom,
-      mapZoom: this.map.getZoom(),
     };
 
-    // out of UK adjust the zoom because the next displayed map should be not OS
-    if (this.currentLayer === 'OS' && !LocHelp.isInUK(location)) {
-      location.accuracy += 6;
+    const inUK = LocHelp.isInUK(location);
+
+    // normalize the accuracy across different layer types
+    let accuracy = this.map.getZoom();
+    let mapZoom = accuracy;
+    if (this.currentLayer !== 'OS') {
+      accuracy -= OS_ZOOM_DIFF; // adjust the diff
+      accuracy = accuracy < 0 ? 0 : accuracy; // normalize
+
+      // need to downgrade to OS maps so that there is no OS -> OSM -> OS transitions
+      if (inUK && (mapZoom - OS_ZOOM_DIFF) < MAX_OS_ZOOM) {
+        mapZoom -= OS_ZOOM_DIFF; // adjust the diff
+      }
+    } else if (!inUK) {
+      // out of UK adjust the zoom because the next displayed map should be not OS
+      accuracy += OS_ZOOM_DIFF;
+      mapZoom += OS_ZOOM_DIFF; // adjust the diff
     }
 
+    location.accuracy = accuracy;
+    location.mapZoom = mapZoom;
     location.gridref = LocHelp.coord2grid(location);
 
     // trigger won't work to bubble up
     this.triggerMethod('location:select:map', location);
-    this.updateMarker(location);
+    this.updateMapMarker(location);
 
     // // zoom to marker
     // const newZoom = this.map.getZoom() + 3;
@@ -156,6 +158,37 @@ const marker = {
     return dimensions;
   },
 
+  _setCircleLocation(loc){
+    let newMarkerCoords = [];
+    if (loc.latitude && loc.longitude) {
+      newMarkerCoords = [loc.latitude, loc.longitude];
+    }
+    const newLatLng = L.latLng(newMarkerCoords);
+    return this.setLatLng(newLatLng);
+  },
+
+  _setSquareLocation(location) {
+    // normalize GR square center
+    const grid = LocHelp.coord2grid(location);
+    const normalizedLocation = LocHelp.grid2coord(grid);
+
+    // get bounds
+    let newMarkerCoords = [];
+    if (normalizedLocation.lat && normalizedLocation.lon) {
+      newMarkerCoords = [normalizedLocation.lat, normalizedLocation.lon];
+    }
+    const newLatLng = L.latLng(newMarkerCoords);
+    const newDimensions = this._getSquareDimensions(newLatLng, location);
+
+    // update location
+    this.marker.setLatLngs(newDimensions);
+  },
+
+  _removeMapMarker() {
+    if (this.marker) {
+      this.map.removeLayer(this.marker);
+    }
+  },
 };
 
 export default marker;

@@ -48,10 +48,10 @@ const helpers = {
   },
 
   /**
-   * 1 gridref digits. (10000m)  -> < 3 map zoom lvl
-   * 2 gridref digits. (1000m)   -> 5
-   * 3 gridref digits. (100m)    -> 7
-   * 4 gridref digits. (10m)     -> 9
+   * 1 gridref digits. (10000m)  -> < 4 map zoom lvl
+   * 2 gridref digits. (1000m)   -> 7
+   * 3 gridref digits. (100m)    -> 10
+   * 4 gridref digits. (10m)     -> 12
    * 5 gridref digits. (1m)      ->
    */
   mapZoom2meters(accuracy) {

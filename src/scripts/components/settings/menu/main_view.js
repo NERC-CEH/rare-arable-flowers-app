@@ -12,8 +12,8 @@ export default Marionette.ItemView.extend({
   template: JST['settings/menu/main'],
 
   events: {
-    'toggle #use-gridref-btn': 'onSettingToggled',
-    'click #use-gridref-btn': 'onSettingToggled',
+    'toggle #use-gridref-btn': 'useGridRef',
+    'click #use-gridref-btn': 'useGridRef',
     'toggle #use-gridmap-btn': 'onSettingToggled',
     'click #use-gridmap-btn': 'onSettingToggled',
     'toggle #use-autosync-btn': 'onSettingToggled',
@@ -34,6 +34,16 @@ export default Marionette.ItemView.extend({
 
   logout() {
     this.trigger('user:logout');
+  },
+
+  useGridRef(e) {
+    this.onSettingToggled(e);
+
+    // toggle the child options
+    const appModel = this.options.appModel;
+    const useGridRef = appModel.get('useGridRef');
+    const $element = $('#use-gridmap-btn-parent');
+    $element.toggleClass('disabled', !useGridRef);
   },
 
   onSettingToggled(e) {
