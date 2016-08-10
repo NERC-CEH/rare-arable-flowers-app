@@ -43,14 +43,14 @@ const MapView = Marionette.ItemView.extend({
   onShow() {
     // set full remaining height
     const mapHeight = $(document).height() - 47 - 38.5;
-    const $container = this.$el.find('#map')[0];
-    $($container).height(mapHeight);
+    this.$container = this.$el.find('#map')[0];
+    $(this.$container).height(mapHeight);
 
-    this.initMap($container);
+    this.initMap();
   },
 
-  initMap($container) {
-    this.map = L.map($container);
+  initMap() {
+    this.map = L.map(this.$container);
 
     // default layer
     this.currentLayer = this._getCurrentLayer();
@@ -61,6 +61,7 @@ const MapView = Marionette.ItemView.extend({
 
     // show default layer
     this.layers[this.currentLayer].addTo(this.map);
+    this.$container.dataset.layer = this.currentLayer; // fix the lines between the tiles
 
     this.map.on('baselayerchange', this._updateCoordSystem, this);
     this.map.on('zoomend', this.onMapZoom, this);
@@ -250,6 +251,7 @@ const MapView = Marionette.ItemView.extend({
     }
     this.currentLayer = e.name;
     this.map.setView(center, zoom, { reset: true });
+    this.$container.dataset.layer = this.currentLayer; // fix the lines between the tiles
   },
 
   onMapZoom() {

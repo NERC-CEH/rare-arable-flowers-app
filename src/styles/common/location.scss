@@ -1,9 +1,8 @@
 #map-location-name {
   position: absolute;
-  z-index: 1;
+  z-index: 10;
   width: 100%;
   padding: 0 2%;
-  margin-left: -2%;
   background-color: rgba(255, 255, 255, 0.9);
 
   input {
@@ -11,7 +10,7 @@
   }
 }
 
-#tabs li[data-id='grid-ref'] {
+.tabs li[data-id='grid-ref'] {
   font-size: 1.3em;
   font-weight: normal;
 }
@@ -26,6 +25,17 @@
     height: 76vh;
     width: 100%;
 
+    //workaround the visible lines between tiles
+    &[data-layer='Satellite'] {
+      background-color: #4c4c4c9;
+    }
+    &[data-layer='OSM'] {
+      background-color: #ddd;
+    }
+    &[data-layer='OS'] {
+      background-color: white;
+    }
+
     .leaflet-control-container .leaflet-top {
       top: 50px;
     }
@@ -38,6 +48,10 @@
 
 .leaflet-container {
   background-color: white;
+
+  .leaflet-control-container {
+    z-index: 10;
+  }
 }
 
 .leaflet-control-scale {
