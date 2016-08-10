@@ -45,9 +45,11 @@ const Tabs = Marionette.CollectionView.extend({
 export default Marionette.LayoutView.extend({
   template: JST['common/tabs_container'],
 
+  className: 'tabs-container',
+
   regions: {
-    tabs: '#tabs',
-    content: '#content',
+    tabs: '.tabs',
+    content: '.content',
   },
 
   childViewOptions() {
