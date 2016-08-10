@@ -44,3 +44,37 @@ button {
   background-color: transparent;
   border: none;
 }
+
+
+/*************/
+/** Typehead */
+/*************/
+.input-row.tt {
+  overflow: visible;
+
+  label {
+    padding: 16px 0;
+  }
+}
+
+.twitter-typeahead {
+  float: right;
+  display: inline-block !important;
+  width: 88%;
+
+  input {
+    width: 100% !important;
+    background-color: transparent;
+  }
+
+  .tt-suggestion.tt-selectable {
+    width: 100vh;
+    height: 39px;
+    background-color: white;
+  }
+
+  .tt-menu {
+    top: 50px !important;
+  }
+}
+

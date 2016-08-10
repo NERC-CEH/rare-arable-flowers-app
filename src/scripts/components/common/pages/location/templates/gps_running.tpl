@@ -9,7 +9,7 @@
 
 <div class="input-row">
   <label class="media-object pull-left icon icon-address"></label>
-  <input type="text" id="location-name" placeholder="Nearest Named Place" value="<%- obj.name %>"/>
+  <input class="typehead" type="text" id="location-name" placeholder="Nearest Named Place" value="<%- obj.name %>"/>
 </div>
 <button id="gps-button" class="btn btn-narrow btn-positive btn-block">
   <span class="icon icon-plus icon-spin pull-right"></span>
