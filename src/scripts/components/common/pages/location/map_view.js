@@ -11,6 +11,8 @@ import JST from '../../../../JST';
 import LocHelp from '../../../../helpers/location';
 import mapMarker from './map_view_marker';
 import CONFIG from 'config'; // Replaced with alias
+import Typeahead from 'typeahead';
+import locationNameFinder from './location_name_search';
 
 const DEFAULT_LAYER = 'OS';
 const DEFAULT_CENTER = [53.7326306, -2.6546124];
@@ -25,6 +27,7 @@ const MapView = Marionette.ItemView.extend({
 
   events: {
     'change #location-name': 'changeName',
+    'typeahead:select #location-name': 'changeName',
   },
 
   changeName(e) {
@@ -47,6 +50,20 @@ const MapView = Marionette.ItemView.extend({
     $(this.$container).height(mapHeight);
 
     this.initMap();
+    this.addLocationNameSearch();
+  },
+
+  addLocationNameSearch() {
+    this.$el.find('.typeahead').typeahead({
+        hint: false,
+        highlight: false,
+        minLength: 0,
+      },
+      {
+        limit: 3,
+        name: 'names',
+        source: locationNameFinder(3),
+      });
   },
 
   initMap() {

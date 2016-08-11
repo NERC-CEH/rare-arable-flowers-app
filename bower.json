@@ -164,8 +164,7 @@
     },
     "typeahead.js": {
       "js": [
-        "dist/typeahead.jquery.js",
-        "dist/bloodhound.js"
+        "dist/typeahead.jquery.js"
       ]
     }
   }

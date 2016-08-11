@@ -51,16 +51,13 @@ button {
 /*************/
 .input-row.tt {
   overflow: visible;
-
-  label {
-    padding: 16px 0;
-  }
 }
 
 .twitter-typeahead {
-  float: right;
   display: inline-block !important;
   width: 88%;
+  vertical-align: middle;
+  height: 100%;
 
   input {
     width: 100% !important;
@@ -68,13 +65,18 @@ button {
   }
 
   .tt-suggestion.tt-selectable {
-    width: 100vh;
-    height: 39px;
+    padding: 16px 0 16px 16px;
     background-color: white;
+    border-bottom: 1px solid $color-gray;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .tt-menu {
     top: 50px !important;
+    width: 100%;
   }
 }
 

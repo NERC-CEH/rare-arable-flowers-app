@@ -1,6 +1,7 @@
 #map-location-name {
   position: absolute;
-  z-index: 10;
+  margin-left: -$main-content-margin;
+  z-index: 1000;
   width: 100%;
   padding: 0 2%;
   background-color: rgba(255, 255, 255, 0.9);
@@ -49,8 +50,8 @@
 .leaflet-container {
   background-color: white;
 
-  .leaflet-control-container {
-    z-index: 10;
+  .leaflet-bottom, .leaflet-top {
+    z-index: 100;
   }
 }
 

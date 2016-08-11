@@ -33,7 +33,6 @@ module.exports = {
       'photoswipe-ui-default': 'photoswipe/js/photoswipe-ui-default.min',
       'species.data': 'data/species.json',
       typeahead: 'typeahead.js/js/typeahead.jquery',
-      bloodhound: 'typeahead.js/js/bloodhound',
     },
   },
   module: {

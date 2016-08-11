@@ -61,9 +61,8 @@
 
   .tabs + .content {
     height: 100%;
-    margin: 0 (-$main-content-margin);
     overflow-x: hidden;
-    overflow-y: scroll;
+    overflow-y: auto;
   }
 
   //remove hover on touch devices
