@@ -25,7 +25,7 @@ const Router = Marionette.AppRouter.extend({
       route: ListController.show,
       after() {
         if (Device.isIOS()) {
-          // iOS scroll glitch fixs
+          // iOS scroll glitch fix
           setTimeout(() => {
             scrollTo(0, scroll);
           }, 1);

@@ -81,7 +81,7 @@ const API = {
         currentVal = recordModel.get('date');
 
         // validate before setting up
-        if (values.date !== 'Invalid Date') {
+        if (values.date && values.date.toString() !== 'Invalid Date') {
           newVal = values.date;
           recordModel.set('date', newVal);
         }
@@ -140,7 +140,7 @@ const API = {
       },
       error: (err) => {
         Log(err, 'e');
-        App.regions.dialog.error('Problem saving the sample.');
+        App.regions.dialog.error(err);
       },
     });
   },

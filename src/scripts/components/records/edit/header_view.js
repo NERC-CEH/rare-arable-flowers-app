@@ -9,9 +9,6 @@ export default Marionette.ItemView.extend({
   tagName: 'nav',
   template: JST['records/edit/header'],
 
-  events: {
-  },
-
   triggers: {
     'click #record-save-btn': 'save',
     'click a[data-rel="back"]': 'navigateBack',

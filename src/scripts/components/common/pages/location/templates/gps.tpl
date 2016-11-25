@@ -16,4 +16,3 @@
 <button id="gps-button"
         class="btn btn-narrow btn-positive btn-block">Locate</button>
 
-

@@ -16,12 +16,17 @@ import HideableRegion from './components/common/views/hideable_region';
 
 // init Analytics
 Analytics.init();
+
 const App = new Marionette.Application();
 
 App.navigate = (route, options = {}) => {
   Log(`App: navigating to ${route}`);
   const defaultOptions = { trigger: true };
   Backbone.history.navigate(route, $.extend(defaultOptions, options));
+};
+
+App.restart = () => {
+  window.location.href = '/';
 };
 
 App.getCurrentRoute = () => Backbone.history.fragment;

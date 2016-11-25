@@ -38,6 +38,7 @@ const API = {
         App.trigger('404:show', { replace: true });
         return;
       }
+
       // can't edit a saved one - to be removed when record update
       // is possible on the server
       if (recordModel.getSyncStatus() === Morel.SYNCED) {
@@ -200,7 +201,7 @@ const API = {
     API.addPhoto(occurrence, photo, (occErr) => {
       // hide loader
       if (occErr) {
-        App.regions.dialog.error('Problem saving the occurrence.');
+        App.regions.dialog.error(occErr);
       }
     });
   },
@@ -251,7 +252,7 @@ const API = {
             ImageHelp.getImage((entry) => {
               API.addPhoto(occurrence, entry.nativeURL, (occErr) => {
                 if (occErr) {
-                  App.regions.dialog.error('Problem saving the occurrence.');
+                  App.regions.dialog.error(occErr);
                 }
               });
             });
@@ -264,7 +265,7 @@ const API = {
             ImageHelp.getImage((entry) => {
               API.addPhoto(occurrence, entry.nativeURL, (occErr) => {
                 if (occErr) {
-                  App.regions.dialog.error('Problem saving the occurrence.');
+                  App.regions.dialog.error(occErr);
                 }
               });
             }, {
