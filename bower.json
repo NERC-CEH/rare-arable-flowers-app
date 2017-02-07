@@ -2,7 +2,7 @@
   "name": "rare_arable_flowers",
   "version": "0.0.0",
   "dependencies": {
-    "jquery": "latest",
+    "jquery": "2.2.4",
     "ratchet": "twbs/ratchet#2.0.2",
     "backbone": "1.1.2",
     "lodash": "3.6.0",
@@ -14,13 +14,13 @@
     "fastclick": "1.0",
     "d3": "3.5.3",
     "photoswipe": "4.1.1",
-    "hammerjs": "hammerjs/hammer.js",
-    "touchswipe": "mattbryson/TouchSwipe-Jquery-Plugin",
-    "proj4": "latest",
+    "hammerjs": "hammerjs/hammer.js#v2.0.8",
+    "touchswipe": "mattbryson/TouchSwipe-Jquery-Plugin#1.6.18",
+    "proj4": "2.3.16",
     "proj4Leaflet": "kartena/Proj4Leaflet#0.7.2",
-    "leaflet": "latest",
-    "leaflet.gridref": "kazlauskis/Leaflet.GridRef#7bc9684879803a8fc50f68fa92125e361d5218c0",
-    "os-leaflet": "rob-murray/os-leaflet",
+    "leaflet": "0.7.7",
+    "leaflet.gridref": "kazlauskis/Leaflet.GridRef#b5bdcbfcc7a1585a8ced3d2765e9fccdb0f8f6c5",
+    "os-leaflet": "rob-murray/os-leaflet#v1.0.0.rc1",
     "typeahead.js": "~0.11.1"
   },
   "exportsOverride": {

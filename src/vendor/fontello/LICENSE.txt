@@ -1,13 +1,13 @@
 Font license info
 
 
-## Font Awesome
+## Linecons
 
-   Copyright (C) 2012 by Dave Gandy
+   Copyright (C) 2013 by Designmodo
 
-   Author:    Dave Gandy
-   License:   SIL ()
-   Homepage:  http://fortawesome.github.com/Font-Awesome/
+   Author:    Designmodo for Smashing Magazine
+   License:   CC BY ()
+   Homepage:  http://designmodo.com/linecons-free/
 
 
 ## Entypo
@@ -19,22 +19,13 @@ Font license info
    Homepage:  http://www.entypo.com
 
 
-## Typicons
+## Font Awesome
 
-   (c) Stephen Hutchings 2012
+   Copyright (C) 2016 by Dave Gandy
 
-   Author:    Stephen Hutchings
-   License:   SIL (http://scripts.sil.org/OFL)
-   Homepage:  http://typicons.com/
-
-
-## Iconic
-
-   Copyright (C) 2012 by P.J. Onori
-
-   Author:    P.J. Onori
-   License:   SIL (http://scripts.sil.org/OFL)
-   Homepage:  http://somerandomdude.com/work/iconic/
+   Author:    Dave Gandy
+   License:   SIL ()
+   Homepage:  http://fortawesome.github.com/Font-Awesome/
 
 
 ## MFG Labs
@@ -46,12 +37,21 @@ Font license info
    Homepage:  http://www.mfglabs.com/
 
 
-## Linecons
+## Iconic
 
-   Copyright (C) 2013 by Designmodo
+   Copyright (C) 2012 by P.J. Onori
 
-   Author:    Designmodo for Smashing Magazine
-   License:   CC BY ()
-   Homepage:  http://designmodo.com/linecons-free/
+   Author:    P.J. Onori
+   License:   SIL (http://scripts.sil.org/OFL)
+   Homepage:  http://somerandomdude.com/work/iconic/
+
+
+## Typicons
+
+   (c) Stephen Hutchings 2012
+
+   Author:    Stephen Hutchings
+   License:   SIL (http://scripts.sil.org/OFL)
+   Homepage:  http://typicons.com/
 
 
